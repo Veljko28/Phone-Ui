@@ -2,11 +2,6 @@ import React from 'react'
 import {Grid} from '@material-ui/core';
 import Image from 'next/image';
 
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
 import { State } from '../../redux/reduxTypes';
 import { changeLanguage } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,14 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const HelpBar = () => {
   
-  const lang = useSelector((state: State) => state.lang);
+  const lang = useSelector((state: State) => state.language.lang);
 
   const dispatch = useDispatch();
 
   return (
-    <Grid container>
+    <Grid container className="helper-container">
       <Grid item xs={3}>
-        <FormControl>
         {/* <Select
           labelId="select-label"
           id="languge"
@@ -36,7 +30,6 @@ export const HelpBar = () => {
             <Image src="/sr.png" alt="Српски" width="25" height="20" />
           </MenuItem>
         </Select> */}
-      </FormControl>
       </Grid>
       <Grid item xs={3}/>
       <Grid item xs={6} className="top-grid">
@@ -44,7 +37,7 @@ export const HelpBar = () => {
           <div className="sl-nav">
             <ul>
               <li><Image src={lang == 'en' ? '/en.png' : '/sr.png'} 
-              alt={lang == 'en' ? "English" : "Српски"} width="20" height="15"/><i className="fa fa-angle-down" aria-hidden="true"></i>
+              alt={lang == 'en' ? "English" : "Српски"} width="20" height="15"  /><i className="fa fa-angle-down" aria-hidden="true"></i>
                 <div className="triangle"></div>
                 <ul>
                   <li onClick={() => dispatch(changeLanguage("en"))}><Image src="/en.png" alt="english" width="20" height="15" /><span className="active">English</span></li>
@@ -54,7 +47,8 @@ export const HelpBar = () => {
             </ul>
           </div>
         </span>
-        <span className="support">Support: +381 063 800-3210 support@mobistore.com</span>
+
+        <div className="support">Support: +381 063 800-3210 support@mobistore.com</div>
       </Grid>
     </Grid>
   )
