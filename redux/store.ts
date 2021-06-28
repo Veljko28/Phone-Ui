@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from 'redux';
-import langReducers from './langreducers';
+import langReducers from './langReducers';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 
 

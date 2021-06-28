@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
-export const HelpBar = () => {
+const HelpBar = () => {
   
   const lang = useSelector((state: State) => state.language.lang);
 
@@ -53,3 +53,6 @@ export const HelpBar = () => {
     </Grid>
   )
 }
+
+
+export default HelpBar;

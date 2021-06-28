@@ -106,9 +106,9 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   margin: 30px;
-  margin-left: 100px;
+  margin-bottom: 0;
 }
 
 
@@ -152,11 +152,40 @@ body {
 }
 
 .user-control li {
+  margin: 5px;
   font-size: 17px;
-  padding-left: 3px;
-  padding-right: 3px;
   color: #0cafe5;
 }
 .pointer {
   cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: #0cafe5;
+}
+
+.navbtn {
+  background-color: #0cafe5;
+  padding: 12px;
+  width: 100%;
+  color: white;
+  font-size: 20px;
+  border: none;
+}
+
+@keyframes navBtnHover {
+  from {
+    background-color: #0cafe5;
+  }
+  to {
+    background-color: #0b80a7;
+  }
+}
+
+.navbtn:hover {
+  cursor: pointer;
+  animation: navBtnHover 200ms forwards;
 }
