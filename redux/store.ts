@@ -1,7 +1,12 @@
-import {createStore} from 'redux';
-import reducers from './reducers';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import {combineReducers, createStore} from 'redux';
+import langReducers from './langreducers';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(reducers, composeWithDevTools({}));
+
+const rootReducer = combineReducers({
+    language: langReducers
+});
+
+const store = createStore(rootReducer);
 
 export default store;

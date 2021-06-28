@@ -6,7 +6,7 @@ const initState = {
 };
 
 
-const reducers = (state = initState , action: Action) => {
+const langReducers = (state = initState , action: Action) => {
     switch (action.type){
         case CHANGE_LANGUAGE: return {...state, lang: action.payload};
         default: return state;
@@ -14,4 +14,4 @@ const reducers = (state = initState , action: Action) => {
 }
 
 
-export default reducers;
+export default langReducers;

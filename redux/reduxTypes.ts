@@ -4,5 +4,7 @@ export interface Action {
 }
 
 export interface State {
-    lang: String
+    language: {
+        lang: String
+    }
 }
