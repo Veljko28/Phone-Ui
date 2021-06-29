@@ -109,6 +109,7 @@ body {
   align-items: center;
   margin: 30px;
   margin-bottom: 0;
+  margin-top: 10px;
 }
 
 
@@ -160,7 +161,7 @@ body {
   cursor: pointer;
 }
 
-.navbar {
+.navbar-main {
   display: flex;
   padding-left: 50px;
   padding-right: 50px;
@@ -188,4 +189,11 @@ body {
 .navbtn:hover {
   cursor: pointer;
   animation: navBtnHover 200ms forwards;
+}
+
+.cartIcon {
+  all: inherit;
+  color: #0cafe5;
+  margin-left: 10px;
+  margin-right: 10px;
 }
