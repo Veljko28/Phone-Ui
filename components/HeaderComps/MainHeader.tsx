@@ -1,12 +1,16 @@
-import { Grid } from '@material-ui/core'
+import { Grid, IconButton, Badge } from '@material-ui/core'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
+import { State } from '../../redux/reduxTypes';
+import { useSelector } from 'react-redux';
 
 const MainHeader = () => {
+  const numOfItems = useSelector((state : State) => state.cart.numOfItems);
+
   return (
     <Grid container className="main-header">
       <Grid item xs={1}/>
@@ -28,10 +32,14 @@ const MainHeader = () => {
           <li><Link href="/login">Login</Link></li>
           <li>|</li>
           <li><Link href="/register">Register</Link></li>
-          <li className="pointer">
-            <ShoppingCartIcon/>
+          <li>
+            <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
+              <Badge badgeContent={numOfItems} color="secondary">
+                <ShoppingCartIcon className="cartIcon"/>
+              </Badge>
+            </IconButton>
           </li>
-        </ul>
+        </ul> 
       </Grid>
       <Grid item xs={1}/>
     </Grid>

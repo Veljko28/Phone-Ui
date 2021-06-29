@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const NavBar = () => {
     return (
-        <div className="navbar">
+        <div className="navbar-main">
             <Link href="/">
                 <button className="navbtn">Home</button>
             </Link>

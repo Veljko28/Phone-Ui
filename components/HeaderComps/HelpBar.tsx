@@ -3,7 +3,7 @@ import {Grid} from '@material-ui/core';
 import Image from 'next/image';
 
 import { State } from '../../redux/reduxTypes';
-import { changeLanguage } from '../../redux/actions';
+import { changeLanguage } from '../../redux/actions/langActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 
