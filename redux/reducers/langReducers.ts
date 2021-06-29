@@ -1,5 +1,5 @@
-import {Action} from './reduxTypes';
-import {CHANGE_LANGUAGE} from './actions';
+import {Action} from '../reduxTypes';
+import {CHANGE_LANGUAGE} from '../actions/langActions';
 
 const initState = {
     lang: 'en'
