@@ -35,7 +35,7 @@ const MainHeader = () => {
           <li>
             <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
               <Badge badgeContent={numOfItems} color="secondary">
-                <ShoppingCartIcon className="cartIcon"/>
+                <ShoppingCartIcon className="cartIcon" style={{fontSize: '20px'}}/>
               </Badge>
             </IconButton>
           </li>

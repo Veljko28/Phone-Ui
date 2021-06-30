@@ -1,25 +1,20 @@
-
+import { v4 } from 'uuid';
 // import { Grid } from '@material-ui/core'; 
 import Link from 'next/link';
+import links from '../../constants/Links';
+
+const NavItem = ({href, name} : {href: string, name: string}) => {
+    return (
+    <Link href={href} key={v4()}>
+        <button className="navbtn">{name}</button>
+   </Link>
+   );
+}
 
 const NavBar = () => {
     return (
         <div className="navbar-main">
-            <Link href="/">
-                <button className="navbtn">Home</button>
-            </Link>
-            <Link href="/about">
-                <button className="navbtn">About</button>
-            </Link>
-            <Link href="/phones">
-                <button className="navbtn">Phones</button>
-            </Link>
-            <Link href="/contact">
-                <button className="navbtn">Contact Us</button>
-            </Link>
-            <Link href="/managment">
-                <button className="navbtn">Manage Listings</button>
-            </Link>
+           {links.map(x => NavItem(x))}
         </div>
     );   
 }
