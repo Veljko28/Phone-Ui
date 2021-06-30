@@ -15,7 +15,7 @@ const MainHeader = () => {
     <Grid container className="main-header">
       <Grid item xs={1}/>
       <Grid item xs={2}>
-        <Link href="/"><Image src="/logo.png" alt="logo" width="157" height="47" className="pointer"/></Link>
+        <a href="/"><Image src="/logo.png" alt="logo" width="157" height="47" className="pointer"/></a>
       </Grid>
       <Grid item xs={5}>
       <div className="wrap">
