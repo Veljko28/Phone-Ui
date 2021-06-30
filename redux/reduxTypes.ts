@@ -1,3 +1,5 @@
+import { Phone } from "../components/models/Phone";
+
 export interface Action {
     type: String
     payload?: any 
@@ -9,6 +11,9 @@ export interface State {
     }
     cart: {
         numOfItems: Number,
-        items: any
+        items: Phone[]
+    }
+    phones: {
+        list: Phone[]
     }
 }
