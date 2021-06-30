@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+main {
+  min-height: calc(100vh - 350px - 85px);
+}

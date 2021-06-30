@@ -1,0 +1,36 @@
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer-container {
+  padding: 20px 120px 15px 120px;
+  background-color: #fff;
+}
+
+.footer-title {
+  color: #333;
+}
+
+.footer-mui-icons {
+  color: #0cafe5;
+  margin: 5px 10px 10px 0;
+}
+
+.footer-text {
+  font-size: 13px;
+  margin-top: 5px;
+  color: #667;
+}
+
+.footer-links {
+  list-style-type: none;
+  font-size: 15px;
+}
+
+.footer-links li:hover {
+  text-decoration: none;
+  color: #667;
+}
