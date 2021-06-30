@@ -2,6 +2,7 @@
 body {
   font-family: Arial;
   font-family: 'Muli', sans-serif;
+  background-color: rgba(250, 249, 249, 0.845);
 }
 .nav-wrapper {
   width: 150px;
@@ -103,13 +104,13 @@ body {
 
 
 .main-header {
+  background-color: #fff;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin: 30px;
   margin-bottom: 0;
-  margin-top: 10px;
+  padding: 20px 0 10px 0;
 }
 
 
@@ -148,12 +149,14 @@ body {
 }
 
 .user-control {
+
   display: flex;
   list-style-type: none;
 }
 
 .user-control li {
-  margin: 5px;
+  margin-top: 10px;
+  padding: 0 10px 0 10px;
   font-size: 17px;
   color: #0cafe5;
 }
@@ -192,8 +195,13 @@ body {
 }
 
 .cartIcon {
-  all: inherit;
   color: #0cafe5;
   margin-left: 10px;
-  margin-right: 10px;
+  padding: 0;
+}
+
+
+.shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
 }

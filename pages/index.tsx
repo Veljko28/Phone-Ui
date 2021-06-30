@@ -1,9 +1,14 @@
-import { ImageCarousel } from "../components/ImageCarousel"
+import { LatestProducts } from "../components/FrontPage/LatestProducts"
+import { Grid } from "@material-ui/core";
+// import { ImageCarousel } from "../components/ImageCarousel"
 
 export default function Home() {
   return (
-    <div>
+    <Grid container justify="center">
       {/* <ImageCarousel/> */}
-    </div>
+        <Grid item>
+          <LatestProducts/>
+        </Grid>
+    </Grid>
   )
 }
