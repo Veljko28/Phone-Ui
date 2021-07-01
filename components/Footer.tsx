@@ -13,8 +13,8 @@ import socialLinks from '../constants/SocialLinks';
 
 const QuickLink = ({href,name} : {href: string, name: string}) => {
   return (
-  <div className="footer-text">
-   <li key={v4()}>
+  <div className="footer-text" key={name}>
+   <li>
      <ArrowForwardIosIcon style={{fontSize: '10px', margin: '5px'}}/>
      <Link href={href}>{name}</Link>
     </li>
@@ -22,10 +22,9 @@ const QuickLink = ({href,name} : {href: string, name: string}) => {
   );
 }
 
-export const Footer = () => {
+const Footer = () => {
 
   return (
-    <footer>
       <Grid container className="footer-container">
           <Grid xs={12} md={6} lg={3} item>
             Contact Info
@@ -54,9 +53,11 @@ export const Footer = () => {
           <Grid xs={12} md={6} lg={3} item >
             <div style={{marginBottom: '10px',}}>Connect With Us</div>
             {socialLinks.map(x => <SocialIcon url={x} style={{width: '35px', height: '35px', margin: '5px'}} /> )}
-            <div style={{marginTop: '50px', fontSize: '12px', color: '#999'}}>Copyright © All Rights Reserved 2021 Website Design by Veljko28</div>
+            <div style={{marginTop: '50px', fontSize: '12px', color: '#999'}}>Copyright © All Rights Reserved {new Date().getFullYear()} Website Design by <a href="https://github.com/Veljko28">Veljko28</a></div>
           </Grid>
       </Grid>
-    </footer>
   )
 }
+
+
+export default Footer;

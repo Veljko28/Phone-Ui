@@ -1,11 +1,13 @@
 import {Header} from './Header';
-import {Footer} from './Footer';
+import Footer from './Footer';
 
 export default function Layout({children} : any) {
   return (
-    <div>
+    <div className="page-container">
       <Header/>
-      <main style={{minHeight: 'calc(100vh - 350px - 85px)'}}>{children}</main>
+      <div className="content-wrap">
+        {children}
+      </div>
       <Footer/>
     </div>
   )
