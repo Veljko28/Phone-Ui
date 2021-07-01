@@ -4,8 +4,9 @@
   flex-direction: column;
   max-width: 500px;
   min-width: 250px;
+  height: 475px;
   padding: 30px;
-  margin: 20px;
+  margin: 30px;
 }
 
 .login-imput {
@@ -21,4 +22,5 @@
 
 .login-infoField {
   margin-bottom: 8px;
+  border-bottom: 2px solid #eee;
 }

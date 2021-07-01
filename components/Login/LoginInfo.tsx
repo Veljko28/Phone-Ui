@@ -22,7 +22,7 @@ const InfoField = (src: string, header: string, desc: string) => {
 const LoginInfo = () => {
   return (
     <Grid container className="login-tab">
-      {InfoField("/login/login1.png", "Loyality Points", "Save up your loyality points and up to a 50% discount on a phone")}
+      {InfoField("/login/login1.png", "Loyality Points", "Save up your loyality points and get up to a 50% discount on a phone")}
       {InfoField("/login/login2.png", "Instant Checkout", "If you don't want to wait buy the phone instantly for a set price !")}
       {InfoField("/login/login3.png", "Exclusive Offers", "Find a new or used phone for a very cheap price. Bid and be the last one to put the highest price !")}
     </Grid>
