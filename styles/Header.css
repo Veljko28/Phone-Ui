@@ -3,7 +3,6 @@
 body {
   position: relative;
   margin: 0;
-  padding-bottom: 4rem;
   min-height: 100%;
   font-family: Arial;
   font-family: 'Muli', sans-serif;
@@ -20,7 +19,7 @@ body {
   margin-top: 7px;
   padding:0;
   list-style: none;
-  position: relative;
+  position: relative; 
   display: inline-block;
 }
 .sl-nav li {

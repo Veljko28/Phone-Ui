@@ -1,13 +1,7 @@
-footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
 .footer-container {
-  padding: 20px 120px 15px 120px;
+  padding: 20px 120px 20px 120px;
   background-color: #fff;
+  margin-top: auto;
 }
 
 .footer-title {
