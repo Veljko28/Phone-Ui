@@ -7,13 +7,17 @@ export interface Action {
 
 export interface State {
     language: {
-        lang: String
+        lang: string
     }
     cart: {
-        numOfItems: Number,
+        numOfItems: number,
         items: Phone[]
     }
     phones: {
         list: Phone[]
+    },
+    login: {
+        email_username: string,
+        password: string
     }
 }
