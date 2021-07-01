@@ -36,12 +36,12 @@ const HelpBar = () => {
         <span className="nav-wrapper">
           <div className="sl-nav">
             <ul>
-              <li><Image src={lang == 'en' ? '/en.png' : '/sr.png'} 
+              <li><Image src={lang == 'en' ? '/lang/en.png' : '/lang/sr.png'} 
               alt={lang == 'en' ? "English" : "Српски"} width="20" height="15"  /><i className="fa fa-angle-down" aria-hidden="true"></i>
                 <div className="triangle"></div>
                 <ul>
-                  <li onClick={() => dispatch(changeLanguage("en"))}><Image src="/en.png" alt="english" width="20" height="15" /><span className="active">English</span></li>
-                  <li onClick={() => dispatch(changeLanguage("sr"))}><Image src="/sr.png" alt="Српски" width="20" height="15" /><span>Српски</span></li>
+                  <li onClick={() => dispatch(changeLanguage("en"))}><Image src="/lang/en.png" alt="english" width="20" height="15" /><span className="active">English</span></li>
+                  <li onClick={() => dispatch(changeLanguage("sr"))}><Image src="/lang/sr.png" alt="Српски" width="20" height="15" /><span>Српски</span></li>
                 </ul>
               </li>
             </ul>
