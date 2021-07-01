@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/Login.css';
 import '../styles/globals.css';
 import '../styles/Header.css';
 import '../styles/Footer.css';
