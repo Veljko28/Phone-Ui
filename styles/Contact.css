@@ -1,0 +1,27 @@
+.contact-tab {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    min-width: 250px;
+    height: 475px;
+    padding: 30px;
+    margin: 30px;
+    margin-left: 0;
+  }
+
+  .contact-info-tab {
+      background-color: #fff;
+      margin: 30px;
+      padding: 20px;
+      height: 475px;
+      max-width: 500px;
+      min-width: 250px;
+
+  }
+  
+  .sub-bar-container {
+      background-color: #fff;
+      margin: 10px;
+      padding: 20px;
+  }

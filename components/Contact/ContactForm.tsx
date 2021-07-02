@@ -21,7 +21,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
 
   return (
-    <Grid container className="register-tab">
+    <Grid container className="contact-tab">
       <Typography variant="h6" style={{margin: '10px'}}>Contact Us</Typography>
       <ColoredLine color="#eee"/>
 
