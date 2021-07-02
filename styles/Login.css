@@ -9,6 +9,29 @@
   margin: 30px;
 }
 
+
+.register-tab {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  min-width: 250px;
+  height: 570px;
+  padding: 30px;
+  margin: 30px;
+}
+
+.register-info-tab {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  min-width: 250px;
+  height: 570px;
+  padding: 10px;
+  margin: 30px;
+}
+
 .login-imput {
   background-color: #eee;
   font-size: 15px;
