@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { SocialIcon } from 'react-social-icons';
 import { changeConfirmPasswordRedux, changeEmailRedux, changePasswordRedux, changeUserNameRedux } from '../../redux/actions/registerActions';
 import socialLinks from '../../constants/SocialLinks';
+import ColoredLine from '../../constants/ColoredLine';
 
 import EmailIcon from '@material-ui/icons/Email';
 import PersonIcon from '@material-ui/icons/Person';
@@ -28,6 +29,7 @@ const RegisterForm = () => {
   return (
     <Grid container className="register-tab">
       <Typography variant="h6" style={{margin: '10px'}}>Register</Typography>
+      <ColoredLine color="#eee"/>
 
       <TextField placeholder="Email" value={email} 
       onChange={e => changeEmail(e.target.value)}

@@ -10,6 +10,7 @@ import socialLinks from '../../constants/SocialLinks';
 import { SocialIcon } from 'react-social-icons';
 import { useDispatch } from 'react-redux';
 import { inputEmailUsername, inputPassword } from '../../redux/actions/loginActions';
+import ColoredLine from '../../constants/ColoredLine';
 
 
 const LoginForm = () => {
@@ -24,6 +25,8 @@ const LoginForm = () => {
   return (
     <Grid container className="login-tab">
       <Typography variant="h6" style={{margin: '10px'}}>Login</Typography>
+      <ColoredLine color="#eee"/>
+
 
       <TextField placeholder="Email / Username" value={email} 
       onChange={e => changeEmail(e.target.value)}
