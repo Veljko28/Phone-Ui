@@ -17,7 +17,9 @@ const LoginForm = () => {
   const [email,changeEmail] = React.useState('');
   const [password,changePassword] = React.useState('');
 
-   const dispatch = useDispatch();
+  const [showPass,changeShowPass] = React.useState(false);
+
+  const dispatch = useDispatch();
 
   return (
     <Grid container className="login-tab">
@@ -35,7 +37,7 @@ const LoginForm = () => {
         disableUnderline: true
       }}/>
 
-      <TextField placeholder="Password" value={password}
+      <TextField placeholder="Password" value={password} type={showPass ? "text" : "password"}
       onChange={e => changePassword(e.target.value)}
       onBlur={() => dispatch(inputPassword(password))}  InputProps={{
         className: "login-imput",
@@ -45,7 +47,7 @@ const LoginForm = () => {
         </InputAdornment>
         ),
         endAdornment: (
-        <InputAdornment position="start">
+        <InputAdornment position="start" style={{cursor: 'pointer'}} onClick={() => changeShowPass(!showPass)}>
           <VisibilityIcon style={{fontSize: '15px', color: '#656'}}/>
         </InputAdornment>
         ),
