@@ -2,7 +2,7 @@ import { FETCH_LATEST_PHONES } from '../actions/phonesActions';
 import {Action} from '../reduxTypes';
 
 const initState = {
-    list: [{name: 'this', id: '1'}, {name: 'is', id: '2'}, {name: 'working', id: '3'}, {name: 'yay', id: '4'}]
+    list: [{name: 'Pixel 1', id: '1'}, {name: 'IPhone 7+', id: '2'}, {name: 'Redmi Note 9', id: '3'}, {name: 'Nokia 5', id: '4'}]
 };
 
 const phoneReducers = (state = initState , action: Action) => {
