@@ -1,4 +1,4 @@
-const templateAction = (type: any) => ( payload: string) => ({
+const templateAction = (type: string) => ( payload: any) => ({
   type,
   payload
 });
