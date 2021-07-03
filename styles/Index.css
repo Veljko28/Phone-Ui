@@ -1,0 +1,12 @@
+.subBar-container {
+  padding: 50px;
+  background-color: #0cafe5;
+  color: #fff;
+}
+
+.icon-border {
+  font-size: 15px;
+  padding: 2px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
