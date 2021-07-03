@@ -1,8 +1,9 @@
-import { Grid } from '@material-ui/core'
-import { PhoneCard } from './PhoneCard'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { State } from '../../redux/reduxTypes'
+import { Grid, Typography } from '@material-ui/core';
+import { PhoneCard } from './PhoneCard';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
+import ColoredLine from '../../constants/ColoredLine';
 
 
 
@@ -14,13 +15,14 @@ export const LatestProducts = () => {
   return (
     <Grid container spacing={3} style={{
       backgroundColor: '#fff',
-      paddingLeft: '50px',
-      paddingRight: '50px',
+      padding: '50px',
       marginTop: '25px'
     }}>
+      <Typography variant="h6">Featured Products</Typography>
+      <ColoredLine color="#eee"/>
       {list.map(x => (
-      <Grid item xs={12} sm={6} xl={4} key={x.id}>
-        <PhoneCard name={x.name} />
+      <Grid item xs={12} sm={6} lg={3} key={x.id}>
+        <PhoneCard name={x.name} imagePath="/phone.jpg" price="1500$" discount="1200$" />
       </Grid>
       ))}
     </Grid>
