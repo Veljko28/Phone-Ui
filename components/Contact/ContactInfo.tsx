@@ -4,7 +4,7 @@ import ColoredLine from '../../constants/ColoredLine';
 
 const ContactInfo = () => {
   return (
-    <Grid container className="contact-info-tab">
+    <Grid container className="contact-tab">
       <Typography variant="h6" style={{margin: '10px'}}>Contact Info</Typography>
 
       <ColoredLine color="#eee"/>
