@@ -10,3 +10,38 @@
   border: 2px solid #fff;
   border-radius: 50%;
 }
+
+.subscribe-form {
+  background: rgb(12,175,229);
+  padding: 50px;
+  margin: 20px;
+}
+
+.subscribe-input {
+  margin-top: 15px;
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.subscribe-input-field {
+  width: 100%;
+  border: 2px solid #fff;
+  border-right: none;
+  padding: 25px;
+  height: 50px;
+  outline: none;
+  color: #999;
+  font-size: 15px;
+}
+
+.subscribe-button {
+  width: 120px;
+  height: 54.5px;
+  text-align: center;
+  color: #0cafe5;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
