@@ -13,9 +13,9 @@ export const LatestProducts = () => {
     // axios code for fetching latest phones
   }, []);
   return (
-    <Grid container spacing={3} style={{
+    <Grid container style={{
       backgroundColor: '#fff',
-      padding: '50px',
+      padding: '10px',
       marginTop: '25px'
     }}>
       <Typography variant="h6">Featured Products</Typography>
