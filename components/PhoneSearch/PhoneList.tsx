@@ -7,7 +7,7 @@ const PhoneList = () => {
     const list = useSelector((state: State ) => state.phones.list);
 
     return (
-        <Grid container>
+        <Grid container> 
             {list.map(x => (
              <Grid item xs={12} sm={6} lg={4} key={x.id}>
                 <PhoneCard name={x.name} imagePath="/phone.jpg" price="1500$" discount="1200$" />
