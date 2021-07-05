@@ -1,0 +1,31 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-tab {
+  max-width: 1000px;
+  min-width: 400px;
+  background-color: #fff;
+  margin: 20px;
+  padding: 30px;
+}
+
+.about-images-row {
+  display: flex;
+  max-width: 1000px;
+  min-width: 200px;
+}
+
+.about-image-circle {
+    text-align: center;
+    border: 2px solid #0cafe5;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    /* line-height: 5.2; */
+    padding: 25px;
+    margin: 30px;
+}
