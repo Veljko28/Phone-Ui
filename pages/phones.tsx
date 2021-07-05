@@ -7,10 +7,10 @@ const phones = () => {
 
     return ( 
         <Grid container>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
                 <CategoryBar/>
             </Grid> 
-            <Grid item xs={9}>
+            <Grid item xs={12} md={9}>
                 <PhoneList/>
                 <Pages/>
             </Grid> 
