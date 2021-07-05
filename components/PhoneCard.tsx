@@ -10,7 +10,7 @@ import Image from 'next/image';
 export const PhoneCard = (props: {imagePath: string, name: string, price: string, discount?: string}) => {
   const dispatch = useDispatch();
   return (
-  <Grid container className="cardContainer">
+  <Grid container className="cardContainer" style={{width: '250px'}}>
       <div className="imageConatiner">
        <Image src={props.imagePath}  width="150px" height="150px"/>
       </div>
