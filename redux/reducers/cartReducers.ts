@@ -9,7 +9,7 @@ const initState = {
 
 const cartReducers = (state = initState , action: Action) => {
     switch (action.type){
-        case ADD_TO_CART: return {...state, numOfItems: state.numOfItems + 1, items: [...state.items, action.payload]  };
+        case ADD_TO_CART: return {...state, numOfItems: state.numOfItems + parseInt(action.payload.amount), items: [...state.items, action.payload.item]  };
         default: return state;
     }
 }
