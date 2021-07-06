@@ -22,7 +22,7 @@ export const LatestProducts = () => {
       <ColoredLine color="#eee"/>
       {list.splice(0,4).map(x => (
       <Grid item xs={12} sm={6} lg={3} key={x.id}>
-        <PhoneCard name={x.name} imagePath="/phone.jpg" price="1500$" discount="1200$" />
+        <PhoneCard name={x.name} imagePath="/phone.jpg" price="1500$" discount="1200$" id={x.id} />
       </Grid>
       ))}
     </Grid>
