@@ -55,8 +55,8 @@ const PhoneDisplay = ({phone} : {phone?: Phone}) => {
           </>) : 
           (<span style={{color: '#0cafe5', fontSize: "35px"}}>{price}</span>)
           }
-          <span style={{color: '#999', fontSize: '15px', display: 'flex'}}>
-            12.2 MP Rear | 8 MP Front Camera, 4GB RAM, 2700 mAh battery, Android 8.0,<br/> Qualcomm Snapdragon 835, Fingerprint Sensor
+          <span style={{color: '#999', fontSize: '15px', display: 'flex', width: '400px'}}>
+            12.2 MP Rear | 8 MP Front Camera, 4GB RAM, 2700 mAh battery, Android 8.0, Qualcomm Snapdragon 835, Fingerprint Sensor
           </span>
           <span style={{fontSize: '12px'}}>
             Quantity
