@@ -7,7 +7,7 @@ import ColoredLine from '../../constants/ColoredLine';
 
 
 
-export const LatestProducts = () => {
+export const LatestProducts = ({title}: {title: string}) => {
   const list = useSelector((state: State) => state.phones.list);
   React.useEffect(() => {
     // axios code for fetching latest phones
@@ -16,9 +16,10 @@ export const LatestProducts = () => {
     <Grid container style={{
       backgroundColor: '#fff',
       padding: '10px',
-      marginTop: '25px'
+      marginTop: '25px',
+      marginBottom: '25px'
     }}>
-      <Typography variant="h6">Featured Products</Typography>
+      <Typography variant="h6" style={{color: '#0cafe5', marginLeft: '40px'}}>{title}</Typography>
       <ColoredLine color="#eee"/>
       {list.splice(0,4).map(x => (
       <Grid item xs={12} sm={6} lg={3} key={x.id}>
