@@ -12,6 +12,7 @@ import '../styles/Footer.css';
 import '../styles/Contact.css';
 import '../styles/Index.css';
 import '../styles/About.css';
+import '../styles/Phone.css';
 
 
 function MyApp({ Component, pageProps }: AppProps) {

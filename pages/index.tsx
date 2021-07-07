@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <Grid container justify="center">
       {/* <ImageCarousel/> */}
-          <LatestProducts/>
+          <LatestProducts title="Latest Products"/>
           <EmailSubscribe />
           <SubBar />
     </Grid>
