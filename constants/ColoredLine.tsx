@@ -1,9 +1,9 @@
-const ColoredLine = ({ color } : any) => (
+const ColoredLine = ({ color, height } : any) => (
     <div
         style={{
             width: '100%',
             backgroundColor: color,
-            height: '1px'
+            height: height ? height : '1px'
         }}
     ></div>
 );
