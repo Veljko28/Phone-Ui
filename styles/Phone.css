@@ -1,0 +1,58 @@
+
+.other-images {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .other-image {
+    margin-top: 20px;
+    padding: 3px;
+    border: 1px solid #eee;
+    background-color: #fff;
+  }
+  
+  .other-image:hover {
+    cursor: pointer;
+    border: 1px solid #0cafe5;
+  }
+  
+  .display-image {
+    margin: 20px;
+  }
+  
+  .display-container {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .quantity-value {
+    display: flex;
+    width: 50px;
+    padding: 10px;
+  }
+
+  .phone-details {
+    background-color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .details-list {
+      list-style-type: none;
+      margin: 10px;
+      padding: 20px;
+  }
+
+  .review-grid-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px;
+  }
+
+  .review-message-imput {
+      background-color: #eee;
+      margin: 20px;
+      margin-top: 0;
+   }

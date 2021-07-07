@@ -80,36 +80,3 @@
   text-align: center;
   margin: 10px;
 }
-
-.other-images {
-  display: flex;
-  flex-direction: column;
-}
-
-.other-image {
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #eee;
-  background-color: #fff;
-}
-
-.other-image:hover {
-  cursor: pointer;
-  border: 1px solid #0cafe5;
-}
-
-.display-image {
-  margin: 20px;
-}
-
-.display-container {
-  background-color: #fff;
-  padding: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.quantity-value {
-  display: flex;
-  width: 50px;
-}
