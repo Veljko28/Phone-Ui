@@ -12,7 +12,7 @@ const AddPhoneReview = ({ref} : {ref: React.MutableRefObject<null>}) => {
         <Grid 
         ref={ref}
         className="phone-details" style={{display: 'flex', flexDirection: 'column'}} container>
-            <Typography variant="h6" style={{margin: '10px', marginLeft: '50px',
+            <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
         color: '#0cafe5'}}>Add a Review</Typography>
         <ColoredLine color="#eee"/>
         <div style={{margin: '20px'}}>

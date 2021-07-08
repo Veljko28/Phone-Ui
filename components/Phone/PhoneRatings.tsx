@@ -3,7 +3,7 @@ import ColoredLine from '../../constants/ColoredLine';
 import Rating from '@material-ui/lab/Rating';
 
 
-const PhoneRatings = ({executeScroll} : {executeScroll: () => any}) => {
+const PhoneRatings = ({executeScroll} : {executeScroll?: () => any}) => {
 
     return (
         <Grid className="phone-details" container>
@@ -29,7 +29,8 @@ const PhoneRatings = ({executeScroll} : {executeScroll: () => any}) => {
                     <Typography variant="subtitle1" style={{ marginBottom: '10px' }}>
                         Have you used this product?
                     </Typography>
-                    <Button variant="contained" onClick={() => executeScroll()}
+                    <Button variant="contained" 
+                    // onClick={() => executeScroll()}
                     style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px'}}>Review</Button>
                 </Grid>
             </Grid>
