@@ -13,6 +13,7 @@ import '../styles/Contact.css';
 import '../styles/Index.css';
 import '../styles/About.css';
 import '../styles/Phone.css';
+import '../styles/Cart.css';
 
 
 function MyApp({ Component, pageProps }: AppProps) {

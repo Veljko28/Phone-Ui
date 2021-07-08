@@ -24,18 +24,18 @@ const PhonePage = () => {
   
   return (
     <Grid container>
-      <Grid md={1} item/>
+      <Grid md={1} lg={2} item/>
 
-      <Grid xs={12} md={10} item> 
+      <Grid xs={12} md={10} lg={8} item> 
         <PhoneDisplay />
         <PhoneDetails />
-        <PhoneRatings executeScroll={executeScroll} />
+        <PhoneRatings />
         <PhoneReviews />
         <AddPhoneReview ref={reviewRef}/>
         <LatestProducts title="Related Products" />
       </Grid>
 
-      <Grid md={1} item/>
+      <Grid md={1}  lg={2} item/>
     </Grid>
   )
 }
