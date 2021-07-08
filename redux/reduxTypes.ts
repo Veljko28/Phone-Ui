@@ -10,7 +10,6 @@ export interface State {
         lang: string
     }
     cart: {
-        numOfItems: number,
         items: Phone[]
     }
     phones: {
