@@ -1,9 +1,13 @@
-import { Grid, Typography, IconButton } from '@material-ui/core';
-import ColoredLine from '../../constants/ColoredLine';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { Grid, Typography, IconButton } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+
+import ColoredLine from '../../constants/ColoredLine';
+
 import { useSelector, useDispatch} from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { removeFromCart } from '../../redux/actions/cartActions';
@@ -13,6 +17,7 @@ const ItemsInCart = () => {
   const dispatch = useDispatch();
 
   return (
+    <>
     <Grid container className="item-cart">
         <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
         color: '#0cafe5'}}>My Cart ({list.length})</Typography>
@@ -33,9 +38,14 @@ const ItemsInCart = () => {
                 <td 
                 >
                   <Link href={`/phone/${x.id}}`}>
-                    <div style={{display: 'flex', alignContent: 'center'}}>
-                    <Image src={x.images[0]} width="50px" height="50px" className="phone-image-cart"/><span className="phone-name-cart">{x.name}</span>
-                    </div>
+                    <Grid container item style={{display: 'flex', alignContent: 'center'}}>
+                      <Grid xs={12} sm={6}>
+                        <Image src={x.images[0]} width="50px" height="50px" className="phone-image-cart"/>
+                      </Grid>
+                      <Grid xs={12} sm={6} style={{display: 'flex', justifyContent: 'center' }}>
+                        <span className="phone-name-cart">{x.name}</span>
+                      </Grid>
+                    </Grid>
                   </Link>
                   </td>
                 <td>{x.price}</td>
@@ -51,7 +61,14 @@ const ItemsInCart = () => {
           </tbody>
         </table>
     </Grid>
+    <Link href="/phones">
+      <div className="shopping-button">
+        <ArrowBackIosIcon style={{fontSize: '15px',marginBottom: '5px'}}/>
+        BACK TO SHOPPING
+      </div>
+    </Link>
+    </>
   )
 }
 
-export default ItemsInCart
+export default ItemsInCart;
