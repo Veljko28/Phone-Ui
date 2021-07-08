@@ -9,7 +9,7 @@ import { State } from '../../redux/reduxTypes';
 import { useSelector } from 'react-redux';
 
 const MainHeader = () => {
-  const numOfItems = useSelector((state : State) => state.cart.numOfItems);
+  const numOfItems = useSelector((state : State) => state.cart.items.length);
 
   return (
     <Grid container className="main-header">
@@ -33,11 +33,13 @@ const MainHeader = () => {
           <li>|</li>
           <li><Link href="/register">Register</Link></li>
           <li>
-            <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
-              <Badge badgeContent={numOfItems} color="secondary">
-                <ShoppingCartIcon className="cartIcon" style={{fontSize: '20px'}}/>
-              </Badge>
-            </IconButton>
+            <Link href="/cart">
+              <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
+                <Badge badgeContent={numOfItems} color="secondary">
+                  <ShoppingCartIcon className="cartIcon" style={{fontSize: '20px'}}/>
+                </Badge>
+              </IconButton>
+            </Link>
           </li>
         </ul> 
       </Grid>
