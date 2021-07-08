@@ -1,0 +1,49 @@
+.item-cart {
+  background-color: #fff;
+  max-width: 600px;
+  min-width: 150px;
+  margin-top: 50px;
+}
+
+.cart-table {
+  margin: 25px;
+  border: 1px solid #999;
+}
+
+.cart-table thead {
+  background-color: #eee;
+  border: 1px solid #999;
+  font-size: 12px;
+  padding: 15px;
+}
+
+.cart-table thead td {
+  padding: 10px;
+}
+
+.cart-table tbody td {
+  padding: 10px;
+}
+
+.phone-name-cart {
+  color: #000;
+  margin-top: 15px;
+}
+
+@keyframes nameHover {
+  from {
+    color: #000;
+  }
+  to {
+    color: #0cafe5;
+  }
+}
+
+.phone-image-cart:hover {
+  cursor: pointer;
+}
+
+.phone-name-cart:hover {
+  animation: nameHover 200ms forwards;
+  cursor: pointer;
+}
