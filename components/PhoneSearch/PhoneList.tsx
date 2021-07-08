@@ -10,7 +10,7 @@ const PhoneList = () => {
         <Grid container> 
             {list.map(x => (
              <Grid item xs={12} sm={6} lg={4} key={x.id} >
-                <PhoneCard name={x.name} imagePath="/phone.jpg" price="1500$" discount="1200$" id={x.id} />
+                <PhoneCard name={x.name} images={["/phone.jpg","/phone2.jpg","/phone3.jpg"]}price="1500$" discount="1200$" id={x.id} />
               </Grid>
             ))}
         </Grid>
