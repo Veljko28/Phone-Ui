@@ -61,7 +61,7 @@ const ItemsInCart = () => {
           </tbody>
         </table>
     </Grid>
-    <Link href="/phones">
+    <Link href="/phones/1">
       <div className="shopping-button">
         <ArrowBackIosIcon style={{fontSize: '15px',marginBottom: '5px'}}/>
         BACK TO SHOPPING
