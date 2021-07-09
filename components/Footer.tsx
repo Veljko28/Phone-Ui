@@ -52,7 +52,7 @@ const Footer = () => {
           <Grid xs={1} lg={3} item />
           <Grid xs={12} md={6} lg={3} item >
             <div style={{marginBottom: '10px',}}>Connect With Us</div>
-            {socialLinks.map(x => <SocialIcon url={x} style={{width: '35px', height: '35px', margin: '5px'}} /> )}
+            {socialLinks.map(x => <SocialIcon key={Math.random() % 100} url={x} style={{width: '35px', height: '35px', margin: '5px'}} /> )}
             <div style={{marginTop: '50px', fontSize: '12px', color: '#999'}}>Copyright © All Rights Reserved {new Date().getFullYear()} Website Design by <a href="https://github.com/Veljko28">Veljko28</a></div>
           </Grid>
       </Grid>
