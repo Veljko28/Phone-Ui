@@ -8,7 +8,7 @@
       name: 'About'
     },
       {
-      href: '/phones',
+      href: '/phones/1',
       name: 'Phones'
     },
     {
