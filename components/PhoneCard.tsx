@@ -11,7 +11,7 @@ import Link from 'next/link';
 export const PhoneCard = (props: {images: string[], name: string, price: string, discount?: string, id: string}) => {
   const dispatch = useDispatch();
   return (
-    <Grid container className="cardContainer" style={{width: '250px'}}>
+    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
        <Link href={`/phone/${props.id}`}>
         <div>
             <div className="imageConatiner">
