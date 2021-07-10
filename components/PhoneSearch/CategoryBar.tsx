@@ -1,33 +1,33 @@
 import React from 'react'
-import {List, ListSubheader, ListItem, ListItemIcon, ListItemText, Collapse} from '@material-ui/core';
+import {List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const CategoryBar = () => {
 
   const [open, setOpen] = React.useState(-1);
+  const [sort, changeSort] = React.useState(0);
 
   const handleClick = (id:number) => {
-    setOpen(id);
+    if (open == id) setOpen(-1);
+    else setOpen(id);
   };
 
   // add icons and children to the map
 
-  const ListMap = ({id,title} : {id: number, title: string}) => {
+  const ListMap = ({id,title, children} : {id: number, title: string, children: () => JSX.Element}) => {
     const isOpen = id == open;
 
     return (
       <div key={id}>
-      <ListItem button onClick={() => handleClick(id)}>
+      <ListItem button onClick={() => handleClick(id)} disableRipple>
         <ListItemText primary={title} />
         {isOpen? <ExpandLess /> : <ExpandMore />}
       </ListItem>
 
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button>
-            <ListItemText primary="Starred" />
-          </ListItem>
+            {children()}
         </List>
       </Collapse>
       </div>
@@ -37,35 +37,64 @@ const CategoryBar = () => {
   const list = [
     {
       id: 1,
-      title: 'Category'
+      title: 'Category',
+      children: () => (
+        <div>
+          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>All Phones</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Android Phone</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>IOS Phone</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Others</ListItem>
+        </div>
+      )
     },
     {
       id: 2,
-      title: 'Brand'
+      title: 'Brand',
+      children: () => (
+       <div>
+          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>All</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Google</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Apple</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Samsung</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Huwaei</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Redmi</ListItem>
+        </div>
+      )
     },
     {
       id: 3,
-      title: 'Price'
+      title: 'Price',
+      children: () => (
+        <div>
+          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>All</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>100$-200$</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>200$-500$</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>500$-1000$</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>1000$-1500$</ListItem>
+        </div>
+      )
     },
     {
       id: 4,
-      title: 'Screen Size'
+      title: 'Sorting',
+      children: () => (
+        <div>
+          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>None</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Best Match</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Price Ascending</ListItem>
+          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Price Descending</ListItem>
+        </div>
+      )
     },
-
   ]
 
   return (
     <div className="category-bar">
       <List
       component="nav"
-      subheader={
-        <ListSubheader component="div">
-          Nested List Items
-        </ListSubheader>
-      }
     >
     {list.map(x => ListMap(x))}
-
+      
     </List>
 
     </div>
