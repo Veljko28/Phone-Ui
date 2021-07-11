@@ -13,11 +13,11 @@ const MainHeader = () => {
 
   return (
     <Grid container className="main-header">
-      <Grid item xs={1}/>
-      <Grid item xs={2}>
+      <Grid item lg={1}/>
+      <Grid item xs={12} lg={2} container justify="center">
         <a href="/"><Image src="/logo.png" alt="logo" width="157" height="47" className="pointer"/></a>
       </Grid>
-      <Grid item xs={5}>
+      <Grid item xs={12} lg={5}>
       <div className="wrap">
         <div className="search">
             <input type="text" className="searchTerm" placeholder="What are you looking for?" />
@@ -27,7 +27,7 @@ const MainHeader = () => {
         </div>
       </div>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={12} lg={3} container justify="center">
         <ul className="user-control">
           <li><Link href="/login">Login</Link></li>
           <li>|</li>
@@ -43,7 +43,7 @@ const MainHeader = () => {
           </li>
         </ul> 
       </Grid>
-      <Grid item xs={1}/>
+      <Grid item lg={1}/>
     </Grid>
   )
 }
