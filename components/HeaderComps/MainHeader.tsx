@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 const MainHeader = () => {
   const numOfItems = useSelector((state : State) => state.cart.items.length);
+  const [userSearch,ChangeUserSearch] = React.useState('');
 
   return (
     <Grid container className="main-header">
@@ -20,10 +21,13 @@ const MainHeader = () => {
       <Grid item xs={12} lg={5}>
       <div className="wrap">
         <div className="search">
-            <input type="text" className="searchTerm" placeholder="What are you looking for?" />
-            <button type="submit" className="searchButton">
-              <SearchIcon/>
-          </button>
+            <input type="text" className="searchTerm" placeholder="What are you looking for?" value={userSearch} 
+            onChange={e => ChangeUserSearch(e.target.value)} />
+            <div className="searchButton">
+              <Link href={`/search/${userSearch}`}>
+                <SearchIcon/>
+              </Link>
+          </div>
         </div>
       </div>
       </Grid>
