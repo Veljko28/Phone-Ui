@@ -79,3 +79,25 @@
   text-align: center;
   margin: 10px;
 }
+
+.phone-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e8eaec;
+}
+
+.phone-block:hover {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.phone-block-big { 
+  background-color: #e8eaec;
+  display: flex;
+}
+
+.phone-block-big:hover {
+  background-color: #fff;
+  cursor: pointer;
+}
