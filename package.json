@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "install": "npm i react react-dom next @material-ui/core @material-ui/icons @material-ui/lab uuid redux react-redux react-social-icons",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

@@ -8,7 +8,7 @@ import CategoryButtons from "../components/FrontPage/CategoryButtons";
 export default function Home() {
   return (
     <Grid container justify="center">
-      {/* <ImageCarousel/> */}
+      {/* pure-react-carousel */}
           <Grid xs={2}/>
 
           <Grid item xs={8}>
