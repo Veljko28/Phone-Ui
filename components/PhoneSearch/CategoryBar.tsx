@@ -2,6 +2,8 @@ import React from 'react'
 import {List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 const CategoryBar = () => {
 
@@ -13,7 +15,7 @@ const CategoryBar = () => {
     else setOpen(id);
   };
 
-  // add icons and children to the map
+  const selectedBrand = useSelector((state: State) => state.phones.brand);
 
   const ListMap = ({id,title, children} : {id: number, title: string, children: () => JSX.Element}) => {
     const isOpen = id == open;
@@ -52,12 +54,10 @@ const CategoryBar = () => {
       title: 'Brand',
       children: () => (
        <div>
-          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>All</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Google</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Apple</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Samsung</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Huwaei</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Redmi</ListItem>
+         {['All', 'Google', 'Apple', 'Samsung', 'Vivo', 'Htc', 'Alcatel'].map(x => (
+          <ListItem button disableRipple 
+          style={{color: selectedBrand.toLowerCase() == x.toLowerCase() ? '#0cafe5' : '#999', marginLeft: '10px'}}>{x}</ListItem>
+         ))}
         </div>
       )
     },
