@@ -39,10 +39,10 @@ const ItemsInCart = () => {
                 >
                   <Link href={`/phone/${x.id}}`}>
                     <Grid container item style={{display: 'flex', alignContent: 'center'}}>
-                      <Grid xs={12} sm={6}>
+                      <Grid item xs={12} sm={6}>
                         <Image src={x.images[0]} width="50px" height="50px" className="phone-image-cart"/>
                       </Grid>
-                      <Grid xs={12} sm={6} style={{display: 'flex', justifyContent: 'center' }}>
+                      <Grid item xs={12} sm={6} style={{display: 'flex', justifyContent: 'center' }}>
                         <span className="phone-name-cart">{x.name}</span>
                       </Grid>
                     </Grid>
