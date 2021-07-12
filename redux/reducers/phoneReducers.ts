@@ -1,4 +1,4 @@
-import { FETCH_LATEST_PHONES, CHANGE_QUANTITY } from '../actions/phonesActions';
+import { FETCH_LATEST_PHONES, CHANGE_QUANTITY, CHANGE_BRAND } from '../actions/phonesActions';
 import {Action} from '../reduxTypes';
 
 const initState = {
@@ -9,13 +9,15 @@ const initState = {
         {name: 'Redmi Note 9', id: '7'}, {name: 'Nokia 5', id: '8'},
         {name: 'Nokia 5', id: '9'},
     ],
-    quantity: 1
+    quantity: 1,
+    brand: 'All'
 };
 
 const phoneReducers = (state = initState , action: Action) => {
     switch (action.type){
         case FETCH_LATEST_PHONES: return {...state, list: action.payload};
         case CHANGE_QUANTITY: return {...state, quantity: action.payload};
+        case CHANGE_BRAND: return {...state, brand: action.payload};
         default: return state;
     }
 }

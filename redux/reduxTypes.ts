@@ -14,7 +14,8 @@ export interface State {
     }
     phones: {
         list: Phone[],
-        quantity: number
+        quantity: number,
+        brand: string
     },
     login: {
         email_username: string,
