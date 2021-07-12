@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { Button } from '@material-ui/core';
 
 
 const CarouselMain = () => {
@@ -26,6 +27,7 @@ const CarouselMain = () => {
           <Image src="/slider/mi_logo.png" width="40px" height="40px"/>
           <h3 style={{color: 'black'}}>Red Mi Y1</h3>
           <p style={{color: 'black'}}>LED Selfie-light | Fingerprint sensor | Dedicated microSD card slot Snapdragon 435 octa-core processor</p>
+          <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
         </div>
       </Carousel.Caption>
     </Carousel.Item>
@@ -42,6 +44,7 @@ const CarouselMain = () => {
           <Image src="/slider/google_logo.png" width="40px" height="40px"/>
           <h3 style={{color: 'black'}}>Google Pixel 2</h3>
           <p style={{color: 'black'}}>The latest Qualcomm Snapdragon 835 processor | Water-resistant metal unibody | Up to 7 hours of battery.</p>
+          <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
         </div>
       </Carousel.Caption>
     </Carousel.Item>
@@ -58,6 +61,7 @@ const CarouselMain = () => {
           <Image src="/slider/apple_logo.png" width="40px" height="40px"/>
           <h3 style={{color: 'black'}}>Iphone 8 Plus</h3>
           <p style={{color: 'black'}}>5.5 inch Retina HD Display | 12MP wide-angle cameras</p>
+          <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
         </div>
       </Carousel.Caption>
     </Carousel.Item>
