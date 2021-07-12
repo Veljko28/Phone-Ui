@@ -40,7 +40,7 @@ export const PhoneCard = (props: {images: string[], name: string, price: string,
             <FavoriteIcon/>
           </IconButton>
 
-          <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px'}} 
+          <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} 
           onClick={() => dispatch(addToCart({item: props,amount: 1}))}>
             <ShoppingCartIcon/>
           </IconButton>
