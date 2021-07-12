@@ -3,35 +3,40 @@ import { Grid } from "@material-ui/core";
 import SubBar from "../components/FrontPage/SubBar";
 import EmailSubscribe from '../components/FrontPage/EmailSubscribe';
 import CategoryButtons from "../components/FrontPage/CategoryButtons";
+import CarouselMain from "../components/FrontPage/CarouselMain";
 // import { ImageCarousel } from "../components/ImageCarousel"
 
 export default function Home() {
   return (
     <Grid container justify="center">
-      {/* pure-react-carousel */}
-          <Grid xs={2}/>
+
+          <Grid item xs={12}>
+            <CarouselMain/>
+          </Grid>
+          
+          <Grid item xs={2}/>
 
           <Grid item xs={8}>
             <CategoryButtons/>
           </Grid>
 
-          <Grid xs={2}/>
+          <Grid item xs={2}/>
           
-          <Grid xs={2}/>
+          <Grid item xs={2}/>
 
           <Grid item xs={8}>
             <LatestProducts title="Latest Products"/>
           </Grid>
 
-          <Grid xs={2}/>
+          <Grid item xs={2}/>
 
-          <Grid xs={2}/>
+          <Grid item xs={2}/>
 
           <Grid item xs={8}>
             <LatestProducts title="Featured Products"/>
           </Grid>
 
-          <Grid xs={2}/>
+          <Grid item xs={2}/>
 
 
           <EmailSubscribe />
