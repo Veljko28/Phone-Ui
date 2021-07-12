@@ -3,7 +3,7 @@
 This is a project for sell and buying phones online all over the world !
 The main things used for this project are `React`, `Next.js`, `Redux`, `Material-Ui`, and `Typescript`.
 
-The website is a react recreation of a WordPress Template - [MobiStore - Online Mobile Store](https://easetemplate.com/free-website-templates/mobistore/index.html). While most of the ideas were take from this template the code is 100% writed by me.
+The website is a react recreation of a WordPress Template - [MobiStore - Online Mobile Store](https://easetemplate.com/free-website-templates/mobistore/index.html). While most of the ideas were take from this template the code is 100% written by me.
 
 
 ## About the code
