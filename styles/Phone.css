@@ -56,3 +56,27 @@
       margin: 20px;
       margin-top: 0;
    }
+   
+  .curs-hvr {
+    text-align: center;
+  }
+
+   .curs-hvr:hover {
+     cursor: pointer;
+   }
+
+   .bid-price {
+    display: flex;
+    width: 100px;
+    padding: 10px;
+   }
+
+   .bid-history {
+    color: #0cafe5;
+    margin-top: 10px;
+    font-size: 15px;
+   }
+
+   .bid-history:hover {
+     cursor: pointer;
+   }
