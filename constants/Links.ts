@@ -7,17 +7,17 @@
       href: '/about',
       name: 'About'
     },
-      {
+    {
       href: '/phones/1',
       name: 'Phones'
     },
     {
-      href: '/contact',
-      name: 'Contact Us'
+      href: '/bids/1',
+      name: 'Bids'
     },
     {
-      href: '/managment',
-      name: 'Managment'
+      href: '/contact',
+      name: 'Contact Us'
     },
   ];
 
