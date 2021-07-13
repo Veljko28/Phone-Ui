@@ -1,0 +1,18 @@
+/// TO-DO ///
+
+bid history
+user profile
+user listings
+user contatct
+
+logged-in header view
+favourites
+search bar / search optimization
+
+language translations
+language icon fix
+
+compress images
+move nessesary images to api
+
+clean the code
