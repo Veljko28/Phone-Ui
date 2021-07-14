@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent,
-DialogContentText, DialogTitle, Grid, Typography } from "@material-ui/core";
+DialogContentText, DialogTitle, Grid, IconButton, Typography } from "@material-ui/core";
 import Rating from '@material-ui/lab/Rating';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -16,6 +16,7 @@ import { Phone } from "../models/Phone";
 import { State } from "../../redux/reduxTypes";
 import { changeQuantity } from "../../redux/actions/phonesActions";
 import { addToCart } from "../../redux/actions/cartActions";
+import BidHistory from "./BidHistory";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -45,6 +46,17 @@ const PhoneDisplay = ({phone,bid} : {phone?: Phone, bid?: boolean}) => {
   const [dialogOpen,changeDialogOpen] = React.useState(false);
   const [snackBarOpen,changeSnackBarOpen] = React.useState(false);
 
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const historyOpen = Boolean(anchorEl);
+
+  const openHistory = (e: any) => {
+    setAnchorEl(e.currentTarget);
+  }
+
+  const closeHistory = () => {
+    setAnchorEl(null);
+  }
 
   const bidConfimed = () => {
     if (bidAmount !== null && bidAmount > parseInt(price.slice(0,-1))+1){
@@ -96,7 +108,11 @@ const PhoneDisplay = ({phone,bid} : {phone?: Phone, bid?: boolean}) => {
           <Button variant="contained" onClick={() => changeDialogOpen(true)}
           style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>
             <MonetizationOnIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid {bidAmount}$</Button>
-           <div className="bid-history"><HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History (3)</div>
+           <div 
+           onClick={e => openHistory(e)} className="bid-history">
+             <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History (3)
+            </div>
+            <BidHistory open={historyOpen} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
           </>) : (<> 
           <span style={{fontSize: '12px'}}>
             Quantity
