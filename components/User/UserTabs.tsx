@@ -1,5 +1,9 @@
 import { Button } from '@material-ui/core'
 import React from 'react'
+import UserListings from './UserListings';
+import UserReviews from './UserReviews';
+import UserWishList from './UserWishList';
+
 
 const UserTabs = () => {
 
@@ -28,6 +32,8 @@ const UserTabs = () => {
         changeSelected('Wish List');
       }}
       >Wish List</Button>
+
+      {selected === 'Listings' ? <UserListings/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList />}
     </div>
   )
 }
