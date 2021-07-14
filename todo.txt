@@ -1,12 +1,12 @@
 /// TO-DO ///
 
-bid history
-user profile
+bid history ✅ 
+user profile ✅
 user listings
 user contatct
 
 logged-in header view
-favourites
+Wish list
 search bar / search optimization
 
 language translations
@@ -16,3 +16,4 @@ compress images
 move nessesary images to api
 
 clean the code
+header titles ✅
