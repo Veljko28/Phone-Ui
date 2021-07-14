@@ -2,10 +2,11 @@
 
 bid history ✅ 
 user profile ✅
-user listings
-user contatct
+user listings ✅
+user contatct 
 
 logged-in header view
+mobile navbar stack
 Wish list
 search bar / search optimization
 

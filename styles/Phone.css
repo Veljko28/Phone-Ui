@@ -51,6 +51,12 @@
       padding: 25px;
   }
 
+  .listing-grid-item {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+  }
+
   .review-message-imput {
       background-color: #eee;
       margin: 20px;
@@ -64,6 +70,10 @@
    .curs-hvr:hover {
      cursor: pointer;
    }
+
+   .curs-hver:hover {
+    cursor: pointer;
+  }
 
    .bid-price {
     display: flex;

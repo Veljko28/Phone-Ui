@@ -41,7 +41,7 @@ const SellerInfo = ({id} : {id: string}) => {
                     <Button variant="contained" 
                     style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                     >Contact The Seller</Button>
-                    <Link href={`/user/${id}/listings`}>
+                    <Link href={`/user/${id}`}>
                       <Button variant="contained" 
                       style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                       >View Listings</Button>
