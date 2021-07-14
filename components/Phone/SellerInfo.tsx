@@ -19,7 +19,7 @@ const SellerInfo = ({id} : {id: string}) => {
                 <Grid xs={12} md={4} item className="review-grid-item">
                   <div className="curs-hvr">
                     <Image src="/user.png" width="70px" height="70px" />
-                    <div>Seller Username</div>
+                    <div>User {id}</div>
                   </div>
                 </Grid>
               </Link>
