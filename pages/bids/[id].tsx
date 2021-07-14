@@ -3,6 +3,7 @@ import PhoneList from '../../components/PhoneSearch/PhoneList';
 import CategoryBar from '../../components/PhoneSearch/CategoryBar';
 import Pages from '../../components/PhoneSearch/Pages';
 import { useRouter } from "next/router";
+import TitleChange from "../../constants/TitleChange";
 
 const bids = () => {
 
@@ -11,6 +12,8 @@ const bids = () => {
 
     return ( 
         <Grid container>
+            <TitleChange title={`MobiStore - Bids Page ${id}`} />
+           
             <Grid item xs={12} md={3}>
                 <CategoryBar/>
             </Grid> 

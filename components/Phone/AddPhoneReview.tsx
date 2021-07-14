@@ -4,13 +4,12 @@ import Rating from '@material-ui/lab/Rating';
 import React from 'react';
 
 
-const AddPhoneReview = ({ref} : {ref: React.MutableRefObject<null>}) => {
+const AddPhoneReview = () => {
     const [value,setValue] = React.useState(0);
     const [message,changeMessage] = React.useState('');
 
     return ( 
         <Grid 
-        ref={ref}
         className="phone-details" style={{display: 'flex', flexDirection: 'column'}} container>
             <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
         color: '#0cafe5'}}>Add a Review</Typography>

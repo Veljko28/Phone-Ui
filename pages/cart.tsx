@@ -5,6 +5,7 @@ import ItemsInCart from '../components/Cart/ItemsInCart';
 import PriceDetails from '../components/Cart/PriceDetails';
 import CouponTab from '../components/Cart/CouponTab';
 import EmptyCart from '../components/Cart/EmptyCart';
+import TitleChange from '../constants/TitleChange';
 
 import { useSelector } from 'react-redux';
 import { State } from '../redux/reduxTypes';
@@ -14,9 +15,11 @@ const cart = () => {
   const empty = useSelector((state: State) => state.cart.items.length) == 0;
 
   return (<>
+    <TitleChange title="MobiStore - Cart" />
     {empty ? <EmptyCart/> : (
 
     <Grid container>
+
       <Grid md={1} lg={2} item/>
 
       <Grid xs={12} md={10} lg={8} item container> 

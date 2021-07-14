@@ -2,10 +2,14 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import LoginInfo from '../components/Login/LoginInfo';
 import RegisterForm from '../components/Register/RegisterForm';
+import TitleChange from '../constants/TitleChange';
 
 const register = () => {
   return (
-       <Grid container>
+      <Grid container>
+
+      <TitleChange title="MobiStore - Register" />
+
 
       <Grid item lg={2}/>
 

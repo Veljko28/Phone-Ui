@@ -2,6 +2,7 @@ import React from 'react'
 import {Grid, Typography, Button} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Link from 'next/link';
+import TitleChange from '../constants/TitleChange';
 
 const Page404 = () => {
 
@@ -9,6 +10,7 @@ const Page404 = () => {
 
   return (
     <Grid container style={{marginTop: '20px'}}>
+      <TitleChange title="MobiStore - 404 Page" />
       <Grid item md={3}/>
       <Grid item xs={12} md={6} className="page404">
         <Typography variant="h6" style={{margin: '10px'}}>We Couldn’t Find The Page</Typography>

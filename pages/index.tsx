@@ -4,12 +4,15 @@ import SubBar from "../components/FrontPage/SubBar";
 import EmailSubscribe from '../components/FrontPage/EmailSubscribe';
 import CategoryButtons from "../components/FrontPage/CategoryButtons";
 import CarouselMain from "../components/FrontPage/CarouselMain";
+import TitleChange from "../constants/TitleChange";
 // import { ImageCarousel } from "../components/ImageCarousel"
 
 export default function Home() {
   return (
     <Grid container justify="center">
 
+          <TitleChange title="MobiStore - Online Mobile Store" />
+          
           <Grid item xs={12}>
             <CarouselMain/>
           </Grid>
