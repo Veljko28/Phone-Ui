@@ -30,7 +30,7 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
                  <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Currently Selling: <span style={{color: '#0cafe5'}}>4</span>
+                 Currently Selling: <span style={{color: '#0cafe5'}}>3</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
               </Typography>
               <Button variant="contained" 

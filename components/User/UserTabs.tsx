@@ -13,20 +13,20 @@ const UserTabs = () => {
   const [selected,changeSelected] = React.useState('Listings');
 
   return (
-    <div style={{margin: '10px'}}>
-      <Button 
+    <div style={{margin: '5px'}}>
+      <Button  disableRipple
       style={selected === 'Listings' ? selectedStyle : normalStyle}
       onClick={() => {
         changeSelected('Listings');
       }}
       >Listings</Button>
-      <Button 
+      <Button  disableRipple
       style={selected === 'Reviews' ? selectedStyle : normalStyle}
       onClick={() => {
         changeSelected('Reviews');
       }}
       >Reviews</Button>
-      <Button 
+      <Button  disableRipple
       style={selected === 'Wish List' ? selectedStyle : normalStyle}
         onClick={() => {
         changeSelected('Wish List');
