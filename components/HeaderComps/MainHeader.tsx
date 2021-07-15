@@ -17,6 +17,8 @@ const MainHeader = () => {
   const dispatch = useDispatch();
   const displayMenu = useSelector((state : State) => state.userInfo.navbarToggle);
 
+  // test
+  const loggedIn = false;
 
   return (
     <Grid container className="main-header">
@@ -39,9 +41,11 @@ const MainHeader = () => {
       </Grid>
       <Grid item xs={12} lg={3} container justify="center">
         <ul className="user-control">
-          <li><Link href="/login">Login</Link></li>
+          <li><Link href={loggedIn ? "/user/1" : "/login"}>
+            {loggedIn ? "Profile" : "Login"}</Link></li>
           <li>|</li>
-          <li><Link href="/register">Register</Link></li>
+          <li><Link href={loggedIn ? "/logout" : "/register" }>
+            {loggedIn ? "Logout" : "Register"}</Link></li>
           <li>
             <Link href="/cart">
               <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>

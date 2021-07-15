@@ -22,7 +22,7 @@ export const LatestProducts = ({title}: {title: string}) => {
       <Typography variant="h6" style={{color: '#0cafe5', marginLeft: '40px'}}>{title}</Typography>
       <ColoredLine color="#eee"/>
       {list.splice(0,4).map(x => (
-      <Grid item xs={12} sm={6} lg={3} key={x.id}>
+      <Grid item xs={12} md={6} lg={3} key={x.id}>
         <PhoneCard name={x.name} images={["/phone.jpg","/phone2.jpg","/phone3.jpg"]} price="1500$" discount="1200$" id={x.id} />
       </Grid>
       ))}

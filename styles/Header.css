@@ -90,6 +90,23 @@ body {
     margin-left: 0;
 }
 
+.flag-support {
+  margin-top: 4px;
+  margin-right: 15px;
+}
+
+.flag-support:hover {
+  cursor: pointer;
+}
+
+.flag-select {
+  margin: 10px;
+}
+
+.flag-select:hover {
+  cursor: pointer;
+}
+
 .top-grid {
   display: flex;
   justify-content: flex-end;
@@ -182,6 +199,12 @@ body {
   padding-right: 50px;
   background-color: #0cafe5;
 } 
+
+@media(min-width: 800px) {
+  .navbar-main-display {
+    flex-direction: row;
+  }
+}
 
 .navbtn {
   background-color: #0cafe5;

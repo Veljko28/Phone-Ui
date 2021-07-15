@@ -5,14 +5,14 @@ user profile ✅
 user listings ✅
 user contact ✅ 
 
-logged-in header view
+logged-in header view ✅
 mobile navbar stack ✅ 
 Wish list ✅ 
 search bar ✅ 
 search optimization
 
 language translations (react-i18next)
-language icon fix
+language icon fix ✅
 
 compress images
 move nessesary images to api
