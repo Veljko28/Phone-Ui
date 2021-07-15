@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import loginReducers from './reducers/loginReducers';
 import registerReducers from './reducers/registerReducers';
 import contactReducers from './reducers/contactReducers';
+import { userInfoReducers } from './reducers/userInfoReducers';
 
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     login: loginReducers,
     register: registerReducers,
     contact: contactReducers,
+    userInfo: userInfoReducers,
 });
 
 const store = createStore(rootReducer, composeWithDevTools());

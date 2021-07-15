@@ -3,18 +3,21 @@
 bid history ✅ 
 user profile ✅
 user listings ✅
-user contatct 
+user contact ✅ 
 
 logged-in header view
-mobile navbar stack
-Wish list
-search bar / search optimization
+mobile navbar stack ✅ 
+Wish list ✅ 
+search bar ✅ 
+search optimization
 
-language translations
+language translations (react-i18next)
 language icon fix
 
 compress images
 move nessesary images to api
 
 clean the code
+mobile optimization
 header titles ✅
+emptt cart image fix ✅

@@ -20,5 +20,8 @@ export interface State {
     login: {
         email_username: string,
         password: string
+    },
+    userInfo: {
+        navbarToggle: boolean
     }
 }
