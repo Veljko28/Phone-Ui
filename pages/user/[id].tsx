@@ -16,7 +16,7 @@ const user = () => {
   return (
     <>
     
-    <TitleChange title="MobiStore - Cart" />
+    <TitleChange title={`MobiStore - User ${id}`} />
 
     <Grid container>
 

@@ -24,11 +24,11 @@ const cart = () => {
 
       <Grid xs={12} md={10} lg={8} item container> 
 
-        <Grid md={6} xs={12}item>
+        <Grid md={7} xs={12}item>
           <ItemsInCart />
         </Grid>
 
-        <Grid md={6} xs={12} item>
+        <Grid md={5} xs={12} item>
           <PriceDetails />
           <CouponTab />
         </Grid>
