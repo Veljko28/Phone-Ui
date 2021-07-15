@@ -61,7 +61,7 @@ const CategoryButtons = () => {
               <Image src="/front/htc.png" width="75px" height="40px" />
             </div>
             <div style={{margin: '20px'}}>
-              <Image src="/front/display_img_4.png" width="140px" height="140px" />
+              <Image src="/front/display_img_4.png" width="130px" height="130px" />
             </div>
         </Grid>
 
@@ -71,7 +71,7 @@ const CategoryButtons = () => {
               <Image src="/front/alcatel.png" width="85px" height="40px" />
             </div>
             <div style={{margin: '20px'}}>
-              <Image src="/front/display_img_5.png" width="140px" height="140px" />
+              <Image src="/front/display_img_5.png" width="130px" height="130px" />
             </div>
         </Grid>
 
@@ -82,7 +82,7 @@ const CategoryButtons = () => {
               <Image src="/front/pixel.png" width="70px" height="45px" />
             </div>
             <div style={{margin: '20px'}}>
-              <Image src="/front/display_img_6.png" width="140px" height="140px" />
+              <Image src="/front/display_img_6.png" width="130px" height="130px" />
             </div>
         </Grid>
 
@@ -94,7 +94,7 @@ const CategoryButtons = () => {
               <Image src="/front/vivo.png" width="75px" height="40px" />
             </div>
             <div style={{margin: '20px'}}>
-              <Image src="/front/display_img_7.png" width="140px" height="140px" />
+              <Image src="/front/display_img_7.png" width="130px" height="130px" />
             </div>
         </Grid>
 
