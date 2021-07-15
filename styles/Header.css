@@ -175,6 +175,14 @@ body {
   background-color: #0cafe5;
 }
 
+.navbar-main-display {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: #0cafe5;
+} 
+
 .navbtn {
   background-color: #0cafe5;
   padding: 10px;
@@ -182,6 +190,42 @@ body {
   color: white;
   font-size: 15px;
   border: none;
+}
+
+.openMenu {
+  display: none;
+  cursor: pointer;
+}
+
+.closeMenu {
+  align-self: center;
+  padding-bottom: 10px;
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 800px){
+  .navbar-main {
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: top 1s ease;
+    display: none;
+  }
+
+  .closeMenu {
+    display: block;
+  }
+
+  .openMenu {
+    display: block;
+  }
+}
+
+
+.closed {
+  display: none;
 }
 
 @keyframes navBtnHover {
