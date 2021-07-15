@@ -4,13 +4,19 @@ import Link from 'next/link'
 import React from 'react'
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { State } from '../../redux/reduxTypes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleNavbar } from '../../redux/actions/userInfoActions';
 
 const MainHeader = () => {
   const numOfItems = useSelector((state : State) => state.cart.items.length);
   const [userSearch,ChangeUserSearch] = React.useState('');
+
+  const dispatch = useDispatch();
+  const displayMenu = useSelector((state : State) => state.userInfo.navbarToggle);
+
 
   return (
     <Grid container className="main-header">
@@ -44,6 +50,9 @@ const MainHeader = () => {
                 </Badge>
               </IconButton>
             </Link>
+          </li>
+          <li className={displayMenu ? "closed" : "openMenu"} onClick={() => dispatch(toggleNavbar())}>
+            <MenuIcon className="cartIcon" style={{fontSize: '20px'}}/>
           </li>
         </ul> 
       </Grid>
