@@ -3,10 +3,24 @@ import {Grid, Typography, Button} from '@material-ui/core';
 import Image from 'next/image';
 import Rating from '@material-ui/lab/Rating';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
+import UserContact from './UserContact';
 
 
 
 const UserCard = (props: {image: string, name: string, desc: string, rating: number, id: string}) => {
+
+  const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
+    const contactOpen = Boolean(contactAnchorEl);
+
+    const openContanct = (e: any) => {
+      setContanctAnchorEl(e.currentTarget);
+    }
+
+    const closeContanct = () => {
+      setContanctAnchorEl(null);
+    }
+
+
   return (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
         <div>
@@ -33,9 +47,10 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
                  Currently Selling: <span style={{color: '#0cafe5'}}>3</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
               </Typography>
-              <Button variant="contained" 
+              <Button variant="contained" onClick={e => openContanct(e)}
                     style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
               >Contact The Seller</Button>
+              <UserContact  open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
             </div>
           </div>
     </Grid>
