@@ -34,7 +34,8 @@ const BidHistory = ({open, anchorEl, handleClose} :
           horizontal: 'left',
         }}
       >
-        <table style={{border: '1px solid #eee', width: '225px'}}>
+      <div style={{padding: '15px'}}>
+        <table style={{minWidth: '225px'}}>
           <thead style={{borderBottom: '1px solid #eee'}}>
             <tr>
               <th>User</th>
@@ -50,6 +51,7 @@ const BidHistory = ({open, anchorEl, handleClose} :
              ))}
           </tbody>
         </table>
+      </div>
       </Popover>
   )
 }

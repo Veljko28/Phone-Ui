@@ -1,13 +1,26 @@
 import { Grid, Typography, Button } from '@material-ui/core';
-import ColoredLine from '../../constants/ColoredLine';
+import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import Rating from '@material-ui/lab/Rating';
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 
-import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
+import ColoredLine from '../../constants/ColoredLine';
+import UserContact from '../User/UserContact';
 
 
 const SellerInfo = ({id} : {id: string}) => {
+
+  const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
+  const contactOpen = Boolean(contactAnchorEl);
+
+  const openContanct = (e: any) => {
+    setContanctAnchorEl(e.currentTarget);
+  }
+
+  const closeContanct = () => {
+    setContanctAnchorEl(null);
+  }
 
     return (
         <Grid className="phone-details" container>
@@ -38,7 +51,7 @@ const SellerInfo = ({id} : {id: string}) => {
                     </Typography>
                 </Grid>
                 <Grid xs={12} md={4} item className="review-grid-item">
-                    <Button variant="contained" 
+                    <Button variant="contained" onClick={e => openContanct(e)}
                     style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                     >Contact The Seller</Button>
                     <Link href={`/user/${id}`}>
@@ -46,6 +59,7 @@ const SellerInfo = ({id} : {id: string}) => {
                       style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                       >View Listings</Button>
                     </Link>
+                    <UserContact open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
                 </Grid>
             </Grid>
         </Grid>
