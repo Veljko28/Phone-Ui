@@ -50,7 +50,7 @@ const ItemsInCart = () => {
                   </td>
                 <td>{x.price}</td>
                 <td style={{textAlign: 'center'}}>{list.filter(y => y == x).length}</td>
-                <td>{(parseInt(x.price.slice(0,-1)) * (list.filter(y => y == x).length))+"$"}</td>
+                <td style={{color: '#0cafe5'}}>{(parseInt(x.price.slice(0,-1)) * (list.filter(y => y == x).length))+"$"}</td>
                 <td>
                   <IconButton style={{background: 'transparent'}} disableRipple onClick={() => dispatch(removeFromCart(x))}>
                     <HighlightOffIcon style={{color: 'red'}}/>
