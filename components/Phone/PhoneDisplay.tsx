@@ -16,18 +16,11 @@ import { Phone } from "../models/Phone";
 import { State } from "../../redux/reduxTypes";
 import { changeQuantity } from "../../redux/actions/phonesActions";
 import { addToCart } from "../../redux/actions/cartActions";
+import ImageMapper from "../../constants/ImageMapper";
 import BidHistory from "./BidHistory";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-const ImageMapper = (images: string[],changeCurrentImage: React.Dispatch<React.SetStateAction<string>>) => {
-    return images.map(x => (
-      <div className="other-image">
-          <Image src={x} width="55px" height="55px" onClick={() => changeCurrentImage(x)} />
-      </div>
-    ))
 }
 
 const PhoneDisplay = ({phone,bid} : {phone?: Phone, bid?: boolean}) => {
