@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+
 import { Grid, Typography,InputAdornment, Button, TextField } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { SocialIcon } from 'react-social-icons';
@@ -20,11 +21,29 @@ const RegisterForm = () => {
   const [email,changeEmail] = React.useState('');
   const [userName,changeUserName] = React.useState('');
   const [password,changePassword] = React.useState('');
-  const [confirmPassword,changeConfirmPassword] = React.useState('');
+  const [confirm_Password,changeConfirmPassword] = React.useState('');
 
   const [showPass,changeShowPass] = React.useState(false);
 
   const dispatch = useDispatch();
+
+  const sendRegister =  () => {
+
+      const payload = {
+        email, userName, password, confirm_Password
+      };
+
+      // console.log(payload);
+
+
+    fetch('http://localhost:10025/hello', {
+      mode: "no-cors",
+      method: 'GET',
+      // body: JSON.stringify(payload)
+    }).then(res => {
+      console.log(res);
+    })
+  }
 
   return (
     <Grid container className="register-tab">
@@ -72,9 +91,9 @@ const RegisterForm = () => {
         disableUnderline: true
       }}/>
 
-      <TextField placeholder="Confirm Password" value={confirmPassword}  type={showPass ? "text" : "password"}
+      <TextField placeholder="Confirm Password" value={confirm_Password}  type={showPass ? "text" : "password"}
       onChange={e => changeConfirmPassword(e.target.value)}
-      onBlur={() => dispatch(changeConfirmPasswordRedux(confirmPassword))}  InputProps={{
+      onBlur={() => dispatch(changeConfirmPasswordRedux(confirm_Password))}  InputProps={{
         className: "login-imput",
         startAdornment: (
         <InputAdornment position="start">
@@ -85,7 +104,9 @@ const RegisterForm = () => {
       }}/>
 
 
-      <Button title="Register" variant="contained" style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>Register</Button>
+      <Button title="Register" variant="contained" 
+        onClick={() => sendRegister()}
+      style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>Register</Button>
 
       <Typography variant="subtitle2" style={{margin: '10px', color: '#b3b3b3'}}>Already Have An Account ?
         <Link href="/login"><span style={{color: '#656', cursor: 'pointer'}}> Login !</span></Link>

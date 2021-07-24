@@ -4,8 +4,10 @@ import Link from 'next/link'
 import React from 'react'
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleNavbar } from '../../redux/actions/userInfoActions';
@@ -18,7 +20,7 @@ const MainHeader = () => {
   const displayMenu = useSelector((state : State) => state.userInfo.navbarToggle);
 
   // test
-  const loggedIn = false;
+  const loggedIn = true;
 
   return (
     <Grid container className="main-header">
@@ -44,9 +46,15 @@ const MainHeader = () => {
           <li><Link href={loggedIn ? "/user/1" : "/login"}>
             {loggedIn ? "Profile" : "Login"}</Link></li>
           <li>|</li>
-          <li><Link href={loggedIn ? "/logout" : "/register" }>
-            {loggedIn ? "Logout" : "Register"}</Link></li>
+          <li><Link href={loggedIn ? "/managment" : "/register" }>
+            {loggedIn ? "Managment" : "Register"}</Link></li>
           <li>
+            {loggedIn ? 
+             (
+              <IconButton style={{marginRight: 10, padding: '0', background: 'transparent'}} disableRipple>
+                  <ExitToAppIcon className="cartIcon" style={{fontSize: '20px'}}/>
+              </IconButton>)
+            : ""}
             <Link href="/cart">
               <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
                 <Badge badgeContent={numOfItems} color="secondary">
