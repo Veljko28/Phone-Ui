@@ -20,7 +20,7 @@ const MainHeader = () => {
   const displayMenu = useSelector((state : State) => state.userInfo.navbarToggle);
 
   // test
-  const loggedIn = true;
+  const loggedIn = false;
 
   return (
     <Grid container className="main-header">

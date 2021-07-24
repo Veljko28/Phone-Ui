@@ -14,14 +14,15 @@ import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { fetchPost } from '../../constants/CustomFetching';
 
 
 const RegisterForm = () => {
 
-  const [email,changeEmail] = React.useState('');
-  const [userName,changeUserName] = React.useState('');
-  const [password,changePassword] = React.useState('');
-  const [confirm_Password,changeConfirmPassword] = React.useState('');
+  const [Email,changeEmail] = React.useState('');
+  const [UserName,changeUserName] = React.useState('');
+  const [Password,changePassword] = React.useState('');
+  const [Confirm_Password,changeConfirmPassword] = React.useState('');
 
   const [showPass,changeShowPass] = React.useState(false);
 
@@ -30,19 +31,10 @@ const RegisterForm = () => {
   const sendRegister =  () => {
 
       const payload = {
-        email, userName, password, confirm_Password
+        email: Email, userName: UserName, password: Password, confirm_Password: Confirm_Password
       };
 
-      // console.log(payload);
-
-
-    fetch('http://localhost:10025/hello', {
-      mode: "no-cors",
-      method: 'GET',
-      // body: JSON.stringify(payload)
-    }).then(res => {
-      console.log(res);
-    })
+    fetchPost('http://localhost:10025/api/v1/users/register', payload);
   }
 
   return (
@@ -50,9 +42,9 @@ const RegisterForm = () => {
       <Typography variant="h6" style={{margin: '10px'}}>Register</Typography>
       <ColoredLine color="#eee"/>
 
-      <TextField placeholder="Email" value={email} 
+      <TextField placeholder="Email" value={Email} 
       onChange={e => changeEmail(e.target.value)}
-      onBlur={() => dispatch(changeEmailRedux(email))} InputProps={{
+      onBlur={() => dispatch(changeEmailRedux(Email))} InputProps={{
         className: "login-imput",
         startAdornment: (
         <InputAdornment position="start">
@@ -62,9 +54,9 @@ const RegisterForm = () => {
         disableUnderline: true
       }}/>
 
-       <TextField placeholder="Username" value={userName} 
+       <TextField placeholder="Username" value={UserName} 
       onChange={e => changeUserName(e.target.value)}
-      onBlur={() => dispatch(changeUserNameRedux(userName))} InputProps={{
+      onBlur={() => dispatch(changeUserNameRedux(UserName))} InputProps={{
         className: "login-imput",
         startAdornment: (
         <InputAdornment position="start">
@@ -74,9 +66,9 @@ const RegisterForm = () => {
         disableUnderline: true
       }}/>
 
-      <TextField placeholder="Password" value={password}  type={showPass ? "text" : "password"}
+      <TextField placeholder="Password" value={Password}  type={showPass ? "text" : "password"}
       onChange={e => changePassword(e.target.value)}
-      onBlur={() => dispatch(changePasswordRedux(password))}  InputProps={{
+      onBlur={() => dispatch(changePasswordRedux(Password))}  InputProps={{
         className: "login-imput",
         startAdornment: (
         <InputAdornment position="start">
@@ -91,9 +83,9 @@ const RegisterForm = () => {
         disableUnderline: true
       }}/>
 
-      <TextField placeholder="Confirm Password" value={confirm_Password}  type={showPass ? "text" : "password"}
+      <TextField placeholder="Confirm Password" value={Confirm_Password}  type={showPass ? "text" : "password"}
       onChange={e => changeConfirmPassword(e.target.value)}
-      onBlur={() => dispatch(changeConfirmPasswordRedux(confirm_Password))}  InputProps={{
+      onBlur={() => dispatch(changeConfirmPasswordRedux(Confirm_Password))}  InputProps={{
         className: "login-imput",
         startAdornment: (
         <InputAdornment position="start">
