@@ -1,17 +1,18 @@
 
-export const fetchPost = (url: string, payload: any) => {
+export const fetchPost = async (url: string, payload: any) => {
     const str = JSON.stringify(payload);
 
-    fetch(url, {
+    const res = await fetch(url, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: str,
       method: 'POST',
-    }).then(res => {
-      return res;
-    }).catch(x => console.log('failed to fetch'));
+    });
+
+    console.log(res.ok);
+    return res.ok;
 }
 
 
