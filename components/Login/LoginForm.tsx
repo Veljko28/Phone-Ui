@@ -11,6 +11,7 @@ import { SocialIcon } from 'react-social-icons';
 import { useDispatch } from 'react-redux';
 import { inputEmailUsername, inputPassword } from '../../redux/actions/loginActions';
 import ColoredLine from '../../constants/ColoredLine';
+import { fetchPost } from '../../constants/CustomFetching';
 
 
 const LoginForm = () => {
@@ -21,6 +22,14 @@ const LoginForm = () => {
   const [showPass,changeShowPass] = React.useState(false);
 
   const dispatch = useDispatch();
+
+  const loginUser = () => {
+    const payload = {
+      email_UserName: email,password
+    };
+
+    fetchPost('http://localhost:10025/api/v1/users/login', payload);
+  }
 
   return (
     <Grid container className="login-tab">
@@ -57,7 +66,8 @@ const LoginForm = () => {
         disableUnderline: true
       }}/>
 
-      <Button title="Login" variant="contained" style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>Login</Button>
+      <Button title="Login" onClick={() => loginUser()} variant="contained" 
+      style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>Login</Button>
 
       <Typography variant="subtitle2" style={{margin: '10px', color: '#b3b3b3'}}>New Here ? 
         <Link href="/register"><span style={{color: '#656', cursor: 'pointer'}}> Register !</span></Link>
