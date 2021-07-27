@@ -7,23 +7,25 @@ const Alert = (props: any) => {
 }
 
 
-export const SnackBarSuccess = (snackBarOpen: boolean, changeSnackBarOpen: React.Dispatch<React.SetStateAction<boolean>>, message: string) => {
-   <Snackbar 
+export const SnackBarSuccess = ({snackBarOpen,changeSnackBarOpen,message} :
+  {snackBarOpen: boolean, changeSnackBarOpen: React.Dispatch<React.SetStateAction<boolean>>, message: string}) => {
+   return (<Snackbar 
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       open={snackBarOpen} autoHideDuration={5000} onClose={() => changeSnackBarOpen(false)}>
         <Alert onClose={() => changeSnackBarOpen(false)} severity="success">
           {message}
         </Alert>
-     </Snackbar>
+     </Snackbar>)
 }
 
 
-export const SnackBarFailed = (snackBarOpen: boolean, changeSnackBarOpen: React.Dispatch<React.SetStateAction<boolean>>, message: string) => {
-   <Snackbar 
+export const SnackBarFailed = ({snackBarOpen,changeSnackBarOpen,message} :
+  {snackBarOpen: boolean, changeSnackBarOpen: React.Dispatch<React.SetStateAction<boolean>>, message: string}) => {
+   return (<Snackbar 
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       open={snackBarOpen} autoHideDuration={5000} onClose={() => changeSnackBarOpen(false)}>
         <Alert onClose={() => changeSnackBarOpen(false)} severity="error">
           {message}
         </Alert>
-     </Snackbar>
+     </Snackbar>)
 }
