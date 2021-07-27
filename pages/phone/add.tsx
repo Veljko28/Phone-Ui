@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { Grid, Typography, TextField, InputAdornment,
      Button} from '@material-ui/core';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
@@ -8,14 +9,18 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import TitleChange from '../../constants/TitleChange';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
-import { fetchPost } from '../../constants/CustomFetching';
+import { fetchPost, fetchPostForm } from '../../constants/CustomFetching';
 
 
 
 const AddPhone = () => {
 
+    const router = useRouter();
+
     const [currentImage,changeCurrentImage] = React.useState('');
-    const [files, changeFiles] = React.useState([]);
+    const [imageBlobs, changeImageBlob] = React.useState([]);
+    const [files,changeFiles] = React.useState([]);
+
 
     const [formInfo,changeFormInfo] = React.useState({
         name: "",
@@ -33,21 +38,43 @@ const AddPhone = () => {
     const uploadFile = (e: any) => {
         if (e.target.files[0] === null || e.target.files[0] === undefined) return;
 
+        
         const file = e.target.files[0];
         const blob = URL.createObjectURL(file);
-        const list = files as any;
+        const list = imageBlobs as any;
+
         list.push(blob);
-        changeFiles(list);
+        
+        let filesCopy = files as any;
+        filesCopy.push(file);
+        changeFiles(filesCopy);
+
+        changeImageBlob(list);
         changeCurrentImage(blob);
-        console.log(files);
-        console.log(file);
-        console.log(URL.createObjectURL(file));
+
+        // console.log(imageBlobs);
+        // console.log(file);
+        // console.log(URL.createObjectURL(file));
     }
 
     const removeCurrentImage = () => {
-        let list = files as any;
+        let list = imageBlobs as any;
         list = list.filter((x: string) => x !== currentImage);
-        changeFiles(list);
+        
+        let idx = imageBlobs.length-1;
+
+        for (let i = 0;i<list.length;i++){
+            if (list[i] != imageBlobs[i]){
+                idx = i;
+                break;
+            }
+        }
+
+        let filesCopy = files as any;
+        filesCopy.splice(idx);
+        changeFiles(filesCopy);
+        
+        changeImageBlob(list);
         if (list.length > 0) {
             changeCurrentImage(list[0]);
         }
@@ -57,22 +84,34 @@ const AddPhone = () => {
     const addPhoneApi = async () => {
         // for testing only
         const userId = "7953981b-8594-4299-b828-9386cdef9ec8"
-        console.log(formInfo);
-        const ok = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, formInfo);
+        // const phoneId = "1b3a55d9-d82a-42bf-910b-ee19e71496a4"; 
 
-       if (ok) {
+        // Sending Phone Info
+        const phoneId = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, formInfo);
+
+        if (!phoneId) {
+            changeError(true);
+            return;
+        }
+
+        // Sending Image
+        const ok = await fetchPostForm('http://localhost:10025/api/v1/generic/phone/image', files, 0, phoneId);
+
+       if (ok && phoneId) {
          changeSnackbarOpen(true);
+         setTimeout(() => {
+            router.push(`/phone/${phoneId}`)
+         }, 3000)
        }
        else changeError(true);
     }
 
-
     return (
-        <Grid container style={{backgroundColor: '#fff', paddingBottom: 100}}>
+        <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Add`} />
-            <Grid item xs={2}/>
+            <Grid item lg={2}/>
 
-            <Grid item xs={4}>
+            <Grid item sm={12} md={6} lg={4}>
 
                 <Grid item>
                     {currentImage === '' ? (
@@ -88,13 +127,13 @@ const AddPhone = () => {
                 </Grid>
 
                 <Grid item style={{display: 'flex', margin: 20, marginTop: 0}}>
-                    {files.map(x => (
-                        <div className="other-image" style={{margin: 10, marginLeft: 0}} onClick={() => changeCurrentImage(x)}>
+                    {imageBlobs.map(x => (
+                        <div className="other-image" key={x} style={{margin: 10, marginLeft: 0}} onClick={() => changeCurrentImage(x)}>
                             <img src={x} width="65px"
                             height="65px" />
                         </div>
                     ))}
-                    {files.length === 3 ? null : (
+                    {imageBlobs.length === 3 ? null : (
                         <div className="other-image" style={{margin: 10, marginLeft: 0}}>
                             <input type="file" accept="image/*" onChange={(e: any) => uploadFile(e)} ref={inputRef} style={{display: 'none'}}/>
                             <button onClick={() => (inputRef as any).current.click()}
@@ -113,7 +152,7 @@ const AddPhone = () => {
                     
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item sm={12} md={6} lg={4}>
                 <Typography variant="h4"  
                 style={{color: '#0cafe5', marginTop: 10, marginLeft: 10}}>Add Phone</Typography>
                 
@@ -177,7 +216,7 @@ const AddPhone = () => {
                 }}/>
 
                 <Button variant="contained" 
-                style={{backgroundColor: '#0cafe5', color: '#fff', margin: 10}}
+                style={{backgroundColor: '#0cafe5', color: '#fff'}}
                 onClick={() => addPhoneApi()}>
                     <CheckIcon style={{fontSize: 20, margin: 2}}/>
                     Submit
@@ -191,10 +230,11 @@ const AddPhone = () => {
 
             </Grid>
 
-            <Grid item xs={2}/>
+            <Grid item lg={2}/>
             
-            {SnackBarSuccess(snackbar,changeSnackbarOpen,"Successfully added your phone !")}
-            {SnackBarFailed(error,changeError,"Failed to add your phone !")}
+            <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message="Successfully added your phone !"/>
+
+            <SnackBarFailed snackBarOpen={error} changeSnackBarOpen={() => changeError(false)} message={"Failed to add your phone !"}/>
 
         </Grid>
     )
