@@ -23,9 +23,10 @@ const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const PhoneDisplay = ({phone,bid} : {phone?: Phone, bid?: boolean}) => {
+const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid?: boolean}) => {
+
   // Temp variables for testing
-  const discount = bid ? null : "1200$" ;
+  // const discount = bid ? null : "1200$" ;
 
   const quantity = useSelector((state: State) => state.phones.quantity);
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const PhoneDisplay = ({phone,bid} : {phone?: Phone, bid?: boolean}) => {
     <Grid container className="display-container">
       <Grid item className="other-images">
          {/* Map the phone.images when fetching from a real api */}
-          {ImageMapper(['/phone.jpg','/phone2.jpg','/phone3.jpg'], changeCurrentImage)}
+          {ImageMapper(images as any, changeCurrentImage)}
       </Grid>
 
       <Grid item>
@@ -73,21 +74,17 @@ const PhoneDisplay = ({phone,bid} : {phone?: Phone, bid?: boolean}) => {
       </Grid>
 
       <Grid item style={{padding: '20px'}}>
-        <Typography variant='subtitle1' style={{fontSize: '20px'}}>{name}</Typography>
+        <Typography variant='subtitle1' style={{fontSize: '20px'}}>{phone?.name}</Typography>
         <div className="phone-rating">
           <Rating name="phone-rating" value={4.6} precision={0.1} readOnly style={{fontSize: '13px'}}/>
           <span style={{color: '#999', fontSize: '12px',margin: '5px' }}>(4.6 Review Stars)</span>
         </div>
         <Typography variant="subtitle1" >
-          {discount ? (
-          <>
-          <span style={{color: '#0cafe5', fontSize: "35px"}}>{discount} </span>
-          <span style={{color: 'red', textDecoration: 'line-through', fontSize: "20px"}}>{price}</span>
-          </>) : 
-          (<span style={{color: '#0cafe5', fontSize: "35px"}}>{bid ? "Highest Bid: " : ""}{price}</span>)
-          }
+
+          <span style={{color: '#0cafe5', fontSize: "35px"}}>{bid ? "Highest Bid: " : ""}{phone?.price}</span>
+
           <span style={{color: '#999', fontSize: '15px', display: 'flex', width: '400px'}}>
-            12.2 MP Rear | 8 MP Front Camera, 4GB RAM, 2700 mAh battery, Android 8.0, Qualcomm Snapdragon 835, Fingerprint Sensor
+            {phone?.description}
           </span>
           {bid ? (<>
            <span style={{fontSize: '12px'}}>

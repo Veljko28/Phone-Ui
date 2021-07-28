@@ -87,7 +87,9 @@ const AddPhone = () => {
         // const phoneId = "1b3a55d9-d82a-42bf-910b-ee19e71496a4"; 
 
         // Sending Phone Info
-        const phoneId = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, formInfo);
+        const res = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, formInfo);
+        const phone = await res.json();
+        const phoneId = phone?.id;
 
         if (!phoneId) {
             changeError(true);

@@ -8,18 +8,34 @@ import PhoneReviews from '../../components/Phone/PhoneReviews';
 import AddPhoneReview from '../../components/Phone/AddPhoneReview';
 import { LatestProducts } from '../../components/FrontPage/LatestProducts';
 import TitleChange from '../../constants/TitleChange';
-
-import { useSelector } from 'react-redux';
-import { State } from '../../redux/reduxTypes';
+import { fetchGet } from '../../constants/CustomFetching';
+import { Phone } from '../../components/models/Phone';
 
 
 const PhonePage = () => {
   
   const router = useRouter()
-  const { id } = router.query
+  const { id } = router.query;
 
+  const [phone,changePhone] = React.useState<Phone | undefined>(undefined);
+  const [images, changeImages] = React.useState<string[] | undefined>(undefined);
+  
   React.useEffect(() => {
-    // Fetch phone using the id with axios
+    const func = async () => {
+      const res = await fetchGet(`http://localhost:10025/api/v1/phones/${id as string}`);
+
+      if ((res as Response).ok){
+        changePhone(await (res as Response).json());
+      }
+
+      const res2 = await fetchGet(`http://localhost:10025/api/v1/phones/images/${id}`);
+
+      if ((res2 as Response).ok){
+        changeImages(await (res2 as Response).json());
+      }
+    }
+
+    func();
   },[])
 
 
@@ -29,7 +45,9 @@ const PhonePage = () => {
       <Grid md={1} lg={2} item/>
 
       <Grid xs={12} md={10} lg={8} item> 
-        <PhoneDisplay />
+        <PhoneDisplay 
+        // phone={phone} images={images}
+        />
         <PhoneDetails />
         <PhoneRatings />
         <PhoneReviews />
