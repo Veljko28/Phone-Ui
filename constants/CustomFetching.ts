@@ -33,8 +33,7 @@ export const fetchPost = async (url: string, payload: any) => {
       return false;
     })
 
-    const phone = await res.json();
-    return phone?.id;
+    return res;
 }
 
 
@@ -61,7 +60,7 @@ export const fetchPostForm = async (url: string, payload: any, type: number, id:
     return res.ok;
 }
 
-export const fetchGet = (url: string) => {
-  fetch(url, { method: 'GET',}).then(res => {return res;})
-  .catch(err => console.log('failed to fetch'));
+export const fetchGet = async (url: string) => {
+  const res = await fetch(url, { method: 'GET',}).catch(err => console.log('failed to fetch'));
+  return  res;
 }
