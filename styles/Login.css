@@ -16,7 +16,6 @@
   flex-direction: column;
   max-width: 500px;
   min-width: 250px;
-  height: 570px;
   padding: 30px;
   margin: 30px;
 }
@@ -37,6 +36,14 @@
   font-size: 15px;
   padding: 8px;
   margin: 10px;
+}
+
+.login-imput-error {
+  background-color: #eee;
+  font-size: 15px;
+  padding: 8px;
+  margin: 10px;
+  border: 1px solid red;
 }
 
 .login-imput:focus {
