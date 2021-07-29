@@ -22,6 +22,7 @@ export interface State {
         password: string
     },
     userInfo: {
-        navbarToggle: boolean
+        navbarToggle: boolean,
+        logged_in: boolean
     }
 }
