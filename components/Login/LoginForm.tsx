@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import { Grid, Typography, TextField, InputAdornment, Button, CircularProgress} from '@material-ui/core';
 
 import PersonIcon from '@material-ui/icons/Person';
@@ -9,15 +11,19 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import * as yup from 'yup';
 import { SocialIcon } from 'react-social-icons';
 import YupError from '../../constants/YupError';
+import { JwtToken } from '../../constants/jwtTypes';
 import socialLinks from '../../constants/SocialLinks';
 import ColoredLine from '../../constants/ColoredLine';
 import { fetchPost } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
+import { changeLoginStatus } from '../../redux/actions/userInfoActions';
 
 
 const LoginForm = () => {
 
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const [form, changeForm] = React.useState({
     email: '',
@@ -58,6 +64,12 @@ const LoginForm = () => {
 
     if (res.ok){
       changeSnackBar({...snackBar, success: true, loading: false});
+      const jwt: JwtToken = await res.json();
+      localStorage.setItem('jwt', jwt.token);
+      dispatch(changeLoginStatus(true));
+       setTimeout(() => {
+            router.push(`/`)
+         }, 1500)
     }
 
     else changeSnackBar({...snackBar, error: true, loading: false});
