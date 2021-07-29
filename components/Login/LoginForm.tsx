@@ -52,7 +52,8 @@ const LoginForm = () => {
       changeErrors(formatYupError(err) as any);
       return;
     }
-
+    
+    changeSnackBar({...snackBar,loading: true});
     const res = await fetchPost('http://localhost:10025/api/v1/users/login', payload);
 
     if (res.ok){

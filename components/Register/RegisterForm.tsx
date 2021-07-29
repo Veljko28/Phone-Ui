@@ -45,19 +45,19 @@ const RegisterForm = () => {
 
   const sendRegister = async () => {
 
-      changeSnackBar({...snackBar,loading: true});
-
-      try {
-        await yupSchema.validate(form, {abortEarly: false});
-        if (form.password !== form.confirm_Password) {
-          return;
-        }
-      }
-      catch (err) {
-        changeErrors((formatYupError(err) as any));
+    
+    try {
+      await yupSchema.validate(form, {abortEarly: false});
+      if (form.password !== form.confirm_Password) {
         return;
       }
-
+    }
+    catch (err) {
+      changeErrors((formatYupError(err) as any));
+      return;
+    }
+    
+    changeSnackBar({...snackBar,loading: true});
     const res = await fetchPost('http://localhost:10025/api/v1/users/register', form);
     
     if (res.ok){
