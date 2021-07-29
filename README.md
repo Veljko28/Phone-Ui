@@ -1,5 +1,7 @@
 ## MobiStore - React User-Interface 
 
+![MobiStore](/public/logo.png?raw=true "MobiStore")
+
 This is a project for sell and buying phones online all over the world !
 The main things used for this project are `React`, `Next.js`, `Redux`, `Material-Ui`, and `Typescript`.
 
