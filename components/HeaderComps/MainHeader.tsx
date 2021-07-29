@@ -1,4 +1,5 @@
 import { Grid, IconButton, Badge } from '@material-ui/core'
+import { useRouter } from 'next/router';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -10,17 +11,33 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import { State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleNavbar } from '../../redux/actions/userInfoActions';
+import { changeLoginStatus, toggleNavbar } from '../../redux/actions/userInfoActions';
 
 const MainHeader = () => {
+  const router = useRouter();
+
   const numOfItems = useSelector((state : State) => state.cart.items.length);
   const [userSearch,ChangeUserSearch] = React.useState('');
 
   const dispatch = useDispatch();
   const displayMenu = useSelector((state : State) => state.userInfo.navbarToggle);
 
-  // test
-  const loggedIn = false;
+  let jwt: string | null = "";
+
+  if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+      if (jwt) dispatch(changeLoginStatus(true));
+  }
+
+  const loggedIn = useSelector((state : State) => state.userInfo.logged_in);
+
+  const exitApp = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('jwt');
+      dispatch(changeLoginStatus(false));
+    }
+    router.push('/');
+  }
 
   return (
     <Grid container className="main-header">
@@ -51,7 +68,7 @@ const MainHeader = () => {
           <li>
             {loggedIn ? 
              (
-              <IconButton style={{marginRight: 10, padding: '0', background: 'transparent'}} disableRipple>
+              <IconButton onClick={() => exitApp()} style={{marginRight: 10, padding: '0', background: 'transparent'}} disableRipple>
                   <ExitToAppIcon className="cartIcon" style={{fontSize: '20px'}}/>
               </IconButton>)
             : ""}
