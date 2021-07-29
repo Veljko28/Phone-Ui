@@ -1,12 +1,18 @@
 export const fetchPostBid = async (url: string, payload: any) => {
-    console.log(payload);
 
     const str = JSON.stringify(payload);
+
+    let jwt: string | null = "";
+
+    if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+    }
 
     const res: any = await fetch(url, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`
       },
       body: str,
       method: 'POST',
@@ -19,12 +25,21 @@ export const fetchPostBid = async (url: string, payload: any) => {
 }
 
 export const fetchPost = async (url: string, payload: any) => {
+  
+    let jwt: string | null = "";
+
+    if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+    }
+
+
     const str = JSON.stringify(payload);
 
     const res: any = await fetch(url, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`
       },
       body: str,
       method: 'POST',
@@ -39,7 +54,12 @@ export const fetchPost = async (url: string, payload: any) => {
 
 export const fetchPostForm = async (url: string, payload: any, type: number, id: string) => {
 
-    // Fix sending files to fetch
+      let jwt: string | null = "";
+
+      if (typeof window !== 'undefined') {
+        jwt = localStorage.getItem('jwt');
+      }
+
 
       const data = new FormData();
       for (const file of payload){
@@ -50,6 +70,9 @@ export const fetchPostForm = async (url: string, payload: any, type: number, id:
 
 
     const res: any = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${jwt}`
+      },
       body: data,
       method: 'POST',
     }).catch((error) => {
@@ -61,6 +84,20 @@ export const fetchPostForm = async (url: string, payload: any, type: number, id:
 }
 
 export const fetchGet = async (url: string) => {
-  const res = await fetch(url, { method: 'GET',}).catch(err => console.log('failed to fetch'));
+
+    let jwt: string | null = "";
+
+      if (typeof window !== 'undefined') {
+        jwt = localStorage.getItem('jwt');
+      }
+
+  const res = await fetch(url,
+     {
+       headers: {
+        'Authorization': `Bearer ${jwt}`
+        },
+       method: 'GET'
+      })
+      .catch(err => console.log('failed to fetch'));
   return  res;
 }
