@@ -33,9 +33,12 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid
 
   // only for testing
   const [price,changePrice] = React.useState("250$");
-  const name = "Google Pixel";
 
-  const [currentImage,changeCurrentImage] = React.useState('/phone.jpg');
+  React.useEffect(() => {
+    if (images !== undefined) changeCurrentImage(images[0]);
+  },[images]);
+
+  const [currentImage,changeCurrentImage] = React.useState('');
   const [bidAmount,changeBidAmount] = React.useState(parseInt(price.slice(0,-1))+1);
   const [dialogOpen,changeDialogOpen] = React.useState(false);
   const [snackBarOpen,changeSnackBarOpen] = React.useState(false);
@@ -69,7 +72,7 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid
 
       <Grid item>
         <div className="display-image">
-          <Image src={currentImage} width="325px" height="325px" />
+          <img src={currentImage} width="325px" height="325px" />
         </div>
       </Grid>
 
@@ -81,7 +84,7 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid
         </div>
         <Typography variant="subtitle1" >
 
-          <span style={{color: '#0cafe5', fontSize: "35px"}}>{bid ? "Highest Bid: " : ""}{phone?.price}</span>
+          <span style={{color: '#0cafe5', fontSize: "35px"}}>{bid ? "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
 
           <span style={{color: '#999', fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
@@ -149,7 +152,7 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       open={snackBarOpen} autoHideDuration={5000} onClose={() => changeSnackBarOpen(false)}>
         <Alert onClose={() => changeSnackBarOpen(false)} severity="success">
-          Successfully placed a bid of {bidAmount}$ on {name}
+          Successfully placed a bid of {bidAmount}$ on {phone?.name}
         </Alert>
       </Snackbar>
 

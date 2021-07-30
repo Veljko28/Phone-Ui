@@ -1,9 +1,10 @@
 import React from 'react'
 import Image from 'next/image';
-import {Grid} from '@material-ui/core';
+import {Grid, Switch} from '@material-ui/core';
 import { State } from '../../redux/reduxTypes';
 import { useSelector } from 'react-redux';
 import LanguagePopUp from './LanguagePopUp';
+
 
 
 
@@ -27,6 +28,10 @@ const HelpBar = () => {
     <Grid container className="helper-container">
       <Grid item xs={6}/>
       <Grid item xs={6} className="top-grid">
+        <Switch
+        defaultChecked
+        color="default"
+        size="small"/>
         <div onClick={e => openLang(e)} className="flag-support">
          <Image src={lang == 'en' ? '/lang/en.png' : '/lang/sr.png'} 
               alt={lang == 'en' ? "English" : "Српски"} width="20" height="15"  />
