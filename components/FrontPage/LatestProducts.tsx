@@ -1,17 +1,14 @@
-import { Grid, Typography } from '@material-ui/core';
-import { PhoneCard } from '../PhoneCard';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { Phone } from '../models/Phone';
+import { PhoneCard } from '../PhoneCard';
 import { State } from '../../redux/reduxTypes';
+import { Grid, Typography } from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
 
 
 
-export const LatestProducts = ({title}: {title: string}) => {
-  const list = useSelector((state: State) => state.phones.list);
-  React.useEffect(() => {
-    // axios code for fetching latest phones
-  }, []);
+export const LatestProducts = ({title, phones}: {title: string, phones?: [Phone]}) => {
+  console.log(phones);
   return (
     <Grid container style={{
       backgroundColor: '#fff',
@@ -21,9 +18,9 @@ export const LatestProducts = ({title}: {title: string}) => {
     }}>
       <Typography variant="h6" style={{color: '#0cafe5', marginLeft: '40px'}}>{title}</Typography>
       <ColoredLine color="#eee"/>
-      {list.splice(0,4).map(x => (
+      {phones?.map(x => (
         <PhoneCard key={x.id} name={x.name} 
-        images={["/phone.jpg","/phone2.jpg","/phone3.jpg"]} price="1500$" discount="1200$" id={x.id} />
+        images={["/phone.jpg","/phone2.jpg","/phone3.jpg"]} price={x.price + '$'} id={x.id} />
       ))}
     </Grid>
   )

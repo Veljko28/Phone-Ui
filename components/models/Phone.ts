@@ -5,5 +5,4 @@ export interface Phone {
   price: string,
   dateCreated: Date,
   expires: Date
-  images: string[]
 }
