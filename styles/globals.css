@@ -7,6 +7,11 @@ body {
   background-color: #eee;
 }
 
+:root {
+  --white: #ffffff;
+  --dark: #292C35;
+}
+
 a {
   color: inherit;
   text-decoration: none;

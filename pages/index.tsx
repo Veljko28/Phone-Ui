@@ -5,9 +5,27 @@ import EmailSubscribe from '../components/FrontPage/EmailSubscribe';
 import CategoryButtons from "../components/FrontPage/CategoryButtons";
 import CarouselMain from "../components/FrontPage/CarouselMain";
 import TitleChange from "../constants/TitleChange";
+import React from 'react';
+import { fetchGet } from "../constants/CustomFetching";
 // import { ImageCarousel } from "../components/ImageCarousel"
 
 export default function Home() {
+
+  const [phones,changePhones] = React.useState({
+    featured: undefined,
+    latest: undefined
+  });
+
+  React.useEffect(() => {
+    const func = async () => {
+      const res = await fetchGet('http://localhost:10025/api/v1/phones/featured');
+
+      changePhones({...phones, featured: await (res as Response).json()});
+    }
+
+    func();
+  },[]);
+
   return (
     <Grid container justify="center">
 
@@ -28,7 +46,7 @@ export default function Home() {
           <Grid item xs={2}/>
 
           <Grid item xs={8}>
-            <LatestProducts title="Latest Products"/>
+            <LatestProducts title="Latest Products" />
           </Grid>
 
           <Grid item xs={2}/>
@@ -36,7 +54,7 @@ export default function Home() {
           <Grid item xs={2}/>
 
           <Grid item xs={8}>
-            <LatestProducts title="Featured Products"/>
+            <LatestProducts title="Featured Products" phones={phones.featured}/>
           </Grid>
 
           <Grid item xs={2}/>
