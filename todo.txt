@@ -10,6 +10,8 @@ mobile navbar stack ✅
 Wish list ✅ 
 search bar ✅ 
 search optimization
+search api config
+search display ✅ 
 
 language translations (react-i18next)
 language icon fix ✅
@@ -18,6 +20,14 @@ compress images
 move nessesary images to api
 
 clean the code
-mobile optimization
+mobile optimization ✅
 header titles ✅
-emptt cart image fix ✅
+empty cart image fix ✅
+
+better forms ✅
+form validation ✅
+login and register api config ✅
+contact api config ✅
+jwt store ✅
+phone display api ✅
+add phone / bid page ✅
