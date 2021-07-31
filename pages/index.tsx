@@ -20,7 +20,9 @@ export default function Home() {
     const func = async () => {
       const res = await fetchGet('http://localhost:10025/api/v1/phones/featured');
 
-      changePhones({...phones, featured: await (res as Response).json()});
+      if(res && res.ok){
+        changePhones({...phones, featured: await (res as Response).json()});
+      }
     }
 
     func();
