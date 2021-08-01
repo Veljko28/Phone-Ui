@@ -51,6 +51,31 @@ export const fetchPost = async (url: string, payload: any) => {
     return res;
 }
 
+export const fetchForm = async (url: string, payload: any) => {
+
+      let jwt: string | null = "";
+
+      if (typeof window !== 'undefined') {
+        jwt = localStorage.getItem('jwt');
+      }
+
+      const data = new FormData();
+      data.append("Files", payload);
+
+    const res: any = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${jwt}`
+      },
+      body: data,
+      method: 'POST',
+    }).catch((error) => {
+      console.log(error);
+      return false;
+    })
+
+    return res;
+}
+
 
 export const fetchPostForm = async (url: string, payload: any, type: number, id: string) => {
 
