@@ -126,3 +126,8 @@
       .25em 0 0 #0cafe5,
       .5em 0 0 #0cafe5;
     }}
+
+.user-links:hover {
+  text-decoration: none;
+  color: #000;
+}
