@@ -8,7 +8,6 @@ import ColoredLine from '../../constants/ColoredLine';
 
 
 export const LatestProducts = ({title, phones}: {title: string, phones?: [Phone]}) => {
-  console.log(phones);
   return (
     <Grid container style={{
       backgroundColor: '#fff',
@@ -20,7 +19,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: [Phone]
       <ColoredLine color="#eee"/>
       {phones?.map(x => (
         <PhoneCard key={x.id} name={x.name} 
-        images={["/phone.jpg","/phone2.jpg","/phone3.jpg"]} price={x.price + '$'} id={x.id} />
+        image={x.image ? x.image : "/phone.jpg"} price={x.price + '$'} id={x.id} />
       ))}
     </Grid>
   )
