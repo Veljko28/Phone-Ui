@@ -43,11 +43,14 @@ const MainHeader = () => {
     <Grid container className="main-header">
       <Grid item lg={1}/>
       <Grid item xs={12} lg={2} container justify="center">
-        <a href="/"><Image src="/logo.png" alt="logo" width="157" height="47" className="pointer"/></a>
+        <Link href="/"><Image src="/logo.png" alt="logo" width="157" height="47" className="pointer"/></Link>
       </Grid>
       <Grid item xs={12} lg={5}>
       <div className="wrap">
-        <div className="search">
+        <form onSubmit={e => {
+          e.preventDefault();
+          router.push(`/search/${userSearch}`)
+          }} className="search">
             <input type="text" className="searchTerm" placeholder="What are you looking for?" value={userSearch} 
             onChange={e => ChangeUserSearch(e.target.value)} />
             <div className="searchButton">
@@ -55,12 +58,12 @@ const MainHeader = () => {
                 <SearchIcon/>
               </Link>
           </div>
-        </div>
+        </form>
       </div>
       </Grid>
       <Grid item xs={12} lg={3} container justify="center">
         <ul className="user-control">
-          <li><Link href={loggedIn ? "/user/1" : "/login"}>
+          <li><Link href={loggedIn ? `/user/${localStorage.getItem('userId')}` : "/login"}>
             {loggedIn ? "Profile" : "Login"}</Link></li>
           <li>|</li>
           <li><Link href={loggedIn ? "/managment" : "/register" }>
