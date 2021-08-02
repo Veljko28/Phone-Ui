@@ -94,11 +94,12 @@ const AddPhone = () => {
         }
         const photo = await displayPhotoRes.text();
         console.log(photo);
-        changeFormInfo({...formInfo, image: photo});
-        console.log(formInfo);
+
+        const newForm = {...formInfo, image: photo};
+        console.log(newForm);
 
         // Sending Phone Info
-        const res = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, formInfo);
+        const res = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, newForm);
         const phone = await res.json();
         const phoneId = phone?.id;
 

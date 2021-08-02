@@ -36,7 +36,7 @@ const ItemsInCart = () => {
             </tr>
           </thead>
           <tbody>
-            {list.filter((v: number,i: number,self: any) => self.indexOf(v) === i).map((x: Phone) => (
+            {list.filter((v: Phone,i: number,self: any) => self.indexOf(v) === i).map((x: Phone) => (
               <tr>
                 <td>
                   <Link href={`/phone/${x.id}`}>
