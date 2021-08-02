@@ -3,12 +3,13 @@ import ColoredLine from '../../constants/ColoredLine';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
+import { Phone } from '../models/Phone';
 
 const PriceDetails = () => {
 
   const list = useSelector((state: State) => state.cart.items);
 
-  const totalPrice = list.length == 0 ? '0' : list.map(x => parseInt(x.price.slice(0,-1))).reduce((a,b) => a+b);
+  const totalPrice = list.length == 0 ? '0' : list.map((x: Phone) => parseInt(x.price)).reduce((a: number,b: number) => a+b);
 
   return (
     <Grid container className="price-details">
@@ -24,7 +25,7 @@ const PriceDetails = () => {
           </Typography>
           <ColoredLine color="#eee" height="2px" />
           <Typography variant="subtitle2" style={{marginTop: '10px'}}>
-            <strong>Amount Payable {totalPrice + "$"}</strong>
+            <strong>Amount to Pay {totalPrice + "$"}</strong>
           </Typography>
           <Button style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', marginTop: '15px'}}>Proceed To Checkout</Button>
         </div>

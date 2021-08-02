@@ -11,10 +11,13 @@ import ColoredLine from '../../constants/ColoredLine';
 import { useSelector, useDispatch} from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { removeFromCart } from '../../redux/actions/cartActions';
+import { Phone } from '../models/Phone';
 
 const ItemsInCart = () => {
   const list = useSelector((state: State) => state.cart.items);
   const dispatch = useDispatch();
+
+  console.log(list);
 
   return (
     <>
@@ -33,24 +36,23 @@ const ItemsInCart = () => {
             </tr>
           </thead>
           <tbody>
-            {list.filter((v,i,self) => self.indexOf(v) === i).map(x => (
+            {list.filter((v: number,i: number,self: any) => self.indexOf(v) === i).map((x: Phone) => (
               <tr>
-                <td 
-                >
-                  <Link href={`/phone/${x.id}}`}>
+                <td>
+                  <Link href={`/phone/${x.id}`}>
                     <Grid container item style={{display: 'flex', alignContent: 'center'}}>
                       <Grid item xs={12} sm={6}>
-                        <Image src={x.images[0]} width="50px" height="50px" className="phone-image-cart"/>
+                        <img src={x.image} width="50px" height="50px" className="phone-image-cart"/>
                       </Grid>
-                      <Grid item xs={12} sm={6} style={{display: 'flex', justifyContent: 'center' }}>
+                      <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <span className="phone-name-cart">{x.name}</span>
                       </Grid>
                     </Grid>
                   </Link>
                   </td>
-                <td>{x.price}</td>
-                <td style={{textAlign: 'center'}}>{list.filter(y => y == x).length}</td>
-                <td style={{color: '#0cafe5'}}>{(parseInt(x.price.slice(0,-1)) * (list.filter(y => y == x).length))+"$"}</td>
+                <td>{x.price + "$"}</td>
+                <td style={{textAlign: 'center'}}>{list.filter((y: Phone) => y == x).length}</td>
+                <td style={{color: '#0cafe5'}}>{(list.filter((y: Phone) => y == x).length * parseInt(x.price)) + "$"}</td>
                 <td>
                   <IconButton style={{background: 'transparent'}} disableRipple onClick={() => dispatch(removeFromCart(x))}>
                     <HighlightOffIcon style={{color: 'red'}}/>
