@@ -8,7 +8,7 @@ import TitleChange from "../../constants/TitleChange";
 const phones = () => {
 
   const router = useRouter()
-  const { id } = router.query
+  const id = router.query['id'];
 
     return ( 
         <Grid container>
@@ -17,7 +17,7 @@ const phones = () => {
                 <CategoryBar/>
             </Grid> 
             <Grid item xs={12} md={9}>
-                <PhoneList/>
+                <PhoneList id={id as string}/>
                 <Pages pageId={id}/>
             </Grid> 
         </Grid>

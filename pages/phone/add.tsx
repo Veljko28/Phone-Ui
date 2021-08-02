@@ -88,12 +88,12 @@ const AddPhone = () => {
 
         const file = files[0];
         const displayPhotoRes = await fetchForm('http://localhost:10025/api/v1/generic/phone/display', file);
-        if (!(displayPhotoRes as Response).ok){
+        if ((displayPhotoRes as Response).status !== 200 && (displayPhotoRes as Response).status !== 401){
              changeError(true);
              return;
         }
         const photo = await displayPhotoRes.text();
-
+        console.log(photo);
         changeFormInfo({...formInfo, image: photo});
         console.log(formInfo);
 
