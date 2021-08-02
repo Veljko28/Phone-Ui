@@ -69,7 +69,9 @@ const LoginForm = () => {
       localStorage.setItem('jwt', jwtToken.token);
 
       const decode: any = jwt(jwtToken.token);
+
       localStorage.setItem('userId', decode.id);
+      localStorage.setItem('refresh', jwtToken.refreshToken);
 
       dispatch(changeLoginStatus(true));
        setTimeout(() => {
