@@ -2,8 +2,9 @@ export interface Phone {
   id: string,
   image: string,
   name: string,
-  description: string,
+  description?: string,
   price: string,
-  dateCreated: Date,
-  expires: Date
+  dateCreated?: Date,
+  expires?: Date
+  discount?: string
 }

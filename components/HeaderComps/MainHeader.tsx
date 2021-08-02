@@ -23,13 +23,13 @@ const MainHeader = () => {
   const displayMenu = useSelector((state : State) => state.userInfo.navbarToggle);
 
   let jwt: string | null = "";
+  const loggedIn = useSelector((state : State) => state.userInfo.logged_in);
 
   if (typeof window !== 'undefined') {
       jwt = localStorage.getItem('jwt');
-      if (jwt) dispatch(changeLoginStatus(true));
+      if (jwt && !loggedIn) dispatch(changeLoginStatus(true));
   }
 
-  const loggedIn = useSelector((state : State) => state.userInfo.logged_in);
 
   const exitApp = () => {
     if (typeof window !== 'undefined') {

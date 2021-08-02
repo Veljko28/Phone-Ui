@@ -19,7 +19,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: [Phone]
       <ColoredLine color="#eee"/>
       {phones?.map(x => (
         <PhoneCard key={x.id} name={x.name} 
-        image={x.image ? x.image : "/phone.jpg"} price={x.price + '$'} id={x.id} />
+        image={x.image ? x.image : "/phone.jpg"} price={x.price} id={x.id} />
       ))}
     </Grid>
   )
