@@ -8,7 +8,7 @@ const initState = {
 
 const cartReducers = (state = initState , action: Action) => {
     switch (action.type){
-        case ADD_TO_CART: return {...state, items: [...state.items, action.payload.item]  };
+        case ADD_TO_CART: return {...state, items: [...state.items, action.payload]  };
         case REMOVE_FROM_CART: return {...state, items: state.items.filter(x => x !== action.payload)};
         default: return state;
     }
