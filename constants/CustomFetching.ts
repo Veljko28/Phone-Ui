@@ -1,3 +1,36 @@
+import { changeLoginStatus } from "../redux/actions/userInfoActions";
+import store from "../redux/store";
+import { JwtToken } from "./jwtTypes";
+
+
+const unauthorizedCheck = async (res: Response) => {
+
+
+  if (res?.statusText === 'Unauthorized' || res === undefined){
+      // Refresh token
+
+      const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
+        token: localStorage.getItem('jwt'),
+        refreshToken: localStorage.getItem('refresh')
+      });
+
+      if (res?.ok){
+        const json: JwtToken = await res.json();
+        localStorage.setItem('jwt', json.token);
+        localStorage.setItem('refresh', json.refreshToken);
+
+        // try to fetch again
+        return true;
+      }
+      else {
+        store.dispatch(changeLoginStatus(false));
+        localStorage.clear();
+        return false;
+      }
+    }
+
+}
+
 export const fetchPostBid = async (url: string, payload: any) => {
 
     const str = JSON.stringify(payload);
@@ -45,13 +78,18 @@ export const fetchPost = async (url: string, payload: any) => {
       method: 'POST',
     }).catch((error) => {
       console.log(error);
-      return false;
     })
 
+    const success = await unauthorizedCheck(res);
+
+    if (success){
+      fetchPost(url, payload);
+    }
+    
     return res;
 }
 
-export const fetchForm = async (url: string, payload: any) => {
+export const fetchForm: (url: string, payload: any) => any = async (url: string, payload: any) => {
 
       let jwt: string | null = "";
 
@@ -70,8 +108,13 @@ export const fetchForm = async (url: string, payload: any) => {
       method: 'POST',
     }).catch((error) => {
       console.log(error);
-      return false;
     })
+
+    const success = await unauthorizedCheck(res);
+
+    if (success){
+      return fetchForm(url, payload);
+    }
 
     return res;
 }
@@ -102,13 +145,18 @@ export const fetchPostForm = async (url: string, payload: any, type: number, id:
       method: 'POST',
     }).catch((error) => {
       console.log(error);
-      return false;
     })
+
+    const success = await unauthorizedCheck(res);
+
+    if (success){
+      fetchPostForm(url, payload, type, id);
+    }
 
     return res.ok;
 }
 
-export const fetchGet = async (url: string) => {
+export const fetchGet: (url:string) => any = async (url: string) => {
 
     let jwt: string | null = "";
 
@@ -124,5 +172,12 @@ export const fetchGet = async (url: string) => {
        method: 'GET'
       })
       .catch(err => console.log('failed to fetch'));
-  return  res;
+
+  const success = await unauthorizedCheck(res as Response);
+
+  if (success){
+    return fetchGet(url);
+  }
+
+  return res;
 }
