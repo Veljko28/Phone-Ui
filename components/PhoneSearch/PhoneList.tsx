@@ -16,7 +16,7 @@ const PhoneList = ({bids} : {bids?: boolean}) => {
             )
             :
             list.map(x => 
-              <PhoneCard key={x.id} name={x.name} images={["/phone.jpg","/phone2.jpg","/phone3.jpg"]}price="1500$" discount="1200$" id={x.id} />
+              <PhoneCard key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"}price="1500$" discount="1200$" id={x.id} />
             )}
         </Grid>
     )

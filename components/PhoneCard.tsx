@@ -8,14 +8,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 
-export const PhoneCard = (props: {images: string[], name: string, price: string, discount?: string, id: string}) => {
+export const PhoneCard = (props: {image: string, name: string, price: string, discount?: string, id: string}) => {
   const dispatch = useDispatch();
+  console.log(props.image);
   return (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
        <Link href={`/phone/${props.id}`}>
         <div>
             <div className="imageConatiner">
-            <Image src={props.images[0]}  width="150px" height="150px"/>
+               <img src={props.image}  width="150px" height="150px"/>
             </div>
 
             <div className="card-textarea">

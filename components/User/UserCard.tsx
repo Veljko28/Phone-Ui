@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Rating from '@material-ui/lab/Rating';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import UserContact from './UserContact';
+import Link from 'next/link';
 
 
 
-const UserCard = (props: {image: string, name: string, desc: string, rating: number, id: string}) => {
+const UserCard = (props: {image: string, name: string, desc: string, rating: number, id: string, search?: boolean}) => {
 
   const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
     const contactOpen = Boolean(contactAnchorEl);
@@ -20,14 +21,13 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
       setContanctAnchorEl(null);
     }
 
-
-  return (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
-        <div>
-            <div className="imageConatiner">
-            <Image src={props.image}  width="150px" height="150px"/>
-            </div>
-
+    const block = () => {
+      return (
+        <>
+         <div>
+            <img src={props.image}  width="225px" height="225px"/>
+          </div>
+          <a href={`/user/${props.id}`}className="user-links">
             <div className="card-textarea">
               <Typography variant="h6">
                 {props.name}
@@ -47,11 +47,28 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
                  Currently Selling: <span style={{color: '#0cafe5'}}>3</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
               </Typography>
+
               <Button variant="contained" onClick={e => openContanct(e)}
                     style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
-              >Contact The Seller</Button>
+                    >Contact The Seller</Button>
               <UserContact  open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
             </div>
+          </a>
+        </>
+      )
+    }
+
+    console.log(props.search);
+
+  return (
+    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
+        <div>
+          {props.search ? (
+            <Link href={`/user/${props.id}`}>
+              {block()}
+            </Link>
+          ) : block()}
+           
           </div>
     </Grid>
   )
