@@ -4,13 +4,14 @@ bid history ✅
 user profile ✅
 user listings ✅
 user contact ✅ 
+user profile api config ✅
 
 logged-in header view ✅
 mobile navbar stack ✅ 
 Wish list ✅ 
 search bar ✅ 
-search optimization
-search api config
+search optimization ✅
+search api config ✅
 search display ✅ 
 
 language translations (react-i18next)

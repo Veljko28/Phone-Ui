@@ -9,7 +9,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import TitleChange from '../../constants/TitleChange';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
-import { fetchPost, fetchPostForm } from '../../constants/CustomFetching';
+import { fetchPost, fetchPostForm, fetchForm } from '../../constants/CustomFetching';
 
 
 
@@ -24,6 +24,7 @@ const AddPhone = () => {
 
     const [formInfo,changeFormInfo] = React.useState({
         name: "",
+        image: "",
         description: "",
         price: 0,
         category: "",
@@ -83,8 +84,18 @@ const AddPhone = () => {
 
     const addPhoneApi = async () => {
         // for testing only
-        const userId = "7953981b-8594-4299-b828-9386cdef9ec8"
-        // const phoneId = "1b3a55d9-d82a-42bf-910b-ee19e71496a4"; 
+        const userId = localStorage.getItem('userId');
+
+        const file = files[0];
+        const displayPhotoRes = await fetchForm('http://localhost:10025/api/v1/generic/phone/display', file);
+        if (!(displayPhotoRes as Response).ok){
+             changeError(true);
+             return;
+        }
+        const photo = await displayPhotoRes.text();
+
+        changeFormInfo({...formInfo, image: photo});
+        console.log(formInfo);
 
         // Sending Phone Info
         const res = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, formInfo);

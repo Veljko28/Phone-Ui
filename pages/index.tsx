@@ -23,6 +23,12 @@ export default function Home() {
       if(res && res.ok){
         changePhones({...phones, featured: await (res as Response).json()});
       }
+
+       const res2 = await fetchGet('http://localhost:10025/api/v1/phones/latest');
+
+      if (res2 && res2.ok){
+        changePhones({...phones, latest: await (res2 as Response).json()});
+      }
     }
 
     func();
@@ -48,7 +54,7 @@ export default function Home() {
           <Grid item xs={2}/>
 
           <Grid item xs={8}>
-            <LatestProducts title="Latest Products" />
+            <LatestProducts title="Latest Products"  phones={phones.latest}/>
           </Grid>
 
           <Grid item xs={2}/>
