@@ -16,7 +16,7 @@ const PhoneList = ({bids, id} : {bids?: boolean, id: string}) => {
       }
 
       func();
-    },[])
+    },[id])
 
     return (
         <Grid container> 
@@ -27,7 +27,8 @@ const PhoneList = ({bids, id} : {bids?: boolean, id: string}) => {
             )
             :
             list.map((x: Phone) => 
-              <PhoneCard key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"}price="1500$" discount="1200$" id={x.id} />
+              <PhoneCard 
+              key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price}  id={x.id} />
             )}
         </Grid>
     )

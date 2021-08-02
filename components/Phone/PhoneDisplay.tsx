@@ -25,10 +25,7 @@ const Alert = (props: any) => {
 
 const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid?: boolean}) => {
 
-  // Temp variables for testing
-  // const discount = bid ? null : "1200$" ;
 
-  const quantity = useSelector((state: State) => state.phones.quantity);
   const dispatch = useDispatch();
 
   // only for testing
@@ -107,12 +104,8 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid
             </div>
             <BidHistory open={historyOpen} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
           </>) : (<> 
-          <span style={{fontSize: '12px'}}>
-            Quantity
-          </span>
-          <input type="number" value={quantity} onChange={e => dispatch(changeQuantity(e.target.value))} className="quantity-value"/>
           <Button variant="contained" 
-          onClick={() => dispatch(addToCart({item: phone, amount: quantity}))}
+          onClick={() => dispatch(addToCart(phone as Phone))}
           style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>
             <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> ADD TO CART</Button>
           </>)}

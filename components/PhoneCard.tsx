@@ -4,11 +4,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { addToCart } from '../redux/actions/cartActions';
 import { useDispatch } from 'react-redux';
-import Image from 'next/image';
 import Link from 'next/link';
+import { Phone } from './models/Phone';
 
 
-export const PhoneCard = (props: {image: string, name: string, price: string, discount?: string, id: string}) => {
+export const PhoneCard = (props: Phone) => {
   const dispatch = useDispatch();
   return (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
@@ -41,7 +41,7 @@ export const PhoneCard = (props: {image: string, name: string, price: string, di
           </IconButton>
 
           <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} 
-          onClick={() => dispatch(addToCart({item: props,amount: 1}))}>
+          onClick={() => dispatch(addToCart(props))}>
             <ShoppingCartIcon/>
           </IconButton>
         </div>
