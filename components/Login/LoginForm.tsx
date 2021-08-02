@@ -9,6 +9,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import * as yup from 'yup';
+import jwt from 'jwt-decode';
 import { SocialIcon } from 'react-social-icons';
 import YupError from '../../constants/YupError';
 import { JwtToken } from '../../constants/jwtTypes';
@@ -64,8 +65,12 @@ const LoginForm = () => {
 
     if (res.ok){
       changeSnackBar({...snackBar, success: true, loading: false});
-      const jwt: JwtToken = await res.json();
-      localStorage.setItem('jwt', jwt.token);
+      const jwtToken: JwtToken = await res.json();
+      localStorage.setItem('jwt', jwtToken.token);
+
+      const decode: any = jwt(jwtToken.token);
+      localStorage.setItem('userId', decode.id);
+
       dispatch(changeLoginStatus(true));
        setTimeout(() => {
             router.push(`/`)
