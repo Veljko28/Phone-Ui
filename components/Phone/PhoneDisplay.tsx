@@ -13,18 +13,17 @@ import React from 'react';
 
 import { useSelector, useDispatch } from "react-redux";
 import { Phone } from "../models/Phone";
-import { State } from "../../redux/reduxTypes";
-import { changeQuantity } from "../../redux/actions/phonesActions";
 import { addToCart } from "../../redux/actions/cartActions";
 import ImageMapper from "../../constants/ImageMapper";
 import BidHistory from "./BidHistory";
+import PopUpDialog from "../../constants/PopUpDialog";
+import { Bid } from "../models/Bid";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid?: boolean}) => {
-
+const PhoneDisplay = ({phone,images,bid} : {phone?: Phone | Bid ,images?: string[], bid?: boolean}) => {
 
   const dispatch = useDispatch();
 
@@ -113,34 +112,13 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone,images?: string[], bid
         
       </Grid>
 
-
-
-      <Dialog
-        open={dialogOpen}
-        onClose={() => changeDialogOpen(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{`Are you sure you want to bid ${bidAmount}$ ?`}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Bid only the amount of money you are willing to give for the phone.
-            Agreeing with this will put you in the position to win this bid. You won't be able to undo 
-            this bid after agreeing !  
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => changeDialogOpen(false)} color="primary">
-            Disagree
-          </Button>
-          <Button onClick={() => bidConfimed()} color="primary" autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-
-
+      <PopUpDialog open={dialogOpen} closeDialog={() => changeDialogOpen(false)} 
+      title={`Are you sure you want to bid ${bidAmount}$ ?`}
+      message={"Bid only the amount of money you are willing to give for the phone."
+            +"Agreeing with this will put you in the position to win this bid. You won't be able to undo"+
+            "this bid after agreeing !"}
+            onConfirm={() => bidConfimed()}/>
+          
       <Snackbar 
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       open={snackBarOpen} autoHideDuration={5000} onClose={() => changeSnackBarOpen(false)}>
