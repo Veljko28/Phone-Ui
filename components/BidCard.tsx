@@ -2,18 +2,19 @@ import React from 'react'
 import {Grid, Typography, IconButton} from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import Image from 'next/image';
 import Link from 'next/link';
 
 
-export const BidCard = (props: {images: string[], name: string, price: string, ends: Date, id: string}) => {
+export const BidCard = (props: {image: string, name: string, price: string, ends: Date, id: string}) => {
 
   const timeUntilEnd = () => {
     const now = new Date().getTime();
 
-    if (now > props.ends.getTime()) return "Finished !";
+    const endTime = new Date(props.ends).getTime();
 
-    const distance = props.ends.getTime() - now;
+    if (now > endTime) return "Finished !";
+
+    const distance = endTime - now;
 
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -32,10 +33,10 @@ export const BidCard = (props: {images: string[], name: string, price: string, e
 
   return (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
-       <Link href={`/bid/${props.id}`}>
+       {}<Link href={`/bid/${props.id}`}>
         <div>
             <div className="imageConatiner">
-            <Image src={props.images[0]}  width="150px" height="150px"/>
+            <img src={props.image}  width="150px" height="150px"/>
             </div>
 
             <div className="card-textarea">
@@ -43,7 +44,7 @@ export const BidCard = (props: {images: string[], name: string, price: string, e
                 {props.name}
               </Typography>
               <Typography variant="subtitle1" style={{display: 'inline-block'}}>
-                <span style={{fontSize: "15px"}}>Current Price: <span style={{color: '#0cafe5'}}>{props.price}</span></span>
+                <span style={{fontSize: "15px"}}>Current Price: <span style={{color: '#0cafe5'}}>{props.price + "$"}</span></span>
               </Typography>
               <div style={{fontSize: "15px"}}>Ends in: <span style={{color: '#0cafe5'}}>{time}</span></div>
             </div>

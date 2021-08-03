@@ -28,7 +28,7 @@ export const PhoneCard = (props: Phone) => {
                 <span style={{color: '#0cafe5', fontSize: "15px"}}>{props.discount} </span>
                 <span style={{color: 'red', textDecoration: 'line-through', fontSize: "10px"}}>{props.price}</span>
                 </>) : 
-                (<span style={{color: '#0cafe5', fontSize: "15px"}}>{props.price}</span>)
+                (<span style={{color: '#0cafe5', fontSize: "15px"}}>{props.price + "$"}</span>)
                 }
               </Typography>
             </div>
