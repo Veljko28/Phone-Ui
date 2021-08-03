@@ -48,7 +48,7 @@ const user = () => {
         </Grid>
 
         <Grid md={8} xs={12} item>
-          <UserTabs/>
+          <UserTabs id={id as string}/>
         </Grid>
       </Grid>
 
