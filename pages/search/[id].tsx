@@ -40,7 +40,7 @@ const search = () => {
       func();
   },[id])
 
-  const BlockMap = (title: string, array: {name: string, id: string, price: number, image?: string}[], type: number) => {
+  const BlockMap = (title: string, array: any[], type: number) => {
     return array.length === 0 ? null : (
         <div>
         <Typography variant="h4" style={{color: '#0cafe5', padding: 15, textAlign: 'center'}}>{title}</Typography>
@@ -54,8 +54,8 @@ const search = () => {
 
 
             {array.length > 0  && type === 1 ? array.map(x => (
-              <BidCard name={x.name} key={x.id} images={["/phone.jpg","/phone2.jpg","/phone3.jpg"]} price="250$" 
-                  ends={new Date("Aug 04, 2021 23:59:59")} id={x.id} />
+              <BidCard name={x.name} key={x.id} image={x.image as string} price={x.price}
+                  ends={x.timeEnds} id={x.id} />
             )) : null}
 
             {array.length > 0  && type === 2 ? array.map((x: any) => (
