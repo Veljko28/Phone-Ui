@@ -7,16 +7,31 @@ import PhoneReviews from '../../components/Phone/PhoneReviews';
 import SellerInfo from '../../components/Phone/SellerInfo';
 import { LatestProducts } from '../../components/FrontPage/LatestProducts';
 import TitleChange from '../../constants/TitleChange';
+import { fetchGet } from '../../constants/CustomFetching';
 
 
 const PhonePage = () => {
   
   const router = useRouter()
-  const { id } = router.query
+  const id = router.query['id'];
+  const [bid,changeBid] = React.useState(undefined);
+  const [images, changeImages] = React.useState(undefined);
 
   React.useEffect(() => {
-    // Fetch phone using the id with axios
-  },[])
+    const func = async () => {
+      const res = await fetchGet(`http://localhost:10025/api/v1/bid/${id}`);
+      const json = await (res as Response).json();
+      changeBid(json);
+
+       const res2 = await fetchGet(`http://localhost:10025/api/v1/bid/images/${id}`);
+    
+        if ((res2 as Response).ok){
+            changeImages(await (res2 as Response).json());
+        }
+    }
+
+     if (id) func();
+  },[id])
 
   return (
     <Grid container>
@@ -26,7 +41,7 @@ const PhonePage = () => {
       <Grid md={1} lg={2} item/>
 
       <Grid xs={12} md={10} lg={8} item> 
-        <PhoneDisplay bid={true}/>
+        <PhoneDisplay bid={true} phone={bid} images={images}/>
         <PhoneDetails />
         <SellerInfo id={id as string}/>
         <PhoneReviews />

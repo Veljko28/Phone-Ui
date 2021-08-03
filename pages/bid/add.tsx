@@ -9,7 +9,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import TitleChange from '../../constants/TitleChange';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
-import { fetchPostBid, fetchPostForm } from '../../constants/CustomFetching';
+import { fetchForm, fetchPost, fetchPostBid, fetchPostForm } from '../../constants/CustomFetching';
 
 
 
@@ -25,10 +25,11 @@ const AddBid = () => {
 
     const m = d.getMonth()+1;
     const h = d.getHours();
+    const day = d.getDate();
     const min = d.getMinutes();
 
     const datestring = d.getFullYear()  + "-" + (m < 10 ? `0${m}` : m) + "-" 
-    + d.getDate() + "T" + (h < 10 ? `0${h}` : h) + ":" + (min < 10 ? `0${min}` : min);
+    + (day < 10 ? `0${day}` : day) + "T" + (h < 10 ? `0${h}` : h) + ":" + (min < 10 ? `0${min}` : min);
 
 
     const [formInfo,changeFormInfo] = React.useState({
@@ -93,28 +94,42 @@ const AddBid = () => {
         else changeCurrentImage('');
     }
 
-    const addPhoneApi = async () => {
-        // const phoneId = "1b3a55d9-d82a-42bf-910b-ee19e71496a4"; 
+       const addPhoneApi = async () => {
 
-        // Sending Phone Info
-        const bid_Id = await fetchPostBid('http://localhost:10025/api/v1/bid/add/', formInfo);
+            const userId = localStorage.getItem('userId');
 
-        console.log(bid_Id);
-        if (!bid_Id) {
-            changeError(true);
-            return;
+            const file = files[0];
+            const displayPhotoRes = await fetchForm('http://localhost:10025/api/v1/generic/phone/display', file);
+            if ((displayPhotoRes as Response).status !== 200 && (displayPhotoRes as Response).status !== 401){
+                changeError(true);
+                return;
+            }
+            const photo = await displayPhotoRes.text();
+            console.log(photo);
+
+            const newForm = {...formInfo, image: photo};
+            console.log(newForm);
+
+            // Sending Phone Info
+            const res = await fetchPost('http://localhost:10025/api/v1/bid/add/' + userId, newForm);
+            const bid = await res.json();
+            const bid_Id = bid?.id;
+
+            if (!bid_Id) {
+                changeError(true);
+                return;
+            }
+
+            // Sending Image
+            const ok = await fetchPostForm('http://localhost:10025/api/v1/generic/phone/image', files, 1, bid_Id);
+
+        if (ok && bid_Id) {
+            changeSnackbarOpen(true);
+            setTimeout(() => {
+                router.push(`/bid/${bid_Id}`)
+            }, 3000)
         }
-
-        // Sending Image
-        const ok = await fetchPostForm('http://localhost:10025/api/v1/generic/phone/image', files, 1, bid_Id);
-
-       if (ok && bid_Id) {
-         changeSnackbarOpen(true);
-         setTimeout(() => {
-            router.push(`/bid/${bid_Id}`)
-         }, 3000)
-       }
-       else changeError(true);
+        else changeError(true);
     }
 
     return (
