@@ -173,11 +173,5 @@ export const fetchGet: (url:string) => any = async (url: string) => {
       })
       .catch(err => console.log('failed to fetch'));
 
-  const success = await unauthorizedCheck(res as Response);
-
-  if (success){
-    return fetchGet(url);
-  }
-
   return res;
 }
