@@ -24,10 +24,33 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
     const block = () => {
       return (
         <>
-         <div>
+        {props.search ? (
+          <a href={`/user/${props.id}`} className="user-links">
+            <div>
             <img src={props.image}  width="225px" height="225px"/>
           </div>
-          <a href={`/user/${props.id}`}className="user-links">
+            <div className="card-textarea">
+              <Typography variant="h6">
+                {props.name}
+              </Typography>
+                <Typography variant="subtitle1">
+                Rating: <Rating name="seller-rating" value={props.rating} precision={0.1} readOnly
+                style={{fontSize: '16px', marginTop: '15px'}}/>
+              </Typography>
+               <Typography variant="subtitle1">
+                 Phones Sold: <span style={{color: '#0cafe5'}}>226</span>
+                 <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
+              </Typography>
+              <Button variant="contained" 
+                    style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                    >Go To Profile</Button>
+            </div>
+          </a>
+        ): (
+          <>
+            <div>
+              <img src={props.image}  width="225px" height="225px"/>
+            </div>
             <div className="card-textarea">
               <Typography variant="h6">
                 {props.name}
@@ -53,7 +76,8 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
                     >Contact The Seller</Button>
               <UserContact  open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
             </div>
-          </a>
+          </>
+        )}
         </>
       )
     }

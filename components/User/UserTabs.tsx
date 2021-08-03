@@ -5,7 +5,7 @@ import UserReviews from './UserReviews';
 import UserWishList from './UserWishList';
 
 
-const UserTabs = () => {
+const UserTabs = ({id} : {id: string}) => {
 
   const selectedStyle = {color: '#0cafe5', borderBottom: '2px solid #0cafe5', borderRadius: 0, marginRight: 10};
   const normalStyle = {color: '#0cafe5', borderRadius: 0, paddingBottom: 10,  marginRight: 10};
@@ -33,7 +33,7 @@ const UserTabs = () => {
       }}
       >Wish List</Button>
 
-      {selected === 'Listings' ? <UserListings/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList />}
+      {selected === 'Listings' ? <UserListings id={id}/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList />}
     </div>
   )
 }
