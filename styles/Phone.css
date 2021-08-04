@@ -151,3 +151,27 @@
       height: 40px;
       margin-left: 15px;
     }
+
+    .mngm-side {
+      display: 'flex';
+      border-bottom: 1px solid #eee;
+      width: 100%;
+      padding: 10px
+    }
+
+    .mngm-side:hover {
+      cursor: pointer;
+    }
+    
+    @keyframes nameHover {
+      from {
+        color: #000;
+      }
+      to {
+        color: #0cafe5;
+      }
+    }
+
+    .mngm-text:hover {
+      animation: nameHover 200ms forwards;
+    }
