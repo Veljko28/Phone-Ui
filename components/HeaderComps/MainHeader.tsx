@@ -66,12 +66,12 @@ const MainHeader = () => {
           <li><Link href={loggedIn ? `/user/${localStorage.getItem('userId')}` : "/login"}>
             {loggedIn ? "Profile" : "Login"}</Link></li>
           <li>|</li>
-          <li><Link href={loggedIn ? "/managment" : "/register" }>
-            {loggedIn ? "Managment" : "Register"}</Link></li>
+          <li><Link href={loggedIn ? "/management" : "/register" }>
+            {loggedIn ? "Management" : "Register"}</Link></li>
           <li>
             {loggedIn ? 
              (
-              <IconButton onClick={() => exitApp()} style={{marginRight: 10, padding: '0', background: 'transparent'}} disableRipple>
+              <IconButton onClick={() => exitApp()} style={{marginRight: 0, padding: '0', background: 'transparent'}} disableRipple>
                   <ExitToAppIcon className="cartIcon" style={{fontSize: '20px'}}/>
               </IconButton>)
             : ""}
