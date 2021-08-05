@@ -2,16 +2,25 @@ import React from 'react';
 import {Grid} from '@material-ui/core';
 import SideBar from '../components/Management/SideBar';
 import ListView from '../components/Management/ListView';
+import TitleChange from '../constants/TitleChange';
 
 
 const management = () => {
+
+    const [currentPage, changeCurrentPage] = React.useState('My Phones');
+    const [page, changePage] = React.useState(1);
+
     return (
         <Grid container style={{backgroundColor: '#fff'}}>
-            <Grid xs={3} item  style={{backgroundColor: '#fff'}}>
-                <SideBar/>
+            <TitleChange title={"MobiStore - Management"}/>
+            <Grid xs={12} md={4} lg={3} item>
+                <SideBar currentPage={currentPage} changeCurrentPage={(change: string) => {
+                    changeCurrentPage(change)
+                    changePage(1);
+                    }}/>
             </Grid>
-            <Grid xs={9} item>
-                <ListView/>
+            <Grid xs={12} md={8} lg={9} item style={{borderLeft: '1px solid #eee'}}>
+                <ListView currentPage={currentPage} page={page} changePage={(value: number) => changePage(value)} />
             </Grid>
         </Grid>
     )
