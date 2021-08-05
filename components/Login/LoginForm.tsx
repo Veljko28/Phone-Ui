@@ -72,7 +72,7 @@ const LoginForm = () => {
 
       localStorage.setItem('userId', decode.id);
       localStorage.setItem('refresh', jwtToken.refreshToken);
-
+      localStorage.setItem('exp', decode.exp);
       dispatch(changeLoginStatus(true));
        setTimeout(() => {
             router.push(`/`)
