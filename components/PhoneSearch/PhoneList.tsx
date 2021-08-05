@@ -1,8 +1,8 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { BidCard } from '../BidCard';
-import { Bid } from '../models/Bid';
-import { Phone } from '../models/Phone';
+import Bid from '../models/Bid';
+import Phone from '../models/Phone';
 import { PhoneCard } from '../PhoneCard';
 
 const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {

@@ -1,4 +1,4 @@
-export interface Phone {
+export default interface Phone {
   id: string,
   image: string,
   name: string,
@@ -6,5 +6,6 @@ export interface Phone {
   price: string,
   dateCreated?: Date,
   expires?: Date
-  discount?: string
+  discount?: string,
+  status?: string | number
 }

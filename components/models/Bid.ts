@@ -1,4 +1,4 @@
-export interface Bid {
+export default interface Bid {
   id: string,
   image?: string,
   name: string,

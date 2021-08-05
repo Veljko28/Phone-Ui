@@ -3,7 +3,7 @@ import ColoredLine from '../../constants/ColoredLine';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
-import { Phone } from '../models/Phone';
+import Phone from '../models/Phone';
 
 const PriceDetails = () => {
 
