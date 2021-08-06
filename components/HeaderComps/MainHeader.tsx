@@ -12,6 +12,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLoginStatus, toggleNavbar } from '../../redux/actions/userInfoActions';
+import { fetchPost } from '../../constants/CustomFetching';
+import { JwtToken } from '../../constants/jwtTypes';
 
 const MainHeader = () => {
   const router = useRouter();
@@ -27,7 +29,26 @@ const MainHeader = () => {
 
   if (typeof window !== 'undefined') {
       jwt = localStorage.getItem('jwt');
-      if (jwt && !loggedIn) dispatch(changeLoginStatus(true));
+      if (jwt !== null && loggedIn === false) {
+        const exp = localStorage.getItem('exp');
+        if (parseInt(exp as string) < Date.now()){
+          const func = async () => {
+                const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
+                  token: jwt,
+                  refreshToken: localStorage.getItem('refresh')
+                });
+
+                if (res?.ok){
+                  const json: JwtToken = await res.json();
+                  localStorage.setItem('jwt', json.token);
+                  localStorage.setItem('refresh', json.refreshToken);
+                }
+          }
+          
+          func();
+        }
+        dispatch(changeLoginStatus(true));
+      }
   }
 
 

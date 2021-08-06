@@ -159,9 +159,6 @@
       padding: 10px
     }
 
-    .mngm-side:hover {
-      cursor: pointer;
-    }
     
     @keyframes nameHover {
       from {
@@ -171,7 +168,68 @@
         color: #0cafe5;
       }
     }
-
-    .mngm-text:hover {
+    
+    .mngm-side:hover {
+      cursor: pointer;
       animation: nameHover 200ms forwards;
+      }
+
+    .mngm-table {
+      margin-left: 15px;
+      margin-bottom: 250px;
+      border: 1px solid #eee;
+      width: 90%;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .mngm-table tr {
+      border-top: 1px solid #eee;
+    }
+
+    .mngm-text {
+      color: #0cafe5;
+    }
+
+    .phone-name-mngm {
+      font-size: 16px;
+    }
+
+    .phone-name-mngm:hover {
+      animation: nameHover 200ms forwards;
+      cursor: pointer;
+    }
+
+    .share-icon-mngm:hover {
+      cursor: pointer;
+    }
+
+    .edit-btn-mngm {
+      background-color: #0cafe5;
+      color: #fff;
+      width: 100%;
+      text-align: center;  
+      margin: 5px;
+      padding: 5px;
+      border-radius: 5px;      
+    }
+
+    .edit-btn-mngm:hover {
+      cursor: pointer;
+      opacity: 80%;
+    }
+
+    .delete-btn-mngm {
+      background-color: red;
+      color: #fff;
+      width: 100%;
+      text-align: center;  
+      margin: 5px;
+      padding: 5px;
+      border-radius: 5px;    
+    }
+
+    .delete-btn-mngm:hover {
+      cursor: pointer;
+      opacity: 80%;
     }
