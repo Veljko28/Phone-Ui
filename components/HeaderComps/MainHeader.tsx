@@ -31,7 +31,7 @@ const MainHeader = () => {
       jwt = localStorage.getItem('jwt');
       if (jwt !== null && loggedIn === false) {
         const exp = localStorage.getItem('exp');
-        if (parseInt(exp as string) < Date.now()){
+        if ((parseInt(exp as string)*1000) < Date.now()){
           const func = async () => {
                 const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
                   token: jwt,
