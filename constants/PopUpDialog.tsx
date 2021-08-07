@@ -19,10 +19,10 @@ const PopUpDialog = ({open, closeDialog, title, message, onConfirm} :
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => closeDialog()} color="primary">
+          <Button onClick={() => closeDialog()} variant="contained" style={{backgroundColor: 'red', color: '#fff'}}>
             Disagree
           </Button>
-          <Button onClick={() => onConfirm()} color="primary" autoFocus>
+          <Button onClick={() => onConfirm()} variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff'}} autoFocus>
             Agree
           </Button>
         </DialogActions>

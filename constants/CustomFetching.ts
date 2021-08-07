@@ -5,16 +5,17 @@ import { JwtToken } from "./jwtTypes";
 
 const unauthorizedCheck = async (res: Response) => {
 
-
-  if (res?.statusText === 'Unauthorized' || res === undefined){
+   const expires = localStorage.getItem('exp');
+   const token = localStorage.getItem('jwt');
+   const refreshToken = localStorage.getItem('refresh');
+   
+  if ((res?.statusText === 'Unauthorized' || (parseInt(expires as string)*1000) < Date.now()) && token !== null && refreshToken != null ){
       // Refresh token
 
-      const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
-        token: localStorage.getItem('jwt'),
-        refreshToken: localStorage.getItem('refresh')
-      });
+      const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {token, refreshToken});
 
       if (res?.ok){
+        console.log('????');
         const json: JwtToken = await res.json();
         localStorage.setItem('jwt', json.token);
         localStorage.setItem('refresh', json.refreshToken);
@@ -22,13 +23,12 @@ const unauthorizedCheck = async (res: Response) => {
         // try to fetch again
         return true;
       }
-      else {
-        store.dispatch(changeLoginStatus(false));
-        localStorage.clear();
-        return false;
-      }
+
+      store.dispatch(changeLoginStatus(false));
+      localStorage.clear();
     }
 
+    return false;
 }
 
 export const fetchPostBid = async (url: string, payload: any) => {
@@ -175,3 +175,65 @@ export const fetchGet: (url:string) => any = async (url: string) => {
 
   return res;
 }
+
+
+export const fetchDelete = async (url: string) => {
+  
+    let jwt: string | null = "";
+
+    if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+    }
+
+    const res: any = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`
+      },
+      method: 'DELETE',
+    }).catch((error) => {
+      console.log(error);
+    })
+
+    const success = await unauthorizedCheck(res);
+
+    if (success){
+        fetchDelete(url);
+    }
+
+    return res;
+}
+
+
+export const fetchPatch= async (url: string, payload: any) => {
+  
+    let jwt: string | null = "";
+    const str = JSON.stringify(payload);
+
+    if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+    }
+
+    const res: any = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`
+      },
+      method: 'PATCH',
+      body: str
+    }).catch((error) => {
+      console.log(error);
+    })
+
+    const success = await unauthorizedCheck(res);
+
+    if (success){
+        fetchDelete(url);
+    }
+
+    return res;
+}
+
+
