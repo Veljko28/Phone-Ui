@@ -27,29 +27,40 @@ const MainHeader = () => {
   let jwt: string | null = "";
   const loggedIn = useSelector((state : State) => state.userInfo.logged_in);
 
-  if (typeof window !== 'undefined') {
-      jwt = localStorage.getItem('jwt');
-      if (jwt !== null && loggedIn === false) {
-        const exp = localStorage.getItem('exp');
-        if ((parseInt(exp as string)*1000) < Date.now()){
-          const func = async () => {
-                const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
-                  token: jwt,
-                  refreshToken: localStorage.getItem('refresh')
-                });
 
-                if (res?.ok){
-                  const json: JwtToken = await res.json();
-                  localStorage.setItem('jwt', json.token);
-                  localStorage.setItem('refresh', json.refreshToken);
+  React.useEffect( () => {
+    if (typeof window !== 'undefined') {
+
+        jwt = localStorage.getItem('jwt');
+        const exp = localStorage.getItem('exp');
+        const refreshToken = localStorage.getItem('refresh');
+
+        if (jwt !== null && refreshToken !== null && loggedIn === false) {
+          if ((parseInt(exp as string)*1000) < Date.now()){
+            const func = async () => {
+                  const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
+                    token: jwt,
+                    refreshToken
+                  });
+  
+                  if (res?.ok){
+                    const json: JwtToken = await res.json();
+                    localStorage.setItem('jwt', json.token);
+                    localStorage.setItem('refresh', json.refreshToken);
+                    return;
+                  }
+                  else {
+                    dispatch(changeLoginStatus(false));
+                    localStorage.clear();
+                    return;
+                  }
                 }
-          }
-          
-          func();
+              }
+           dispatch(changeLoginStatus(true));
         }
-        dispatch(changeLoginStatus(true));
-      }
-  }
+    }
+  }, [])
+
 
 
   const exitApp = () => {

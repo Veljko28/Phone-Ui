@@ -11,13 +11,13 @@ import HistoryIcon from '@material-ui/icons/History';
 import Image from "next/image";
 import React from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
-import { Phone } from "../models/Phone";
+import { useDispatch } from "react-redux";
+import Phone from "../models/Phone";
 import { addToCart } from "../../redux/actions/cartActions";
 import ImageMapper from "../../constants/ImageMapper";
 import BidHistory from "./BidHistory";
 import PopUpDialog from "../../constants/PopUpDialog";
-import { Bid } from "../models/Bid";
+import Bid from "../models/Bid";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
