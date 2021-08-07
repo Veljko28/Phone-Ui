@@ -11,27 +11,33 @@ import PopOverSettings from '../PopOverSettings';
 const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
 
-   const rowMap = ({name,price,status,ends} :
-        {name: string, price: string, status: string, ends: string}) => {
+   const rowMap = ({image, name,price,status,timeEnds} :
+        {image: string, name: string, price: string, status: string, timeEnds: Date}) => {
+          const str = timeEnds?.toString().split('T')[0].replace(/-/g,"/");
+          const date = {
+            year: str?.slice(0,4),
+            month: str?.slice(5,7),
+            day: str?.slice(8,10)
+          }
         return (
             <tr>
               <td>
                   <Grid container item style={{display: 'flex', alignContent: 'center'}}>
                       <Grid item xs={12} sm={6}>
-                        <Image src={'/phone.jpg'} width="50px" height="50px"/>
+                        <img src={image} width="50px" height="50px"/>
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>
                         <div className="phone-name-mngm">{name}</div>
                       </Grid>
                     </Grid>
               </td>
-              <td>{price}</td>
+              <td>{price + "$"}</td>
               <td>
                   <div style={status === "Sold !" ? {color: '#43cf22'} : status === "Running" ? {color: "#0cafe5"} : {color: "red"}}>
                       {status}
                   </div>
               </td>
-              <td>{ends}</td>
+              <td>{date.day + "/" + date.month + "/" + date.year}</td>
               <td>
                   <IconButton
                   onClick={() => {
@@ -50,7 +56,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                     className="share-icon-mngm">
                         <SettingsIcon style={{fontSize: 15, color: "#fff"}}/>
                     </IconButton>
-                    <PopOverSettings open={open} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
+                    <PopOverSettings open={open} myBid={true} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
                     </>
                  ) : status === "Deleted" ? (
                     <IconButton 
