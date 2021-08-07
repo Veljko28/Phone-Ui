@@ -1,6 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
-import { Typography, Grid, IconButton, Button } from '@material-ui/core';
+import Link from 'next/link';
+import { Typography, Grid, IconButton, Button, Fab } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import { SnackBarSuccess } from '../../constants/CustomSnackBars';
 import MyPhones from './Tables/MyPhones';
 import MyBids from './Tables/MyBids';
@@ -18,61 +19,30 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
 
     React.useEffect( () => {
         const func = async () => {
-            const res = await fetchGet(`http://localhost:10025/api/v1/phones/seller/${localStorage.getItem('userId')}`);
+            changeList([]);
+            let res: Response | undefined = undefined;
+
+            if (currentPage === 'My Phones'){
+                res = await fetchGet(`http://localhost:10025/api/v1/phones/seller/${localStorage.getItem('userId')}`);
+            }
+            else if (currentPage === 'My Bids') {
+                res = await fetchGet(`http://localhost:10025/api/v1/bid/user/${localStorage.getItem('userId')}`);
+            }
 
             if (res?.ok){
-                changeList(await res.json());
-                changeList((list as Phone[]).map((x: Phone) => {
+                const json = await res.json();
+                const newList = (json as Phone[]).map((x: Phone) => {
                     x.status = x.status == 0 ? "Running" : x.status == 1 ? "Sold" : "Deleted";
                     return x; 
-                }))
+                })
+                console.log(newList);
+                changeList(newList)
             }
         }
 
         func();
-    }, [])
+    }, [currentPage])
 
-    const testList = [
-        {
-            name: "Phone 1",
-            category: "Android Phone",
-            status: "Running",
-            created: "05/08/2021"
-        },
-        {
-            name: "Phone 2",
-            category: "IOS Phone",
-            status: "Sold !",
-            created: "02/08/2021"
-        },
-        {
-            name: "Phone 3",
-            category: "Other",
-            status: "Deleted",
-            created: "29/07/2021"
-        },
-    ]
-
-     const testBids = [
-        {
-            name: "Phone 1",
-            price: "125$",
-            status: "Running",
-            ends: "05/08/2021"
-        },
-        {
-            name: "Phone 2",
-            price: "725$",
-            status: "Sold !",
-            ends: "02/08/2021"
-        },
-        {
-            name: "Phone 3",
-            price: "400$",
-            status: "Deleted",
-            ends: "29/07/2021"
-        },
-    ]
 
      const testPhones = [
         {
@@ -116,9 +86,6 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
         },
     ]
 
-
-
-
     const [AnchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(AnchorEl);
 
@@ -130,8 +97,6 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
       setAnchorEl(null);
     }
 
-   
-
     return (
         <div>
             <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>
@@ -139,7 +104,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
             openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
 
             
-            currentPage === 'My Bids' ? <MyBids list={testBids} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+            currentPage === 'My Bids' ? <MyBids list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
             openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
             
             currentPage === 'Bought Phones' ? <BoughtPhones list={testPhones} changeSnackBar={(value: boolean) => changeSnackBar(value)}
@@ -147,23 +112,33 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
 
             <PlacedBids list={testPlacedBids} changeSnackBar={(value: boolean) => changeSnackBar(value)}
             openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/>}
+                <div style={{margin: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 'auto'}}>
+                    <div>
+                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}}
+                            onClick={() => {
+                                if (page > 1){
+                                    changePage(page-1);
+                                }
+                            }}>
+                            Prev
+                        </Button>
+                        <Button variant="contained" disabled style={{backgroundColor: '#0a85ae', color: '#fff', margin: 5}}>
+                            {page}
+                        </Button>
+                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}} onClick={() => changePage(page+1)}>
+                            Next
+                        </Button>
+                    </div>
+                    {currentPage === "Bought Phones" || currentPage === "Placed Bids" ? null : (
 
-        <div style={{margin: 10}}>
-            <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}}
-                onClick={() => {
-                    if (page > 1){
-                        changePage(page-1);
-                    }
-                }}>
-                Prev
-            </Button>
-            <Button variant="contained" disabled style={{backgroundColor: '#0a85ae', color: '#fff', margin: 5}}>
-                {page}
-            </Button>
-            <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}} onClick={() => changePage(page+1)}>
-                Next
-            </Button>
-        </div>
+                        <Link href={currentPage === "My Phones" ? "/phone/add" : "/bid/add"}>
+                            <Fab color="primary" aria-label="add" style={{marginRight: 50, marginBottom: 5}}>
+                                <AddIcon />
+                            </Fab>
+                        </Link>
+
+                    )}
+                </div>
 
         <SnackBarSuccess snackBarOpen={snackBar} changeSnackBarOpen={() => changeSnackBar(false)} message="Successfully copied link !"/>
 
