@@ -9,7 +9,7 @@ import AddPhoneReview from '../../components/Phone/AddPhoneReview';
 import { LatestProducts } from '../../components/FrontPage/LatestProducts';
 import TitleChange from '../../constants/TitleChange';
 import { fetchGet } from '../../constants/CustomFetching';
-import { Phone } from '../../components/models/Phone';
+import Phone from '../../components/models/Phone';
 
 
 const PhonePage = () => {

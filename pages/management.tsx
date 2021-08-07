@@ -19,7 +19,7 @@ const management = () => {
                     changePage(1);
                     }}/>
             </Grid>
-            <Grid xs={12} md={8} lg={9} item style={{borderLeft: '1px solid #eee'}}>
+            <Grid xs={12} md={8} lg={9} item style={{borderLeft: '1px solid #eee',height: 650}}>
                 <ListView currentPage={currentPage} page={page} changePage={(value: number) => changePage(value)} />
             </Grid>
         </Grid>
