@@ -3,9 +3,10 @@ export default interface Bid {
   image?: string,
   name: string,
   description?: string,
-  price: string,
+  price: string | number,
   dateCreated?: Date,
   timeEnds?: Date,
   expires?: Date
   discount?: string
+  seller: string
 }

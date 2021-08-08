@@ -7,5 +7,7 @@ export default interface Phone {
   dateCreated?: Date,
   expires?: Date
   discount?: string,
-  status?: string | number
+  status?: string | number,
+  category?: string,
+  brand?: string,
 }
