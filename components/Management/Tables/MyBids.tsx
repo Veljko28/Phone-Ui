@@ -11,8 +11,8 @@ import PopOverSettings from '../PopOverSettings';
 const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
 
-   const rowMap = ({image, name,price,status,timeEnds} :
-        {image: string, name: string, price: string, status: string, timeEnds: Date}) => {
+   const rowMap = ({id,image, name,price,status,timeEnds} :
+        {id: string, image: string, name: string, price: string, status: string, timeEnds: Date}) => {
           const str = timeEnds?.toString().split('T')[0].replace(/-/g,"/");
           const date = {
             year: str?.slice(0,4),
@@ -20,7 +20,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
             day: str?.slice(8,10)
           }
         return (
-            <tr>
+            <tr key={id}>
               <td>
                   <Grid container item style={{display: 'flex', alignContent: 'center'}}>
                       <Grid item xs={12} sm={6}>
@@ -56,7 +56,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                     className="share-icon-mngm">
                         <SettingsIcon style={{fontSize: 15, color: "#fff"}}/>
                     </IconButton>
-                    <PopOverSettings open={open} myBid={true} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
+                    <PopOverSettings open={open} id={id} myBid={true} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
                     </>
                  ) : status === "Deleted" ? (
                     <IconButton 

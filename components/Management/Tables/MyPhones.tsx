@@ -24,7 +24,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
           }
           
         return (
-            <tr>
+            <tr key={id}>
               <td>
                   <Grid container item style={{display: 'flex', alignContent: 'center'}}>
                       <Grid item xs={12} sm={6}>
