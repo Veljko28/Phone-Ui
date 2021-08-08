@@ -19,16 +19,20 @@ const PopOverSettings = ({id, open, anchorEl, handleClose, myBid} :
     }); 
 
     const deletePhone = async () => {
-        const res = await fetchDelete(`http://localhost:10025/api/v1/phones/delete/${id}`);
+
+        const res = await fetchDelete(`http://localhost:10025/api/v1/${myBid ? "bid" : "phones"}/delete/${id}`);
         console.log(res);
         changeDialogOpen(false);
         if (res.ok){
           changeSnackbar({error: false,success:true});
+          setTimeout(() => {
+          location.reload();
+          },1500)
         }
         else changeSnackbar({error: true,success: false});
-        setTimeout(() => {
-          location.reload();
-        },1500)
+        
+       
+
     }
 
   return (

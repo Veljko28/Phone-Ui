@@ -9,6 +9,7 @@ import BoughtPhones from './Tables/BoughtPhones';
 import PlacedBids from './Tables/PlacedBids';
 import { fetchGet } from '../../constants/CustomFetching';
 import Phone from '../models/Phone';
+import NoPhones from './NoPhones';
 
 
 
@@ -35,7 +36,6 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                     x.status = x.status == 0 ? "Running" : x.status == 1 ? "Sold" : "Deleted";
                     return x; 
                 })
-                console.log(newList);
                 changeList(newList)
             }
         }
@@ -98,6 +98,8 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
     }
 
     return (
+        <>
+        {list.length === 0 ? <NoPhones currentPage={currentPage}/> : (
         <div>
             <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>
             {currentPage === 'My Phones' ? <MyPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
@@ -143,6 +145,9 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
         <SnackBarSuccess snackBarOpen={snackBar} changeSnackBarOpen={() => changeSnackBar(false)} message="Successfully copied link !"/>
 
         </div>
+            
+        )}
+        </>
     )
 }
 
