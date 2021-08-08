@@ -49,7 +49,7 @@ const search = () => {
 
           {array.length > 0  && type == 0 ? array.map(x => (
               <PhoneCard name={x.name} key={x.id}
-              image={x.image ? x.image : "phone.jpg"} price={x.price + '$'} id={x.id} />
+              image={x.image ? x.image : "phone.jpg"} price={x.price} id={x.id} />
             )) : null}
 
 
