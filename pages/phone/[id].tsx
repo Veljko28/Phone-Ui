@@ -16,6 +16,7 @@ const PhonePage = () => {
   
   const router = useRouter()
   const id = router.query['id'];
+  console.log(id);
 
   const [phone,changePhone] = React.useState<Phone | undefined>(undefined);
   const [images, changeImages] = React.useState<string[] | undefined>(undefined);
@@ -46,7 +47,7 @@ const PhonePage = () => {
 
       <Grid xs={12} md={10} lg={8} item> 
         <PhoneDisplay 
-        phone={phone} images={images}
+        phone={phone} images={images} id={id as string}
         />
         <PhoneDetails />
         <PhoneRatings />

@@ -112,7 +112,7 @@ const EditPage = () => {
         
 
         // Editing and removing photos no longer in user
-        const res = await fetchPatch('http://localhost:10025/api/v1/phones/edit', {formInfo, imageBlobs});
+        const res = await fetchPatch('http://localhost:10025/api/v1/phones/edit', {model: formInfo, images: imageBlobs});
 
         if (res.ok){
               // Sending New Images
