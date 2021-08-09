@@ -1,5 +1,5 @@
 import { Grid, IconButton } from '@material-ui/core';
-import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -27,7 +27,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                         <img src={image} width="50px" height="50px"/>
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>
-                        <div className="phone-name-mngm">{name}</div>
+                        <Link href={`http://localhost:3000/bid/${id}`}><div className="phone-name-mngm">{name}</div></Link>
                       </Grid>
                     </Grid>
               </td>
@@ -41,7 +41,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
               <td>
                   <IconButton
                   onClick={() => {
-                      navigator.clipboard.writeText("http://localhost:3000/phone/1")
+                      navigator.clipboard.writeText(`http://localhost:3000/bid/${id}`)
                       changeSnackBar(true);
                     }} 
                   style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#0cafe5'}} 
