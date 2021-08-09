@@ -17,9 +17,12 @@ import { fetchPost } from '../../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
 import { formatYupError } from '../../constants/formYupError';
 import YupError from '../../constants/YupError';
+import { useRouter } from 'next/router';
 
 
 const RegisterForm = () => {
+
+  const router = useRouter();
 
   const [form,changeForm] = React.useState({
     email: '',
@@ -62,6 +65,7 @@ const RegisterForm = () => {
     
     if (res.ok){
       changeSnackBar({...snackBar, success: true, loading: false});
+      setTimeout(() => router.push('/login'), 1500);
     }
     else changeSnackBar({...snackBar, error: true, loading: false});
   }
