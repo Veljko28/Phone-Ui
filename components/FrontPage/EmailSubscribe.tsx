@@ -5,7 +5,6 @@ import { fetchPost } from '../../constants/CustomFetching';
 
 const EmailSubscribe = () => {
 
- 
     const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     const [email,changeEmail] = React.useState('');
@@ -21,6 +20,7 @@ const EmailSubscribe = () => {
         if (valid){
             const res = await fetchPost('http://localhost:10025/api/v1/generic/subscribe', {email});
             if ((res as Response).ok){
+                setTimeout(() => location.reload(), 1200)
                 changeSnackBar({...snackBar,success: true,loading: false});
             }
             else changeSnackBar({...snackBar,error: "Failed to Subscribe !",loading: false});

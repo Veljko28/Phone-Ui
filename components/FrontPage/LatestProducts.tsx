@@ -1,12 +1,12 @@
 import React from 'react';
-import { Phone } from '../models/Phone';
+import Phone from '../models/Phone';
 import { PhoneCard } from '../PhoneCard';
 import { Grid, Typography } from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
 
 
 
-export const LatestProducts = ({title, phones}: {title: string, phones?: [Phone]}) => {
+export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]}) => {
   return (
     <Grid container style={{
       backgroundColor: '#fff',
