@@ -2,22 +2,17 @@ import React from 'react'
 import {List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { useSelector } from 'react-redux';
-import { State } from '../../redux/reduxTypes';
 
-const CategoryBar = () => {
+const CategoryBar = ({options, changeOptions} : {options: any, changeOptions: (value: any) => void}) => {
 
   const [open, setOpen] = React.useState(-1);
-  const [sort, changeSort] = React.useState(0);
 
   const handleClick = (id:number) => {
     if (open == id) setOpen(-1);
     else setOpen(id);
   };
 
-  const selectedBrand = useSelector((state: State) => state.phones.brand);
-
-  const ListMap = ({id,title, children} : {id: number, title: string, children: () => JSX.Element}) => {
+  const ListMap = ({id,title, children} : {id: number, title: string, children: (id: number) => JSX.Element}) => {
     const isOpen = id == open;
 
     return (
@@ -29,34 +24,50 @@ const CategoryBar = () => {
 
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-            {children()}
+            {children(id)}
         </List>
       </Collapse>
       </div>
     )
   }
 
+  const selectedStyle = {color: '#0cafe5', marginLeft: '10px'};
+  const normalStyle = {color: '#999', marginLeft: '10px'};
+
   const list = [
     {
       id: 1,
       title: 'Category',
-      children: () => (
-        <div>
-          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>All Phones</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Android Phone</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>IOS Phone</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Others</ListItem>
+      children: (id : number) => (
+        <div key={id}>
+          <ListItem button disableRipple
+          onClick={() => changeOptions({...options, category: "All Phones"})} 
+          style={options.category === "All Phones" ? selectedStyle : normalStyle}
+          >All Phones</ListItem>
+          <ListItem button disableRipple 
+          onClick={() => changeOptions({...options, category: "android"})} 
+          style={options.category === "android" ? selectedStyle : normalStyle}
+          >Android Phone</ListItem>
+          <ListItem button disableRipple
+          onClick={() => changeOptions({...options, category: "ios"})} 
+          style={options.category === "ios" ? selectedStyle : normalStyle}
+          >IOS Phone</ListItem>
+          <ListItem button disableRipple 
+          onClick={() => changeOptions({...options, category: "other"})} 
+          style={options.category === "other" ? selectedStyle : normalStyle}
+          >Others</ListItem>
         </div>
       )
     },
     {
       id: 2,
       title: 'Brand',
-      children: () => (
-       <div>
+      children: (id : number) => (
+        <div key={id}>
          {['All', 'Google', 'Apple', 'Samsung', 'Vivo', 'Htc', 'Alcatel'].map(x => (
           <ListItem button disableRipple 
-          style={{color: selectedBrand.toLowerCase() == x.toLowerCase() ? '#0cafe5' : '#999', marginLeft: '10px'}}>{x}</ListItem>
+          onClick={() => changeOptions({...options,brand: x})}
+          style={{color: options.brand.toLowerCase() == x.toLowerCase() ? '#0cafe5' : '#999', marginLeft: '10px'}}>{x}</ListItem>
          ))}
         </div>
       )
@@ -64,25 +75,54 @@ const CategoryBar = () => {
     {
       id: 3,
       title: 'Price',
-      children: () => (
-        <div>
-          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>All</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>100$-200$</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>200$-500$</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>500$-1000$</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>1000$-1500$</ListItem>
+      children: (id : number) => (
+        <div key={id}>
+          <ListItem button disableRipple
+          onClick={() => changeOptions({...options, price: "All"})} 
+          style={options.price === "All" ? selectedStyle : normalStyle}
+          >All</ListItem>
+          <ListItem button disableRipple
+          onClick={() => changeOptions({...options, price: "100"})} 
+          style={options.price === "100" ? selectedStyle : normalStyle}
+          >100$-200$</ListItem>
+          <ListItem button disableRipple
+          onClick={() => changeOptions({...options, price: "200"})} 
+          style={options.price === "200" ? selectedStyle : normalStyle}
+          >200$-500$</ListItem>
+          <ListItem button disableRipple 
+          onClick={() => changeOptions({...options, price: "500"})} 
+          style={options.price === "500" ? selectedStyle : normalStyle}
+          >500$-1000$</ListItem>
+          <ListItem button disableRipple
+          onClick={() => changeOptions({...options, price: "1000"})} 
+          style={options.price === "1000" ? selectedStyle : normalStyle}
+          >1000$-1500$</ListItem>
         </div>
       )
     },
     {
       id: 4,
       title: 'Sorting',
-      children: () => (
-        <div>
-          <ListItem button disableRipple style={{color: '#0cafe5', marginLeft: '10px'}}>None</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Best Match</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Price Ascending</ListItem>
-          <ListItem button disableRipple style={{color: '#999', marginLeft: '10px'}}>Price Descending</ListItem>
+      children: (id : number) => (
+        <div key={id}>
+          <ListItem button disableRipple
+          onClick={() => changeOptions({...options, sorting: "none"})} 
+          style={options.sorting === "none" ? selectedStyle : normalStyle}
+          >None</ListItem>
+          <ListItem button disableRipple 
+          onClick={() => changeOptions({...options, sorting: "newer"})} 
+          style={options.sorting === "newer" ? selectedStyle : normalStyle}
+          >Date Created Newer</ListItem>
+          <ListItem button disableRipple 
+          onClick={() => changeOptions({...options, sorting: "older"})} 
+          style={options.sorting === "older" ? selectedStyle : normalStyle}
+          >Date Created Older</ListItem>
+          <ListItem button disableRipple 
+          onClick={() => changeOptions({...options, sorting: "asc"})} 
+          style={options.sorting === "asc" ? selectedStyle : normalStyle}>Price Ascending</ListItem>
+          <ListItem button disableRipple 
+          onClick={() => changeOptions({...options, sorting: "desc"})} 
+          style={options.sorting === "desc" ? selectedStyle : normalStyle}>Price Descending</ListItem>
         </div>
       )
     },

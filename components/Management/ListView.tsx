@@ -24,7 +24,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
             let res: Response | undefined = undefined;
 
             if (currentPage === 'My Phones'){
-                res = await fetchGet(`http://localhost:10025/api/v1/phones/seller/${localStorage.getItem('userId')}`);
+                res = await fetchGet(`http://localhost:10025/api/v1/phones/seller/${localStorage.getItem('userId')}/${page}`);
             }
             else if (currentPage === 'My Bids') {
                 res = await fetchGet(`http://localhost:10025/api/v1/bid/user/${localStorage.getItem('userId')}`);
@@ -100,47 +100,53 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
     return (
         <>
         {list.length === 0 ? <NoPhones currentPage={currentPage}/> : (
-        <div>
-            <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>
-            {currentPage === 'My Phones' ? <MyPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-            openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
+            <div>
+                <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>
+                {currentPage === 'My Phones' ? <MyPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
 
-            
-            currentPage === 'My Bids' ? <MyBids list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-            openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
-            
-            currentPage === 'Bought Phones' ? <BoughtPhones list={testPhones} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-            openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
+                
+                currentPage === 'My Bids' ? <MyBids list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
+                
+                currentPage === 'Bought Phones' ? <BoughtPhones list={testPhones} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
 
-            <PlacedBids list={testPlacedBids} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-            openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/>}
-                <div style={{margin: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 'auto'}}>
-                    <div>
-                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}}
-                            onClick={() => {
-                                if (page > 1){
-                                    changePage(page-1);
-                                }
-                            }}>
-                            Prev
-                        </Button>
-                        <Button variant="contained" disabled style={{backgroundColor: '#0a85ae', color: '#fff', margin: 5}}>
-                            {page}
-                        </Button>
-                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}} onClick={() => changePage(page+1)}>
-                            Next
-                        </Button>
+                <PlacedBids list={testPlacedBids} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/>}
+            </div>
+            <span style={{position: 'absolute', bottom: 225}}>
+                <div style={{margin: 10, display: 'inline-flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                        <div>
+                            <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}}
+                                onClick={() => {
+                                    if (page > 1){
+                                        changePage(page-1);
+                                    }
+                                }}>
+                                Prev
+                            </Button>
+                            <Button variant="contained" disabled style={{backgroundColor: '#0a85ae', color: '#fff', margin: 5}}>
+                                {page}
+                            </Button>
+                            <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}} onClick={() => changePage(page+1)}>
+                                Next
+                            </Button>
+                        </div>
                     </div>
-                    {currentPage === "Bought Phones" || currentPage === "Placed Bids" ? null : (
+                </span>
+                <span style={{position: 'absolute', right: 50, bottom: 225}}>
+                        {currentPage === "Bought Phones" || currentPage === "Placed Bids" ? null : (
 
-                        <Link href={currentPage === "My Phones" ? "/phone/add" : "/bid/add"}>
-                            <Fab color="primary" aria-label="add" style={{marginRight: 50, marginBottom: 5}}>
-                                <AddIcon />
-                            </Fab>
-                        </Link>
+                            <Link href={currentPage === "My Phones" ? "/phone/add" : "/bid/add"}>
+                                <Fab color="primary" aria-label="add" style={{marginRight: 50, marginBottom: 5}}>
+                                    <AddIcon />
+                                </Fab>
+                            </Link>
 
-                    )}
-                </div>
+                        )}
+                </span>
 
         <SnackBarSuccess snackBarOpen={snackBar} changeSnackBarOpen={() => changeSnackBar(false)} message="Successfully copied link !"/>
 

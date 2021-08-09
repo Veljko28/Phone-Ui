@@ -1,6 +1,7 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import { BidCard } from '../BidCard';
+import Loading from '../Loading';
 import Bid from '../models/Bid';
 import Phone from '../models/Phone';
 import { PhoneCard } from '../PhoneCard';
@@ -8,9 +9,11 @@ import { PhoneCard } from '../PhoneCard';
 const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
     return (
         <Grid container> 
-            {bids ? 
+            {list === undefined || list.length === 0 ? <div style={{
+              display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614
+            }}><Loading size={60}/></div> : bids ? 
              list.map((x: Bid) => 
-              <BidCard key={x.id} name={x.name} image={x.image as string} price={x.price}
+              <BidCard key={x.id} name={x.name} image={x.image as string} price={x.price as string}
               ends={x.timeEnds as Date} id={x.id} />
             )
             :

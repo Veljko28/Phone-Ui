@@ -3,7 +3,7 @@ export default interface Phone {
   image: string,
   name: string,
   description?: string,
-  price: string,
+  price: string | number,
   dateCreated?: Date,
   expires?: Date
   discount?: string,
