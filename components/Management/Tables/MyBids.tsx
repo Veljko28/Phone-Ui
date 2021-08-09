@@ -31,7 +31,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                       </Grid>
                     </Grid>
               </td>
-              <td>{price + "$"}</td>
+              <td style={{color: '#43cf22'}}>{price + "$"}</td>
               <td>
                   <div style={status === "Sold !" ? {color: '#43cf22'} : status === "Running" ? {color: "#0cafe5"} : {color: "red"}}>
                       {status}

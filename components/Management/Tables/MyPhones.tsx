@@ -13,8 +13,8 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
 
    const [selectedId, changeSelectedId] = React.useState<string | undefined>(undefined);
 
-   const rowMap = ({id, name, image, category, status, dateCreated} :
-        {id: string,name: string, image: string, category: string, status: string, dateCreated: Date, idx: number}) => {
+   const rowMap = ({id, name, image, price, status, dateCreated} :
+        {id: string,name: string, image: string, price: string | number, status: string, dateCreated: Date, idx: number}) => {
 
           const str = dateCreated?.toString().split('T')[0].replace(/-/g,"/");
           const date = {
@@ -37,7 +37,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
                       </Link>
                     </Grid>
               </td>
-              <td>{category}</td>
+              <td style={{color: '#43cf22'}}>{price + "$"}</td>
               <td>
                   <div style={status === "Sold !" ? {color: '#43cf22'} : status === "Running" ? {color: "#0cafe5"} : {color: "red"}}>
                       {status}
@@ -91,7 +91,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
           <thead>
             <tr>
               <td>Name</td>
-              <td>Category</td>
+              <td>Price</td>
               <td>Status</td>
               <td>Created</td>
               <td>&nbsp;</td>

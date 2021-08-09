@@ -9,7 +9,7 @@ const PriceDetails = () => {
 
   const list = useSelector((state: State) => state.cart.items);
 
-  const totalPrice = list.length == 0 ? '0' : list.map((x: Phone) => parseInt(x.price)).reduce((a: number,b: number) => a+b);
+  const totalPrice = list.length == 0 ? '0' : list.map((x: Phone) => x.price as any).reduce((a: number,b: number) => a+b);
 
   return (
     <Grid container className="price-details">
