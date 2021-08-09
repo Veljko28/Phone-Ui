@@ -10,7 +10,13 @@ import Link from 'next/link';
 
 const UserCard = (props: {image: string, name: string, desc: string, rating: number, id: string, search?: boolean}) => {
 
-  const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
+  let currentUser: string | null = null;
+  
+    if (typeof window !== 'undefined') {
+      currentUser = localStorage.getItem('userId');
+    }
+
+    const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
     const contactOpen = Boolean(contactAnchorEl);
 
     const openContanct = (e: any) => {
@@ -70,11 +76,19 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
                  Currently Selling: <span style={{color: '#0cafe5'}}>3</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
               </Typography>
-
-              <Button variant="contained" onClick={e => openContanct(e)}
-                    style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
-                    >Contact The Seller</Button>
-              <UserContact  open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
+              {props.id === currentUser ? (
+                <Link href={`/user/edit/${props.id}`}>
+                <Button variant="contained"
+                 style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                >Edit Profile</Button>
+                </Link>
+              ) : (<>
+                <Button variant="contained" onClick={e => openContanct(e)}
+                      style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                      >Contact The Seller</Button>
+                <UserContact  open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
+                </>
+              )}
             </div>
           </>
         )}

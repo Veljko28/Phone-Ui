@@ -5,7 +5,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { addToCart } from '../redux/actions/cartActions';
 import { useDispatch } from 'react-redux';
 import Link from 'next/link';
-import { Phone } from './models/Phone';
+import Phone from './models/Phone';
 
 
 export const PhoneCard = (props: Phone) => {
