@@ -44,7 +44,7 @@ const BidHistory = ({open, anchorEl, handleClose} :
           </thead>
           <tbody>
              {test.map(x => (
-               <tr>
+               <tr key={x.amount}>
                  <td>{x.name}</td>
                  <td style={{color: '#0cafe5'}}>{x.amount}</td>
                </tr>

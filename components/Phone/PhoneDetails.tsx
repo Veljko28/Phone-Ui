@@ -15,7 +15,7 @@ const PhoneDetails = () => {
             <ColoredLine color="#eee"/>
             <ul className="details-list">
                 {items.splice(3).map(x => (
-                    <li>
+                    <li key={x}>
                     <ArrowForwardIosIcon style={{fontSize: '15px', margin: '5px', color: '#0cafe5'}}/>
                     {x}
                 </li>
@@ -23,7 +23,7 @@ const PhoneDetails = () => {
             </ul>
             <ul className="details-list">
                 {items.splice(0,3).map(x => (
-                    <li>
+                    <li key={x}>
                     <ArrowForwardIosIcon style={{fontSize: '15px', margin: '5px', color: '#0cafe5'}}/>
                     {x}
                 </li>

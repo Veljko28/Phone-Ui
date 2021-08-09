@@ -18,24 +18,24 @@ import ImageMapper from "../../constants/ImageMapper";
 import BidHistory from "./BidHistory";
 import PopUpDialog from "../../constants/PopUpDialog";
 import Bid from "../models/Bid";
+import { fetchPatch } from "../../constants/CustomFetching";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const PhoneDisplay = ({phone,images,bid} : {phone?: Phone | Bid ,images?: string[], bid?: boolean}) => {
+const PhoneDisplay = ({phone,images,bid,id} : {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string}) => {
 
   const dispatch = useDispatch();
 
-  // only for testing
-  const [price,changePrice] = React.useState("250$");
+  const [bidAmount,changeBidAmount] = React.useState(1);
 
   React.useEffect(() => {
     if (images !== undefined) changeCurrentImage(images[0]);
-  },[images]);
+    if (phone !== undefined) changeBidAmount(phone.price as number + 1);
+  },[images, phone?.price]);
 
   const [currentImage,changeCurrentImage] = React.useState('');
-  const [bidAmount,changeBidAmount] = React.useState(parseInt(price.slice(0,-1))+1);
   const [dialogOpen,changeDialogOpen] = React.useState(false);
   const [snackBarOpen,changeSnackBarOpen] = React.useState(false);
 
@@ -51,10 +51,14 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone | Bid ,images?: string
     setAnchorEl(null);
   }
 
-  const bidConfimed = () => {
-    if (bidAmount !== null && bidAmount > parseInt(price.slice(0,-1))+1){
-      changePrice(bidAmount+'$');
-      changeSnackBarOpen(true);
+  const bidConfimed = async () => {
+    if (bidAmount !== null && bidAmount > (phone?.price as number)+1){
+      const res = await fetchPatch('http://localhost:10025/api/v1/bid/price/update', {id: id,price: bidAmount });
+      if (res.ok){
+        changeSnackBarOpen(true);
+        setTimeout(() => location.reload(), 1500)
+      }
+
     }
     changeDialogOpen(false);
   }
@@ -92,7 +96,7 @@ const PhoneDisplay = ({phone,images,bid} : {phone?: Phone | Bid ,images?: string
           <input type="number"
           value={bidAmount}
           onChange={e => changeBidAmount(e.target.value as any)}
-          min={parseInt(price.slice(0,-1))+1}
+          min={phone ? (phone?.price as number)+1 : 1}
           className="bid-price"/>
           <Button variant="contained" onClick={() => changeDialogOpen(true)}
           style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>

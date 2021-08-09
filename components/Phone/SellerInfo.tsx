@@ -1,15 +1,15 @@
 import { Grid, Typography, Button } from '@material-ui/core';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import Rating from '@material-ui/lab/Rating';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 import ColoredLine from '../../constants/ColoredLine';
+import User from '../models/User';
 import UserContact from '../User/UserContact';
 
 
-const SellerInfo = ({id} : {id: string}) => {
+const SellerInfo = ({user} : {user?: User}) => {
 
   const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
   const contactOpen = Boolean(contactAnchorEl);
@@ -28,11 +28,11 @@ const SellerInfo = ({id} : {id: string}) => {
         color: '#0cafe5'}}>About The Seller</Typography>
             <ColoredLine color="#eee"/>
             <Grid xs={12} container item>
-             <Link href={`/user/${id}`}>
+             <Link href={`/user/${user?.id}`}>
                 <Grid xs={12} md={4} item className="review-grid-item">
                   <div className="curs-hvr">
-                    <Image src="/user.png" width="70px" height="70px" />
-                    <div>User {id}</div>
+                    <img src={user?.image ? user.image : "/user.png"} width="70px" height="70px" />
+                    <div>{user?.userName}</div>
                   </div>
                 </Grid>
               </Link>
@@ -54,7 +54,7 @@ const SellerInfo = ({id} : {id: string}) => {
                     <Button variant="contained" onClick={e => openContanct(e)}
                     style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                     >Contact The Seller</Button>
-                    <Link href={`/user/${id}`}>
+                    <Link href={`/user/${user?.id}`}>
                       <Button variant="contained" 
                       style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                       >View Listings</Button>
