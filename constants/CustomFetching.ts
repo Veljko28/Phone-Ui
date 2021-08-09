@@ -80,12 +80,6 @@ export const fetchPost = async (url: string, payload: any) => {
       console.log(error);
     })
 
-    const success = await unauthorizedCheck(res);
-
-    if (success){
-      fetchPost(url, payload);
-    }
-    
     return res;
 }
 
