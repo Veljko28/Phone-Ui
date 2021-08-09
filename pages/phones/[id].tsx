@@ -48,7 +48,9 @@ const phones = () => {
                 <CategoryBar options={options} changeOptions={(value: any) => changeOptions(value)}/>
             </Grid> 
             <Grid item xs={12} md={9}>
-                <PhoneList list={brandList}/>
+                <PhoneList 
+                list={brandList}
+                />
                 <Pages pageId={id}/>
             </Grid> 
         </Grid>

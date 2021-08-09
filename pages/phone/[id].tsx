@@ -20,6 +20,7 @@ const PhonePage = () => {
 
   const [phone,changePhone] = React.useState<Phone | undefined>(undefined);
   const [images, changeImages] = React.useState<string[] | undefined>(undefined);
+  const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
   
   React.useEffect(() => {
     const func = async () => {
@@ -33,6 +34,12 @@ const PhonePage = () => {
     
           if ((res2 as Response).ok){
             changeImages(await (res2 as Response).json());
+          }
+
+          const related = await fetchGet('http://localhost:10025/api/v1/phones/featured');
+
+          if ((related as Response).ok){
+            changeRelatedProducts(await (related as Response).json());
           }
     }
 
@@ -53,7 +60,7 @@ const PhonePage = () => {
         <PhoneRatings />
         <PhoneReviews />
         <AddPhoneReview />
-        <LatestProducts title="Related Products" />
+        <LatestProducts title="Related Products" phones={relatedProducts} />
       </Grid>
 
       <Grid md={1}  lg={2} item/>
