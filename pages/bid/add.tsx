@@ -10,6 +10,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import TitleChange from '../../constants/TitleChange';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 import { fetchForm, fetchPost, fetchPostBid, fetchPostForm } from '../../constants/CustomFetching';
+import NotLoggedIn from '../../constants/NotLoggedIn';
 
 
 
@@ -20,6 +21,13 @@ const AddBid = () => {
     const [currentImage,changeCurrentImage] = React.useState('');
     const [imageBlobs, changeImageBlob] = React.useState([]);
     const [files,changeFiles] = React.useState([]);
+
+     let jwt: string | null = null;
+
+    if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+    }
+
 
     const d = new Date();
 
@@ -133,6 +141,8 @@ const AddBid = () => {
     }
 
     return (
+        <>
+        {jwt === null ? <NotLoggedIn/> : (
         <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Bid Add`} />
             <Grid item lg={2}/>
@@ -305,6 +315,8 @@ const AddBid = () => {
             <SnackBarFailed snackBarOpen={error} changeSnackBarOpen={() => changeError(false)} message={"Failed to add your bid !"}/>
 
         </Grid>
+        )}
+        </>
     )
 }
 

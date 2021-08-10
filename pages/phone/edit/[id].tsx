@@ -11,6 +11,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import NotLoggedIn from '../../../constants/NotLoggedIn';
 
 const EditPage = () => {
   const router = useRouter()
@@ -22,6 +23,13 @@ const EditPage = () => {
   const [imageBlobs, changeImageBlob] = React.useState([]);
   const [files,changeFiles] = React.useState([]);
   
+  
+  let jwt: string | null = null;
+
+  if (typeof window !== 'undefined') {
+    jwt = localStorage.getItem('jwt');
+  }
+
   
   const [formInfo,changeFormInfo] = React.useState({
     name: "",
@@ -50,9 +58,6 @@ const EditPage = () => {
 
       if (id) func();
     },[id, formInfo.image]);
-
-    // console.log(formInfo);
-    // console.log(imageBlobs);
 
     const [snackbar, changeSnackbarOpen] = React.useState(false);
     const [error, changeError] = React.useState(false);
@@ -130,6 +135,9 @@ const EditPage = () => {
 
 
   return (
+      <>
+      {jwt === null ? <NotLoggedIn/> : (
+
     <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Edit`} />
             <Grid item lg={2}/>
@@ -261,6 +269,8 @@ const EditPage = () => {
             <SnackBarFailed snackBarOpen={error} changeSnackBarOpen={() => changeError(false)} message={"Failed to add your phone !"}/>
 
         </Grid>
+      )}
+      </>
   )
 }
 

@@ -10,6 +10,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import TitleChange from '../../constants/TitleChange';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 import { fetchPost, fetchPostForm, fetchForm } from '../../constants/CustomFetching';
+import NotLoggedIn from '../../constants/NotLoggedIn';
 
 
 
@@ -21,6 +22,11 @@ const AddPhone = () => {
     const [imageBlobs, changeImageBlob] = React.useState([]);
     const [files,changeFiles] = React.useState([]);
 
+    let jwt: string | null = null;
+
+    if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+    }
 
     const [formInfo,changeFormInfo] = React.useState({
         name: "",
@@ -93,10 +99,8 @@ const AddPhone = () => {
              return;
         }
         const photo = await displayPhotoRes.text();
-        console.log(photo);
 
         const newForm = {...formInfo, image: photo};
-        console.log(newForm);
 
         // Sending Phone Info
         const res = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, newForm);
@@ -121,6 +125,9 @@ const AddPhone = () => {
     }
 
     return (
+        <>
+        {jwt === null ? <NotLoggedIn/> : (
+
         <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Add`} />
             <Grid item lg={2}/>
@@ -213,9 +220,10 @@ const AddPhone = () => {
                             <option value="" hidden>Brand</option>
                             <option value="google">Google</option>
                             <option value="apple">Apple</option>
-                            <option value="sams">Samsung</option>
-                            <option value="htc">Htc</option>
-                            <option value="alc">Alcatel</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="vivo">Vivo</option>
+                            <option value="redmi">Redmi</option>
+                            <option value="alcatel">Alcatel</option>
                         </select>
                     </Grid>
 
@@ -251,6 +259,8 @@ const AddPhone = () => {
             <SnackBarFailed snackBarOpen={error} changeSnackBarOpen={() => changeError(false)} message={"Failed to add your phone !"}/>
 
         </Grid>
+        )}
+        </>
     )
 }
 

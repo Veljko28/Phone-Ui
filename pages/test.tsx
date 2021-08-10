@@ -1,10 +1,11 @@
+import { Grid, Typography, Button} from '@material-ui/core';
 import React from 'react';
-import Loading from '../components/Loading';
+import Link from 'next/link';
  
 const test = () => {
     return (
         <div>
-            <Loading size={50}/>
+          
         </div>
 
     )

@@ -10,6 +10,7 @@ import TitleChange from '../../constants/TitleChange';
 import { fetchGet } from '../../constants/CustomFetching';
 import Bid from '../../components/models/Bid';
 import User from '../../components/models/User';
+import Phone from '../../components/models/Phone';
 
 
 const PhonePage = () => {
@@ -19,6 +20,8 @@ const PhonePage = () => {
   const [bid,changeBid] = React.useState<Bid | undefined>(undefined);
   const [images, changeImages] = React.useState(undefined);
   const [user, changeUser] = React.useState<User | undefined>(undefined);
+  const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
+
 
   React.useEffect(() => {
     const func = async () => {
@@ -31,6 +34,12 @@ const PhonePage = () => {
 
         if (userRes.ok){
           changeUser(await userRes.json());
+        }
+
+        const related = await fetchGet('http://localhost:10025/api/v1/phones/featured');
+
+        if ((related as Response).ok){
+            changeRelatedProducts(await (related as Response).json());
         }
 
       }
@@ -57,7 +66,7 @@ const PhonePage = () => {
         <PhoneDetails />
         <SellerInfo user={user}/>
         <PhoneReviews />
-        <LatestProducts title="Related Products" />
+        <LatestProducts title="Related Products"  phones={relatedProducts} />
       </Grid>
 
       <Grid md={1}  lg={2} item/>

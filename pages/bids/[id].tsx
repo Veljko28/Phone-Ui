@@ -7,18 +7,15 @@ import { useRouter } from "next/router";
 import TitleChange from "../../constants/TitleChange";
 import { fetchGet } from '../../constants/CustomFetching';
 import Phone from '../../components/models/Phone';
+import { State } from '../../redux/reduxTypes';
+import { useSelector } from 'react-redux';
 
 const bids = () => {
 
   const router = useRouter()
   const id = router.query['id'];
   const [list,changeList] = React.useState([]);
-  const [options, changeOptions] = React.useState({
-      category: "All Phones",
-      brand: "All",
-      price: "All",
-      sorting: "none"
-  });
+  const options = useSelector((state: State) => state.phones.bidOptions);
 
   React.useEffect(() => {
      const func = async () => {
@@ -72,11 +69,11 @@ const bids = () => {
             <TitleChange title={`MobiStore - Bids Page ${id}`} />
            
             <Grid item xs={12} md={3}>
-                <CategoryBar options={options} changeOptions={(value: any) => changeOptions(value)}/>
+                <CategoryBar options={options} />
             </Grid> 
             <Grid item xs={12} md={9}>
                 <PhoneList bids={true} list={categoryList}/>
-                <Pages pageId={id}/>
+                <Pages pageId={id} bid={true}/>
             </Grid> 
         </Grid>
     )
