@@ -16,10 +16,29 @@ search display ✅
 
 phone management ✅ 
 management lists ✅ 
+management pages ✅ 
 edit phone ✅ 
-delete phone ✅ 
-edit validation
-search styling
+delete phone ✅
+categories ✅
+cagetory buttons with redux and pagination ✅
+not logged in ✅
+
+
+add phone / bid validation ✅
+edit validation ✅
+user profile edit
+search styling ✅
+remove user images
+phone details
+User Reviews and Ratings
+Checkout and Payments
+Darkmode
+better styles for adding and editing phones
+page buttons fix
+carousel images on phone
+bid history with api
+bid categories with redux
+change display image on removal of it
 
 
 language translations (react-i18next)

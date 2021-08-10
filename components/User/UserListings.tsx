@@ -1,6 +1,4 @@
 import { Grid, Typography } from '@material-ui/core';
-import ColoredLine from '../../constants/ColoredLine';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { fetchGet } from '../../constants/CustomFetching';
