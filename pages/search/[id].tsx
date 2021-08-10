@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router'
-import { Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import { BidCard } from '../../components/BidCard';
@@ -40,34 +40,69 @@ const search = () => {
       func();
   },[id])
 
-  const BlockMap = (title: string, array: any[], type: number) => {
-    return array.length === 0 ? null : (
-        <div>
-        <Typography variant="h4" style={{color: '#0cafe5', padding: 15, textAlign: 'center'}}>{title}</Typography>
-          <ColoredLine color="#eee"/>
-        <div style={{display: 'flex', justifyContent: 'center', padding: 25}}>
+    const ListingMap = ({phone: {id,image,name,description, price}, type} :  
+      {phone: {id: number, image: string, name: string, description: string, price: string}, type: string}) => {
+        return (
+            <Link href={`/${type === "Bid" ? "bid" : "phone"}/${id.toString()}`} key={id}>
+              <Grid container style={{width: '80%'}}>
+                    <Grid xs={12} md={4} item className="review-grid-item">
+                      <div className="curs-hvr">
+                        <img src={image} width="100px" height="100px" />
+                      </div>
+                    </Grid>
+                  <Grid xs={12} md={8} item className="listing-grid-item">
+                        <Typography variant="subtitle1" style={{color: '#0cafe5'}} className="curs-hver">
+                          {name}
+                        </Typography>
 
-          {array.length > 0  && type == 0 ? array.map(x => (
-              <PhoneCard name={x.name} key={x.id}
-              image={x.image ? x.image : "phone.jpg"} price={x.price} id={x.id} />
-            )) : null}
+                        <Typography variant="subtitle2" style={{color: '#999'}}>
+                          {description}
+                        </Typography>
+                         <Typography variant="subtitle1" style={{display: 'flex', justifyContent: 'space-between'}}>
+                           <div style={{color: '#43cf22'}}>
+                              {price+"$"}   
+                           </div>
+                           <div style={{color: '#0cafe5', marginRight: 75}}>
+                              {type}
+                           </div>
+                        </Typography>
+                  </Grid>
+               </Grid>
+            </Link>
+        )
+      }
 
+      const UserMap = ({id,image,userName,description,phones_sold} :  
+      {id: number, image: string, userName: string, description: string, phones_sold: string}) => {
+        return (
+            <Link href={`/phone/${id.toString()}`} key={id}>
+              <Grid container style={{width: '80%'}}>
+                    <Grid xs={12} md={4} item className="review-grid-item">
+                      <div className="curs-hvr">
+                        <img src={'/user.png'} width="100px" height="100px" />
+                      </div>
+                    </Grid>
+                  <Grid xs={12} md={8} item className="listing-grid-item">
+                        <Typography variant="subtitle1" style={{color: '#0cafe5'}} className="curs-hver">
+                          {userName}
+                        </Typography>
 
-            {array.length > 0  && type === 1 ? array.map(x => (
-              <BidCard name={x.name} key={x.id} image={x.image as string} price={x.price}
-                  ends={x.timeEnds} id={x.id} />
-            )) : null}
-
-            {array.length > 0  && type === 2 ? array.map((x: any) => (
-            <UserCard search={true} image={x.image ? x.image : "/user.png"} name={x.userName} desc="" rating={4.6} id={x.id as string}/>
-            )) : null}
-
-
-        </div>
-      </div>
-      )
-    
-  }
+                        <Typography variant="subtitle2" style={{color: '#999'}}>
+                          {description ? description : "This user has no description"}
+                        </Typography>
+                         <Typography variant="subtitle1" style={{display: 'flex', justifyContent: 'space-between'}}>
+                           <div style={{color: '#0cafe5'}}>
+                              Phones Sold: {phones_sold}   
+                           </div>
+                           <div style={{color: '#0cafe5', marginRight: 75}}>
+                              User
+                           </div>
+                        </Typography>
+                  </Grid>
+               </Grid>
+            </Link>
+        )
+      }
 
   return (
     <>
@@ -83,10 +118,11 @@ const search = () => {
          </Link>
        </div>
        ): (
-        <div style={{paddingBottom: 150, backgroundColor: '#fff'}}>
-        {BlockMap("Phones",data.phones.slice(0,4), 0)}
-        {BlockMap("Bids",data.bids.slice(0,4), 1)}
-        {BlockMap("Users",data.users.slice(0,4), 2)}
+        <div style={{paddingBottom: 150, backgroundColor: '#fff',display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 600}}>
+        <Typography variant="h6" style={{color: '#0cafe5', marginTop: 15}}>Results for {id}</Typography>
+        {data.phones.slice(0,4).map(x => ListingMap({phone: x, type: "Listing"}))}
+        {data.bids.slice(0,4).map(x => ListingMap({phone: x, type: "Bid"}))}
+        {data.users.slice(0,4).map(x => UserMap(x))}
         </div>)}
      
     </>
