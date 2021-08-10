@@ -39,6 +39,7 @@ carousel images on phone
 bid history with api
 bid categories with redux
 change display image on removal of it
+reset password / forgot password
 
 
 language translations (react-i18next)
