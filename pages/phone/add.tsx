@@ -1,4 +1,6 @@
 import React from 'react';
+import * as yup from 'yup';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Grid, Typography, TextField, InputAdornment,
      Button} from '@material-ui/core';
@@ -11,6 +13,8 @@ import TitleChange from '../../constants/TitleChange';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 import { fetchPost, fetchPostForm, fetchForm } from '../../constants/CustomFetching';
 import NotLoggedIn from '../../constants/NotLoggedIn';
+import { formatYupError } from '../../constants/formYupError';
+import YupError from '../../constants/YupError';
 
 
 
@@ -21,6 +25,15 @@ const AddPhone = () => {
     const [currentImage,changeCurrentImage] = React.useState('');
     const [imageBlobs, changeImageBlob] = React.useState([]);
     const [files,changeFiles] = React.useState([]);
+
+    const yupSchema = yup.object().shape({
+        name: yup.string().min(5),
+        image: yup.string().min(5),
+        description: yup.string().min(25),
+        price: yup.number().moreThan(0),
+        category: yup.string().min(1),
+        brand: yup.string().min(1)
+    });
 
     let jwt: string | null = null;
 
@@ -38,7 +51,8 @@ const AddPhone = () => {
     });
 
     const [snackbar, changeSnackbarOpen] = React.useState(false);
-    const [error, changeError] = React.useState(false);
+    const [error, changeError] = React.useState({open: false, message: ""});
+    const [yupErrors, changeYupErrors] = React.useState([]);
 
     const inputRef = React.useRef(null);
     
@@ -93,14 +107,28 @@ const AddPhone = () => {
         const userId = localStorage.getItem('userId');
 
         const file = files[0];
+        if (file == null) {
+            changeError({open: true, message: "Please add a photo"});
+            return;
+        }
+
         const displayPhotoRes = await fetchForm('http://localhost:10025/api/v1/generic/phone/display', file);
+
         if ((displayPhotoRes as Response).status !== 200 && (displayPhotoRes as Response).status !== 401){
-             changeError(true);
+            changeError({open: true, message: "Failed to add a photo, please try again"});
              return;
         }
-        const photo = await displayPhotoRes.text();
+        const photo: string | null = await displayPhotoRes.text();
 
         const newForm = {...formInfo, image: photo};
+
+        try {
+            await yupSchema.validate(newForm, {abortEarly: false});
+        }
+        catch (err) {
+            changeYupErrors(formatYupError(err) as any);
+            return;
+        }
 
         // Sending Phone Info
         const res = await fetchPost('http://localhost:10025/api/v1/phones/add/' + userId, newForm);
@@ -108,7 +136,7 @@ const AddPhone = () => {
         const phoneId = phone?.id;
 
         if (!phoneId) {
-            changeError(true);
+            changeError({open: true, message: "Failed to add phone"});
             return;
         }
 
@@ -121,12 +149,10 @@ const AddPhone = () => {
             router.push(`/phone/${phoneId}`)
          }, 3000)
        }
-       else changeError(true);
+       else changeError({open: true, message: "Failed to add phone"});
     }
 
-    return (
-        <>
-        {jwt === null ? <NotLoggedIn/> : (
+    return (jwt === null ? <NotLoggedIn/> : (
 
         <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Add`} />
@@ -182,22 +208,24 @@ const AddPhone = () => {
                         <TextField type="text" placeholder="Name" fullWidth 
                         onChange={(e: any) => changeFormInfo({...formInfo,name: e.target.value})} value={formInfo.name}
                         InputProps={{
-                            className: "money-imput",
+                            className: yupErrors.filter((x: any) => x.path === 'name').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
+                      <YupError errors={yupErrors} path="name"/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField placeholder="Price" type="number" fullWidth
                      onChange={(e: any) => changeFormInfo({...formInfo,price: parseInt(e.target.value)})} value={formInfo.price}
                    InputProps={{
-                        className: "money-imput",
+                        className: yupErrors.filter((x: any) => x.path === 'price').length > 0 ? "money-imput-error" : "money-imput",
                         endAdornment: (
                         <InputAdornment position="start">
                             <AttachMoneyIcon style={{fontSize: '18px', color: '#656'}}/>
                         </InputAdornment>
                         ),
                         disableUnderline: true
-                    }}/>
+                      }}/>
+                      <YupError errors={yupErrors} path="price"/>
                     </Grid>
                 </Grid>
 
@@ -206,17 +234,19 @@ const AddPhone = () => {
                     <Grid xs={6} item>
                         <select name="category" 
                         onChange={e => changeFormInfo({...formInfo,category: e.target.value})} value={formInfo.category}
-                        className="money-select">
+                        className={yupErrors.filter((x: any) => x.path === 'category').length > 0 ? "money-select-error" : "money-select"}
+                        >
                             <option value="" hidden>Category</option>
                             <option value="android">Android Phone</option>
                             <option value="ios">IOS Phone</option>
                             <option value="other">Other</option>
                         </select>
+                       <YupError errors={yupErrors} path="category"/>
                     </Grid>
                     <Grid xs={6} item>
                     <select name="brand"
                     onChange={e => changeFormInfo({...formInfo,brand: e.target.value})} value={formInfo.brand}
-                    className="money-select">
+                        className={yupErrors.filter((x: any) => x.path === 'category').length > 0 ? "money-select-error" : "money-select"}>
                             <option value="" hidden>Brand</option>
                             <option value="google">Google</option>
                             <option value="apple">Apple</option>
@@ -225,6 +255,7 @@ const AddPhone = () => {
                             <option value="redmi">Redmi</option>
                             <option value="alcatel">Alcatel</option>
                         </select>
+                       <YupError errors={yupErrors} path="brand"/>
                     </Grid>
 
                 </Grid>
@@ -232,10 +263,13 @@ const AddPhone = () => {
                 <TextField placeholder="Description" rows="3" multiline={true} fullWidth
                     onChange={e => changeFormInfo({...formInfo,description: e.target.value})} value={formInfo.description}
                     InputProps={{
-                        className: "money-desc",
+                        className: yupErrors.filter((x: any) => x.path === 'description').length > 0 ? "money-desc-error" : "money-desc",
                         style: {padding: 10},
                         disableUnderline: true
                 }}/>
+                <YupError errors={yupErrors} path="description"/>
+                <br/>
+
 
                 <Button variant="contained" 
                 style={{backgroundColor: '#0cafe5', color: '#fff'}}
@@ -243,12 +277,13 @@ const AddPhone = () => {
                     <CheckIcon style={{fontSize: 20, margin: 2}}/>
                     Submit
                 </Button>
-
-                <Button variant="contained" 
-                style={{backgroundColor: 'red', color: '#fff', margin: 10}}>
-                    <ClearIcon style={{fontSize: 20, margin: 2}}/>
-                    Cancel
-                </Button>
+                <Link href="/management">
+                    <Button variant="contained" 
+                    style={{backgroundColor: 'red', color: '#fff', margin: 10}}>
+                        <ClearIcon style={{fontSize: 20, margin: 2}}/>
+                        Cancel
+                    </Button>
+                </Link>
 
             </Grid>
 
@@ -256,11 +291,11 @@ const AddPhone = () => {
             
             <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message="Successfully added your phone !"/>
 
-            <SnackBarFailed snackBarOpen={error} changeSnackBarOpen={() => changeError(false)} message={"Failed to add your phone !"}/>
+            <SnackBarFailed snackBarOpen={error.open} changeSnackBarOpen={() => changeError({open: false, message: ""})} 
+            message={error.message}/>
 
         </Grid>
-        )}
-        </>
+        )
     )
 }
 

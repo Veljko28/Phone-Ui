@@ -1,4 +1,6 @@
 import React from 'react';
+import * as yup from 'yup';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Grid, Typography, TextField, InputAdornment,
      Button} from '@material-ui/core';
@@ -11,6 +13,8 @@ import TitleChange from '../../constants/TitleChange';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 import { fetchForm, fetchPost, fetchPostBid, fetchPostForm } from '../../constants/CustomFetching';
 import NotLoggedIn from '../../constants/NotLoggedIn';
+import { formatYupError } from '../../constants/formYupError';
+import YupError from '../../constants/YupError';
 
 
 
@@ -46,13 +50,26 @@ const AddBid = () => {
         price: 0,
         category: "",
         brand: "",
-        seller: "7953981b-8594-4299-b828-9386cdef9ec8",
+        seller: localStorage.getItem('userId'),
         timeCreated: datestring,
         timeEnds: ""
     });
 
+    const yupSchema = yup.object().shape({
+        name: yup.string().min(5),
+        description: yup.string().min(25),
+        price: yup.number().moreThan(0),
+        category: yup.string().min(1),
+        brand: yup.string().min(1),
+        seller: yup.string().min(10),
+        timeCreated: yup.string().min(5),
+        timeEnds: yup.string().min(5),
+        image: yup.string().min(5)
+    });
+
     const [snackbar, changeSnackbarOpen] = React.useState(false);
-    const [error, changeError] = React.useState(false);
+    const [error, changeError] = React.useState({open: false, message: ""});
+    const [yupErrors, changeYupErrors] = React.useState([]);
 
     const inputRef = React.useRef(null);
     
@@ -107,16 +124,28 @@ const AddBid = () => {
             const userId = localStorage.getItem('userId');
 
             const file = files[0];
+
+            if (file === null){
+                changeError({open: true, message: "Please add a photo"});
+                return;
+            }
+
             const displayPhotoRes = await fetchForm('http://localhost:10025/api/v1/generic/phone/display', file);
             if ((displayPhotoRes as Response).status !== 200 && (displayPhotoRes as Response).status !== 401){
-                changeError(true);
+                changeError({open: true, message: "Failed to add a photo, please try again"});
                 return;
             }
             const photo = await displayPhotoRes.text();
-            console.log(photo);
 
             const newForm = {...formInfo, image: photo};
-            console.log(newForm);
+
+            try {
+                await yupSchema.validate(newForm, {abortEarly: false});
+            }
+            catch (err) {
+                changeYupErrors(formatYupError(err) as any);
+                return;
+            }
 
             // Sending Phone Info
             const res = await fetchPost('http://localhost:10025/api/v1/bid/add/' + userId, newForm);
@@ -124,7 +153,7 @@ const AddBid = () => {
             const bid_Id = bid?.id;
 
             if (!bid_Id) {
-                changeError(true);
+                changeError({open: true, message: "Failed to add bid"});
                 return;
             }
 
@@ -137,7 +166,7 @@ const AddBid = () => {
                 router.push(`/bid/${bid_Id}`)
             }, 3000)
         }
-        else changeError(true);
+        else changeError({open: true, message: "Failed to add bid"});
     }
 
     return (
@@ -197,15 +226,16 @@ const AddBid = () => {
                         <TextField type="text" placeholder="Name" fullWidth 
                         onChange={(e: any) => changeFormInfo({...formInfo,name: e.target.value})} value={formInfo.name}
                         InputProps={{
-                            className: "money-imput",
+                            className: yupErrors.filter((x: any) => x.path === 'name').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
+                       <YupError errors={yupErrors} path="name"/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField placeholder="Price" type="number" fullWidth
                      onChange={(e: any) => changeFormInfo({...formInfo,price: parseInt(e.target.value)})} value={formInfo.price}
                    InputProps={{
-                        className: "money-imput",
+                        className: yupErrors.filter((x: any) => x.path === 'price').length > 0 ? "money-imput-error" : "money-imput",
                         endAdornment: (
                         <InputAdornment position="start">
                             <AttachMoneyIcon style={{fontSize: '18px', color: '#656'}}/>
@@ -213,6 +243,7 @@ const AddBid = () => {
                         ),
                         disableUnderline: true
                     }}/>
+                    <YupError errors={yupErrors} path="price"/>
                     </Grid>
                 </Grid>
 
@@ -221,17 +252,18 @@ const AddBid = () => {
                     <Grid xs={6} item>
                         <select name="category" 
                         onChange={e => changeFormInfo({...formInfo,category: e.target.value})} value={formInfo.category}
-                        className="money-select">
+                       className={yupErrors.filter((x: any) => x.path === 'category').length > 0 ? "money-select-error" : "money-select"}>
                             <option value="" hidden>Category</option>
                             <option value="android">Android Phone</option>
                             <option value="ios">IOS Phone</option>
                             <option value="other">Other</option>
                         </select>
+                     <YupError errors={yupErrors} path="category"/>
                     </Grid>
                     <Grid xs={6} item>
                     <select name="brand"
                     onChange={e => changeFormInfo({...formInfo,brand: e.target.value})} value={formInfo.brand}
-                    className="money-select">
+                    className={yupErrors.filter((x: any) => x.path === 'brand').length > 0 ? "money-select-error" : "money-select"}>
                             <option value="" hidden>Brand</option>
                             <option value="google">Google</option>
                             <option value="apple">Apple</option>
@@ -239,6 +271,7 @@ const AddBid = () => {
                             <option value="htc">Htc</option>
                             <option value="alc">Alcatel</option>
                         </select>
+                     <YupError errors={yupErrors} path="brand"/>
                     </Grid>
 
                 </Grid>
@@ -252,9 +285,10 @@ const AddBid = () => {
                         fullWidth 
                         value={formInfo.timeCreated}
                         InputProps={{
-                            className: "money-imput",
+                            className: yupErrors.filter((x: any) => x.path === 'timeCreated').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
+                     <YupError errors={yupErrors} path="timeCreated"/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField
@@ -262,7 +296,7 @@ const AddBid = () => {
                         label="End Date"
                         type="datetime-local"
                         InputProps={{
-                            className: "money-imput",
+                            className: yupErrors.filter((x: any) => x.path === 'timeEnds').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}
                         InputLabelProps={{
@@ -281,16 +315,19 @@ const AddBid = () => {
                             changeFormInfo({...formInfo, timeEnds: time})
                         }}
                     />
+                     <YupError errors={yupErrors} path="timeEnds"/>
                     </Grid>
                 </Grid>
 
                 <TextField placeholder="Description" rows="3" multiline={true} fullWidth
                     onChange={e => changeFormInfo({...formInfo,description: e.target.value})} value={formInfo.description}
                     InputProps={{
-                        className: "money-desc",
+                        className: yupErrors.filter((x: any) => x.path === 'price').length > 0 ? "money-desc-error" : "money-desc",
                         style: {padding: 10},
                         disableUnderline: true
                 }}/>
+                <YupError errors={yupErrors} path="description"/>
+                <br/>
 
                 <Button variant="contained" 
                 style={{backgroundColor: '#0cafe5', color: '#fff'}}
@@ -298,13 +335,13 @@ const AddBid = () => {
                     <CheckIcon style={{fontSize: 20, margin: 2}}/>
                     Submit
                 </Button>
-
-                <Button variant="contained" 
-                style={{backgroundColor: 'red', color: '#fff', margin: 10}}>
-                    <ClearIcon style={{fontSize: 20, margin: 2}}/>
-                    Cancel
-                </Button>  
-
+                <Link href="/management">
+                    <Button variant="contained" 
+                    style={{backgroundColor: 'red', color: '#fff', margin: 10}}>
+                        <ClearIcon style={{fontSize: 20, margin: 2}}/>
+                        Cancel
+                    </Button>  
+                </Link>
 
             </Grid>
 
@@ -312,7 +349,7 @@ const AddBid = () => {
             
             <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message="Successfully added your bid !"/>
 
-            <SnackBarFailed snackBarOpen={error} changeSnackBarOpen={() => changeError(false)} message={"Failed to add your bid !"}/>
+            <SnackBarFailed snackBarOpen={error.open} changeSnackBarOpen={() => changeError({open: false, message: ""})} message={error.message}/>
 
         </Grid>
         )}
