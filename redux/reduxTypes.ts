@@ -1,8 +1,14 @@
-import { Phone } from "../components/models/Phone";
+import Phone from "../components/models/Phone";
 
 export interface Action {
     type: String
     payload?: any 
+}
+export interface CategoryOptions {
+    category: string,
+    brand: string,
+    sorting: string,
+    price: string   
 }
 
 export interface State {
@@ -15,7 +21,8 @@ export interface State {
     phones: {
         list: Phone[],
         quantity: number,
-        brand: string
+        phoneOptions: CategoryOptions,
+        bidOptions: CategoryOptions
     },
     login: {
         email_username: string,
