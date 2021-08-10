@@ -41,7 +41,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
         }
 
         func();
-    }, [currentPage])
+    }, [currentPage, page])
 
 
      const testPhones = [

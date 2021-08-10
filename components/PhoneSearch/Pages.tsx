@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 
 
-const Pages = ({pageId} : {pageId: any}) => {
+const Pages = ({pageId, bid} : {pageId: any, bid?: boolean}) => {
     
     let first = false;
 
@@ -60,7 +60,7 @@ const Pages = ({pageId} : {pageId: any}) => {
     
     const PageButton = ({id, title} : {id: number, title: string}) => {
         return (
-            <Link key={Math.random() % 100} href={`/phones/${id}`}>
+            <Link key={Math.random() % 100} href={bid === true ? `/bids/${id}` : `/phones/${id}`}>
                     <Button variant="contained" 
                     style={{backgroundColor: id == pageId ? '#0a85ae' : '#0cafe5', color: '#fff', margin: '5px'}}>
                         {title}

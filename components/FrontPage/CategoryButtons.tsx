@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
-import { changeBrand } from '../../redux/actions/phonesActions';
+import { changePhoneCategory } from '../../redux/actions/phonesActions';
 
 // const BlockThree = (title: string, img: string ) => (
 //   <Grid item xs={12} md={6} lg={3} className="phone-block" key={title}>
@@ -20,12 +20,19 @@ const CategoryButtons = () => {
 
   const dispatch = useDispatch();
 
+  const defaultOptions = {
+        category: "All Phones",
+        brand: "All",
+        price: "All",
+        sorting: "none"
+  };
+
   return (
     <Link href="/phones/1">
       <Grid container style={{marginTop: '15px'}}>
 
         <Grid item xs={12} md={12} lg={3} className="phone-block"
-        onClick={() => dispatch(changeBrand('Google'))}>
+        onClick={() => dispatch(changePhoneCategory({...defaultOptions, brand: "Google"}))}>
             <div style={{margin: '20px'}}>
               <Image src="/front/nexus.png" width="75px" height="40px" />
             </div>
@@ -35,7 +42,7 @@ const CategoryButtons = () => {
         </Grid>
 
         <Grid item xs={12} md={12} lg={6} className="phone-block-big"
-        onClick={() => dispatch(changeBrand('apple'))}>
+        onClick={() => dispatch(changePhoneCategory({...defaultOptions, brand: "Apple"}))}>
           <div style={{margin: '20px'}}>
             <Image src="/front/iphone.png" width="110px" height="40px" />
           </div>
@@ -45,7 +52,7 @@ const CategoryButtons = () => {
         </Grid>
 
         <Grid item xs={12} md={12} lg={3} className="phone-block"
-        onClick={() => dispatch(changeBrand('samsung'))}>
+        onClick={() => dispatch(changePhoneCategory({...defaultOptions, brand: "Samsung"}))}>
             <div style={{margin: '20px'}}>
               <Image src="/front/samsung.png" width="75px" height="35px" />
             </div>
@@ -56,7 +63,7 @@ const CategoryButtons = () => {
 
 
         <Grid item xs={12} md={6} lg={3} className="phone-block"
-        onClick={() => dispatch(changeBrand('htc'))}>
+        onClick={() => dispatch(changePhoneCategory({...defaultOptions, brand: "Htc"}))}>
             <div style={{margin: '20px'}}>
               <Image src="/front/htc.png" width="75px" height="40px" />
             </div>
@@ -66,7 +73,7 @@ const CategoryButtons = () => {
         </Grid>
 
         <Grid item xs={12} md={6} lg={3} className="phone-block"
-        onClick={() => dispatch(changeBrand('alcatel'))}>
+        onClick={() => dispatch(changePhoneCategory({...defaultOptions, brand: "Alcatel"}))}>
             <div style={{margin: '20px'}}>
               <Image src="/front/alcatel.png" width="85px" height="40px" />
             </div>
@@ -77,7 +84,7 @@ const CategoryButtons = () => {
 
 
         <Grid item xs={12} md={6} lg={3} className="phone-block"
-         onClick={() => dispatch(changeBrand('google'))}>
+        onClick={() => dispatch(changePhoneCategory({...defaultOptions, brand: "Google"}))}>
             <div style={{margin: '20px'}}>
               <Image src="/front/pixel.png" width="70px" height="45px" />
             </div>
@@ -89,7 +96,7 @@ const CategoryButtons = () => {
 
         
         <Grid item xs={12} md={6} lg={3} className="phone-block"
-         onClick={() => dispatch(changeBrand('vivo'))}>
+        onClick={() => dispatch(changePhoneCategory({...defaultOptions, brand: "Vivo"}))}>
             <div style={{margin: '20px'}}>
               <Image src="/front/vivo.png" width="75px" height="40px" />
             </div>

@@ -65,7 +65,7 @@ const MainHeader = () => {
 
   const exitApp = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('jwt');
+      localStorage.clear();
       dispatch(changeLoginStatus(false));
     }
     router.push('/');
