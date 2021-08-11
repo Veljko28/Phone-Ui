@@ -26,9 +26,9 @@ not logged in ✅
 
 add phone / bid validation ✅
 edit validation ✅
-user profile edit
+user profile edit ✅
 search styling ✅
-remove user images
+remove user images ✅
 phone details
 User Reviews and Ratings
 Checkout and Payments
@@ -37,9 +37,11 @@ better styles for adding and editing phones
 page buttons fix
 carousel images on phone
 bid history with api
-bid categories with redux
+bid categories with redux ✅
 change display image on removal of it
 reset password / forgot password
+chip labels on phone display ✅
+checkout card
 
 
 language translations (react-i18next)
