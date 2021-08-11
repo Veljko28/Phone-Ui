@@ -4,13 +4,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { Grid, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
-import { BidCard } from '../../components/BidCard';
-import UserCard from '../../components/User/UserCard';
-import { PhoneCard } from '../../components/PhoneCard';
-
-import ColoredLine from '../../constants/ColoredLine';
 import { fetchGet } from '../../constants/CustomFetching';
+import Loading from '../../components/Loading';
 
 
 const search = () => {
@@ -25,9 +20,11 @@ const search = () => {
   };
 
   const [data,changeData] = React.useState(initState);
+  const [loading, changeLoading] = React.useState(true);
 
   React.useEffect(() => {
       const func = async () => {
+        changeLoading(true);
         const res = await fetchGet(`http://localhost:10025/api/v1/generic/search/${id}`);
 
         if ((res as Response).ok){
@@ -35,6 +32,8 @@ const search = () => {
             if (json !== initState) changeData(json);
         }
         else console.log('error');
+
+        changeLoading(false);
       }
 
       func();
@@ -62,7 +61,7 @@ const search = () => {
                            <div style={{color: '#43cf22'}}>
                               {price+"$"}   
                            </div>
-                           <div style={{color: '#0cafe5', marginRight: 75}}>
+                           <div style={{color: '#0cafe5', marginRight: 15}}>
                               {type}
                            </div>
                         </Typography>
@@ -72,14 +71,14 @@ const search = () => {
         )
       }
 
-      const UserMap = ({id,image,userName,description,phones_sold} :  
-      {id: number, image: string, userName: string, description: string, phones_sold: string}) => {
+      const UserMap = ({id,userName,description,phones_sold} :  
+      {id: number, userName: string, description: string, phones_sold: string}) => {
         return (
-            <Link href={`/phone/${id.toString()}`} key={id}>
+            <Link href={`/user/${id.toString()}`} key={id}>
               <Grid container style={{width: '80%'}}>
                     <Grid xs={12} md={4} item className="review-grid-item">
                       <div className="curs-hvr">
-                        <img src={'/user.png'} width="100px" height="100px" />
+                        <img src='/user.png' width="100px" height="100px" />
                       </div>
                     </Grid>
                   <Grid xs={12} md={8} item className="listing-grid-item">
@@ -94,7 +93,7 @@ const search = () => {
                            <div style={{color: '#0cafe5'}}>
                               Phones Sold: {phones_sold}   
                            </div>
-                           <div style={{color: '#0cafe5', marginRight: 75}}>
+                           <div style={{color: '#0cafe5', marginRight: 15}}>
                               User
                            </div>
                         </Typography>
@@ -106,7 +105,12 @@ const search = () => {
 
   return (
     <>
-      {data.phones.length === 0 && data.bids.length === 0 && data.users.length === 0 ? (
+      {data.phones.length === 0 && data.bids.length === 0 && data.users.length === 0 ? loading ?
+       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614, backgroundColor: '#fff'}}>
+            <Loading size={60}/>
+      </div>
+            :
+            (
        <div style={{backgroundColor: '#fff', display: 'flex', alignItems: 'center', flexDirection: 'column', paddingBottom: 150}}>
          <Typography variant="h2" style={{color: '#0cafe5', padding: 15}}>Couldn't find anything with this name</Typography> 
          <Image src="/search_fail.svg" width="500px" height="500px"/>

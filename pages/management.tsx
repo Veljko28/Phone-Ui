@@ -18,8 +18,7 @@ const management = () => {
     }
 
     return (
-        <>
-        {jwt === null ? <NotLoggedIn/> : (
+        jwt === null ? <NotLoggedIn/> : (
 
         <Grid container style={{backgroundColor: '#fff'}}>
             <TitleChange title={"MobiStore - Management"}/>
@@ -34,8 +33,7 @@ const management = () => {
             </Grid>
         </Grid>
         
-        )}
-        </>
+        )
     )
 }
 

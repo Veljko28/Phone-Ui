@@ -13,6 +13,8 @@ import '../styles/Index.css';
 import '../styles/About.css';
 import '../styles/Phone.css';
 import '../styles/Cart.css';
+import '../styles/Card.css';
+
 
 
 function MyApp({ Component, pageProps }: AppProps) {

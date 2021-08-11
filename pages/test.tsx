@@ -1,43 +1,52 @@
-import { Grid, Typography, Badge} from '@material-ui/core';
-import React from 'react';
-import Link from 'next/link';
-import AddIcon from '@material-ui/icons/Add';
+import React from 'react'
+import CardReactFormContainer from 'card-react';
 
 const test = () => {
-    
-    const [form, changeForm] = React.useState({
-        image: "/user.png",
-        userName: "",
-        description: "",
-    });
-
-    const uploadFile = (e: any) => {
-        if (e.target.files[0] === null || e.target.files[0] === undefined) return;
-
-        
-        const file = e.target.files[0];
-        const blob = URL.createObjectURL(file);
-        changeForm({...form,image: blob});
-    }
-
-    const inputRef = React.useRef(null); 
-    
     return (
-        <Grid container>
-            <Badge anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                badgeContent="+"
-                color="primary"
-                >
-                <img src={form.image}  width="225px" height="225px" style={{borderRadius: 150}}
-                onClick={() => (inputRef as any).current.click()}/>
-            </Badge>
-            <input type="file" accept="image/*" onChange={(e: any) => uploadFile(e)} ref={inputRef} style={{display: 'none'}}/>
-        </Grid>
-
+        <>
+        <CardReactFormContainer
+                    container="card-wrapper" 
+                    formInputsNames={
+                        {
+                        number: 'CCnumber', // optional — default "number"
+                        expiry: 'CCexpiry',// optional — default "expiry"
+                        cvc: 'CCcvc', // optional — default "cvc"
+                        name: 'CCname' // optional - default "name"
+                        }
+                        }
+            initialValues= {
+                {
+                number: '4242424242424242', // optional — default •••• •••• •••• ••••
+                cvc: '123', // optional — default •••
+                expiry: '16/12', // optional — default ••/••
+                name: 'Random Name' // optional — default FULL NAME
+                }
+            }
+            
+            // the class name attribute to add to the input field and the corresponding part of the card element,
+            // when the input is valid/invalid.
+            classes={
+                {
+                valid: 'valid-input', // optional — default 'jp-card-valid'
+                invalid: 'invalid-input' // optional — default 'jp-card-invalid'
+                }
+            }
+            
+            // specify whether you want to format the form inputs or not
+            formatting={true} // optional - default true
+            >
+            
+            <form>
+                <input placeholder="Full name" type="text" name="CCname" />
+                <input placeholder="Card number" type="text" name="CCnumber" />
+                <input placeholder="MM/YY" type="text" name="CCexpiry" />
+                <input placeholder="CVC" type="text" name="CCcvc" />
+            </form>
+            
+            </CardReactFormContainer>
+            <div id="card-wrapper"></div>
+        </>
     )
-};
+}
 
-export default test;
+export default test
