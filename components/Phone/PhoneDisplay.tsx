@@ -1,14 +1,16 @@
-import { Button, Dialog, DialogActions, DialogContent,
-DialogContentText, DialogTitle, Grid, IconButton, Typography } from "@material-ui/core";
+import { Button, Chip, Grid, Typography } from "@material-ui/core";
 import Rating from '@material-ui/lab/Rating';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { useRouter } from "next/router";
+
+import CategoryIcon from '@material-ui/icons/Category';
+import GradeIcon from '@material-ui/icons/Grade';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import HistoryIcon from '@material-ui/icons/History';
 
-import Image from "next/image";
 import React from 'react';
 
 import { useDispatch } from "react-redux";
@@ -19,6 +21,7 @@ import BidHistory from "./BidHistory";
 import PopUpDialog from "../../constants/PopUpDialog";
 import Bid from "../models/Bid";
 import { fetchPatch } from "../../constants/CustomFetching";
+import { changePhoneCategory } from "../../redux/actions/phonesActions";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -27,6 +30,7 @@ const Alert = (props: any) => {
 const PhoneDisplay = ({phone,images,bid,id} : {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string}) => {
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [bidAmount,changeBidAmount] = React.useState(1);
 
@@ -113,7 +117,39 @@ const PhoneDisplay = ({phone,images,bid,id} : {phone?: Phone | Bid ,images?: str
             <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> ADD TO CART</Button>
           </>)}
         </Typography>
-        
+          <div style={{margin: 10, marginLeft: 0}}>
+              <Chip style={{margin: 5, marginLeft: 0 ,backgroundColor: '#0cafe5', color: '#fff'}}
+              icon={<CategoryIcon style={{color: '#fff', fontSize: 20}}/>}
+              label={phone?.category}
+              onClick={() => {
+                const obj = {
+                    category: phone?.category,
+                    brand: "All",
+                    price: "All",
+                    sorting: "none"
+                  };
+                  dispatch(changePhoneCategory(obj));
+                  router.push('/phones/1');
+              }}
+              />
+              <Chip style={{marginLeft: 5,backgroundColor: '#0cafe5', color: '#fff'}}
+              icon={<GradeIcon style={{color: '#fff', fontSize: 20}}/>}
+              label={phone?.brand}
+               onClick={() => {
+                const obj = {
+                    category: "All Phones",
+                    brand: phone?.brand,
+                    price: "All",
+                    sorting: "none"
+                  };
+
+                  dispatch(changePhoneCategory(obj));
+                  router.push('/phones/1');
+              }}
+              />
+          </div>
+          
+
       </Grid>
 
       <PopUpDialog open={dialogOpen} closeDialog={() => changeDialogOpen(false)} 
