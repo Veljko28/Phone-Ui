@@ -11,7 +11,7 @@ import Phone from './models/Phone';
 export const PhoneCard = (props: Phone) => {
   const dispatch = useDispatch();
   return (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
+    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
        <Link href={`/phone/${props.id}`}>
         <div>
             <div className="imageConatiner">

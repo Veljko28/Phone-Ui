@@ -1,5 +1,5 @@
 
-const YupError = ({errors, path}: {errors:  Array<{ path: string | undefined; message: string }>, path: string}) => {
+const YupError = ({errors, path, fontSize}: {errors:  Array<{ path: string | undefined; message: string }>, path: string, fontSize?: number}) => {
 
     if (errors.length === 0){
       return null;
@@ -18,7 +18,7 @@ const YupError = ({errors, path}: {errors:  Array<{ path: string | undefined; me
     const upper = (message[0].toUpperCase() + message.substring(1)).replace(/_/g, " ");
 
     return (
-     <span style={{marginLeft: 10, fontSize: 12, color: 'red'}} key={path}>
+     <span style={{marginLeft: 10, fontSize: fontSize ? fontSize : 12, color: 'red'}} key={path}>
        {upper}
       </span>
     )

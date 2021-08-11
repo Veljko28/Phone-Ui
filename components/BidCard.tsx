@@ -32,7 +32,7 @@ export const BidCard = (props: {image: string, name: string, price: string, ends
   let time = timeUntilEnd();
 
   return (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
+    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee',maxHeight: 350}}>
        {}<Link href={`/bid/${props.id}`}>
         <div>
             <div className="imageConatiner">
