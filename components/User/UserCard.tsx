@@ -5,6 +5,7 @@ import Rating from '@material-ui/lab/Rating';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import UserContact from './UserContact';
 import Link from 'next/link';
+import EditProfileForm from './EditProfileForm';
 
 
 
@@ -17,6 +18,7 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
     }
 
     const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
+    const [editOpen, handleEditOpen] = React.useState(false);
     const contactOpen = Boolean(contactAnchorEl);
 
     const openContanct = (e: any) => {
@@ -77,11 +79,13 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
                  <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
               </Typography>
               {props.id === currentUser ? (
-                <Link href={`/user/edit/${props.id}`}>
-                <Button variant="contained"
+                <>
+                <Button variant="contained" onClick={() => handleEditOpen(true)}
                  style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                 >Edit Profile</Button>
-                </Link>
+
+               <EditProfileForm open={editOpen} handleOpen={(value: boolean) => handleEditOpen(value)} id={props.id}/>
+                </>
               ) : (<>
                 <Button variant="contained" onClick={e => openContanct(e)}
                       style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
