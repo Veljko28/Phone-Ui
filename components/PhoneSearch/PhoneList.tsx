@@ -8,7 +8,7 @@ import { PhoneCard } from '../PhoneCard';
 
 const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
     return (
-        <Grid container> 
+        <Grid container style={{minHeight: 614}}> 
             {list === undefined || list.length === 0 ? <div style={{
               display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614
             }}><Loading size={60}/></div> : bids ? 

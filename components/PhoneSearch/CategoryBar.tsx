@@ -2,14 +2,12 @@ import React from 'react'
 import {List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { useDispatch } from 'react-redux';
 import { changePhoneCategory } from '../../redux/actions/phonesActions';
 
-const CategoryBar = ({options} : {options: any}) => {
+const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: (value: any) => any}) => {
 
   const [open, setOpen] = React.useState(-1);
 
-  const dispatch = useDispatch();
 
   const handleClick = (id:number) => {
     if (open == id) setOpen(-1);
@@ -45,19 +43,19 @@ const CategoryBar = ({options} : {options: any}) => {
       children: (id : number) => (
         <div key={id}>
           <ListItem button disableRipple
-          onClick={() => dispatch(changePhoneCategory({...options, category: "All Phones"}))} 
+          onClick={() => changeCategory({...options, category: "All Phones"})} 
           style={options.category === "All Phones" ? selectedStyle : normalStyle}
           >All Phones</ListItem>
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options, category: "android"}))} 
+          onClick={() => changeCategory({...options, category: "android"})} 
           style={options.category === "android" ? selectedStyle : normalStyle}
           >Android Phone</ListItem>
           <ListItem button disableRipple
-          onClick={() => dispatch(changePhoneCategory({...options, category: "ios"}))} 
+          onClick={() => changeCategory({...options, category: "ios"})} 
           style={options.category === "ios" ? selectedStyle : normalStyle}
           >IOS Phone</ListItem>
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options, category: "other"}))} 
+          onClick={() => changeCategory({...options, category: "other"})} 
           style={options.category === "other" ? selectedStyle : normalStyle}
           >Others</ListItem>
         </div>
@@ -70,7 +68,7 @@ const CategoryBar = ({options} : {options: any}) => {
         <div key={id}>
          {['All', 'Google', 'Apple', 'Samsung', 'Vivo', 'Redmi', 'Alcatel'].map(x => (
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options,brand: x}))}
+          onClick={() => changeCategory({...options,brand: x})}
           style={{color: options.brand.toLowerCase() == x.toLowerCase() ? '#0cafe5' : '#999', marginLeft: '10px'}}>{x}</ListItem>
          ))}
         </div>
@@ -82,23 +80,23 @@ const CategoryBar = ({options} : {options: any}) => {
       children: (id : number) => (
         <div key={id}>
           <ListItem button disableRipple
-          onClick={() => dispatch(changePhoneCategory({...options, price: "All"}))} 
+          onClick={() => changeCategory({...options, price: "All"})} 
           style={options.price === "All" ? selectedStyle : normalStyle}
           >All</ListItem>
           <ListItem button disableRipple
-          onClick={() => dispatch(changePhoneCategory({...options, price: "100"}))} 
+          onClick={() => changeCategory({...options, price: "100"})} 
           style={options.price === "100" ? selectedStyle : normalStyle}
           >100$-200$</ListItem>
           <ListItem button disableRipple
-          onClick={() => dispatch(changePhoneCategory({...options, price: "200"}))} 
+          onClick={() => changeCategory({...options, price: "200"})} 
           style={options.price === "200" ? selectedStyle : normalStyle}
           >200$-500$</ListItem>
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options, price: "500"}))} 
+          onClick={() => changeCategory({...options, price: "500"})} 
           style={options.price === "500" ? selectedStyle : normalStyle}
           >500$-1000$</ListItem>
           <ListItem button disableRipple
-          onClick={() => dispatch(changePhoneCategory({...options, price: "1000"}))} 
+          onClick={() => changeCategory({...options, price: "1000"})} 
           style={options.price === "1000" ? selectedStyle : normalStyle}
           >1000$-1500$</ListItem>
         </div>
@@ -110,22 +108,22 @@ const CategoryBar = ({options} : {options: any}) => {
       children: (id : number) => (
         <div key={id}>
           <ListItem button disableRipple
-          onClick={() => dispatch(changePhoneCategory({...options, sorting: "none"}))} 
+          onClick={() => changeCategory({...options, sorting: "none"})} 
           style={options.sorting === "none" ? selectedStyle : normalStyle}
           >None</ListItem>
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options, sorting: "newer"}))} 
+          onClick={() => changeCategory({...options, sorting: "newer"})} 
           style={options.sorting === "newer" ? selectedStyle : normalStyle}
           >Date Created Newer</ListItem>
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options, sorting: "older"}))} 
+          onClick={() => changeCategory({...options, sorting: "older"})} 
           style={options.sorting === "older" ? selectedStyle : normalStyle}
           >Date Created Older</ListItem>
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options, sorting: "asc"}))} 
+          onClick={() => changeCategory({...options, sorting: "asc"})} 
           style={options.sorting === "asc" ? selectedStyle : normalStyle}>Price Ascending</ListItem>
           <ListItem button disableRipple 
-          onClick={() => dispatch(changePhoneCategory({...options, sorting: "desc"}))} 
+          onClick={() => changeCategory({...options, sorting: "desc"})} 
           style={options.sorting === "desc" ? selectedStyle : normalStyle}>Price Descending</ListItem>
         </div>
       )
