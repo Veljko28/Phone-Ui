@@ -8,7 +8,8 @@ import TitleChange from "../../constants/TitleChange";
 import { fetchGet } from '../../constants/CustomFetching';
 import Phone from '../../components/models/Phone';
 import { State } from '../../redux/reduxTypes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePhoneCategory } from '../../redux/actions/phonesActions';
 
 const phones = () => {
 
@@ -67,11 +68,13 @@ const phones = () => {
       })
     }
 
+   const dispatch = useDispatch();
+
     return ( 
         <Grid container>
           <TitleChange title={`MobiStore - Phones Page ${id}`} />
             <Grid item xs={12} md={3}>
-                <CategoryBar options={options} />
+                <CategoryBar options={options} changeCategory={(value: any) => dispatch(changePhoneCategory(value))}/>
             </Grid> 
             <Grid item xs={12} md={9}>
                 <PhoneList 

@@ -8,7 +8,8 @@ import TitleChange from "../../constants/TitleChange";
 import { fetchGet } from '../../constants/CustomFetching';
 import Phone from '../../components/models/Phone';
 import { State } from '../../redux/reduxTypes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeBidCategory } from '../../redux/actions/phonesActions';
 
 const bids = () => {
 
@@ -64,12 +65,17 @@ const bids = () => {
       })
     }
 
+   const dispatch = useDispatch();
+
     return ( 
         <Grid container>
             <TitleChange title={`MobiStore - Bids Page ${id}`} />
            
             <Grid item xs={12} md={3}>
-                <CategoryBar options={options} />
+                <CategoryBar options={options} changeCategory={(value: any) => {
+                  dispatch(changeBidCategory(value))
+                }}
+                   />
             </Grid> 
             <Grid item xs={12} md={9}>
                 <PhoneList bids={true} list={categoryList}/>
