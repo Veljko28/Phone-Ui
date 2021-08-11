@@ -1,4 +1,4 @@
-import { FETCH_LATEST_PHONES, CHANGE_QUANTITY, CHANGE_PHONE_CATEGORY } from '../actions/phonesActions';
+import { FETCH_LATEST_PHONES, CHANGE_QUANTITY, CHANGE_PHONE_CATEGORY, CHANGE_BID_CATEGORY } from '../actions/phonesActions';
 import {Action} from '../reduxTypes';
 
 const initState = {
@@ -29,6 +29,7 @@ const phoneReducers = (state = initState , action: Action) => {
         case FETCH_LATEST_PHONES: return {...state, list: action.payload};
         case CHANGE_QUANTITY: return {...state, quantity: action.payload};
         case CHANGE_PHONE_CATEGORY: return {...state, phoneOptions: action.payload}
+        case CHANGE_BID_CATEGORY: return {...state, bidOptions: action.payload}
         default: return state;
     }
 }
