@@ -4,10 +4,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import Phone from '../models/Phone';
+import CheckOutForm from './CheckOutForm';
 
 const PriceDetails = () => {
 
   const list = useSelector((state: State) => state.cart.items);
+  const [checkoutOpen, changeCheckoutOpen] = React.useState(false);
 
   const totalPrice = list.length == 0 ? '0' : list.map((x: Phone) => x.price as any).reduce((a: number,b: number) => a+b);
 
@@ -27,8 +29,10 @@ const PriceDetails = () => {
           <Typography variant="subtitle2" style={{marginTop: '10px'}}>
             <strong>Amount to Pay {totalPrice + "$"}</strong>
           </Typography>
-          <Button style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', marginTop: '15px'}}>Proceed To Checkout</Button>
+          <Button style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', marginTop: '15px'}}
+          onClick={() => changeCheckoutOpen(true)}>Proceed To Checkout</Button>
         </div>
+        <CheckOutForm open={checkoutOpen} handleOpen={(value: boolean) => changeCheckoutOpen(value)}/>
     </Grid>
   )
 }
