@@ -10,6 +10,7 @@ import PlacedBids from './Tables/PlacedBids';
 import { fetchGet } from '../../constants/CustomFetching';
 import Phone from '../models/Phone';
 import NoPhones from './NoPhones';
+import Loading from '../Loading';
 
 
 
@@ -17,10 +18,12 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
 
     const [snackBar,changeSnackBar] = React.useState(false);
     const [list,changeList] = React.useState<Phone[] | []>([]);
+    const [loading, changeLoading] = React.useState(true);
 
     React.useEffect( () => {
         const func = async () => {
             changeList([]);
+            changeLoading(true);
             let res: Response | undefined = undefined;
 
             if (currentPage === 'My Phones'){
@@ -38,6 +41,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                 })
                 changeList(newList)
             }
+            changeLoading(false);
         }
 
         func();
@@ -99,7 +103,9 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
 
     return (
         <>
-        {list.length === 0 ? <NoPhones currentPage={currentPage}/> : (
+        {list.length === 0 ? loading ? <div style={{
+              display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614
+            }}><Loading size={60}/></div> : <NoPhones currentPage={currentPage}/> : (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
             <div>
                 <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>

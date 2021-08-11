@@ -8,5 +8,7 @@ export default interface Bid {
   timeEnds?: Date,
   expires?: Date
   discount?: string
-  seller: string
+  seller: string,
+  brand: string,
+  category: string
 }
