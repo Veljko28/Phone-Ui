@@ -96,3 +96,11 @@
   padding: 20px;
 }
 
+.check-input {
+  background-color: #eee;
+  color: #000;
+  margin: 10px;
+  padding: 10px;
+  border: none;
+}
+

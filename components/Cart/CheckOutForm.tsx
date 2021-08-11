@@ -7,7 +7,9 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import * as yup from 'yup';
 
 import CloseIcon from '@material-ui/icons/Close';
-import { SnackBarSuccess } from '../../constants/CustomSnackBars';
+import { SnackBarSuccess,SnackBarFailed } from '../../constants/CustomSnackBars';
+import { fetchPost } from '../../constants/CustomFetching';
+import { formatYupError } from '../../constants/formYupError';
 
 
 const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: boolean) => any}) => {
@@ -18,16 +20,19 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
       expiry: '',
       name: ''
     });
-
  
     const yupSchema = yup.object().shape({
-        email: yup.string().min(5).max(150),
-        userName: yup.string().min(3).max(150),
-        description: yup.string().min(10).max(255)
+        number: yup.string().min(19).max(23),
+        name: yup.string().min(3).max(30),
+        cvc: yup.string().min(3).max(4),
+        expiry: yup.string().length(7)
     });
 
     const [errors,changeErrors] = React.useState([]); 
-    const [snackBar,handleSnackBar] = React.useState(false);
+    const [snackBar,handleSnackBar] = React.useState({
+        success: false,
+        error: false
+    });
 
     const styles = (theme: any) => ({
         root: {
@@ -56,7 +61,21 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
     );
     });
 
-    const onSubmit = () => {return false;};
+    const onSubmit = async () => {
+
+        try {
+            await yupSchema.validate(form, {abortEarly: false});
+        }
+        catch (err) {
+            changeErrors(formatYupError(err) as any);
+            handleSnackBar({success: false, error: true});
+            return;
+        }
+
+        handleSnackBar({success: true, error: false});
+        handleOpen(false);
+        // const res = await fetchPost('http://localhost:10025/api/v1/generic/checkout', form);
+    };
 
     return (
         <>
@@ -86,14 +105,18 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
             >
             
             <form>
-                <input placeholder="Full name" type="text" name="CCname" />
-                <input placeholder="Card number" type="text" name="CCnumber" />
-                <input placeholder="MM/YY" type="text" name="CCexpiry" />
-                <input placeholder="CVC" type="text" name="CCcvc" />
+                <input placeholder="Full name" type="text" name="CCname" className="check-input" 
+                onChange={e => changeForm({...form,name: e.target.value})}/>
+                <input placeholder="Card number" type="text" name="CCnumber" className="check-input"
+                onChange={e => changeForm({...form,number: e.target.value})}/>
+                <input placeholder="MM/YY" type="text" name="CCexpiry" className="check-input"
+                onChange={e => changeForm({...form,expiry: e.target.value})}/>
+                <input placeholder="CVC" type="text" name="CCcvc" className="check-input"
+                onChange={e => changeForm({...form,cvc: e.target.value})}/>
             </form>
             
             </CardReactFormContainer>
-            <div id="card-wrapper"></div>
+            <div id="card-wrapper" style={{margin: 10}}></div>
             </DialogContent>
             <DialogActions>
                     <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 10}}
@@ -101,7 +124,13 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
             </DialogActions>
         </Dialog>
         
-        <SnackBarSuccess snackBarOpen={snackBar} changeSnackBarOpen={() => handleSnackBar(false)} message="Successful updated your profile"/>
+        <SnackBarSuccess snackBarOpen={snackBar.success}
+         changeSnackBarOpen={() => handleSnackBar({success: false, error: false})}
+          message="Successful purchase the items !"/>
+
+        <SnackBarFailed snackBarOpen={snackBar.error}
+         changeSnackBarOpen={() => handleSnackBar({success: false, error: false})}
+          message="Failed to confirm checkout. Try again later"/>
         </>
     )
 };
