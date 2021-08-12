@@ -1,15 +1,17 @@
 import React from 'react'
-import {Grid, Typography, Button} from '@material-ui/core';
-import Image from 'next/image';
-import Rating from '@material-ui/lab/Rating';
-import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
-import UserContact from './UserContact';
 import Link from 'next/link';
+import Image from 'next/image';
+
+import Rating from '@material-ui/lab/Rating';
+import {Grid, Typography, Button} from '@material-ui/core';
+import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
+
+import UserContact from './UserContact';
 import EditProfileForm from './EditProfileForm';
 
 
 
-const UserCard = (props: {image: string, name: string, desc: string, rating: number, id: string, search?: boolean}) => {
+const UserCard = (props: {name: string, desc: string, rating: number, id: string, search?: boolean}) => {
 
   let currentUser: string | null = null;
   
@@ -35,7 +37,7 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
         {props.search ? (
           <a href={`/user/${props.id}`} className="user-links">
             <div>
-            <img src={props.image}  width="225px" height="225px"/>
+            <Image src="/user.png" width="225px" height="225px"/>
           </div>
             <div className="card-textarea">
               <Typography variant="h6">
@@ -57,7 +59,7 @@ const UserCard = (props: {image: string, name: string, desc: string, rating: num
         ): (
           <>
             <div>
-              <img src={props.image}  width="225px" height="225px"/>
+              <Image src="/user.png" width="225px" height="225px"/>
             </div>
             <div className="card-textarea">
               <Typography variant="h6">

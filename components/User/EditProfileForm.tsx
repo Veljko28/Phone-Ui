@@ -1,16 +1,19 @@
-import { Grid, Typography, TextField, InputAdornment, Button,
-        Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
 import React from 'react';
-import YupError from '../../constants/YupError';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import * as yup from 'yup';
+import Link from 'next/link';
 
-import PersonIcon from '@material-ui/icons/Person';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import { Grid, Typography, TextField, InputAdornment, Button,
+    Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
+
 import MailIcon from '@material-ui/icons/Mail';
 import CloseIcon from '@material-ui/icons/Close';
-import { fetchGet, fetchPost } from '../../constants/CustomFetching';
-import { SnackBarSuccess } from '../../constants/CustomSnackBars';
+import PersonIcon from '@material-ui/icons/Person';
+    
+import YupError from '../../constants/YupError';
 import { formatYupError } from '../../constants/formYupError';
+import { SnackBarSuccess } from '../../constants/CustomSnackBars';
+import { fetchGet, fetchPost } from '../../constants/CustomFetching';
 
 
 const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (value: boolean) => any,id: string}) => {
@@ -145,6 +148,9 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
                 </Grid>
             </DialogContent>
             <DialogActions>
+                    <Link href={`/user/changepassword/${id}`}>
+                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 10}}>Change Password</Button>
+                    </Link>
                     <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 10}}
                     onClick={() => onSubmit()}>Submit</Button>
             </DialogActions>
