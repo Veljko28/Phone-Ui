@@ -34,14 +34,19 @@ User Reviews and Ratings
 Checkout and Payments
 Darkmode
 better styles for adding and editing phones
-page buttons fix
+page buttons fix ✅
 carousel images on phone
 bid history with api
 bid categories with redux ✅
 change display image on removal of it
-reset password / forgot password
+reset password ✅
+forgot password ✅
 chip labels on phone display ✅
-checkout card
+checkout card ✅
+refresh token fix ✅
+mui skeletons for loading phone cards
+oauth with google / facebook / twitter
+contact page loading / validation ✅
 
 
 language translations (react-i18next)

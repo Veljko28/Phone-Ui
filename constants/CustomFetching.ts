@@ -2,21 +2,16 @@ import { changeLoginStatus } from "../redux/actions/userInfoActions";
 import store from "../redux/store";
 import { JwtToken } from "./jwtTypes";
 
-
-const unauthorizedCheck = async (res: Response) => {
+const unauthorizedCheck = async () => {
 
    const expires = localStorage.getItem('exp');
    const token = localStorage.getItem('jwt');
    const refreshToken = localStorage.getItem('refresh');
    
-  if ((res?.statusText === 'Unauthorized' || (parseInt(expires as string)*1000) < Date.now()) && token !== null && refreshToken != null ){
-      // Refresh token
+      const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {token: "1", refreshToken});
 
-      const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {token, refreshToken});
-
-      if (res?.ok){
-        console.log('????');
-        const json: JwtToken = await res.json();
+      if ((res as Response)?.ok){
+        const json: JwtToken = await (res as Response).json();
         localStorage.setItem('jwt', json.token);
         localStorage.setItem('refresh', json.refreshToken);
 
@@ -26,12 +21,12 @@ const unauthorizedCheck = async (res: Response) => {
 
       store.dispatch(changeLoginStatus(false));
       localStorage.clear();
-    }
+      location.reload();
 
     return false;
 }
 
-export const fetchPostBid = async (url: string, payload: any) => {
+export const fetchPostBid: (url: string, payload: any) => any = async (url: string, payload: any) => {
 
     const str = JSON.stringify(payload);
 
@@ -53,11 +48,19 @@ export const fetchPostBid = async (url: string, payload: any) => {
       console.log(error);
     })
 
+    let success = false;
+
+    if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
+
+    if (success){
+      return fetchPostBid(url, payload);
+    }
+
     const bid = await res.json();
     return bid?.id;
 }
 
-export const fetchPost = async (url: string, payload: any) => {
+export const fetchPost: (url: string, payload: any) => any = async (url: string, payload: any) => {
   
     let jwt: string | null = "";
 
@@ -79,6 +82,14 @@ export const fetchPost = async (url: string, payload: any) => {
     }).catch((error) => {
       console.log(error);
     })
+
+    let success = false;
+
+    if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
+
+    if (success){
+      return fetchPost(url, payload);
+    }
 
     return res;
 }
@@ -104,7 +115,9 @@ export const fetchForm: (url: string, payload: any) => any = async (url: string,
       console.log(error);
     })
 
-    const success = await unauthorizedCheck(res);
+    let success = false;
+
+    if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
 
     if (success){
       return fetchForm(url, payload);
@@ -114,7 +127,8 @@ export const fetchForm: (url: string, payload: any) => any = async (url: string,
 }
 
 
-export const fetchPostForm = async (url: string, payload: any, type: number, id: string) => {
+export const fetchPostForm: (url: string, payload: any, type: number, id: string) => any = 
+async (url: string, payload: any, type: number, id: string) => {
 
       let jwt: string | null = "";
 
@@ -141,10 +155,12 @@ export const fetchPostForm = async (url: string, payload: any, type: number, id:
       console.log(error);
     })
 
-    const success = await unauthorizedCheck(res);
+    let success = false;
+
+    if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
 
     if (success){
-      fetchPostForm(url, payload, type, id);
+      return fetchPostForm(url, payload, type, id);
     }
 
     return res.ok;
@@ -171,7 +187,7 @@ export const fetchGet: (url:string) => any = async (url: string) => {
 }
 
 
-export const fetchDelete = async (url: string) => {
+export const fetchDelete: (url: string) => any = async (url: string) => {
   
     let jwt: string | null = "";
 
@@ -190,17 +206,19 @@ export const fetchDelete = async (url: string) => {
       console.log(error);
     })
 
-    const success = await unauthorizedCheck(res);
+    let success = false;
+
+    if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
 
     if (success){
-        fetchDelete(url);
+      return fetchDelete(url);
     }
 
     return res;
 }
 
 
-export const fetchPatch= async (url: string, payload: any) => {
+export const fetchPatch: (url: string, payload: any) => any = async (url: string, payload: any) => {
   
     let jwt: string | null = "";
     const str = JSON.stringify(payload);
@@ -221,10 +239,12 @@ export const fetchPatch= async (url: string, payload: any) => {
       console.log(error);
     })
 
-    const success = await unauthorizedCheck(res);
+    let success = false;
+
+    if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
 
     if (success){
-        fetchDelete(url);
+      return fetchPatch(url, payload);
     }
 
     return res;

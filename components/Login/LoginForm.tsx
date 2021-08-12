@@ -118,6 +118,7 @@ const LoginForm = () => {
         disableUnderline: true
       }}/>
       <YupError errors={errors} path="password"/>
+      <Link href="/forgotpassword"><div style={{color: '#656', cursor: 'pointer', fontSize: 13, marginLeft: 10}}>Forgot Password ?</div></Link>
 
       <Button title="Login" onClick={() => loginUser()} variant="contained" 
       style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>{

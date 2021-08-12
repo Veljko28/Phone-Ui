@@ -25,7 +25,7 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
         number: yup.string().min(19).max(23),
         name: yup.string().min(3).max(30),
         cvc: yup.string().min(3).max(4),
-        expiry: yup.string().length(7)
+        expiry: yup.string().length(9)
     });
 
     const [errors,changeErrors] = React.useState([]); 
