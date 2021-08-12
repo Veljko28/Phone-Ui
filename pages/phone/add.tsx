@@ -31,8 +31,8 @@ const AddPhone = () => {
         image: yup.string().min(5),
         description: yup.string().min(25),
         price: yup.number().moreThan(0),
-        category: yup.string().min(1),
-        brand: yup.string().min(1)
+        category: yup.string().min(1, "Please select a category"),
+        brand: yup.string().min(1, "Please select a brand")
     });
 
     let jwt: string | null = null;
