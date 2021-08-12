@@ -5,7 +5,7 @@ import YupError from '../../constants/YupError';
 import ColoredLine from '../../constants/ColoredLine';
 import {fetchPost} from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
-import { Grid, Typography,InputAdornment, Button, TextField } from '@material-ui/core';
+import { Grid, Typography,InputAdornment, Button, TextField, CircularProgress } from '@material-ui/core';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 
 
@@ -20,19 +20,22 @@ const ContactForm = () => {
 
   const [form, changeForm] = React.useState({
     email: '',
-    userName: '',
+    name: '',
     subject: '',
     message: ''
   })
 
-  const [snackbar, changeSnackbarOpen] = React.useState(false);
-  const [error, changeError] = React.useState(false);
+  const [snackBar, changeSnackbarOpen] = React.useState({
+    success: false,
+    error: false,
+    loading: false
+  });
   const [errors,changeErrors] = React.useState([]);
 
 
   const yupSchema = yup.object().shape({
     email: yup.string().min(10).email(),
-    userName: yup.string().min(3),
+    name: yup.string().min(3),
     subject: yup.string().min(10),
     message: yup.string().min(25).max(256)
   });
@@ -40,6 +43,8 @@ const ContactForm = () => {
 
 
   const onSubmit = async () => {
+    changeSnackbarOpen({...snackBar, loading: true});
+
     try {
       await yupSchema.validate(form, {abortEarly: false});
       changeErrors([]);
@@ -47,16 +52,17 @@ const ContactForm = () => {
       const res = await fetchPost('http://localhost:10025/api/v1/generic/contact', form);
   
       if(res && (res as Response).ok){
-          changeSnackbarOpen(true);
+          changeSnackbarOpen({...snackBar, success: true, loading: false});
           setTimeout(() => {
             router.push('/');
           }, 1200)
       }
-      else changeError(true);
+      else changeSnackbarOpen({...snackBar, error: true, loading: false});
     }
     catch (err){
       changeErrors(formatYupError(err) as any);
     }
+
   }
 
   return (
@@ -65,10 +71,10 @@ const ContactForm = () => {
       <ColoredLine color="#eee"/>
 
 
-       <TextField placeholder="Your Name" value={form.userName} 
-      onChange={e => changeForm({...form,userName: e.target.value})}
+       <TextField placeholder="Your Name" value={form.name} 
+      onChange={e => changeForm({...form,name: e.target.value})}
         InputProps={{
-          className: errors.filter((x: any) => x.path === 'userName').length > 0 ? "login-imput-error" : "login-imput",
+          className: errors.filter((x: any) => x.path === 'name').length > 0 ? "login-imput-error" : "login-imput",
         startAdornment: (
           <InputAdornment position="start">
           <PersonIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -76,7 +82,7 @@ const ContactForm = () => {
         ),
         disableUnderline: true
       }}/>
-      <YupError errors={errors} path="userName"/>
+      <YupError errors={errors} path="name"/>
 
 
       <TextField placeholder="Enter Your Email Address" value={form.email}
@@ -116,13 +122,17 @@ const ContactForm = () => {
       }}/>
       <YupError errors={errors} path="message"/>
 
-      <Button title="Register"
+      <Button title="Contact"
       onClick={() => onSubmit()}
-      variant="contained" style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>Submit</Button>
+      variant="contained" style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>
+        {
+        snackBar.loading ? <CircularProgress style={{color: '#fff'}} size={24}/> : "Submit"
+       }
+      </Button>
    
-  <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message="Successfully sent your message !"/>
+  <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackbarOpen({...snackBar,success: false})} message="Successfully sent your message !"/>
 
- <SnackBarFailed snackBarOpen={error} changeSnackBarOpen={() => changeError(false)} message={"Failed to send your message!"}/>
+ <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackbarOpen({...snackBar,error: false})} message={"Failed to send your message!"}/>
 
     </Grid>
   )
