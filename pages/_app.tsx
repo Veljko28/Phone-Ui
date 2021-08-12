@@ -5,6 +5,7 @@ import store from '../redux/store';
 import Layout from '../components/Layout';
 
 import '../styles/Login.css';
+import '../styles/Password.css';
 import '../styles/globals.css';
 import '../styles/Header.css';
 import '../styles/Footer.css';

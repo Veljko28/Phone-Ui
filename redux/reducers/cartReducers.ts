@@ -2,7 +2,7 @@ import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cartActions';
 import {Action} from '../reduxTypes';
 
 const initState = {
-    items: [{}]
+    items: []
 };
 
 

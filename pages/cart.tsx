@@ -51,7 +51,7 @@ const cart = () => {
   // )
 
 
-  return (<> {jwt === null ? <NotLoggedIn/> : (
+  return (jwt === null ? <NotLoggedIn/> : (
     <>
      <TitleChange title="MobiStore - Cart" />
       {empty ? <EmptyCart/> : (
@@ -77,9 +77,8 @@ const cart = () => {
   )}
   </>
    
-    )}
-    </>
     )
+  )
   
 }
 
