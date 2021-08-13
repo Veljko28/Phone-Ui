@@ -10,20 +10,24 @@ import { LatestProducts } from '../../components/FrontPage/LatestProducts';
 import TitleChange from '../../constants/TitleChange';
 import { fetchGet } from '../../constants/CustomFetching';
 import Phone from '../../components/models/Phone';
+import SellerInfo from '../../components/Phone/SellerInfo';
+import User from '../../components/models/User';
 
 
 const PhonePage = () => {
   
   const router = useRouter()
   const id = router.query['id'];
-  console.log(id);
 
   const [phone,changePhone] = React.useState<Phone | undefined>(undefined);
   const [images, changeImages] = React.useState<string[] | undefined>(undefined);
   const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
+  const [user, changeUser] = React.useState<User | undefined>(undefined);
   
   React.useEffect(() => {
     const func = async () => {
+      if (!phone){
+
           const res = await fetchGet(`http://localhost:10025/api/v1/phones/${id as string}`);
     
           if ((res as Response).ok){
@@ -41,11 +45,25 @@ const PhonePage = () => {
           if ((related as Response).ok){
             changeRelatedProducts(await (related as Response).json());
           }
+        }
+
+          if (phone?.seller) {
+              const getUser = await fetchGet(`http://localhost:10025/api/v1/users/${phone?.seller}`);
+
+            if ((getUser as Response).ok){
+              changeUser( await getUser.json());
+            }
+          }
     }
 
     if (id) func();
-  },[id])
+  },[id, phone?.seller])
 
+    let jwt: string | null = "";
+
+    if (typeof window !== 'undefined') {
+      jwt = localStorage.getItem('jwt');
+    }
 
   return (
     <Grid container> 
@@ -56,10 +74,10 @@ const PhonePage = () => {
         <PhoneDisplay 
         phone={phone} images={images} id={id as string}
         />
-        <PhoneDetails />
+        <SellerInfo user={user} />
         <PhoneRatings />
-        <PhoneReviews />
-        <AddPhoneReview />
+        <PhoneReviews  phoneId={id as string}/>
+        <AddPhoneReview phoneId={id as string}/>
         <LatestProducts title="Related Products" phones={relatedProducts} />
       </Grid>
 
