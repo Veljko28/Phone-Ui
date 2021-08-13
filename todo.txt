@@ -30,8 +30,8 @@ user profile edit ✅
 search styling ✅
 remove user images ✅
 phone details
-User Reviews and Ratings
-Checkout and Payments
+User Reviews and Ratings ✅
+Checkout and Payments ✅
 Darkmode
 better styles for adding and editing phones
 page buttons fix ✅
@@ -44,16 +44,18 @@ forgot password ✅
 chip labels on phone display ✅
 checkout card ✅
 refresh token fix ✅
-mui skeletons for loading phone cards
+mui skeletons for loading phone cards ✅
 oauth with google / facebook / twitter
 contact page loading / validation ✅
+guid image names for no overlapping
+wish list api config
 
 
 language translations (react-i18next)
 language icon fix ✅
 
 compress images
-move nessesary images to api
+move nessesary images to api ✅
 
 clean the code
 mobile optimization ✅

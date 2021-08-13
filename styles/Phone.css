@@ -67,6 +67,7 @@
   }
 
   .review-message-imput {
+      display: flex;
       background-color: #eee;
       margin: 20px;
       margin-top: 0;
