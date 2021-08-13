@@ -6,11 +6,12 @@ import { addToCart } from '../redux/actions/cartActions';
 import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import Phone from './models/Phone';
+import PhoneSkeletonCard from './Phone/PhoneSkeletonCard';
 
 
 export const PhoneCard = (props: Phone) => {
   const dispatch = useDispatch();
-  return (
+  return ( props.id === undefined ? <PhoneSkeletonCard/> : (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
        <Link href={`/phone/${props.id}`}>
         <div>
@@ -45,6 +46,6 @@ export const PhoneCard = (props: Phone) => {
             <ShoppingCartIcon/>
           </IconButton>
         </div>
-    </Grid>
+    </Grid> )
   )
 }
