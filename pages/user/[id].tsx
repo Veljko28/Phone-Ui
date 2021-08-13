@@ -42,7 +42,6 @@ const user = () => {
 
         <Grid md={4} xs={12} item>
           <UserCard 
-          image={user.image !== null ? user.image : "/user.png"} 
           name={user.userName ? user.userName : "User Profile"}
           desc={user.description ? user.description : "This user has no description"} rating={user.rating ? user.rating : 3.5} id={id as string} />          
         </Grid>

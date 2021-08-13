@@ -1,24 +1,42 @@
-import React from 'react'
-import Link from 'next/link';
-import { Skeleton } from '@material-ui/lab';
 import { Grid, Typography } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
+import React from 'react'
 
 const test = () => {
     return (
-         <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
+    <Grid container className="display-container">
+      <Grid item className="other-images">
         <div>
-            <div className="imageConatiner">
-                <Skeleton height="150px" width="150px" variant="rect"></Skeleton>
-            </div>
+            <Skeleton width="55px" height="95px" />
+        </div>
+        <div>
+            <Skeleton width="55px" height="95px" />
+        </div>
+        <div>
+            <Skeleton width="55px" height="95px" />
+        </div>
+      </Grid>
 
-            <div className="card-textarea">
-          
-            </div>
+        <div style={{margin: 20}}>
+          <Skeleton width="300px" height="10px" />
+        </div>
+
+      <Grid item style={{padding: '20px'}}>
+        <Typography variant='subtitle1' style={{fontSize: '20px'}}><Skeleton/></Typography>
+        <div className="phone-rating">
+            <Skeleton/>
+        </div>
+        <Typography variant="subtitle1" >
+            <Skeleton/>
+
+            <Skeleton/>
+        </Typography>
+          <div style={{margin: 10, marginLeft: 0}}>
+              <Skeleton/>
+              <Skeleton/>
           </div>
 
-        <div className="buttonConainer">
-         
-        </div>
+      </Grid>
     </Grid>
     )
 }

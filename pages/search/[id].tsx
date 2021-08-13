@@ -27,7 +27,7 @@ const search = () => {
         changeLoading(true);
         const res = await fetchGet(`http://localhost:10025/api/v1/generic/search/${id}`);
 
-        if ((res as Response).ok){
+        if (res && (res as Response).ok){
             const json = await (res as Response).json();
             if (json !== initState) changeData(json);
         }
