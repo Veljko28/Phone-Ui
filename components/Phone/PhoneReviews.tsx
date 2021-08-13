@@ -1,9 +1,12 @@
+import React from 'react';
+import Link from 'next/link';
+import Rating from '@material-ui/lab/Rating';
 import { Grid, Typography, Button } from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
-import Rating from '@material-ui/lab/Rating';
+import { fetchGet } from '../../constants/CustomFetching';
 
-const ReviewMap = ({id, rating, user, date, message}
-    : {id: string, rating: number, user: string, date: string, message: string}) => {
+const ReviewMap = ({id, rating, userId, dateCreated, message, userName}
+    : {id: string, rating: number, userId: string, dateCreated: Date, message: string, userName: string}) => {
 
         const hasLine = (id : string) => {
             if (id !== '3'){
@@ -12,14 +15,23 @@ const ReviewMap = ({id, rating, user, date, message}
             else return "";
         }
 
+        const str = dateCreated?.toString().split('T')[0].replace(/-/g,"/");
+        const date = {
+            year: str?.slice(0,4),
+            month: str?.slice(5,7),
+            day: str?.slice(8,10)
+        }
+
     return (
         <Grid container style={{padding: '10px'}} key={id}>
             <div>
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
                     <span style={{color: '#999', marginLeft: '10px'}}>By 
-                    <span style={{color: "#0cafe5"}}> {user} </span>on {date}</span>
+                    <Link href={`/user/${userId}`}><span style={{color: "#0cafe5"}} className="curs-hvr"> {userName} </span></Link>on  
+                    {" " + date.day + "/" + date.month + "/" + date.year}</span>
             </div>
+            <br/>
             <div style={{color: '#999', padding: '10px'}}>
                 {message}
             </div>
@@ -28,43 +40,45 @@ const ReviewMap = ({id, rating, user, date, message}
     );
 }
 
-const PhoneReviews = () => {
+const PhoneReviews = ({phoneId} : {phoneId: string}) => {
 
-    const reviews = [
-        {
-            id: '1',
-            rating: 5,
-            user: 'John Smith',
-            date: '4 July 2021',
-            message: "I'm so happy with the purchase the device was very clean " +
-            "and almost scratch free just as the photos indicated. I'll start by saying this is a very nice phone."
-            + "The 4 gb of RAM makes a huge difference in speed and overall performance,"
-        },
-        {
-            id: '2',
-            rating: 4,
-            user: 'Mary Sue',
-            date: '1 July 2021',
-            message: "I had the nexus 6p for a few years and I loved that phone. But I recently started" + 
-            " looking for a smaller, faster and newer alternative." +
-            " I love Google phones so pixel was the obvious choice. "
-        },
-        {
-            id: '3',
-            rating: 5,
-            user: 'Thomas Burr',
-            date: '27 Jun 2021',
-            message: "This was a replacement phone for a lost one. Didn’t want to pay full price." +
-            " This one was new and unlocked. Son has had it since February and it works great."
-        },
-    ]
+   const [reviews, changeReviews] = React.useState([]);
+
+
+    React.useEffect(() => {
+        const func = async () => {
+            const res =  await fetchGet(`http://localhost:10025/api/v1/phones/reviews/${phoneId}`);
+
+            if (res && res.ok){
+                changeReviews( await res.json());
+
+            }
+        };
+
+        if (phoneId) func();
+    },[phoneId])
 
     return (
         <Grid className="phone-details" container> 
             <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
             color: '#0cafe5'}}>Customer Reviews</Typography>
             <ColoredLine color="#eee"/>
-            {reviews.map(x => ReviewMap(x))}
+            {reviews.length !== 0 ? reviews.map( (x: any) => {
+
+                  const func = async () => {
+                        const userNameGet = await fetchGet(`http://localhost:10025/api/v1/users/username/${x.userId}`);
+
+                        if (userNameGet && userNameGet.ok) {
+                            x.userName = await userNameGet.text();
+                        }
+                    }
+
+                    func();
+                    return ReviewMap(x)
+                }) : <div>
+            <Typography variant="h5" style={{margin: 30,color: '#0cafe5'}}>
+              Failed to find any reviews for this product !
+            </Typography></div>}
         </Grid>
     )
 }
