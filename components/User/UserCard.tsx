@@ -8,6 +8,8 @@ import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 
 import UserContact from './UserContact';
 import EditProfileForm from './EditProfileForm';
+import UserSearchSkeleton from './UserSearchSkeleton';
+import UserCardSkeleton from './UserCardSkeleton';
 
 
 
@@ -34,7 +36,7 @@ const UserCard = (props: {name: string, desc: string, rating: number, id: string
     const block = () => {
       return (
         <>
-        {props.search ? (
+        {props.search ? props.id === undefined ? <UserSearchSkeleton/> : (
           <a href={`/user/${props.id}`} className="user-links">
             <div>
             <Image src="/user.png" width="225px" height="225px"/>
@@ -56,7 +58,7 @@ const UserCard = (props: {name: string, desc: string, rating: number, id: string
                     >Go To Profile</Button>
             </div>
           </a>
-        ): (
+        ): props.id === undefined ? <UserCardSkeleton/> : (
           <>
             <div>
               <Image src="/user.png" width="225px" height="225px"/>
