@@ -10,4 +10,5 @@ export default interface Phone {
   status?: string | number,
   category?: string,
   brand?: string,
+  seller?: string
 }

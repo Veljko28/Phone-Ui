@@ -48,48 +48,6 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
     }, [currentPage, page])
 
 
-     const testPhones = [
-        {
-            name: "Phone 1",
-            category: "Android Phone",
-            seller: "User 1",
-            price: "125$",
-        },
-        {
-            name: "Phone 2",
-            category: "IOS Phone",
-            seller: "User 2",
-            price: "725$",
-        },
-        {
-            name: "Phone 2",
-            category: "Other",
-            seller: "User 3",
-            price: "400$",
-        },
-    ]
-
-    const testPlacedBids = [
-        {
-            name: "Phone 1",
-            price: "125$",
-            seller: "User 1",
-            status: "Running"
-        },
-        {
-            name: "Phone 2",
-            price: "725$",
-            seller: "User 2",
-            status: "Won !",
-        },
-        {
-            name: "Phone 2",
-            price: "400$",
-            seller: "User 3",
-            status: "Lost !",
-        },
-    ]
-
     const [AnchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(AnchorEl);
 
@@ -107,7 +65,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
               display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614
             }}><Loading size={60}/></div> : <NoPhones currentPage={currentPage}/> : (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
-            <div style={{minHeight: 575}}>
+            <div style={{minHeight: 575, maxHeight: 1500}}>
                 <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>
                 {currentPage === 'My Phones' ? <MyPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
@@ -116,14 +74,14 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                 currentPage === 'My Bids' ? <MyBids list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
                 
-                currentPage === 'Bought Phones' ? <BoughtPhones list={testPhones} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+                currentPage === 'Bought Phones' ? <BoughtPhones list={[]} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
 
-                <PlacedBids list={testPlacedBids} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+                <PlacedBids list={[]} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/>}
             </div>
-            <div>
-                    <span style={{display: 'inline-block', marginRight: 'auto'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <span style={{display: 'inline-block',marginLeft: 10}}>
                       <div>
                         <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}}
                             onClick={() => {
@@ -141,14 +99,17 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                         </Button>
                         </div>
                     </span>
-                        {currentPage === "Bought Phones" || currentPage === "Placed Bids" ? null : (
+                    <div>
 
-                        <Link href={currentPage === "My Phones" ? "/phone/add" : "/bid/add"}>
+                        {currentPage === "Bought Phones" || currentPage === "Placed Bids" ? null : (
+                            
+                            <Link href={currentPage === "My Phones" ? "/phone/add" : "/bid/add"}>
                             <Fab color="primary" aria-label="add" style={{marginRight: 50, marginBottom: 5}}>
                                 <AddIcon />
                             </Fab>
                         </Link>
                     )}
+                    </div>
             </div>
                       
 
