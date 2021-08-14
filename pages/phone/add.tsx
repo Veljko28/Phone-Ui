@@ -109,6 +109,13 @@ const AddPhone = () => {
         const file = files[0];
         if (file == null) {
             changeError({open: true, message: "Please add a photo"});
+              try {
+                await yupSchema.validate(formInfo, {abortEarly: false});
+              }
+              catch (err) {
+                    changeYupErrors(formatYupError(err) as any);
+              }
+
             return;
         }
 

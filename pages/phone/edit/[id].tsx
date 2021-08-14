@@ -261,7 +261,7 @@ const EditPage = () => {
                             <option value="" hidden>Brand</option>
                             <option value="google">Google</option>
                             <option value="apple">Apple</option>
-                            <option value="sams">Samsung</option>
+                            <option value="samsung">Samsung</option>
                             <option value="htc">Htc</option>
                             <option value="alc">Alcatel</option>
                         </select>
