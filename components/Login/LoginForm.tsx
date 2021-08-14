@@ -15,7 +15,7 @@ import YupError from '../../constants/YupError';
 import { JwtToken } from '../../constants/jwtTypes';
 import socialLinks from '../../constants/SocialLinks';
 import ColoredLine from '../../constants/ColoredLine';
-import { fetchPost } from '../../constants/CustomFetching';
+import { fetchGet, fetchPost } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
 import { changeLoginStatus } from '../../redux/actions/userInfoActions';
@@ -73,6 +73,14 @@ const LoginForm = () => {
       localStorage.setItem('userId', decode.id);
       localStorage.setItem('refresh', jwtToken.refreshToken);
       localStorage.setItem('exp', decode.exp);
+
+      const userRes = await fetchGet(`http://localhost:10025/api/v1/users/username/${decode.id}`);
+
+      if (userRes.ok) {
+        localStorage.setItem('username', await userRes.text());
+      }
+
+      
       dispatch(changeLoginStatus(true));
        setTimeout(() => {
             router.push(`/`)
