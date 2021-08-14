@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 
 const PhoneSkeletonCard = () => {
     return (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
+    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287, margin: 10}}>
         <div>
             <div className="imageConatiner" style={{padding: 3, display: 'flex', justifyContent: 'center'}}>
                 <Skeleton height="150px" width="200px" variant="rect"/>

@@ -20,14 +20,16 @@ import ImageMapper from "../../constants/ImageMapper";
 import BidHistory from "./BidHistory";
 import PopUpDialog from "../../constants/PopUpDialog";
 import Bid from "../models/Bid";
-import { fetchPatch } from "../../constants/CustomFetching";
+import { fetchPost } from "../../constants/CustomFetching";
 import { changePhoneCategory } from "../../redux/actions/phonesActions";
+import BidHistoryModel from "../models/BidHistory";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const PhoneDisplay = ({phone,images,bid,id} : {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string}) => {
+const PhoneDisplay = ({phone,images,bid,id, history} :
+   {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string, history?: BidHistoryModel[]}) => {
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -57,7 +59,7 @@ const PhoneDisplay = ({phone,images,bid,id} : {phone?: Phone | Bid ,images?: str
 
   const bidConfimed = async () => {
     if (bidAmount !== null && bidAmount > (phone?.price as number)+1){
-      const res = await fetchPatch('http://localhost:10025/api/v1/bid/price/update', {id: id,price: bidAmount });
+      const res = await fetchPost('http://localhost:10025/api/v1/bid/addhistory', {bid_Id: id,userName: localStorage.getItem('username'),amount: bidAmount });
       if (res.ok){
         changeSnackBarOpen(true);
         setTimeout(() => location.reload(), 1500)
@@ -107,9 +109,9 @@ const PhoneDisplay = ({phone,images,bid,id} : {phone?: Phone | Bid ,images?: str
             <MonetizationOnIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid {bidAmount}$</Button>
            <div 
            onClick={e => openHistory(e)} className="bid-history">
-             <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History (3)
+             <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History ({history?.length})
             </div>
-            <BidHistory open={historyOpen} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
+            <BidHistory open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
           </>) : (<> 
           <Button variant="contained" 
           onClick={() => dispatch(addToCart(phone as Phone))}

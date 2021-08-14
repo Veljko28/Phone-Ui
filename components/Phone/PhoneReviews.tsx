@@ -77,7 +77,7 @@ const PhoneReviews = ({phoneId} : {phoneId: string}) => {
                     return ReviewMap(x)
                 }) : <div>
             <Typography variant="h5" style={{margin: 30,color: '#0cafe5'}}>
-              Failed to find any reviews for this product !
+              Couldn't find any reviews for this product !
             </Typography></div>}
         </Grid>
     )
