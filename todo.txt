@@ -36,7 +36,7 @@ Darkmode
 better styles for adding and editing phones
 page buttons fix ✅
 carousel images on phone
-bid history with api
+bid history with api ✅
 bid categories with redux ✅
 change display image on removal of it
 reset password ✅
@@ -49,6 +49,11 @@ oauth with google / facebook / twitter
 contact page loading / validation ✅
 guid image names for no overlapping
 wish list api config
+skeleton bids / bid loading skeleton
+display phone skeleton
+seller info skeleton
+management page table skeleton
+skeleton phone / bid list ✅
 
 
 language translations (react-i18next)

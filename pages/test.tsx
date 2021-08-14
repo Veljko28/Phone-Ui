@@ -1,44 +1,33 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import React from 'react'
 
 const test = () => {
-    return (
-    <Grid container className="display-container">
-      <Grid item className="other-images">
-        <div>
-            <Skeleton width="55px" height="95px" />
-        </div>
-        <div>
-            <Skeleton width="55px" height="95px" />
-        </div>
-        <div>
-            <Skeleton width="55px" height="95px" />
-        </div>
-      </Grid>
-
-        <div style={{margin: 20}}>
-          <Skeleton width="300px" height="10px" />
-        </div>
-
-      <Grid item style={{padding: '20px'}}>
-        <Typography variant='subtitle1' style={{fontSize: '20px'}}><Skeleton/></Typography>
-        <div className="phone-rating">
-            <Skeleton/>
-        </div>
-        <Typography variant="subtitle1" >
-            <Skeleton/>
-
-            <Skeleton/>
-        </Typography>
-          <div style={{margin: 10, marginLeft: 0}}>
-              <Skeleton/>
-              <Skeleton/>
-          </div>
-
-      </Grid>
-    </Grid>
-    )
+  return (
+    <table>
+      <tr>
+          <td>
+                  <Grid container item style={{display: 'flex', alignContent: 'center'}}>
+                      <Grid item xs={12} sm={6}>
+                        <Skeleton width="50px" height="50px"/>
+                      </Grid>
+                        <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>
+                           <Skeleton width="75px" height="20px"/>
+                        </Grid>
+                    </Grid>
+              </td>
+              <td style={{color: '#43cf22'}}><Skeleton width="25px" height="20px"/></td>
+              <td>
+                 <Skeleton width="55px" height="20px"/>
+              </td>
+              <td><Skeleton width="65px" height="20px"/></td>
+              <td style={{display: 'flex', justifyContent: 'center'}}>
+                <Skeleton width="30px" height="30px" variant="circle"/>
+                <Skeleton width="30px" height="30px" variant="circle"/>
+            </td>
+        </tr>
+    </table>
+  )
 }
 
 export default test

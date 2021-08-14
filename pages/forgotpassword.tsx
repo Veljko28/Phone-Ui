@@ -3,9 +3,13 @@ import * as yup from 'yup';
 import Image from 'next/image';
 import { Grid, Typography, TextField, InputAdornment, Button } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
+import { useRouter } from 'next/router';
 
  
  const ForgotPassword = () => {
+
+    const router = useRouter();
+
     const [email,changeEmail] = React.useState("");
 
     const yupSchema = yup.string().email();
@@ -16,6 +20,10 @@ import MailIcon from '@material-ui/icons/Mail';
         }
         catch (err) {
         }
+    }
+
+    if (typeof window !== 'undefined' && localStorage.getItem('jwt') !== null) {
+        router.push('/404');
     }
 
     return (
