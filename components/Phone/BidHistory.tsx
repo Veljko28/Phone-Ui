@@ -1,25 +1,11 @@
 import { Popover, Typography } from '@material-ui/core'
 import React from 'react'
 import ColoredLine from '../../constants/ColoredLine'
+import BidHistoryModel from '../models/BidHistory'
 
-const BidHistory = ({open, anchorEl, handleClose} : 
-  {open: boolean,anchorEl: any, handleClose: () => void}) => {
+const BidHistory = ({open, anchorEl, handleClose, history} : 
+  {open: boolean, anchorEl: any, handleClose: () => void, history?: BidHistoryModel[] }) => {
 
-
-    const test = [
-      {
-        name: 'John Smith',
-        amount: '135$'
-      },
-      {
-        name: 'Mary Sue',
-        amount: '215$'
-      },
-      {
-        name: 'Thomas Burr',
-        amount: '250$'
-      },
-    ]
   return (
     <Popover
         open={open}
@@ -35,22 +21,26 @@ const BidHistory = ({open, anchorEl, handleClose} :
         }}
       >
       <div style={{padding: '15px'}}>
-        <table style={{minWidth: '225px'}}>
-          <thead style={{borderBottom: '1px solid #eee'}}>
-            <tr>
-              <th>User</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-             {test.map(x => (
-               <tr key={x.amount}>
-                 <td>{x.name}</td>
-                 <td style={{color: '#0cafe5'}}>{x.amount}</td>
-               </tr>
-             ))}
-          </tbody>
-        </table>
+        {history !== undefined && history.length !== 0 ? (
+          <table style={{minWidth: '225px'}}>
+            <thead style={{borderBottom: '1px solid #eee'}}>
+              <tr>
+                <th>User</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {history?.map((x: BidHistoryModel) => (
+                <tr key={x.amount}>
+                  <td>{x.userName}</td>
+                  <td style={{color: '#0cafe5'}}>{x.amount+"$"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <Typography style={{color: '#0cafe5'}}>There are not place bets on this bid</Typography>
+        )}
       </div>
       </Popover>
   )

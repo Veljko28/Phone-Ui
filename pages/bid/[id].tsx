@@ -2,7 +2,6 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Grid } from '@material-ui/core'
 import PhoneDisplay from '../../components/Phone/PhoneDisplay';
-import PhoneDetails from '../../components/Phone/PhoneDetails';
 import PhoneReviews from '../../components/Phone/PhoneReviews';
 import SellerInfo from '../../components/Phone/SellerInfo';
 import { LatestProducts } from '../../components/FrontPage/LatestProducts';
@@ -21,6 +20,7 @@ const PhonePage = () => {
   const [images, changeImages] = React.useState(undefined);
   const [user, changeUser] = React.useState<User | undefined>(undefined);
   const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
+  const [history, changeHistory] = React.useState([]);
 
 
   React.useEffect(() => {
@@ -49,6 +49,13 @@ const PhonePage = () => {
       if ((res2 as Response).ok){
           changeImages(await (res2 as Response).json());
       }
+
+      const histories = await fetchGet(`http://localhost:10025/api/v1/bid/histories/${id}`);
+
+      if (histories.ok){
+        changeHistory(await histories.json());
+      }
+
     }
 
      if (id) func();
@@ -62,10 +69,9 @@ const PhonePage = () => {
       <Grid md={1} lg={2} item/>
 
       <Grid xs={12} md={10} lg={8} item> 
-        <PhoneDisplay bid={true} phone={bid} images={images}  id={id as string}/>
-        <PhoneDetails />
+        <PhoneDisplay bid={true} phone={bid} images={images} history={history}  id={id as string}/>
         <SellerInfo user={user}/>
-        <PhoneReviews />
+        <PhoneReviews phoneId={id as string}/>
         <LatestProducts title="Related Products"  phones={relatedProducts} />
       </Grid>
 
