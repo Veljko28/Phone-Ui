@@ -47,14 +47,20 @@ refresh token fix ✅
 mui skeletons for loading phone cards ✅
 oauth with google / facebook / twitter
 contact page loading / validation ✅
-guid image names for no overlapping
-wish list api config
-skeleton bids / bid loading skeleton
+guid image names for no overlapping ✅
+wish list api config ✅
+skeleton bids ✅ / bid loading skeleton ✅
 display phone skeleton
 seller info skeleton
 management page table skeleton
 skeleton phone / bid list ✅
-
+listings pagination 
+reviews pagination 
+wishlist pagination 
+fix skeleton grids ✅
+wish list profile config
+wish list fetching ✅
+contact seller api ✅ / phone number ✅
 
 language translations (react-i18next)
 language icon fix ✅
