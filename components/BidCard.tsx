@@ -3,6 +3,8 @@ import {Grid, Typography, IconButton} from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Link from 'next/link';
+import { fetchPost } from '../constants/CustomFetching';
+import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 
 
 export const BidCard = (props: {image: string, name: string, price: string, ends: Date, id: string}) => {
@@ -31,9 +33,25 @@ export const BidCard = (props: {image: string, name: string, price: string, ends
 
   let time = timeUntilEnd();
 
+   const [snackBar, changeSnackBar] = React.useState({
+    success: false,
+    error: false,
+  })
+
+
+  const addToWishList = async () => {
+    const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/add`, {userId: localStorage.getItem('userId'), phoneId: props.id, type: "bid"});
+
+    if (res.ok) {
+      changeSnackBar({success: true, error: false});
+    }
+    else changeSnackBar({success: false, error: true}); 
+  }
+
+
   return (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee',maxHeight: 350}}>
-       {}<Link href={`/bid/${props.id}`}>
+       <Link href={`/bid/${props.id}`}>
         <div>
             <div className="imageConatiner">
             <img src={props.image}  width="150px" height="150px"/>
@@ -52,7 +70,7 @@ export const BidCard = (props: {image: string, name: string, price: string, ends
         </Link>
 
         <div className="buttonConainer">
-          <IconButton size="small" style={{backgroundColor: 'red', color: 'white', padding: '5px', margin: '5px'}}>
+          <IconButton size="small" onClick={() => addToWishList()} style={{backgroundColor: 'red', color: 'white', padding: '5px', margin: '5px'}}>
             <FavoriteIcon/>
           </IconButton>
 
@@ -62,6 +80,11 @@ export const BidCard = (props: {image: string, name: string, price: string, ends
             </IconButton>
           </Link>
         </div>
+
+       <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar,success: false})} message="Successfully added to wish list !"/>
+
+       <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar,error: false})} message={"Failed to add to wish list. Try again later"}/>
+
     </Grid>
   )
 }

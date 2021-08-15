@@ -5,5 +5,5 @@ export default interface User {
   userName: string,
   description?: string,
   phones_sold: number,
-  contact: any
+  phoneNumber: string
 }

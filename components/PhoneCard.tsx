@@ -7,10 +7,29 @@ import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import Phone from './models/Phone';
 import PhoneSkeletonCard from './Phone/PhoneSkeletonCard';
+import { fetchPost } from '../constants/CustomFetching';
+import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 
 
 export const PhoneCard = (props: Phone) => {
   const dispatch = useDispatch();
+  const [snackBar, changeSnackBar] = React.useState({
+    success: false,
+    error: false,
+  })
+
+
+  const addToWishList = async () => {
+    const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/add`, {userId: localStorage.getItem('userId'), 
+    phoneId: props.id, type: "phone"});
+
+    if (res.ok) {
+      changeSnackBar({success: true, error: false});
+    }
+    else changeSnackBar({success: false, error: true}); 
+  }
+
+
   return ( props.id === undefined ? <PhoneSkeletonCard/> : (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
        <Link href={`/phone/${props.id}`}>
@@ -37,7 +56,7 @@ export const PhoneCard = (props: Phone) => {
         </Link>
 
         <div className="buttonConainer">
-          <IconButton size="small" style={{backgroundColor: 'red', color: 'white', padding: '5px', margin: '5px'}}>
+          <IconButton size="small" onClick={() => addToWishList()}  style={{backgroundColor: 'red', color: 'white', padding: '5px', margin: '5px'}}>
             <FavoriteIcon/>
           </IconButton>
 
@@ -46,6 +65,11 @@ export const PhoneCard = (props: Phone) => {
             <ShoppingCartIcon/>
           </IconButton>
         </div>
+
+        <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar,success: false})} message="Successfully added to wish list !"/>
+
+       <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar,error: false})} message={"Failed to add to wish list. Try again later"}/>
+
     </Grid> )
   )
 }

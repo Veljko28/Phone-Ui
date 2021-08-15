@@ -1,19 +1,28 @@
-import { Grid } from '@material-ui/core';
 import React from 'react';
+import { Grid } from '@material-ui/core';
+
 import { BidCard } from '../BidCard';
-import Bid from '../models/Bid';
-import Phone from '../models/Phone';
-import PhoneSkeletonCard from '../Phone/PhoneSkeletonCard';
 import { PhoneCard } from '../PhoneCard';
 
-const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
+import BidSkeletonCard from '../BidSkeletonCard';
+import PhoneSkeletonCard from '../Phone/PhoneSkeletonCard';
 
-    const skeletons = [<PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>,
+import Bid from '../models/Bid';
+import Phone from '../models/Phone';
+
+const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
+    const phoneSkeletons = [<PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>,
       <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>]
+
+    const bidSkeletons = [<BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>,
+      <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>]
 
     return (
         <Grid container style={{minHeight: 614}}> 
-            {list === undefined || list.length === 0 ? <Grid container xs={12}>{skeletons}</Grid> : bids ? 
+            {list === undefined || list.length === 0 ? bids ?
+            <Grid item container xs={12}>{bidSkeletons.map(x => (<div>{x}</div>))}</Grid>
+            :
+            <Grid item container xs={12}>{phoneSkeletons.map(x => (<div>{x}</div>))}</Grid> : bids ? 
              list.map((x: Bid) => 
               <BidCard key={x.id} name={x.name} image={x.image as string} price={x.price as string}
               ends={x.timeEnds as Date} id={x.id} />

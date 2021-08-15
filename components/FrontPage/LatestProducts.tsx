@@ -11,7 +11,6 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
 
   const skeletons = [<PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>];
 
-
   return (
     <Grid container style={{
       backgroundColor: '#fff',
@@ -22,7 +21,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
       <Typography variant="h6" style={{color: '#0cafe5', marginLeft: '40px'}}>{title}</Typography>
       <ColoredLine color="#eee"/>
       {phones?.length === 0 || phones === undefined ? (
-        <span style={{display: 'flex',margin: 20}}>{skeletons}</span>
+        <Grid item container xs={12} style={{display: 'flex',margin: 20}}>{skeletons.map(x => (<Grid xs={12} md={6} lg={3} item>{x}</Grid>))}</Grid>
       ) : ""}
       {phones?.map(x => (
         <div style={{margin: 15}} key={x.id}>
