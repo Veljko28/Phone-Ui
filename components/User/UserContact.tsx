@@ -1,14 +1,9 @@
 import { Popover} from '@material-ui/core'
 import React from 'react'
 
-const UserContact = ({open, anchorEl, handleClose} : 
-  {open: boolean,anchorEl: any, handleClose: () => void}) => {
+const UserContact = ({open, anchorEl, handleClose, phoneNumber, email} : 
+  {open: boolean,anchorEl: any, handleClose: () => void, phoneNumber?: string, email: string}) => {
 
-
-    const test = {
-      phoneNumber: '+381 064 237 6128',
-      email: 'user1@mobistore.com'
-    };
 
   return (
     <Popover
@@ -25,8 +20,8 @@ const UserContact = ({open, anchorEl, handleClose} :
         }}
       >
         <div style={{padding: '15px'}}>
-          <div>Phone Number: <span style={{color: '#0cafe5'}}>{test.phoneNumber}</span></div>
-          <div>Email: <span style={{color: '#0cafe5'}}>{test.email}</span></div>
+          {phoneNumber ? <div>Phone Number: <span style={{color: '#0cafe5'}}>{phoneNumber}</span></div> : ""}
+          <div>Email: <span style={{color: '#0cafe5'}}>{email}</span></div>
         </div>
       </Popover>
   )

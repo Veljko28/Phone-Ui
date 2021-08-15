@@ -5,6 +5,8 @@ import Link from 'next/link';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { Grid, Typography, TextField, InputAdornment, Button,
     Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 import MailIcon from '@material-ui/icons/Mail';
 import CloseIcon from '@material-ui/icons/Close';
@@ -22,6 +24,7 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
         userName: "",
         email: "",
         description: "",
+        phoneNumber: ""
     });
 
     React.useEffect(() => {
@@ -29,8 +32,7 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
          const res = await fetchGet(`http://localhost:10025/api/v1/users/${id}`);
          if (res.ok){
            const json = await res.json();
-           const newForm = {userName: json.userName, email: json.email, description: json.description};
-           console.log(newForm);
+           const newForm = {userName: json.userName, email: json.email, description: json.description, phoneNumber: json.phoneNumber};
            changeForm(newForm);
          }
       };
@@ -93,6 +95,7 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
         }
     }
 
+    console.log(form.phoneNumber);
 
     return (
         <>
@@ -145,6 +148,11 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
                         disableUnderline: true
                     }}/>
                     <YupError errors={errors} path="description" fontSize={8}/>
+                        <PhoneInput style={{marginLeft: 20}} autoFormat
+                        country={'rs'}
+                        value={form.phoneNumber}
+                        onChange={(phone: string) => changeForm({...form, phoneNumber: phone})}
+                        />
                 </Grid>
             </DialogContent>
             <DialogActions>
