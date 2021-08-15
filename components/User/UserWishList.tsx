@@ -1,42 +1,50 @@
-import { Grid, Typography } from '@material-ui/core';
-import ColoredLine from '../../constants/ColoredLine';
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Button, Grid, Typography } from '@material-ui/core';
+import { fetchGet, fetchPost } from '../../constants/CustomFetching';
+import Phone from '../models/Phone';
 
 
 
-const UserWishList = () => {
+const UserWishList = ({id} : {id: string}) => {
 
-    const desc = '12.2 MP Rear | 8 MP Front Camera,'
-    + '4GB RAM, 2700 mAh battery, Android 8.0, Qualcomm Snapdragon 835, Fingerprint Sensor';
+  const [list, changeList] = React.useState<any>([]);
+  const [type, changeType] = React.useState<string>("phone");
 
-    const ListingTest = [
-      {
-        id: 1,
-        image: '/phone.jpg',
-        name: 'Google Pixel',
-        desc
-      },
-    ];
+  React.useEffect(() => {
+    const func = async () => {
+      changeList([]);
+      console.log(list);
+      const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/get`, {userId: id, type});
 
-    const ListingMap = ({id,image,name,desc} :  
-      {id: number, image: string, name: string, desc: string}) => {
+      if (res.ok){
+        const phoneIds = await res.json();
+        phoneIds.forEach(async (x: string) => {
+          const phoneRes = await fetchGet(`http://localhost:10025/api/v1/${type}s/${x}`);
 
-        const hasLine = (id : number) => {
-          if (id !== 3){
-              return <ColoredLine color="#eee"/>
+          if (phoneRes.ok){
+            const newList = list;
+            console.log(newList);
+            newList.push(await phoneRes.json());
+            changeList(newList);
           }
-          else return "";
+        })
       }
+    }
 
-      // console.log(`/phone/${id.toString()}`); 
+    if (id) func();
+  },[type])
+
+
+    const ListingMap = ({id,image,name,description}: Phone) => {
 
         return (
-            <Link href={`/phone/${id.toString()}`} key={id}>
+            <Link href={`/phone/${id}`} key={id}>
               <Grid container>
                   <Grid xs={12} md={4} item className="review-grid-item">
                     <div className="curs-hvr">
-                      <Image src={image} width="100px" height="100px" />
+                      <img src={image} width="100px" height="100px" />
                     </div>
                   </Grid>
                 <Grid xs={12} md={8} item className="listing-grid-item">
@@ -45,7 +53,7 @@ const UserWishList = () => {
                       </Typography>
 
                       <Typography variant="subtitle2" style={{color: '#999'}}>
-                        {desc}
+                        {description}
                       </Typography>
                 </Grid>
                </Grid>
@@ -55,7 +63,8 @@ const UserWishList = () => {
 
     return (
         <Grid className="phone-details" container style={{marginTop: 10, marginBottom: 10}}>
-                {ListingTest.map(x => ListingMap(x) )}
+            {list.map((x: Phone) => ListingMap(x) )}
+            <Button variant="contained" onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type}</Button>
         </Grid>
     );
 }

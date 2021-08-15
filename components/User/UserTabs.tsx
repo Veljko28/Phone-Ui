@@ -33,7 +33,7 @@ const UserTabs = ({id} : {id: string}) => {
       }}
       >Wish List</Button>
 
-      {selected === 'Listings' ? <UserListings id={id}/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList />}
+      {selected === 'Listings' ? <UserListings id={id}/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList id={id} />}
     </div>
   )
 }
