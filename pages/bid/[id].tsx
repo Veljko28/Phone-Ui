@@ -25,7 +25,7 @@ const PhonePage = () => {
 
   React.useEffect(() => {
     const func = async () => {
-      const res = await fetchGet(`http://localhost:10025/api/v1/bid/${id}`);
+      const res = await fetchGet(`http://localhost:10025/api/v1/bids/${id}`);
 
       if (res.ok) {
         const json = await (res as Response).json();
@@ -44,13 +44,13 @@ const PhonePage = () => {
 
       }
 
-       const res2 = await fetchGet(`http://localhost:10025/api/v1/bid/images/${id}`);
+       const res2 = await fetchGet(`http://localhost:10025/api/v1/bids/images/${id}`);
     
       if ((res2 as Response).ok){
           changeImages(await (res2 as Response).json());
       }
 
-      const histories = await fetchGet(`http://localhost:10025/api/v1/bid/histories/${id}`);
+      const histories = await fetchGet(`http://localhost:10025/api/v1/bids/histories/${id}`);
 
       if (histories.ok){
         changeHistory(await histories.json());

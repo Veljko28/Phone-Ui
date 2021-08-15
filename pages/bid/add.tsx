@@ -148,7 +148,7 @@ const AddBid = () => {
             }
 
             // Sending Phone Info
-            const res = await fetchPost('http://localhost:10025/api/v1/bid/add/' + userId, newForm);
+            const res = await fetchPost('http://localhost:10025/api/v1/bids/add/' + userId, newForm);
             const bid = await res.json();
             const bid_Id = bid?.id;
 

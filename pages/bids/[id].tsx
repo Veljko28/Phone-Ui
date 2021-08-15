@@ -20,7 +20,7 @@ const bids = () => {
 
   React.useEffect(() => {
      const func = async () => {
-        const res = await fetchGet(`http://localhost:10025/api/v1/bid/page/${id}`);
+        const res = await fetchGet(`http://localhost:10025/api/v1/bids/page/${id}`);
         const json = await res.json();
         changeList(json);
      };

@@ -1,9 +1,12 @@
+import React from 'react'
 import { Grid } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
-import React from 'react'
+import BidSkeletonCard from '../components/BidSkeletonCard';
 
 const test = () => {
-  return (
+  return ( <>
+    <BidSkeletonCard/>
+
     <table>
       <tr>
           <td>
@@ -27,6 +30,7 @@ const test = () => {
             </td>
         </tr>
     </table>
+    </>
   )
 }
 
