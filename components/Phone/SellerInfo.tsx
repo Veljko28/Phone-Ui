@@ -59,7 +59,8 @@ const SellerInfo = ({user} : {user?: User}) => {
                       style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                       >View Listings</Button>
                     </Link>
-                    <UserContact open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
+                    <UserContact open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl} email={user?.email as string}
+                    phoneNumber={user?.phoneNumber}/>
                 </Grid>
             </Grid>
         </Grid>

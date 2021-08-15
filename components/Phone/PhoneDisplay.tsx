@@ -59,7 +59,7 @@ const PhoneDisplay = ({phone,images,bid,id, history} :
 
   const bidConfimed = async () => {
     if (bidAmount !== null && bidAmount > (phone?.price as number)+1){
-      const res = await fetchPost('http://localhost:10025/api/v1/bid/addhistory', {bid_Id: id,userName: localStorage.getItem('username'),amount: bidAmount });
+      const res = await fetchPost('http://localhost:10025/api/v1/bids/addhistory', {bid_Id: id,userName: localStorage.getItem('username'),amount: bidAmount });
       if (res.ok){
         changeSnackBarOpen(true);
         setTimeout(() => location.reload(), 1500)
