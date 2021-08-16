@@ -1,46 +1,39 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button, Grid, Typography } from '@material-ui/core';
-import { fetchGet, fetchPost } from '../../constants/CustomFetching';
+
 import Phone from '../models/Phone';
+import { fetchPost } from '../../constants/CustomFetching';
 
 
 
 const UserWishList = ({id} : {id: string}) => {
 
-  const [list, changeList] = React.useState<any>([]);
+  const [list, changeList] = React.useState<any[]>([]);
   const [type, changeType] = React.useState<string>("phone");
 
-  React.useEffect(() => {
-    const func = async () => {
-      changeList([]);
-      console.log(list);
+  
+
+  const fetchList = async () => {
       const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/get`, {userId: id, type});
-
       if (res.ok){
-        const phoneIds = await res.json();
-        phoneIds.forEach(async (x: string) => {
-          const phoneRes = await fetchGet(`http://localhost:10025/api/v1/${type}s/${x}`);
-
-          if (phoneRes.ok){
-            const newList = list;
-            console.log(newList);
-            newList.push(await phoneRes.json());
-            changeList(newList);
-          }
-        })
+        changeList(await res.json());
       }
-    }
+  }
 
-    if (id) func();
-  },[type])
+    React.useEffect(() => {
+      const func = async () => {
+        await fetchList();
+      }
+
+      if (id) func();
+    },[id, type])
 
 
     const ListingMap = ({id,image,name,description}: Phone) => {
 
         return (
-            <Link href={`/phone/${id}`} key={id}>
+            <Link href={`/${type}/${id}`} key={id}>
               <Grid container>
                   <Grid xs={12} md={4} item className="review-grid-item">
                     <div className="curs-hvr">
@@ -62,10 +55,12 @@ const UserWishList = ({id} : {id: string}) => {
       }
 
     return (
+      <div style={{display: 'flex',flexDirection: 'column', alignItems: 'flex-end'}}>
         <Grid className="phone-details" container style={{marginTop: 10, marginBottom: 10}}>
             {list.map((x: Phone) => ListingMap(x) )}
-            <Button variant="contained" onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type}</Button>
         </Grid>
+        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type}</Button>
+      </div>
     );
 }
 
