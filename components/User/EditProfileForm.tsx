@@ -3,10 +3,10 @@ import * as yup from 'yup';
 import Link from 'next/link';
 
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import { Grid, Typography, TextField, InputAdornment, Button,
-    Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
+import { Grid, Typography, TextField, InputAdornment, Button, 
+        Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
 import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import 'react-phone-input-2/lib/material.css';
 
 import MailIcon from '@material-ui/icons/Mail';
 import CloseIcon from '@material-ui/icons/Close';
@@ -95,8 +95,6 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
         }
     }
 
-    console.log(form.phoneNumber);
-
     return (
         <>
         <Dialog open={open} onClose={() => handleOpen(false)}>
@@ -149,6 +147,7 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
                     }}/>
                     <YupError errors={errors} path="description" fontSize={8}/>
                         <PhoneInput style={{marginLeft: 20}} autoFormat
+                        masks={{rs: '(...) ...-....'}}
                         country={'rs'}
                         value={form.phoneNumber}
                         onChange={(phone: string) => changeForm({...form, phoneNumber: phone})}
