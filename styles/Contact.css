@@ -25,3 +25,7 @@
       padding: 20px;
       margin-bottom: 50px;
   }
+
+  .containerClass {
+      background-color: red;
+  }

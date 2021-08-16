@@ -18,12 +18,19 @@
   
   .display-image {
     margin: 20px 20px 10px 20px;
+    height: 450px;
   }
 
   .display-image-none {
     display: flex;
     flex-direction: column;
-    margin: 20px 20px 10px 20px;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 20px 10px 20px;
+    background-color: #fff;
+    border: 5px solid #999;
+    border-style: dotted;
+    height: 450px;
   }
   
   .display-image-none:hover {
@@ -112,7 +119,7 @@
 
    .money-imput {
      background-color: #fff;
-     border: 1px solid #999;
+     border: 2px solid rgb(68, 5, 216);
      padding-left: 10px;
      margin: 10px;
      margin-left: 0;
@@ -121,7 +128,7 @@
 
   .money-imput-error {
      background-color: #fff;
-     border: 1px solid red;
+     border: 2px solid red;
      padding-left: 10px;
      margin: 10px;
      margin-left: 0;
@@ -130,7 +137,7 @@
 
    .money-desc {
     background-color: #fff;
-    border: 1px solid #999;
+    border: 2px solid rgb(68, 5, 216);;
     padding: 20px;
     margin: 10px;
     margin-left: 0;
@@ -138,7 +145,7 @@
 
    .money-desc-error {
     background-color: #fff;
-    border: 1px solid red;
+    border: 2px solid red;
     padding: 20px;
     margin: 10px;
     margin-left: 0;
@@ -146,7 +153,7 @@
    
    .money-select {
     background-color: #fff;
-    border: 1px solid #999;
+    border: 2px solid rgb(68, 5, 216);;
     padding: 5px 10px 5px 10px;
     margin: 10px;
     margin-left: 0;
@@ -156,7 +163,7 @@
 
     .money-select-error {
     background-color: #fff;
-    border: 1px solid red;
+    border: 2px solid red;
     padding: 5px 10px 5px 10px;
     margin: 10px;
     margin-left: 0;
