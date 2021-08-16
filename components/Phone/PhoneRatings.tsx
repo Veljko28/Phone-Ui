@@ -1,9 +1,10 @@
-import { Grid, Typography, Button } from '@material-ui/core';
-import ColoredLine from '../../constants/ColoredLine';
 import Rating from '@material-ui/lab/Rating';
+import { Grid, Typography, Button } from '@material-ui/core';
+
+import ColoredLine from '../../constants/ColoredLine';
 
 
-const PhoneRatings = ({executeScroll} : {executeScroll?: () => any}) => {
+const PhoneRatings = () => {
 
     return (
         <Grid className="phone-details" container>

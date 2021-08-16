@@ -1,8 +1,8 @@
 import React from 'react'
 import {List, ListItem, ListItemText, Collapse } from '@material-ui/core';
+
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { changePhoneCategory } from '../../redux/actions/phonesActions';
 
 const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: (value: any) => any}) => {
 

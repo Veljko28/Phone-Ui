@@ -1,12 +1,15 @@
 import React from 'react';
+import { useRouter } from "next/router";
 import { Grid } from "@material-ui/core";
+
+import Pages from '../../components/PhoneSearch/Pages';
 import PhoneList from '../../components/PhoneSearch/PhoneList';
 import CategoryBar from '../../components/PhoneSearch/CategoryBar';
-import Pages from '../../components/PhoneSearch/Pages';
-import { useRouter } from "next/router";
+
+import Phone from '../../components/models/Phone';
 import TitleChange from "../../constants/TitleChange";
 import { fetchGet } from '../../constants/CustomFetching';
-import Phone from '../../components/models/Phone';
+
 import { State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePhoneCategory } from '../../redux/actions/phonesActions';

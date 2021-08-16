@@ -2,17 +2,18 @@ import React from 'react';
 import * as yup from 'yup';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import { Grid, Typography, TextField, InputAdornment, Button, CircularProgress } from '@material-ui/core';
 
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { formatYupError } from '../../../constants/formYupError';
+
 import YupError from '../../../constants/YupError';
 import { fetchPatch } from '../../../constants/CustomFetching';
-import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackBars';
-import { useDispatch } from 'react-redux';
+import { formatYupError } from '../../../constants/formYupError';
 import { changeLoginStatus } from '../../../redux/actions/userInfoActions';
+import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackBars';
 
  
  const ForgotPassword = () => {

@@ -10,10 +10,11 @@ import UserContact from './UserContact';
 import EditProfileForm from './EditProfileForm';
 import UserSearchSkeleton from './UserSearchSkeleton';
 import UserCardSkeleton from './UserCardSkeleton';
+import User from '../models/User';
 
 
 
-const UserCard = (props: {name: string, desc: string, rating: number, id: string, search?: boolean}) => {
+const UserCard = (props: {email: string, id: string, phoneNumber: string, search?: boolean, name: string, rating: number, desc: string}) => {
 
   let currentUser: string | null = null;
   
@@ -94,7 +95,7 @@ const UserCard = (props: {name: string, desc: string, rating: number, id: string
                 <Button variant="contained" onClick={e => openContanct(e)}
                       style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
                       >Contact The Seller</Button>
-                <UserContact  open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
+                <UserContact  email={props.email} phoneNumber={props.phoneNumber} open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
                 </>
               )}
             </div>
@@ -103,8 +104,6 @@ const UserCard = (props: {name: string, desc: string, rating: number, id: string
         </>
       )
     }
-
-    console.log(props.search);
 
   return (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>

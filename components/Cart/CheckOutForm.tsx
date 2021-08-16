@@ -1,15 +1,15 @@
-import { Typography, Button,
-        Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
-import CardReactFormContainer from 'card-react';
 import React from 'react';
-import YupError from '../../constants/YupError';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import * as yup from 'yup';
+import CardReactFormContainer from 'card-react';
+import { Typography, Button, Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
 
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
-import { SnackBarSuccess,SnackBarFailed } from '../../constants/CustomSnackBars';
+
+import YupError from '../../constants/YupError';
 import { fetchPost } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
+import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
 
 
 const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: boolean) => any}) => {

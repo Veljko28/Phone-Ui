@@ -1,10 +1,8 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-
-import { Typography } from '@material-ui/core';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 

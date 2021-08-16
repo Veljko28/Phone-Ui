@@ -1,28 +1,28 @@
-import { Button, Chip, Grid, Typography } from "@material-ui/core";
-import Rating from '@material-ui/lab/Rating';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import React from 'react';
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import Rating from '@material-ui/lab/Rating';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+import { Button, Chip, Grid, Typography } from "@material-ui/core";
 
-import CategoryIcon from '@material-ui/icons/Category';
 import GradeIcon from '@material-ui/icons/Grade';
+import CategoryIcon from '@material-ui/icons/Category';
 
+import HistoryIcon from '@material-ui/icons/History';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import HistoryIcon from '@material-ui/icons/History';
 
-import React from 'react';
 
-import { useDispatch } from "react-redux";
-import Phone from "../models/Phone";
-import { addToCart } from "../../redux/actions/cartActions";
-import ImageMapper from "../../constants/ImageMapper";
-import BidHistory from "./BidHistory";
-import PopUpDialog from "../../constants/PopUpDialog";
 import Bid from "../models/Bid";
-import { fetchPost } from "../../constants/CustomFetching";
-import { changePhoneCategory } from "../../redux/actions/phonesActions";
+import Phone from "../models/Phone";
+import BidHistory from "./BidHistory";
 import BidHistoryModel from "../models/BidHistory";
+import ImageMapper from "../../constants/ImageMapper";
+import PopUpDialog from "../../constants/PopUpDialog";
+import { fetchPost } from "../../constants/CustomFetching";
+import { addToCart } from "../../redux/actions/cartActions";
+import { changePhoneCategory } from "../../redux/actions/phonesActions";
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

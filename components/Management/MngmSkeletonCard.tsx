@@ -1,6 +1,6 @@
+import React from 'react'
 import { Grid } from '@material-ui/core'
 import Skeleton from '@material-ui/lab/Skeleton'
-import React from 'react'
 
 const MngmSkeletonCard = () => {
   return (

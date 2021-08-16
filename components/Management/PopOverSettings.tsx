@@ -20,7 +20,7 @@ const PopOverSettings = ({id, open, anchorEl, handleClose, myBid} :
 
     const deletePhone = async () => {
 
-        const res = await fetchDelete(`http://localhost:10025/api/v1/${myBid ? "bid" : "phones"}/delete/${id}`);
+        const res = await fetchDelete(`http://localhost:10025/api/v1/${myBid ? "bids" : "phones"}/delete/${id}`);
         console.log(res);
         changeDialogOpen(false);
         if (res.ok){

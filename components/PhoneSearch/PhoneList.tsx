@@ -16,8 +16,8 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
 
     const bidSkeletons = [<BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>,
       <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>]
-
-    return (
+      console.log(list);
+      return (
         <Grid container style={{minHeight: 614}}> 
             {list === undefined || list.length === 0 ? bids ?
             <Grid item container xs={12}>{bidSkeletons.map(x => (<div>{x}</div>))}</Grid>
@@ -25,7 +25,7 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
             <Grid item container xs={12}>{phoneSkeletons.map(x => (<div>{x}</div>))}</Grid> : bids ? 
              list.map((x: Bid) => 
               <BidCard key={x.id} name={x.name} image={x.image as string} price={x.price as string}
-              ends={x.timeEnds as Date} id={x.id} />
+              date_ends={x.date_Ends as Date} id={x.id} />
             )
             :
             list.map((x: Phone) => 

@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Rating from '@material-ui/lab/Rating';
-import { Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+
 import ColoredLine from '../../constants/ColoredLine';
 import { fetchGet } from '../../constants/CustomFetching';
 

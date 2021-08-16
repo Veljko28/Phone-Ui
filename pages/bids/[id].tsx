@@ -1,14 +1,17 @@
 import React from 'react';
+import { useRouter } from "next/router";
 import { Grid } from "@material-ui/core";
+import { useDispatch, useSelector } from 'react-redux';
+
+import Phone from '../../components/models/Phone';
+import Pages from '../../components/PhoneSearch/Pages';
 import PhoneList from '../../components/PhoneSearch/PhoneList';
 import CategoryBar from '../../components/PhoneSearch/CategoryBar';
-import Pages from '../../components/PhoneSearch/Pages';
-import { useRouter } from "next/router";
+
 import TitleChange from "../../constants/TitleChange";
 import { fetchGet } from '../../constants/CustomFetching';
-import Phone from '../../components/models/Phone';
+
 import { State } from '../../redux/reduxTypes';
-import { useDispatch, useSelector } from 'react-redux';
 import { changeBidCategory } from '../../redux/actions/phonesActions';
 
 const bids = () => {

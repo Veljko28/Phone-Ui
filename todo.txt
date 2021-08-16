@@ -33,7 +33,7 @@ phone details
 User Reviews and Ratings ✅
 Checkout and Payments ✅
 Darkmode
-better styles for adding and editing phones
+better styles for adding and editing phones ✅
 page buttons fix ✅
 carousel images on phone
 bid history with api ✅
@@ -58,9 +58,15 @@ listings pagination
 reviews pagination 
 wishlist pagination 
 fix skeleton grids ✅
-wish list profile config
+wish list profile config ✅
 wish list fetching ✅
 contact seller api ✅ / phone number ✅
+fix bid delete
+spinner on bid / phone add
+check if refresh token expired and logout
+profile not found
+bid not found
+phone not found
 
 language translations (react-i18next)
 language icon fix ✅
@@ -68,7 +74,7 @@ language icon fix ✅
 compress images
 move nessesary images to api ✅
 
-clean the code
+clean the code / imports ✅
 mobile optimization ✅
 header titles ✅
 empty cart image fix ✅

@@ -1,16 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
-import { Typography, Grid, IconButton, Button, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { SnackBarSuccess } from '../../constants/CustomSnackBars';
-import MyPhones from './Tables/MyPhones';
+import { Typography, Button, Fab } from '@material-ui/core';
+
 import MyBids from './Tables/MyBids';
-import BoughtPhones from './Tables/BoughtPhones';
+import MyPhones from './Tables/MyPhones';
 import PlacedBids from './Tables/PlacedBids';
+import BoughtPhones from './Tables/BoughtPhones';
+
 import { fetchGet } from '../../constants/CustomFetching';
-import Phone from '../models/Phone';
-import NoPhones from './NoPhones';
+import { SnackBarSuccess } from '../../constants/CustomSnackBars';
+
 import Loading from '../Loading';
+import NoPhones from './NoPhones';
+import Phone from '../models/Phone';
 
 
 
@@ -30,12 +33,12 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                 res = await fetchGet(`http://localhost:10025/api/v1/phones/seller/${localStorage.getItem('userId')}/${page}`);
             }
             else if (currentPage === 'My Bids') {
-                res = await fetchGet(`http://localhost:10025/api/v1/bid/user/${localStorage.getItem('userId')}`);
+                res = await fetchGet(`http://localhost:10025/api/v1/bids/user/${localStorage.getItem('userId')}`);
             }
 
             if (res?.ok){
                 const json = await res.json();
-                const newList = (json as Phone[]).map((x: Phone) => {
+                const newList = (json as any[]).map((x: Phone) => {
                     x.status = x.status == 0 ? "Running" : x.status == 1 ? "Sold" : "Deleted";
                     return x; 
                 })

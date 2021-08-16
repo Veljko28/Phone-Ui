@@ -1,6 +1,7 @@
-import { Grid, Typography } from '@material-ui/core'
-import React from 'react'
-import ColoredLine from '../../constants/ColoredLine'
+import React from 'react';
+import { Grid, Typography } from '@material-ui/core';
+
+import ColoredLine from '../../constants/ColoredLine';
 
 const WelcomeTab = () => {
   return (

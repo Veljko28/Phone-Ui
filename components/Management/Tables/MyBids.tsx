@@ -11,9 +11,9 @@ import PopOverSettings from '../PopOverSettings';
 const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
 
-   const rowMap = ({id,image, name,price,status,timeEnds} :
-        {id: string, image: string, name: string, price: string, status: string, timeEnds: Date}) => {
-          const str = timeEnds?.toString().split('T')[0].replace(/-/g,"/");
+   const rowMap = ({id,image, name,price,status,date_Ends} :
+        {id: string, image: string, name: string, price: string, status: string, date_Ends: Date}) => {
+          const str = date_Ends?.toString().split('T')[0].replace(/-/g,"/");
           const date = {
             year: str?.slice(0,4),
             month: str?.slice(5,7),

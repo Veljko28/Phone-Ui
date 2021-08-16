@@ -1,20 +1,12 @@
-import { Grid } from '@material-ui/core'
 import React from 'react'
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Grid } from '@material-ui/core'
 import { useDispatch } from 'react-redux';
+
 import { changePhoneCategory } from '../../redux/actions/phonesActions';
 
-// const BlockThree = (title: string, img: string ) => (
-//   <Grid item xs={12} md={6} lg={3} className="phone-block" key={title}>
-//     <div style={{margin: '20px'}}>
-//       <Image src={title} width="75px" height="40px" />
-//     </div>
-//     <div style={{margin: '20px'}}>
-//       <Image src={img} width="140px" height="140px" />
-//     </div>
-//   </Grid>
-// )
+
 
 const CategoryButtons = () => {
 

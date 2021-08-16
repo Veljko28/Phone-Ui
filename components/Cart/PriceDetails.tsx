@@ -1,10 +1,11 @@
-import { Grid, Typography, Button} from '@material-ui/core';
-import ColoredLine from '../../constants/ColoredLine';
 import React from 'react';
+import { Grid, Typography, Button} from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { State } from '../../redux/reduxTypes';
+
 import Phone from '../models/Phone';
 import CheckOutForm from './CheckOutForm';
+import { State } from '../../redux/reduxTypes';
+import ColoredLine from '../../constants/ColoredLine';
 
 const PriceDetails = () => {
 

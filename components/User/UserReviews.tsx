@@ -1,6 +1,7 @@
-import { Grid, Typography, Button } from '@material-ui/core';
-import ColoredLine from '../../constants/ColoredLine';
 import Rating from '@material-ui/lab/Rating';
+import { Grid, Typography, Button } from '@material-ui/core';
+
+import ColoredLine from '../../constants/ColoredLine';
 
 const ReviewMap = ({id, rating, user, date, message}
     : {id: string, rating: number, user: string, date: string, message: string}) => {

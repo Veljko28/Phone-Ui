@@ -1,13 +1,13 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
 import Link from 'next/link';
-import { v4 } from 'uuid';
+import { Grid } from '@material-ui/core';
 import { SocialIcon } from 'react-social-icons';
 
 import RoomIcon from '@material-ui/icons/Room';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailIcon from '@material-ui/icons/Mail';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+
 import links from '../constants/Links';
 import socialLinks from '../constants/SocialLinks';
 

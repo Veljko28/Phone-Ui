@@ -1,12 +1,15 @@
 import React from 'react'
+import Link from 'next/link';
+import { useDispatch } from 'react-redux';
 import {Grid, Typography, IconButton} from '@material-ui/core';
+
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { addToCart } from '../redux/actions/cartActions';
-import { useDispatch } from 'react-redux';
-import Link from 'next/link';
+
 import Phone from './models/Phone';
 import PhoneSkeletonCard from './Phone/PhoneSkeletonCard';
+
+import { addToCart } from '../redux/actions/cartActions';
 import { fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 

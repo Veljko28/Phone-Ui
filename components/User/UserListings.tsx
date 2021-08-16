@@ -1,6 +1,7 @@
-import { Grid, Typography } from '@material-ui/core';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
+import { Grid, Typography } from '@material-ui/core';
+
 import { fetchGet } from '../../constants/CustomFetching';
 
 
@@ -13,7 +14,6 @@ const UserListings = ({id} : {id: string}) => {
       const func = async () => {
         const res = await fetchGet(`http://localhost:10025/api/v1/phones/seller/${id}/1`);
         const json = await (res as Response).json();
-        console.log(json);
         changeList(json.splice(0,3));
       }
 

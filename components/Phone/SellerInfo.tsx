@@ -1,12 +1,12 @@
+import React from 'react';
+import Link from 'next/link';
+import Rating from '@material-ui/lab/Rating';
 import { Grid, Typography, Button } from '@material-ui/core';
 import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
-import Rating from '@material-ui/lab/Rating';
-import Link from 'next/link';
-import React from 'react';
 
-import ColoredLine from '../../constants/ColoredLine';
 import User from '../models/User';
 import UserContact from '../User/UserContact';
+import ColoredLine from '../../constants/ColoredLine';
 
 
 const SellerInfo = ({user} : {user?: User}) => {
