@@ -4,11 +4,10 @@ import { JwtToken } from "./jwtTypes";
 
 const unauthorizedCheck = async () => {
 
-   const expires = localStorage.getItem('exp');
    const token = localStorage.getItem('jwt');
    const refreshToken = localStorage.getItem('refresh');
    
-      const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {token: "1", refreshToken});
+      const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {token , refreshToken});
 
       if ((res as Response)?.ok){
         const json: JwtToken = await (res as Response).json();
