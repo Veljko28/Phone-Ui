@@ -1,20 +1,22 @@
 import React from 'react';
-import Link from 'next/link';
 import * as yup from 'yup';
-import { Button, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { fetchForm, fetchPostForm, fetchGet, fetchPatch} from '../../../constants/CustomFetching';
-import { SnackBarSuccess, SnackBarFailed } from '../../../constants/CustomSnackBars';
-import TitleChange from '../../../constants/TitleChange';
+import { Button, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
 
-import ImageSearchIcon from '@material-ui/icons/ImageSearch';
-import ImageIcon from '@material-ui/icons/Image';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import NotLoggedIn from '../../../constants/NotLoggedIn';
-import { formatYupError } from '../../../constants/formYupError';
+import ImageIcon from '@material-ui/icons/Image';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
 import YupError from '../../../constants/YupError';
+import NotLoggedIn from '../../../constants/NotLoggedIn';
+import TitleChange from '../../../constants/TitleChange';
+import { formatYupError } from '../../../constants/formYupError';
+import { SnackBarSuccess, SnackBarFailed } from '../../../constants/CustomSnackBars';
+import { fetchForm, fetchPostForm, fetchGet, fetchPatch} from '../../../constants/CustomFetching';
+
 
 const EditPage = () => {
   const router = useRouter()
@@ -168,14 +170,15 @@ const EditPage = () => {
 
     <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Edit`} />
-            <Grid item lg={2}/>
+            <Grid item lg={1}/>
 
             <Grid item sm={12} md={6} lg={4}>
 
                 <Grid item>
                     {currentImage === '' ? (
-                        <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
-                           <ImageSearchIcon style={{fontSize: 300, color: '#0cafe5'}}/> 
+                         <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
+                           <CloudUploadIcon style={{fontSize: 150, color: '#0cafe5'}}/>
+                            <div style={{fontSize: 25, color: '#0cafe5'}}>Upload product images</div> 
                         </div>
                     ) : (
                         <div className="display-image">
@@ -211,9 +214,11 @@ const EditPage = () => {
                     
             </Grid>
 
-            <Grid item sm={12} md={6} lg={4}>
+            <Grid item lg={1}/>
+
+            <Grid item sm={12} md={6} lg={5}  style={{backgroundColor: '#0cafe5', padding: 25, height: yupErrors.length > 0 ? 450 : 400}}>
                 <Typography variant="h4"  
-                style={{color: '#0cafe5', marginTop: 10, marginLeft: 10}}>Edit Phone</Typography>
+                style={{color: '#fff', marginTop: 10, marginLeft: 10}}>Edit Phone</Typography>
                 
                 <Grid container item xs={12} style={{marginTop: 15}}>
                     <Grid xs={6} item>
@@ -280,7 +285,7 @@ const EditPage = () => {
                 <YupError errors={yupErrors} path="description"/>
                 <br/>
                 <Button variant="contained" 
-                style={{backgroundColor: '#0cafe5', color: '#fff'}}
+                style={{backgroundColor: '#fff', color: '#0cafe5'}}
                 onClick={() => EditPhoneApi()}>
                     <CheckIcon style={{fontSize: 20, margin: 2}}/>
                     Update
@@ -295,7 +300,7 @@ const EditPage = () => {
 
             </Grid>
 
-            <Grid item lg={2}/>
+            <Grid item lg={1}/>
             
             <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message="Successfully updated your phone !"/>
 

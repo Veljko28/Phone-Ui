@@ -1,17 +1,19 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { Grid } from '@material-ui/core'
+
 import PhoneDisplay from '../../components/Phone/PhoneDisplay';
-import PhoneDetails from '../../components/Phone/PhoneDetails';
 import PhoneRatings from '../../components/Phone/PhoneRatings';
 import PhoneReviews from '../../components/Phone/PhoneReviews';
 import AddPhoneReview from '../../components/Phone/AddPhoneReview';
 import { LatestProducts } from '../../components/FrontPage/LatestProducts';
+
+import User from '../../components/models/User';
+import Phone from '../../components/models/Phone';
+
 import TitleChange from '../../constants/TitleChange';
 import { fetchGet } from '../../constants/CustomFetching';
-import Phone from '../../components/models/Phone';
 import SellerInfo from '../../components/Phone/SellerInfo';
-import User from '../../components/models/User';
 
 
 const PhonePage = () => {

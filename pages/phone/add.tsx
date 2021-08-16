@@ -2,19 +2,20 @@ import React from 'react';
 import * as yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Grid, Typography, TextField, InputAdornment,
-     Button} from '@material-ui/core';
-import ImageSearchIcon from '@material-ui/icons/ImageSearch';
-import ImageIcon from '@material-ui/icons/Image';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import CheckIcon from '@material-ui/icons/Check';
+import { Grid, Typography, TextField, InputAdornment, Button} from '@material-ui/core';
+
 import ClearIcon from '@material-ui/icons/Clear';
+import CheckIcon from '@material-ui/icons/Check';
+import ImageIcon from '@material-ui/icons/Image';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
+import YupError from '../../constants/YupError';
 import TitleChange from '../../constants/TitleChange';
-import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
-import { fetchPost, fetchPostForm, fetchForm } from '../../constants/CustomFetching';
 import NotLoggedIn from '../../constants/NotLoggedIn';
 import { formatYupError } from '../../constants/formYupError';
-import YupError from '../../constants/YupError';
+import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
+import { fetchPost, fetchPostForm, fetchForm } from '../../constants/CustomFetching';
 
 
 
@@ -163,14 +164,15 @@ const AddPhone = () => {
 
         <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Add`} />
-            <Grid item lg={2}/>
+            <Grid item lg={1}/>
 
             <Grid item sm={12} md={6} lg={4}>
 
                 <Grid item>
                     {currentImage === '' ? (
                         <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
-                           <ImageSearchIcon style={{fontSize: 300, color: '#0cafe5'}}/> 
+                           <CloudUploadIcon style={{fontSize: 150, color: '#0cafe5'}}/>
+                            <div style={{fontSize: 25, color: '#0cafe5'}}>Upload product images</div> 
                         </div>
                     ) : (
                         <div className="display-image">
@@ -192,7 +194,7 @@ const AddPhone = () => {
                             <input type="file" accept="image/*" onChange={(e: any) => uploadFile(e)} ref={inputRef} style={{display: 'none'}}/>
                             <button onClick={() => (inputRef as any).current.click()}
                             className="add-another">
-                            <ImageIcon style={{fontSize: 35, color: '#0cafe5'}}/> Add Picture
+                            <ImageIcon style={{fontSize: 35, color: '#0cafe5'}}/> Add Image
                             </button>
                         </div>
                     )}
@@ -205,10 +207,10 @@ const AddPhone = () => {
                 )}
                     
             </Grid>
-
-            <Grid item sm={12} md={6} lg={4}>
-                <Typography variant="h4"  
-                style={{color: '#0cafe5', marginTop: 10, marginLeft: 10}}>Add Phone</Typography>
+            <Grid item lg={1}/>
+            <Grid item sm={12} md={6} lg={5} style={{backgroundColor: '#0cafe5', padding: 25, height: 450}}>
+                <Typography variant="h3"  
+                style={{color: '#fff', marginTop: 10, marginLeft: 10}}>Add Phone</Typography>
                 
                 <Grid container item xs={12} style={{marginTop: 15}}>
                     <Grid xs={6} item>
@@ -218,7 +220,7 @@ const AddPhone = () => {
                             className: yupErrors.filter((x: any) => x.path === 'name').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
-                      <YupError errors={yupErrors} path="name"/>
+                      <YupError errors={yupErrors} path="name" color="#fff"/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField placeholder="Price" type="number" fullWidth
@@ -232,7 +234,7 @@ const AddPhone = () => {
                         ),
                         disableUnderline: true
                       }}/>
-                      <YupError errors={yupErrors} path="price"/>
+                      <YupError errors={yupErrors} path="price" color="#fff"/>
                     </Grid>
                 </Grid>
 
@@ -248,7 +250,7 @@ const AddPhone = () => {
                             <option value="ios">IOS Phone</option>
                             <option value="other">Other</option>
                         </select>
-                       <YupError errors={yupErrors} path="category"/>
+                       <YupError errors={yupErrors} path="category" color="#fff"/>
                     </Grid>
                     <Grid xs={6} item>
                     <select name="brand"
@@ -262,7 +264,7 @@ const AddPhone = () => {
                             <option value="redmi">Redmi</option>
                             <option value="alcatel">Alcatel</option>
                         </select>
-                       <YupError errors={yupErrors} path="brand"/>
+                       <YupError errors={yupErrors} path="brand" color="#fff"/>
                     </Grid>
 
                 </Grid>
@@ -274,12 +276,12 @@ const AddPhone = () => {
                         style: {padding: 10},
                         disableUnderline: true
                 }}/>
-                <YupError errors={yupErrors} path="description"/>
+                <YupError errors={yupErrors} path="description" color="#fff"/>
                 <br/>
 
 
                 <Button variant="contained" 
-                style={{backgroundColor: '#0cafe5', color: '#fff'}}
+                style={{backgroundColor: '#fff', color: '#0cafe5'}}
                 onClick={() => addPhoneApi()}>
                     <CheckIcon style={{fontSize: 20, margin: 2}}/>
                     Submit
@@ -294,7 +296,7 @@ const AddPhone = () => {
 
             </Grid>
 
-            <Grid item lg={2}/>
+            <Grid item lg={1}/>
             
             <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message="Successfully added your phone !"/>
 
