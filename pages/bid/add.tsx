@@ -2,19 +2,20 @@ import React from 'react';
 import * as yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Grid, Typography, TextField, InputAdornment,
-     Button} from '@material-ui/core';
-import ImageSearchIcon from '@material-ui/icons/ImageSearch';
-import ImageIcon from '@material-ui/icons/Image';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import CheckIcon from '@material-ui/icons/Check';
+import { Grid, Typography, TextField, InputAdornment, Button} from '@material-ui/core';
+
 import ClearIcon from '@material-ui/icons/Clear';
+import CheckIcon from '@material-ui/icons/Check';
+import ImageIcon from '@material-ui/icons/Image';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
+import YupError from '../../constants/YupError';
 import TitleChange from '../../constants/TitleChange';
-import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
-import { fetchForm, fetchPost, fetchPostBid, fetchPostForm } from '../../constants/CustomFetching';
 import NotLoggedIn from '../../constants/NotLoggedIn';
 import { formatYupError } from '../../constants/formYupError';
-import YupError from '../../constants/YupError';
+import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
+import { fetchForm, fetchPost, fetchPostForm } from '../../constants/CustomFetching';
 
 
 
@@ -29,7 +30,7 @@ const AddBid = () => {
      let jwt: string | null = null;
 
     if (typeof window !== 'undefined') {
-      jwt = localStorage.getItem('jwt');
+      jwt = localStorage?.getItem('jwt');
     }
 
 
@@ -50,9 +51,9 @@ const AddBid = () => {
         price: 0,
         category: "",
         brand: "",
-        seller: localStorage.getItem('userId'),
+        seller: "",
         timeCreated: datestring,
-        timeEnds: ""
+        date_Ends: ""
     });
 
     const yupSchema = yup.object().shape({
@@ -63,7 +64,7 @@ const AddBid = () => {
         brand: yup.string().min(1, "Please select a brand"),
         seller: yup.string().min(10),
         timeCreated: yup.string().min(5),
-        timeEnds: yup.string().min(5),
+        date_Ends: yup.string().min(5, "End date must be a valid date"),
         image: yup.string().min(5)
     });
 
@@ -121,12 +122,23 @@ const AddBid = () => {
 
        const addPhoneApi = async () => {
 
-            const userId = localStorage.getItem('userId');
+        let userId: string | null = null;
 
-            const file = files[0];
+        if (typeof window !== 'undefined') {
+            userId = localStorage?.getItem('userId');
+        }
 
-            if (file === null){
+
+           const file = files[0];
+            if (file == null) {
                 changeError({open: true, message: "Please add a photo"});
+                try {
+                    await yupSchema.validate(formInfo, {abortEarly: false});
+                }
+                catch (err) {
+                        changeYupErrors(formatYupError(err) as any);
+                }
+
                 return;
             }
 
@@ -137,7 +149,7 @@ const AddBid = () => {
             }
             const photo = await displayPhotoRes.text();
 
-            const newForm = {...formInfo, image: photo};
+            const newForm = {...formInfo, image: photo, seller: userId};
 
             try {
                 await yupSchema.validate(newForm, {abortEarly: false});
@@ -174,14 +186,15 @@ const AddBid = () => {
         {jwt === null ? <NotLoggedIn/> : (
         <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Bid Add`} />
-            <Grid item lg={2}/>
+            <Grid item lg={1}/>
 
             <Grid item sm={12} md={6} lg={4}>
 
                 <Grid item>
                     {currentImage === '' ? (
                         <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
-                           <ImageSearchIcon style={{fontSize: 300, color: '#0cafe5'}}/> 
+                           <CloudUploadIcon style={{fontSize: 150, color: '#0cafe5'}}/>
+                            <div style={{fontSize: 25, color: '#0cafe5'}}>Upload product images</div> 
                         </div>
                     ) : (
                         <div className="display-image">
@@ -217,9 +230,11 @@ const AddBid = () => {
                     
             </Grid>
 
-            <Grid item sm={12} md={6} lg={4}>
+            <Grid item lg={1}/>
+
+            <Grid item sm={12} md={6} lg={5} style={{backgroundColor: '#0cafe5', padding: 25, height: yupErrors.length > 0 ? 550 : 450}}>
                 <Typography variant="h4"  
-                style={{color: '#0cafe5', marginTop: 10, marginLeft: 10}}>Add Bid</Typography>
+                style={{color: '#fff', marginTop: 10, marginLeft: 10}}>Add Bid</Typography>
                 
                 <Grid container item xs={12} style={{marginTop: 15}}>
                     <Grid xs={6} item>
@@ -229,7 +244,7 @@ const AddBid = () => {
                             className: yupErrors.filter((x: any) => x.path === 'name').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
-                       <YupError errors={yupErrors} path="name"/>
+                       <YupError errors={yupErrors} path="name" color="#fff"/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField placeholder="Price" type="number" fullWidth
@@ -243,7 +258,7 @@ const AddBid = () => {
                         ),
                         disableUnderline: true
                     }}/>
-                    <YupError errors={yupErrors} path="price"/>
+                    <YupError errors={yupErrors} path="price" color="#fff"/>
                     </Grid>
                 </Grid>
 
@@ -258,7 +273,7 @@ const AddBid = () => {
                             <option value="ios">IOS Phone</option>
                             <option value="other">Other</option>
                         </select>
-                     <YupError errors={yupErrors} path="category"/>
+                     <YupError errors={yupErrors} path="category" color="#fff"/>
                     </Grid>
                     <Grid xs={6} item>
                     <select name="brand"
@@ -271,7 +286,7 @@ const AddBid = () => {
                             <option value="htc">Htc</option>
                             <option value="alc">Alcatel</option>
                         </select>
-                     <YupError errors={yupErrors} path="brand"/>
+                     <YupError errors={yupErrors} path="brand" color="#fff"/>
                     </Grid>
 
                 </Grid>
@@ -288,7 +303,7 @@ const AddBid = () => {
                             className: yupErrors.filter((x: any) => x.path === 'timeCreated').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
-                     <YupError errors={yupErrors} path="timeCreated"/>
+                     <YupError errors={yupErrors} path="timeCreated" color="#fff"/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField
@@ -296,13 +311,13 @@ const AddBid = () => {
                         label="End Date"
                         type="datetime-local"
                         InputProps={{
-                            className: yupErrors.filter((x: any) => x.path === 'timeEnds').length > 0 ? "money-imput-error" : "money-imput",
+                            className: yupErrors.filter((x: any) => x.path === 'date_Ends').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        value={formInfo.timeEnds}
+                        value={formInfo.date_Ends}
                         onChange={e => {
                             let time = e.target.value;
                             const added = new Date(time);
@@ -312,10 +327,10 @@ const AddBid = () => {
                                 time = formInfo.timeCreated;
                             }
 
-                            changeFormInfo({...formInfo, timeEnds: time})
+                            changeFormInfo({...formInfo, date_Ends: time})
                         }}
                     />
-                     <YupError errors={yupErrors} path="timeEnds"/>
+                     <YupError errors={yupErrors} path="date_Ends" color="#fff"/>
                     </Grid>
                 </Grid>
 
@@ -326,11 +341,11 @@ const AddBid = () => {
                         style: {padding: 10},
                         disableUnderline: true
                 }}/>
-                <YupError errors={yupErrors} path="description"/>
+                <YupError errors={yupErrors} path="description" color="#fff"/>
                 <br/>
 
                 <Button variant="contained" 
-                style={{backgroundColor: '#0cafe5', color: '#fff'}}
+                style={{backgroundColor: '#fff', color: '#0cafe5'}}
                 onClick={() => addPhoneApi()}>
                     <CheckIcon style={{fontSize: 20, margin: 2}}/>
                     Submit
@@ -345,7 +360,7 @@ const AddBid = () => {
 
             </Grid>
 
-            <Grid item lg={2}/>
+            <Grid item lg={1}/>
             
             <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message="Successfully added your bid !"/>
 

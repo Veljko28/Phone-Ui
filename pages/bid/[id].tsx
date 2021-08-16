@@ -1,12 +1,15 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { Grid } from '@material-ui/core'
+
+import SellerInfo from '../../components/Phone/SellerInfo';
 import PhoneDisplay from '../../components/Phone/PhoneDisplay';
 import PhoneReviews from '../../components/Phone/PhoneReviews';
-import SellerInfo from '../../components/Phone/SellerInfo';
 import { LatestProducts } from '../../components/FrontPage/LatestProducts';
+
 import TitleChange from '../../constants/TitleChange';
 import { fetchGet } from '../../constants/CustomFetching';
+
 import Bid from '../../components/models/Bid';
 import User from '../../components/models/User';
 import Phone from '../../components/models/Phone';
