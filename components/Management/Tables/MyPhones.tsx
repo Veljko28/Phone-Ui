@@ -7,6 +7,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
 import PopOverSettings from '../PopOverSettings';
+import { formatDate } from '../../../constants/formatDate';
 
 const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
@@ -16,12 +17,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
    const rowMap = ({id, name, image, price, status, dateCreated} :
         {id: string,name: string, image: string, price: string | number, status: string, dateCreated: Date, idx: number}) => {
 
-          const str = dateCreated?.toString().split('T')[0].replace(/-/g,"/");
-          const date = {
-            year: str?.slice(0,4),
-            month: str?.slice(5,7),
-            day: str?.slice(8,10)
-          }
+        const date = formatDate(dateCreated);
           
         return (
             <tr key={id}>
@@ -43,7 +39,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
                       {status}
                   </div>
               </td>
-              <td>{date.day + "/" + date.month + "/" + date.year}</td>
+              <td>{date}</td>
               <td>
                   <IconButton
                   onClick={() => {

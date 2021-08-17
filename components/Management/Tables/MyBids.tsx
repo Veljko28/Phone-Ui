@@ -7,18 +7,19 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
 import PopOverSettings from '../PopOverSettings';
+import { formatDate } from '../../../constants/formatDate';
 
 const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
 
+
+     const [selectedId, changeSelectedId] = React.useState<string | undefined>(undefined);
+
    const rowMap = ({id,image, name,price,status,date_Ends} :
         {id: string, image: string, name: string, price: string, status: string, date_Ends: Date}) => {
-          const str = date_Ends?.toString().split('T')[0].replace(/-/g,"/");
-          const date = {
-            year: str?.slice(0,4),
-            month: str?.slice(5,7),
-            day: str?.slice(8,10)
-          }
+
+        const date = formatDate(date_Ends);
+        
         return (
             <tr key={id}>
               <td>
@@ -27,7 +28,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                         <img src={image} width="50px" height="50px"/>
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>
-                        <Link href={`http://localhost:3000/bids/${id}`}><div className="phone-name-mngm">{name}</div></Link>
+                        <Link href={`http://localhost:3000/bid/${id}`}><div className="phone-name-mngm">{name}</div></Link>
                       </Grid>
                     </Grid>
               </td>
@@ -37,11 +38,11 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                       {status}
                   </div>
               </td>
-              <td>{date.day + "/" + date.month + "/" + date.year}</td>
+              <td>{date}</td>
               <td>
                   <IconButton
                   onClick={() => {
-                      navigator.clipboard.writeText(`http://localhost:3000/bids/${id}`)
+                      navigator.clipboard.writeText(`http://localhost:3000/bid/${id}`)
                       changeSnackBar(true);
                     }} 
                   style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#0cafe5'}} 
@@ -51,12 +52,15 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                  {status === "Running" ? (
                      <>
                         <IconButton 
-                    onClick={e => openPopUp(e)} 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#4542f5'}} 
-                    className="share-icon-mngm">
+                      onClick={e => {
+                        changeSelectedId(id);
+                        openPopUp(e)
+                      }} 
+                      style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#4542f5'}} 
+                      className="share-icon-mngm">
                         <SettingsIcon style={{fontSize: 15, color: "#fff"}}/>
                     </IconButton>
-                    <PopOverSettings open={open} id={id} myBid={true} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
+                    <PopOverSettings open={open} id={selectedId} myBid={true} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
                     </>
                  ) : status === "Deleted" ? (
                     <IconButton 

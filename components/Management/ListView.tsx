@@ -14,6 +14,7 @@ import { SnackBarSuccess } from '../../constants/CustomSnackBars';
 import Loading from '../Loading';
 import NoPhones from './NoPhones';
 import Phone from '../models/Phone';
+import MngmSkeletonList from './MngmSkeletonList';
 
 
 
@@ -44,7 +45,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                 })
                 changeList(newList)
             }
-            changeLoading(false);
+            // changeLoading(false);
         }
 
         func();
@@ -61,12 +62,12 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
     const closePopUp = () => {
       setAnchorEl(null);
     }
-
     return (
         <>
-        {list.length === 0 ? loading ? <div style={{
-              display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614
-            }}><Loading size={60}/></div> : <NoPhones currentPage={currentPage}/> : (
+        {list.length === 0 ? loading ? <MngmSkeletonList currentPage={currentPage}/>
+        :
+        <NoPhones currentPage={currentPage}/> 
+                 : (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
             <div style={{minHeight: 575, maxHeight: 1500}}>
                 <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>
