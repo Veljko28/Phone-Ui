@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Grid, Typography, TextField, InputAdornment, Button} from '@material-ui/core';
+import { Grid, Typography, TextField, InputAdornment, Button, CircularProgress} from '@material-ui/core';
 
 import ClearIcon from '@material-ui/icons/Clear';
 import CheckIcon from '@material-ui/icons/Check';
@@ -54,6 +54,7 @@ const AddPhone = () => {
     const [snackbar, changeSnackbarOpen] = React.useState(false);
     const [error, changeError] = React.useState({open: false, message: ""});
     const [yupErrors, changeYupErrors] = React.useState([]);
+    const [loading, changeLoading] = React.useState(false);
 
     const inputRef = React.useRef(null);
     
@@ -104,7 +105,7 @@ const AddPhone = () => {
     }
 
     const addPhoneApi = async () => {
-        // for testing only
+        changeLoading(true);
         const userId = localStorage.getItem('userId');
 
         const file = files[0];
@@ -116,7 +117,7 @@ const AddPhone = () => {
               catch (err) {
                     changeYupErrors(formatYupError(err) as any);
               }
-
+            changeLoading(false);
             return;
         }
 
@@ -124,7 +125,8 @@ const AddPhone = () => {
 
         if ((displayPhotoRes as Response).status !== 200 && (displayPhotoRes as Response).status !== 401){
             changeError({open: true, message: "Failed to add a photo, please try again"});
-             return;
+            changeLoading(false);
+            return;
         }
         const photo: string | null = await displayPhotoRes.text();
 
@@ -135,6 +137,7 @@ const AddPhone = () => {
         }
         catch (err) {
             changeYupErrors(formatYupError(err) as any);
+            changeLoading(false);
             return;
         }
 
@@ -145,6 +148,7 @@ const AddPhone = () => {
 
         if (!phoneId) {
             changeError({open: true, message: "Failed to add phone"});
+            changeLoading(false);
             return;
         }
 
@@ -158,6 +162,7 @@ const AddPhone = () => {
          }, 3000)
        }
        else changeError({open: true, message: "Failed to add phone"});
+       changeLoading(false);
     }
 
     return (jwt === null ? <NotLoggedIn/> : (
@@ -281,10 +286,13 @@ const AddPhone = () => {
 
 
                 <Button variant="contained" 
-                style={{backgroundColor: '#fff', color: '#0cafe5'}}
+                style={{backgroundColor: '#fff', color: '#0cafe5', width: 110}}
                 onClick={() => addPhoneApi()}>
-                    <CheckIcon style={{fontSize: 20, margin: 2}}/>
-                    Submit
+                   {loading ? <CircularProgress style={{color: '#0cafe5'}} size={24}/> :
+                     (<>
+                        <CheckIcon style={{fontSize: 20, margin: 2}}/>
+                        Submit
+                    </>)}
                 </Button>
                 <Link href="/management">
                     <Button variant="contained" 

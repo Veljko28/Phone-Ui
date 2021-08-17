@@ -14,6 +14,7 @@ import Phone from '../../components/models/Phone';
 import TitleChange from '../../constants/TitleChange';
 import { fetchGet } from '../../constants/CustomFetching';
 import SellerInfo from '../../components/Phone/SellerInfo';
+import NotFound from '../../components/NotFound';
 
 
 const PhonePage = () => {
@@ -25,6 +26,7 @@ const PhonePage = () => {
   const [images, changeImages] = React.useState<string[] | undefined>(undefined);
   const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
   const [user, changeUser] = React.useState<User | undefined>(undefined);
+  const [notFound, changeNotFound] = React.useState<boolean>(false);
   
   React.useEffect(() => {
     const func = async () => {
@@ -34,6 +36,10 @@ const PhonePage = () => {
     
           if ((res as Response).ok){
             changePhone(await (res as Response).json());
+          }
+          else {
+            changeNotFound(true);
+            return;
           }
     
           const res2 = await fetchGet(`http://localhost:10025/api/v1/phones/images/${id}`);
@@ -72,15 +78,19 @@ const PhonePage = () => {
       <TitleChange title={`MobiStore - Phone Listing ${phone?.name ? phone.name : ""}`} />
       <Grid md={1} lg={2} item/>
 
-      <Grid xs={12} md={10} lg={8} item> 
-        <PhoneDisplay 
-        phone={phone} images={images} id={id as string}
-        />
-        <SellerInfo user={user} />
-        <PhoneRatings />
-        <PhoneReviews  phoneId={id as string}/>
-        <AddPhoneReview phoneId={id as string}/>
-        <LatestProducts title="Related Products" phones={relatedProducts} />
+      <Grid xs={12} md={10} lg={8} item>
+        {notFound === true ? <NotFound/> : (
+        <>
+          <PhoneDisplay 
+          phone={phone} images={images} id={id as string} userId={user?.id as string}
+          />
+          <SellerInfo user={user} />
+          <PhoneRatings />
+          <PhoneReviews  phoneId={id as string}/>
+          <AddPhoneReview phoneId={id as string}/>
+          <LatestProducts title="Related Products" phones={relatedProducts} />
+        </>
+        )}
       </Grid>
 
       <Grid md={1}  lg={2} item/>

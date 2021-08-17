@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Button, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
 
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -78,7 +78,7 @@ const EditPage = () => {
     const [snackbar, changeSnackbarOpen] = React.useState(false);
     const [error, changeError] = React.useState({open: false, message: ""});
     const [yupErrors, changeYupErrors] = React.useState([]);
-
+    const [loading, changeLoading] = React.useState(false);
 
     const inputRef = React.useRef(null);
     
@@ -119,10 +119,13 @@ const EditPage = () => {
     }
 
     const EditPhoneApi = async () => {
+       changeLoading(true);
+
        if (imageBlobs[0] !== formInfo.image){
           const file = files[0];
             if (file == null) {
                 changeError({open: true, message: "Please add a photo"});
+                changeLoading(false);
                 return;
             }
 
@@ -130,6 +133,7 @@ const EditPage = () => {
           const displayPhotoRes = await fetchForm('http://localhost:10025/api/v1/generic/phone/display', file);
           if ((displayPhotoRes as Response).status !== 200 && (displayPhotoRes as Response).status !== 401){
               changeError({open: true, message: "Failed to add a photo, please try again"});
+              changeLoading(false);
               return;
           }
           const photo = await displayPhotoRes.text();
@@ -143,6 +147,7 @@ const EditPage = () => {
         }
         catch (err) {
             changeYupErrors(formatYupError(err) as any);
+            changeLoading(false);
             return;
         }
 
@@ -161,6 +166,7 @@ const EditPage = () => {
             }
             else changeError({open: true, message: "Failed to edit the phone"});
         }
+        changeLoading(false);
     }
 
 
@@ -285,10 +291,13 @@ const EditPage = () => {
                 <YupError errors={yupErrors} path="description"/>
                 <br/>
                 <Button variant="contained" 
-                style={{backgroundColor: '#fff', color: '#0cafe5'}}
+                style={{backgroundColor: '#fff', color: '#0cafe5', width: 110}}
                 onClick={() => EditPhoneApi()}>
-                    <CheckIcon style={{fontSize: 20, margin: 2}}/>
-                    Update
+                    {loading ? <CircularProgress style={{color: '#0cafe5'}} size={24}/> :
+                     (<>
+                        <CheckIcon style={{fontSize: 20, margin: 2}}/>
+                        Update
+                    </>)}
                 </Button>
                 <Link href="/management">
                   <Button variant="contained" 
