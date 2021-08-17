@@ -7,33 +7,12 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import { fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
+import { timeLeft } from '../constants/formatDate';
 
 
 export const BidCard = (props: {image: string, name: string, price: string, date_ends: Date, id: string}) => {
 
-  const timeUntilEnd = () => {
-    const now = new Date().getTime();
-
-    const endTime = new Date(props.date_ends).getTime();
-
-    if (now > endTime) return "Finished !";
-
-    const distance = endTime - now;
-
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    if (days >= 0) {
-      return days + "d " + hours + "h " + minutes + "m ";
-    }
-    
-    return  hours + "h " + minutes + "m " + seconds + "s ";
-  };
-
-  let time = timeUntilEnd();
+  let time = timeLeft(props.date_ends);
 
    const [snackBar, changeSnackBar] = React.useState({
     success: false,
