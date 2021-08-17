@@ -52,7 +52,7 @@ wish list api config ✅
 skeleton bids ✅ / bid loading skeleton ✅
 display phone skeleton
 seller info skeleton
-management page table skeleton
+management page table skeleton ✅
 skeleton phone / bid list ✅
 listings pagination 
 reviews pagination 
@@ -61,12 +61,18 @@ fix skeleton grids ✅
 wish list profile config ✅
 wish list fetching ✅
 contact seller api ✅ / phone number ✅
-fix bid delete
-spinner on bid / phone add
+fix bid delete ✅
+spinner on bid add ✅
+spinner on phone add / edit ✅
 check if refresh token expired and logout
-profile not found
-bid not found
-phone not found
+profile not found ✅
+bid not found ✅
+phone not found ✅
+cannot bid on own bid ✅
+cannot buy own phone ✅
+on product delete / delete from user wish list  ✅
+date formating function
+
 
 language translations (react-i18next)
 language icon fix ✅
