@@ -13,6 +13,7 @@ import { fetchGet } from '../../constants/CustomFetching';
 import Bid from '../../components/models/Bid';
 import User from '../../components/models/User';
 import Phone from '../../components/models/Phone';
+import NotFound from '../../components/NotFound';
 
 
 const PhonePage = () => {
@@ -24,6 +25,8 @@ const PhonePage = () => {
   const [user, changeUser] = React.useState<User | undefined>(undefined);
   const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
   const [history, changeHistory] = React.useState([]);
+  const [notFound, changeNotFound] = React.useState<boolean>(false);
+
 
 
   React.useEffect(() => {
@@ -45,6 +48,9 @@ const PhonePage = () => {
             changeRelatedProducts(await (related as Response).json());
         }
 
+      }
+      else {
+        changeNotFound(true);
       }
 
        const res2 = await fetchGet(`http://localhost:10025/api/v1/bids/images/${id}`);
@@ -72,10 +78,14 @@ const PhonePage = () => {
       <Grid md={1} lg={2} item/>
 
       <Grid xs={12} md={10} lg={8} item> 
-        <PhoneDisplay bid={true} phone={bid} images={images} history={history}  id={id as string}/>
-        <SellerInfo user={user}/>
-        <PhoneReviews phoneId={id as string}/>
-        <LatestProducts title="Related Products"  phones={relatedProducts} />
+      {notFound === true ? <NotFound/> : (
+        <>
+          <PhoneDisplay bid={true} phone={bid} images={images} history={history} userId={user?.id as string} id={id as string}/>
+          <SellerInfo user={user}/>
+          <PhoneReviews phoneId={id as string}/>
+          <LatestProducts title="Related Products"  phones={relatedProducts} />
+        </>
+      )}
       </Grid>
 
       <Grid md={1}  lg={2} item/>
