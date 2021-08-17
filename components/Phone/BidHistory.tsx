@@ -40,7 +40,7 @@ const BidHistory = ({open, anchorEl, handleClose, history} :
             </tbody>
           </table>
         ) : (
-          <Typography style={{color: '#0cafe5'}}>There are not place bets on this bid</Typography>
+          <Typography style={{color: '#0cafe5'}}>There are no placed bets on this bid</Typography>
         )}
       </div>
       </Popover>

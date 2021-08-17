@@ -6,8 +6,10 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import { Button, Chip, Grid, Typography } from "@material-ui/core";
 
+import EditIcon from '@material-ui/icons/Edit';
 import GradeIcon from '@material-ui/icons/Grade';
 import CategoryIcon from '@material-ui/icons/Category';
+
 
 import HistoryIcon from '@material-ui/icons/History';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -23,18 +25,25 @@ import PopUpDialog from "../../constants/PopUpDialog";
 import { fetchPost } from "../../constants/CustomFetching";
 import { addToCart } from "../../redux/actions/cartActions";
 import { changePhoneCategory } from "../../redux/actions/phonesActions";
+import { timeLeft } from '../../constants/formatDate';
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const PhoneDisplay = ({phone,images,bid,id, history} :
-   {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string, history?: BidHistoryModel[]}) => {
+const PhoneDisplay = ({phone,images,bid,id, history,userId} :
+   {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string, history?: BidHistoryModel[], userId: string}) => {
 
   const dispatch = useDispatch();
   const router = useRouter();
 
   const [bidAmount,changeBidAmount] = React.useState(1);
+
+  let currentUserId: string | null = null;
+
+  if (typeof window !== 'undefined') {
+    currentUserId = localStorage.getItem('userId');
+  }
 
   React.useEffect(() => {
     if (images !== undefined) changeCurrentImage(images[0]);
@@ -95,7 +104,20 @@ const PhoneDisplay = ({phone,images,bid,id, history} :
           <span style={{color: '#999', fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
           </span>
-          {bid ? (<>
+          {bid ? 
+          userId === currentUserId ? (
+            <>
+            <Typography variant="h6" style={{color: '#0cafe5'}}>This is your bid. Wait until the bid ends and contact the buyer</Typography>
+           <div 
+           onClick={e => openHistory(e)} className="bid-history">
+             <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History ({history?.length})
+            </div>
+            <BidHistory open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
+            <Typography variant="subtitle1" style={{color: '#0cafe5'}}>Ends in: {timeLeft((phone as Bid)?.date_Ends)}</Typography>
+          </>
+          ) :
+
+          (<>
            <span style={{fontSize: '12px'}}>
             Your Bid
           </span>
@@ -112,12 +134,29 @@ const PhoneDisplay = ({phone,images,bid,id, history} :
              <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History ({history?.length})
             </div>
             <BidHistory open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
-          </>) : (<> 
+            <Typography variant="subtitle1" style={{color: '#0cafe5'}}>Ends in: {timeLeft((phone as Bid)?.date_Ends)}</Typography>
+          </>)
+          
+          
+          : 
+
+
+           userId === currentUserId ? (
+              <>
+                <Button variant="contained" onClick={() => router.push(`/phone/edit/${id}`)}
+                style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>
+                <EditIcon style={{fontSize: '20px', marginRight: '5px'}}/> EDIT PHONE</Button>
+              </>
+          ) : (<> 
           <Button variant="contained" 
           onClick={() => dispatch(addToCart(phone as Phone))}
           style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>
             <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> ADD TO CART</Button>
           </>)}
+
+
+
+
         </Typography>
           <div style={{margin: 10, marginLeft: 0}}>
               <Chip style={{margin: 5, marginLeft: 0 ,backgroundColor: '#0cafe5', color: '#fff'}}
