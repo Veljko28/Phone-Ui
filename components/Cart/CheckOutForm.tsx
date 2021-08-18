@@ -109,7 +109,7 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
                 onChange={e => changeForm({...form,name: e.target.value})}/>
                 <input placeholder="Card number" type="text" name="CCnumber" className="check-input"
                 onChange={e => changeForm({...form,number: e.target.value})}/>
-                <input placeholder="MM/YY" type="text" name="CCexpiry" className="check-input"
+                <input placeholder="MM/YYYY" type="text" name="CCexpiry" className="check-input"
                 onChange={e => changeForm({...form,expiry: e.target.value})}/>
                 <input placeholder="CVC" type="text" name="CCcvc" className="check-input"
                 onChange={e => changeForm({...form,cvc: e.target.value})}/>

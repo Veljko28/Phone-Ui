@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { Grid, Typography, IconButton } from '@material-ui/core';
@@ -11,7 +10,7 @@ import ColoredLine from '../../constants/ColoredLine';
 import { useSelector, useDispatch} from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { removeFromCart } from '../../redux/actions/cartActions';
-import { Phone } from '../models/Phone';
+import Phone from '../models/Phone';
 
 const ItemsInCart = () => {
   const list = useSelector((state: State) => state.cart.items);
@@ -52,7 +51,7 @@ const ItemsInCart = () => {
                   </td>
                 <td>{x.price + "$"}</td>
                 <td style={{textAlign: 'center'}}>{list.filter((y: Phone) => y == x).length}</td>
-                <td style={{color: '#0cafe5'}}>{(list.filter((y: Phone) => y == x).length * parseInt(x.price)) + "$"}</td>
+                <td style={{color: '#0cafe5'}}>{(list.filter((y: Phone) => y == x).length * parseInt(x.price as string)) + "$"}</td>
                 <td>
                   <IconButton style={{background: 'transparent'}} disableRipple onClick={() => dispatch(removeFromCart(x))}>
                     <HighlightOffIcon style={{color: 'red'}}/>
