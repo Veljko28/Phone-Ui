@@ -50,8 +50,8 @@ contact page loading / validation ✅
 guid image names for no overlapping ✅
 wish list api config ✅
 skeleton bids ✅ / bid loading skeleton ✅
-display phone skeleton
-seller info skeleton
+display phone skeleton ✅
+seller info skeleton ✅
 management page table skeleton ✅
 skeleton phone / bid list ✅
 listings pagination 
@@ -71,7 +71,21 @@ phone not found ✅
 cannot bid on own bid ✅
 cannot buy own phone ✅
 on product delete / delete from user wish list  ✅
-date formating function
+date formating function ✅
+phone max page
+management max page
+remove buy from card if phone owner ✅
+clear cart on logout ✅
+other users cant see your wish list ✅
+confirm email
+email notifications
+notifications button
+notification pop-up
+phones sold api config
+rating api config
+related product fix - same product
+fix phone display on smaller screens
+already logged in for login and register
 
 
 language translations (react-i18next)
