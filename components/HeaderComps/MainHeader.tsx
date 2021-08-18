@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeLoginStatus, toggleNavbar } from '../../redux/actions/userInfoActions';
 import { fetchPost } from '../../constants/CustomFetching';
 import { JwtToken } from '../../constants/jwtTypes';
+import { clearCart } from '../../redux/actions/cartActions';
 
 const MainHeader = () => {
   const router = useRouter();
@@ -66,6 +67,7 @@ const MainHeader = () => {
   const exitApp = () => {
     if (typeof window !== 'undefined') {
       localStorage.clear();
+      dispatch(clearCart());
       dispatch(changeLoginStatus(false));
     }
     router.push('/');
@@ -103,17 +105,20 @@ const MainHeader = () => {
           <li>
             {loggedIn ? 
              (
-              <IconButton onClick={() => exitApp()} style={{marginRight: 0, padding: '0', background: 'transparent'}} disableRipple>
-                  <ExitToAppIcon className="cartIcon" style={{fontSize: '20px'}}/>
-              </IconButton>)
+               <>
+                <IconButton onClick={() => exitApp()} style={{marginRight: 0, padding: '0', background: 'transparent'}} disableRipple>
+                    <ExitToAppIcon className="cartIcon" style={{fontSize: '20px'}}/>
+                </IconButton>
+                <Link href="/cart">
+                  <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
+                    <Badge badgeContent={numOfItems} color="secondary">
+                      <ShoppingCartIcon className="cartIcon" style={{fontSize: '20px'}}/>
+                    </Badge>
+                  </IconButton>
+                </Link>
+              </>
+              )
             : ""}
-            <Link href="/cart">
-              <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
-                <Badge badgeContent={numOfItems} color="secondary">
-                  <ShoppingCartIcon className="cartIcon" style={{fontSize: '20px'}}/>
-                </Badge>
-              </IconButton>
-            </Link>
           </li>
           <li className={displayMenu ? "closed" : "openMenu"} onClick={() => dispatch(toggleNavbar())}>
             <MenuIcon className="cartIcon" style={{fontSize: '20px'}}/>

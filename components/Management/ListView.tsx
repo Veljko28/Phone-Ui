@@ -14,7 +14,7 @@ import { SnackBarSuccess } from '../../constants/CustomSnackBars';
 import Loading from '../Loading';
 import NoPhones from './NoPhones';
 import Phone from '../models/Phone';
-import MngmSkeletonList from './MngmSkeletonList';
+import MngmSkeletonList from '../Skeletons/MngmSkeletonList';
 
 
 

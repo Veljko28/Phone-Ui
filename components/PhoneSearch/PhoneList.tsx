@@ -4,8 +4,8 @@ import { Grid } from '@material-ui/core';
 import { BidCard } from '../BidCard';
 import { PhoneCard } from '../PhoneCard';
 
-import BidSkeletonCard from '../BidSkeletonCard';
-import PhoneSkeletonCard from '../Phone/PhoneSkeletonCard';
+import BidSkeletonCard from '../Skeletons/BidSkeletonCard';
+import PhoneSkeletonCard from '../Skeletons/PhoneSkeletonCard';
 
 import Bid from '../models/Bid';
 import Phone from '../models/Phone';
@@ -16,7 +16,6 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
 
     const bidSkeletons = [<BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>,
       <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>]
-      console.log(list);
       return (
         <Grid container style={{minHeight: 614}}> 
             {list === undefined || list.length === 0 ? bids ?
@@ -30,7 +29,7 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
             :
             list.map((x: Phone) => 
               <PhoneCard 
-              key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price}  id={x.id} />
+              key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} />
             )}
         </Grid>
     )

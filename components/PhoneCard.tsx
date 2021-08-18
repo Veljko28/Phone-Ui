@@ -5,9 +5,10 @@ import {Grid, Typography, IconButton} from '@material-ui/core';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import Phone from './models/Phone';
-import PhoneSkeletonCard from './Phone/PhoneSkeletonCard';
+import PhoneSkeletonCard from './Skeletons/PhoneSkeletonCard';
 
 import { addToCart } from '../redux/actions/cartActions';
 import { fetchPost } from '../constants/CustomFetching';
@@ -20,7 +21,6 @@ export const PhoneCard = (props: Phone) => {
     success: false,
     error: false,
   })
-
 
   const addToWishList = async () => {
     const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/add`, {userId: localStorage.getItem('userId'), 
@@ -62,11 +62,18 @@ export const PhoneCard = (props: Phone) => {
           <IconButton size="small" onClick={() => addToWishList()}  style={{backgroundColor: 'red', color: 'white', padding: '5px', margin: '5px'}}>
             <FavoriteIcon/>
           </IconButton>
-
-          <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} 
-          onClick={() => dispatch(addToCart(props))}>
-            <ShoppingCartIcon/>
-          </IconButton>
+          {props?.seller === localStorage.getItem('userId') ? (
+          <Link href={`/phone/${props.id}`}>
+            <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} >
+              <ArrowForwardIosIcon/>
+            </IconButton>
+          </Link>
+          ) : (
+            <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} 
+            onClick={() => dispatch(addToCart(props))}>
+              <ShoppingCartIcon/>
+            </IconButton>
+          )}
         </div>
 
         <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar,success: false})} message="Successfully added to wish list !"/>

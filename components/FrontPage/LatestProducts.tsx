@@ -3,7 +3,7 @@ import Phone from '../models/Phone';
 import { PhoneCard } from '../PhoneCard';
 import { Grid, Typography } from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
-import PhoneSkeletonCard from '../Phone/PhoneSkeletonCard';
+import PhoneSkeletonCard from '../Skeletons/PhoneSkeletonCard';
 
 
 
