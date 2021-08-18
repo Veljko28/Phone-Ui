@@ -3,8 +3,19 @@ import { Grid } from '@material-ui/core';
 import LoginInfo from '../components/Login/LoginInfo';
 import RegisterForm from '../components/Register/RegisterForm';
 import TitleChange from '../constants/TitleChange';
+import { useSelector } from 'react-redux';
+import { State } from '../redux/reduxTypes';
+import { useRouter } from 'next/router';
 
 const register = () => {
+
+  const loggedIn = useSelector((state: State) => state.userInfo.logged_in);
+  const router = useRouter();
+
+  if (loggedIn) {
+    router.push('/');
+  }
+
   return (
       <Grid container>
 
