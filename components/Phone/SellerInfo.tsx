@@ -7,12 +7,14 @@ import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 import User from '../models/User';
 import UserContact from '../User/UserContact';
 import ColoredLine from '../../constants/ColoredLine';
+import SellerInfoSkeleton from '../Skeletons/SellerInfoSkeleton';
 
 
 const SellerInfo = ({user} : {user?: User}) => {
 
   const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
   const contactOpen = Boolean(contactAnchorEl);
+  const [loading, changeLoading] = React.useState(true);
 
   const openContanct = (e: any) => {
     setContanctAnchorEl(e.currentTarget);
@@ -22,7 +24,11 @@ const SellerInfo = ({user} : {user?: User}) => {
     setContanctAnchorEl(null);
   }
 
-    return (
+  React.useEffect(() => {
+    if (user) changeLoading(false);
+  }, [user])
+
+    return loading ? <SellerInfoSkeleton/> : (
         <Grid className="phone-details" container>
              <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
         color: '#0cafe5'}}>About The Seller</Typography>

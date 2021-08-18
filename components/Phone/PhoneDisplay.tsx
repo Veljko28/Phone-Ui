@@ -26,6 +26,7 @@ import { fetchPost } from "../../constants/CustomFetching";
 import { addToCart } from "../../redux/actions/cartActions";
 import { changePhoneCategory } from "../../redux/actions/phonesActions";
 import { timeLeft } from '../../constants/formatDate';
+import PhoneDisplaySkeleton from '../Skeletons/PhoneDisplaySkeleton';
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -38,6 +39,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
   const router = useRouter();
 
   const [bidAmount,changeBidAmount] = React.useState(1);
+  const [loading,changeLoading] = React.useState(true);
 
   let currentUserId: string | null = null;
 
@@ -47,7 +49,10 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
 
   React.useEffect(() => {
     if (images !== undefined) changeCurrentImage(images[0]);
-    if (phone !== undefined) changeBidAmount(phone.price as number + 1);
+    if (phone !== undefined) {
+      changeBidAmount(phone.price as number + 1);
+      changeLoading(false);
+    }
   },[images, phone?.price]);
 
   const [currentImage,changeCurrentImage] = React.useState('');
@@ -78,7 +83,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
     changeDialogOpen(false);
   }
 
-  return (
+  return loading ? <PhoneDisplaySkeleton/> : (
     <Grid container className="display-container">
       <Grid item className="other-images">
          {/* Map the phone.images when fetching from a real api */}
