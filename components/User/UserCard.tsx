@@ -8,8 +8,8 @@ import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 
 import UserContact from './UserContact';
 import EditProfileForm from './EditProfileForm';
-import UserSearchSkeleton from './UserSearchSkeleton';
-import UserCardSkeleton from './UserCardSkeleton';
+import UserSearchSkeleton from '../Skeletons/UserSearchSkeleton';
+import UserCardSkeleton from '../Skeletons/UserCardSkeleton';
 import User from '../models/User';
 
 

@@ -13,6 +13,12 @@ const UserTabs = ({id} : {id: string}) => {
 
   const [selected,changeSelected] = React.useState('Listings');
 
+   let userId: string | null = "";
+
+    if (typeof window !== 'undefined') {
+      userId = localStorage.getItem('userId');
+    }
+
   return (
     <div style={{margin: '5px'}}>
       <Button  disableRipple
@@ -27,12 +33,14 @@ const UserTabs = ({id} : {id: string}) => {
         changeSelected('Reviews');
       }}
       >Reviews</Button>
-      <Button  disableRipple
-      style={selected === 'Wish List' ? selectedStyle : normalStyle}
-        onClick={() => {
-        changeSelected('Wish List');
-      }}
-      >Wish List</Button>
+      {id === userId ? (
+        <Button  disableRipple
+        style={selected === 'Wish List' ? selectedStyle : normalStyle}
+          onClick={() => {
+          changeSelected('Wish List');
+        }}
+        >Wish List</Button>
+      ) : ""}
 
       {selected === 'Listings' ? <UserListings id={id}/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList id={id} />}
     </div>

@@ -12,7 +12,6 @@ const UserWishList = ({id} : {id: string}) => {
   const [list, changeList] = React.useState<any[]>([]);
   const [type, changeType] = React.useState<string>("phone");
 
-  console.log(list);
 
   const fetchList = async () => {
       const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/get`, {userId: id, type});
