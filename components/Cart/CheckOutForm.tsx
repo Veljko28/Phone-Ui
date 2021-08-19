@@ -11,6 +11,8 @@ import { fetchPost } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
 import { blue, white } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: boolean) => any}) => {
@@ -34,6 +36,8 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
         success: false,
         error: false
     });
+
+    const list = useSelector((state: State) => state.cart.items);
 
     const styles = (theme: any) => ({
         root: {
@@ -72,6 +76,21 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
             handleSnackBar({success: false, error: true});
             return;
         }
+
+        
+        list.forEach(async (x) => {
+            const res = await fetchPost('http://localhost:10025/api/v1/phones/status', {phoneId: x.id,status: 1});
+            if (!res.ok){
+                handleSnackBar({success: false, error: true});
+                return;
+            }
+            const notifRes = await fetchPost('http://localhost:10025/api/v1/notifications/add', 
+            {name: x.name, type: "phone", userId: x.seller, message: ""});
+             if (!notifRes.ok){
+                handleSnackBar({success: false, error: true});
+                return;
+            }
+        })
 
         handleSnackBar({success: true, error: false});
         handleOpen(false);

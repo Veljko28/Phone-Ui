@@ -14,9 +14,13 @@ import { addToCart } from '../redux/actions/cartActions';
 import { fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 import { blue, red, white } from '../constants/CustomColors';
+import { useRouter } from 'next/router';
 
 
 export const PhoneCard = (props: Phone) => {
+
+  const router = useRouter();
+
   const dispatch = useDispatch();
   const [snackBar, changeSnackBar] = React.useState({
     success: false,
@@ -31,6 +35,12 @@ export const PhoneCard = (props: Phone) => {
       changeSnackBar({success: true, error: false});
     }
     else changeSnackBar({success: false, error: true}); 
+  }
+
+  let currentUserId: string | null = null;
+
+  if (typeof window !== 'undefined') {
+    currentUserId = localStorage.getItem('userId');
   }
 
 
@@ -60,10 +70,10 @@ export const PhoneCard = (props: Phone) => {
         </Link>
 
         <div className="buttonConainer">
-          <IconButton size="small" onClick={() => addToWishList()}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
+          <IconButton size="small" onClick={currentUserId !== null ? () => addToWishList() : () => router.push('/login')}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
             <FavoriteIcon/>
           </IconButton>
-          {props?.seller === localStorage.getItem('userId') ? (
+          {props?.seller === currentUserId ? (
           <Link href={`/phone/${props.id}`}>
             <IconButton size="small" style={{backgroundColor: '#4d88ff', color: white, padding: '5px', margin: '5px', fontSize: '15px'}} >
               <ArrowForwardIosIcon/>
@@ -71,7 +81,7 @@ export const PhoneCard = (props: Phone) => {
           </Link>
           ) : (
             <IconButton size="small" style={{backgroundColor: '#4d88ff', color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
-            onClick={() => dispatch(addToCart(props))}>
+            onClick={currentUserId !== null ? () => dispatch(addToCart(props)) : () => router.push('/login')}>
               <ShoppingCartIcon/>
             </IconButton>
           )}

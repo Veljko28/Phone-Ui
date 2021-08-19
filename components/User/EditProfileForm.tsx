@@ -44,7 +44,7 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
     const yupSchema = yup.object().shape({
         email: yup.string().min(5).max(150),
         userName: yup.string().min(3).max(150),
-        description: yup.string().min(10).max(255)
+        description: yup.string().min(10).max(255).nullable()
     });
 
     const [errors,changeErrors] = React.useState([]); 

@@ -36,7 +36,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
               </td>
               <td style={{color: green}}>{price + "$"}</td>
               <td>
-                  <div style={status === "Sold !" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
+                  <div style={status === "Sold" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
                       {status}
                   </div>
               </td>

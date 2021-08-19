@@ -11,4 +11,5 @@ export default interface Bid {
   seller: string,
   brand: string,
   category: string
+  status?: number
 }
