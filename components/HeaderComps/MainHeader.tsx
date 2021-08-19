@@ -22,7 +22,7 @@ const MainHeader = () => {
   const router = useRouter();
 
   const numOfItems = useSelector((state : State) => state.cart.items.length);
-  const numOfNotifications = 4;
+  const numOfNotifications = useSelector((state: State) => state.notification.numOfNotifications);
   const [userSearch,ChangeUserSearch] = React.useState('');
 
   const dispatch = useDispatch();

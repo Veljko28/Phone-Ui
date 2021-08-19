@@ -9,13 +9,38 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { blue } from '../../constants/CustomColors';
 import ColoredLine from '../../constants/ColoredLine';
+import { fetchGet } from '../../constants/CustomFetching';
+import { useDispatch } from 'react-redux';
+import { changeNumberOfNotifications } from '../../redux/actions/notificationActions';
 
 const NotificationsPopOver = ({open, anchorEl, handleClose} : 
   {open: boolean, anchorEl: any, handleClose: () => void}) => {
 
+  const [list, changeList] = React.useState([]);
+  const dispatch = useDispatch();
+
+  let userId: string | null = null;
+
+  if (typeof window !== 'undefined'){
+    userId = localStorage.getItem('userId');
+  }
+
+  React.useEffect(() => {
+    const func = async () => {
+      const res = await fetchGet(`http://localhost:10025/api/v1/notifications/${userId}`);
+      if (res?.ok){
+        const newList = await res.json();
+        changeList(newList);
+        dispatch(changeNumberOfNotifications(newList.length));
+      }
+    }
+
+    if (userId) func();
+  }, [userId])
+
   const ListMap = ({name, userId, type, message} : {name: string, userId: string, type: string, message?: string}) => {
 
-    const iconStyles = {fontSize: 40, color: blue, marginTop: 20, marginLeft: 15};
+  const iconStyles = {fontSize: 40, color: blue, marginTop: 20, marginLeft: 15};
 
     return (
    <Link href={`/user/${userId}`}>
@@ -57,10 +82,11 @@ const NotificationsPopOver = ({open, anchorEl, handleClose} :
       <div style={{padding: '15px', width: 350}}>
         <Typography variant="subtitle1" style={{color: blue}}>Your Notifications</Typography>
         <ColoredLine color={blue}/>
-        {ListMap({name: "IPhone 7+", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "bid"})}
+        {list.map(x => ListMap(x))}
+        {/* {ListMap({name: "IPhone 7+", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "bid"})}
         {ListMap({name: "Redmi Note 7", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "phone"})}
         {ListMap({name: "", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "email"})}
-        {ListMap({name: "Please Add A Phone Number !", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "settings", message: "Go to your profile and add your phone number by editing"})}
+        {ListMap({name: "Please Add A Phone Number !", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "settings", message: "Go to your profile and add your phone number by editing"})} */}
       </div>
       </Popover>
   )
