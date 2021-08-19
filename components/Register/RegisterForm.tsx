@@ -65,6 +65,16 @@ const RegisterForm = () => {
     const res = await fetchPost('http://localhost:10025/api/v1/users/register', form);
     
     if (res.ok){
+      const user = await res.json();
+
+      await fetchPost('http://localhost:10025/api/v1/notifications/add', {
+        userId: user.id,
+        type: "email",
+        name: "",
+        message: ""
+      })
+
+
       changeSnackBar({...snackBar, success: true, loading: false});
       setTimeout(() => router.push('/login'), 1500);
     }
