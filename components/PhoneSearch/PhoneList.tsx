@@ -29,7 +29,7 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
             :
             list.map((x: Phone) => 
               <PhoneCard 
-              key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} />
+              key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} status={x.status} />
             )}
         </Grid>
     )

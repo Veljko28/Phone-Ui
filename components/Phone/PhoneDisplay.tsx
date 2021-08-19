@@ -27,7 +27,7 @@ import { addToCart } from "../../redux/actions/cartActions";
 import { changePhoneCategory } from "../../redux/actions/phonesActions";
 import { timeLeft } from '../../constants/formatDate';
 import PhoneDisplaySkeleton from '../Skeletons/PhoneDisplaySkeleton';
-import { blue, white } from '../../constants/CustomColors';
+import { blue, dark_gray, white } from '../../constants/CustomColors';
 import { BluetoothAudioRounded } from '@material-ui/icons';
 
 const Alert = (props: any) => {
@@ -108,10 +108,12 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
 
           <span style={{color: blue, fontSize: "35px"}}>{bid ? "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
 
-          <span style={{color: '#999', fontSize: '15px', display: 'flex', width: '400px'}}>
+          <span style={{color: dark_gray, fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
           </span>
-          {bid ? 
+          {phone?.status === 1 ? (
+            <Typography variant="h5" style={{color: blue,marginTop: 10}}>This Phone has been sold !</Typography>
+          ) : bid ? 
           userId === currentUserId ? (
             <>
             <Typography variant="h6" style={{color: blue}}>This is your bid. Wait until the bid ends and contact the buyer</Typography>
@@ -156,7 +158,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
               </>
           ) : (<> 
           <Button variant="contained" 
-          onClick={() => dispatch(addToCart(phone as Phone))}
+          onClick={currentUserId !== null ? () => dispatch(addToCart(phone as Phone)) : () => router.push('/login')}
           style={{backgroundColor: blue, color: white, padding: '15px', marginTop: '10px'}}>
             <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> ADD TO CART</Button>
           </>)}
