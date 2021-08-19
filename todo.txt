@@ -87,10 +87,15 @@ related product fix - same product
 fix phone display on smaller screens
 already logged in for login and register ✅
 folder with images of all the pages
-sold phone display design
-send notifications on phone sold and change phone status
+send notifications on phone sold and change phone status ✅
 change static colors to custom color class ✅
-adjustments for dark mode 
+adjustments for dark mode
+notification api config ✅
+on register add notification for confirm email ✅
+
+sold phone display design ✅
+links to buyer on phone sold
+purchase api config 
 
 language translations (react-i18next)
 language icon fix ✅

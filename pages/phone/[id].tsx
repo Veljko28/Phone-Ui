@@ -30,7 +30,6 @@ const PhonePage = () => {
   
   React.useEffect(() => {
     const func = async () => {
-      if (!phone){
 
           const res = await fetchGet(`http://localhost:10025/api/v1/phones/${id as string}`);
     
@@ -53,7 +52,6 @@ const PhonePage = () => {
           if ((related as Response).ok){
             changeRelatedProducts(await (related as Response).json());
           }
-        }
 
           if (phone?.seller) {
               const getUser = await fetchGet(`http://localhost:10025/api/v1/users/${phone?.seller}`);
