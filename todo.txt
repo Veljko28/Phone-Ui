@@ -79,14 +79,17 @@ clear cart on logout ✅
 other users cant see your wish list ✅
 confirm email
 email notifications
-notifications button
-notification pop-up
+notifications button ✅
+notification pop-up ✅
 phones sold api config
 rating api config
 related product fix - same product
 fix phone display on smaller screens
-already logged in for login and register
-
+already logged in for login and register ✅
+folder with images of all the pages
+sold phone display design
+send notifications on phone sold and change phone status
+change static colors to custom color class
 
 language translations (react-i18next)
 language icon fix ✅

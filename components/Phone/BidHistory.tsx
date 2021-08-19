@@ -1,7 +1,6 @@
 import React from 'react'
 import { Popover, Typography } from '@material-ui/core'
 
-import ColoredLine from '../../constants/ColoredLine'
 import BidHistoryModel from '../models/BidHistory'
 
 const BidHistory = ({open, anchorEl, handleClose, history} : 
