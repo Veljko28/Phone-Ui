@@ -11,6 +11,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { removeFromCart } from '../../redux/actions/cartActions';
 import Phone from '../models/Phone';
+import { blue, gray, red } from '../../constants/CustomColors';
 
 const ItemsInCart = () => {
   const list = useSelector((state: State) => state.cart.items);
@@ -22,8 +23,8 @@ const ItemsInCart = () => {
     <>
     <Grid container className="item-cart">
         <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: '#0cafe5'}}>My Cart ({list.length})</Typography>
-        <ColoredLine color="#eee"/>
+        color: blue}}>My Cart ({list.length})</Typography>
+        <ColoredLine color={gray}/>
         <table className="cart-table">
           <thead>
             <tr>
@@ -51,10 +52,10 @@ const ItemsInCart = () => {
                   </td>
                 <td>{x.price + "$"}</td>
                 <td style={{textAlign: 'center'}}>{list.filter((y: Phone) => y == x).length}</td>
-                <td style={{color: '#0cafe5'}}>{(list.filter((y: Phone) => y == x).length * parseInt(x.price as string)) + "$"}</td>
+                <td style={{color: blue}}>{(list.filter((y: Phone) => y == x).length * parseInt(x.price as string)) + "$"}</td>
                 <td>
                   <IconButton style={{background: 'transparent'}} disableRipple onClick={() => dispatch(removeFromCart(x))}>
-                    <HighlightOffIcon style={{color: 'red'}}/>
+                    <HighlightOffIcon style={{color: red}}/>
                   </IconButton>
                   </td>
               </tr>

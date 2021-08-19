@@ -14,6 +14,7 @@ import { fetchPatch } from '../../../constants/CustomFetching';
 import { formatYupError } from '../../../constants/formYupError';
 import { changeLoginStatus } from '../../../redux/actions/userInfoActions';
 import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackBars';
+import { dark_gray, blue, white } from '../../../constants/CustomColors';
 
  
  const ForgotPassword = () => {
@@ -80,7 +81,7 @@ import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackB
              <span style={{marginTop: 40, marginBottom: 50}}>
                 <Image src="/logo.png" width="157" height="47" />
              </span>
-             <Typography variant="subtitle2" style={{color: '#999'}}>Please enter your current password associated <br/>
+             <Typography variant="subtitle2" style={{color: dark_gray}}>Please enter your current password associated <br/>
               with your account 
               and the password your want to use.</Typography>
               <TextField placeholder="Current Password" value={form.current_password} type="password"
@@ -130,9 +131,9 @@ import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackB
                 }}/>
                 <YupError errors={errors} path="new_password"/>
 
-              <Button style={{margin: '10px 0 10px 0', backgroundColor: '#0cafe5', color: '#fff', padding: 10, minWidth: 350}}
+              <Button style={{margin: '10px 0 10px 0', backgroundColor: blue, color: white, padding: 10, minWidth: 350}}
                onClick={() => onSubmit()}
-              >{ snackBar.loading ? <CircularProgress style={{color: '#fff'}} size={24}/> : "Continue" }</Button>
+              >{ snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Continue" }</Button>
 
 
                <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} message="Successfully changed password !"/>

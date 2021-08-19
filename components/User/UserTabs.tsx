@@ -4,12 +4,13 @@ import { Button } from '@material-ui/core'
 import UserListings from './UserListings';
 import UserReviews from './UserReviews';
 import UserWishList from './UserWishList';
+import { blue } from '../../constants/CustomColors';
 
 
 const UserTabs = ({id} : {id: string}) => {
 
-  const selectedStyle = {color: '#0cafe5', borderBottom: '2px solid #0cafe5', borderRadius: 0, marginRight: 10};
-  const normalStyle = {color: '#0cafe5', borderRadius: 0, paddingBottom: 10,  marginRight: 10};
+  const selectedStyle = {color: blue, borderBottom: '2px solid ' + blue, borderRadius: 0, marginRight: 10};
+  const normalStyle = {color: blue, borderRadius: 0, paddingBottom: 10,  marginRight: 10};
 
   const [selected,changeSelected] = React.useState('Listings');
 

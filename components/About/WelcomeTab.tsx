@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
 import ColoredLine from '../../constants/ColoredLine';
+import { dark_gray } from '../../constants/CustomColors';
 
 const WelcomeTab = () => {
   return (
@@ -15,7 +16,7 @@ const WelcomeTab = () => {
         Here you can find the highest quality phones for cheap prices or buy used phones for need parts.
         Our support team works 24/7 to deliver you the best customer service and you can get 100% money back guarantee.   
       </Typography>
-      <Typography variant="subtitle2" style={{padding: '5px', color: '#999'}}>
+      <Typography variant="subtitle2" style={{padding: '5px', color: dark_gray}}>
         We are not associated with any of our users. Anything done by users that doesn't have anything to do with our website won't
         be take in consideration by our support team. Please don't send unnecessary messages or you might get banned from the platform.
         Other acts that dont follow our Terms and Conditions will result in a temporary ban.

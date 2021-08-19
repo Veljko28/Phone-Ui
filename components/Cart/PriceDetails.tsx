@@ -6,6 +6,7 @@ import Phone from '../models/Phone';
 import CheckOutForm from './CheckOutForm';
 import { State } from '../../redux/reduxTypes';
 import ColoredLine from '../../constants/ColoredLine';
+import { blue, green } from '../../constants/CustomColors';
 
 const PriceDetails = () => {
 
@@ -17,20 +18,20 @@ const PriceDetails = () => {
   return (
     <Grid container className="price-details">
       <Typography variant="h6" style={{margin: '10px', marginLeft: '20px',
-        color: '#0cafe5'}}>Price Details</Typography>
+        color: blue}}>Price Details</Typography>
         <ColoredLine color="#eee"/>
         <div className="price-info">
           <Typography variant="subtitle2">
             Price ({list.length} {list.length == 1 ? "item" : "items"}): <span style={{marginLeft: '15px'}}>{totalPrice + "$"}</span>
           </Typography>
           <Typography variant="subtitle2" style={{marginBottom: '10px'}}>
-              Delivery Charges: <span style={{color: '#43cf22', marginLeft: '15px'}}>Free</span>
+              Delivery Charges: <span style={{color: green, marginLeft: '15px'}}>Free</span>
           </Typography>
           <ColoredLine color="#eee" height="2px" />
           <Typography variant="subtitle2" style={{marginTop: '10px'}}>
             <strong>Amount to Pay {totalPrice + "$"}</strong>
           </Typography>
-          <Button style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', marginTop: '15px'}}
+          <Button style={{color: '#fff', backgroundColor: blue, padding: '10px', marginTop: '15px'}}
           onClick={() => changeCheckoutOpen(true)}>Proceed To Checkout</Button>
         </div>
         <CheckOutForm open={checkoutOpen} handleOpen={(value: boolean) => changeCheckoutOpen(value)}/>

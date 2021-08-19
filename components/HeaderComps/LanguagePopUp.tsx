@@ -4,6 +4,7 @@ import { Popover} from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { changeLanguage } from '../../redux/actions/langActions';
+import { blue } from '../../constants/CustomColors';
 
 
 const LanguagePopUp = ({open, anchorEl, handleClose} : 
@@ -12,7 +13,7 @@ const LanguagePopUp = ({open, anchorEl, handleClose} :
   const lang = useSelector((state: State) => state.language.lang);
   const dispatch = useDispatch();
 
-  const selected = {color: '#0cafe5'};
+  const selected = {color: blue};
 
   return (
     <Popover

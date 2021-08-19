@@ -2,6 +2,7 @@ import React from 'react'
 import { Popover, Typography } from '@material-ui/core'
 
 import BidHistoryModel from '../models/BidHistory'
+import { blue } from '../../constants/CustomColors'
 
 const BidHistory = ({open, anchorEl, handleClose, history} : 
   {open: boolean, anchorEl: any, handleClose: () => void, history?: BidHistoryModel[] }) => {
@@ -33,13 +34,13 @@ const BidHistory = ({open, anchorEl, handleClose, history} :
               {history?.map((x: BidHistoryModel) => (
                 <tr key={x.amount}>
                   <td>{x.userName}</td>
-                  <td style={{color: '#0cafe5'}}>{x.amount+"$"}</td>
+                  <td style={{color: blue}}>{x.amount+"$"}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
-          <Typography style={{color: '#0cafe5'}}>There are no placed bets on this bid</Typography>
+          <Typography style={{color: blue}}>There are no placed bets on this bid</Typography>
         )}
       </div>
       </Popover>

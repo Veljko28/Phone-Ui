@@ -1,6 +1,7 @@
 import { Grid, Typography} from '@material-ui/core';
 import Image from 'next/image';
 import ColoredLine  from '../../constants/ColoredLine';
+import { gray } from '../../constants/CustomColors';
 
 const ContactSubBar = () => {
     
@@ -9,7 +10,7 @@ const ContactSubBar = () => {
 
             <Grid item xs={12} md={12}>
                 <Typography variant="h6">How Can We Help You ?</Typography>
-                <ColoredLine color="#eee"/>
+                <ColoredLine color={gray}/>
             </Grid>
             <Grid item xs={12} md={6}>
                 <div style={{float: 'left', marginTop: '10px'}}>

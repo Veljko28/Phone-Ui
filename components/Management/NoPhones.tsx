@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Typography, Button} from '@material-ui/core';
+import { blue } from '../../constants/CustomColors';
 
 const NoPhones = ({currentPage} : {currentPage: string}) => {
   return (
@@ -9,7 +10,7 @@ const NoPhones = ({currentPage} : {currentPage: string}) => {
     {currentPage === "My Phones" || currentPage === "My Bids" ? (
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Image src="/no_phones.svg" height="500" width="500"/>
-        <Typography variant="h4" style={{color: "#0cafe5"}}>
+        <Typography variant="h4" style={{color: blue}}>
           Couldn't find any {currentPage === "My Phones" ? "phones" : "bids"} !
         </Typography>
        <Link href={`${(currentPage === "My Phones" ? "phone" : "bid") + "/add"}`}>
@@ -19,7 +20,7 @@ const NoPhones = ({currentPage} : {currentPage: string}) => {
     ) : (
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Image src="/no_bought_phones.svg" height="500" width="500"/>
-        <Typography variant="h4" style={{color: "#0cafe5"}}>
+        <Typography variant="h4" style={{color: blue}}>
           Couldn't find any {currentPage === "Bought Phones" ? "bought phones" : "placed bids"} !
         </Typography>
        <Link href={`${currentPage === "Bought Phones" ? "/phones/1" : "/bids/1"}`}>

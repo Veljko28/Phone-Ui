@@ -3,6 +3,7 @@ import {List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import { blue, dark_gray } from '../../constants/CustomColors';
 
 const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: (value: any) => any}) => {
 
@@ -33,8 +34,8 @@ const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: 
     )
   }
 
-  const selectedStyle = {color: '#0cafe5', marginLeft: '10px'};
-  const normalStyle = {color: '#999', marginLeft: '10px'};
+  const selectedStyle = {color: blue, marginLeft: '10px'};
+  const normalStyle = {color: dark_gray, marginLeft: '10px'};
 
   const list = [
     {
@@ -69,7 +70,7 @@ const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: 
          {['All', 'Google', 'Apple', 'Samsung', 'Vivo', 'Redmi', 'Alcatel'].map(x => (
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options,brand: x})}
-          style={{color: options.brand.toLowerCase() == x.toLowerCase() ? '#0cafe5' : '#999', marginLeft: '10px'}}>{x}</ListItem>
+          style={{color: options.brand.toLowerCase() == x.toLowerCase() ? blue : dark_gray, marginLeft: '10px'}}>{x}</ListItem>
          ))}
         </div>
       )

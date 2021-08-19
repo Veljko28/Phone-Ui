@@ -5,6 +5,7 @@ import { Grid, Typography } from '@material-ui/core';
 
 import ColoredLine from '../../constants/ColoredLine';
 import { fetchGet } from '../../constants/CustomFetching';
+import { blue, dark_gray, gray } from '../../constants/CustomColors';
 
 const ReviewMap = ({id, rating, userId, dateCreated, message, userName}
     : {id: string, rating: number, userId: string, dateCreated: Date, message: string, userName: string}) => {
@@ -28,12 +29,12 @@ const ReviewMap = ({id, rating, userId, dateCreated, message, userName}
             <div>
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
-                    <span style={{color: '#999', marginLeft: '10px'}}>By 
-                    <Link href={`/user/${userId}`}><span style={{color: "#0cafe5"}} className="curs-hvr"> {userName} </span></Link>on  
+                    <span style={{color: dark_gray, marginLeft: '10px'}}>By 
+                    <Link href={`/user/${userId}`}><span style={{color: blue}} className="curs-hvr"> {userName} </span></Link>on  
                     {" " + date.day + "/" + date.month + "/" + date.year}</span>
             </div>
             <br/>
-            <div style={{color: '#999', padding: '10px'}}>
+            <div style={{color: dark_gray, padding: '10px'}}>
                 {message}
             </div>
             {hasLine(id)}
@@ -62,8 +63,8 @@ const PhoneReviews = ({phoneId} : {phoneId: string}) => {
     return (
         <Grid className="phone-details" container> 
             <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-            color: '#0cafe5'}}>Customer Reviews</Typography>
-            <ColoredLine color="#eee"/>
+            color: blue}}>Customer Reviews</Typography>
+            <ColoredLine color={gray}/>
             {reviews.length !== 0 ? reviews.map( (x: any) => {
 
                   const func = async () => {
@@ -77,7 +78,7 @@ const PhoneReviews = ({phoneId} : {phoneId: string}) => {
                     func();
                     return ReviewMap(x)
                 }) : <div>
-            <Typography variant="h5" style={{margin: 30,color: '#0cafe5'}}>
+            <Typography variant="h5" style={{margin: 30,color: blue}}>
               Couldn't find any reviews for this product !
             </Typography></div>}
         </Grid>

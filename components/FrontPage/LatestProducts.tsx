@@ -4,6 +4,7 @@ import { PhoneCard } from '../PhoneCard';
 import { Grid, Typography } from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
 import PhoneSkeletonCard from '../Skeletons/PhoneSkeletonCard';
+import { blue, gray } from '../../constants/CustomColors';
 
 
 
@@ -18,8 +19,8 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
       marginTop: '25px',
       marginBottom: '25px'
     }}>
-      <Typography variant="h6" style={{color: '#0cafe5', marginLeft: '40px'}}>{title}</Typography>
-      <ColoredLine color="#eee"/>
+      <Typography variant="h6" style={{color: blue, marginLeft: '40px'}}>{title}</Typography>
+      <ColoredLine color={gray}/>
       {phones?.length === 0 || phones === undefined ? (
         <Grid item container xs={12} style={{display: 'flex',margin: 20}}>{skeletons.map(x => (<Grid xs={12} md={6} lg={3} item>{x}</Grid>))}</Grid>
       ) : ""}

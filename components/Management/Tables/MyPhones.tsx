@@ -8,6 +8,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
 import PopOverSettings from '../PopOverSettings';
 import { formatDate } from '../../../constants/formatDate';
+import { blue, green, red, white } from '../../../constants/CustomColors';
 
 const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
@@ -33,9 +34,9 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
                       </Link>
                     </Grid>
               </td>
-              <td style={{color: '#43cf22'}}>{price + "$"}</td>
+              <td style={{color: green}}>{price + "$"}</td>
               <td>
-                  <div style={status === "Sold !" ? {color: '#43cf22'} : status === "Running" ? {color: "#0cafe5"} : {color: "red"}}>
+                  <div style={status === "Sold !" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
                       {status}
                   </div>
               </td>
@@ -46,9 +47,9 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
                       navigator.clipboard.writeText(`http://localhost:3000/phone/${id}`)
                       changeSnackBar(true);
                     }} 
-                  style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#0cafe5'}} 
+                  style={{width: '35px', height: '35px', margin: '5px', backgroundColor: blue}} 
                   className="share-icon-mngm">
-                      <FileCopyIcon style={{fontSize: 15, color: "#fff"}}/>
+                      <FileCopyIcon style={{fontSize: 15, color: white}}/>
                  </IconButton>
                  {status === "Running" ? (
                      <>
@@ -59,21 +60,21 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
                     }} 
                     style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#4542f5'}} 
                     className="share-icon-mngm">
-                        <SettingsIcon style={{fontSize: 15, color: "#fff"}}/>
+                        <SettingsIcon style={{fontSize: 15, color: white}}/>
                     </IconButton>
                     <PopOverSettings id={selectedId} open={open} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
                     </>
                  ) : status === "Deleted" ? (
                     <IconButton 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: 'red'}} 
+                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: red}} 
                     className="share-icon-mngm">
-                        <ClearIcon style={{fontSize: 15, color: "#fff"}}/>
+                        <ClearIcon style={{fontSize: 15, color: white}}/>
                     </IconButton>
                  ): (
                      <IconButton 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#43cf22'}} 
+                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: green}} 
                     className="share-icon-mngm">
-                        <EmailIcon style={{fontSize: 15, color: "#fff"}}/>
+                        <EmailIcon style={{fontSize: 15, color: white}}/>
                     </IconButton>
                  )}
                 

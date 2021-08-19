@@ -7,6 +7,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
+import { blue, green, red, white } from '../../../constants/CustomColors';
 
 const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
@@ -28,40 +29,40 @@ const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}
               <td>{price}</td>
               <td>
                 <Link href="/user/1">
-                  <div style={{color: "#0cafe5"}} className="curs-hvr">
+                  <div style={{color: blue}} className="curs-hvr">
                       {seller}
                   </div>
                 </Link>
               </td>
-              <td style={status === "Running" ? {color: '#0cafe5'} : status === "Won !" ? {color: "#43cf22"} : {color: "red"}}>{status}</td>
+              <td style={status === "Running" ? {color: blue} : status === "Won !" ? {color: green} : {color: red}}>{status}</td>
               <td>
                   <IconButton
                   onClick={() => {
                       navigator.clipboard.writeText("http://localhost:3000/phone/1")
                       changeSnackBar(true);
                     }} 
-                  style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#0cafe5'}} 
+                  style={{width: '35px', height: '35px', margin: '5px', backgroundColor: blue}} 
                   className="share-icon-mngm">
-                      <FileCopyIcon style={{fontSize: 15, color: "#fff"}}/>
+                      <FileCopyIcon style={{fontSize: 15, color: white}}/>
                  </IconButton>
                  {status === "Won !" ? (
                       <IconButton 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#43cf22'}} 
+                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: green}} 
                     className="share-icon-mngm">
-                        <EmailIcon style={{fontSize: 15, color: "#fff"}}/>
+                        <EmailIcon style={{fontSize: 15, color: white}}/>
                     </IconButton>
                  ) : status === "Lost !" ? (
                     <IconButton 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: 'red'}} 
+                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: red}} 
                     className="share-icon-mngm">
-                        <ClearIcon style={{fontSize: 15, color: "#fff"}}/>
+                        <ClearIcon style={{fontSize: 15, color: white}}/>
                     </IconButton>
                  ): (
                    <Link href="/phone/1">
                        <IconButton
                     style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#4542f5'}} 
                     className="share-icon-mngm">
-                        <ArrowForwardIcon style={{fontSize: 15, color: "#fff"}}/>
+                        <ArrowForwardIcon style={{fontSize: 15, color: white}}/>
                     </IconButton>
                     </Link>
                  )}

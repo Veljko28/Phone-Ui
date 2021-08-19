@@ -6,6 +6,7 @@ import { Grid, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { fetchGet } from '../../constants/CustomFetching';
 import Loading from '../../components/Loading';
+import { blue, dark_gray, white, red } from '../../constants/CustomColors';
 
 
 const search = () => {
@@ -50,18 +51,18 @@ const search = () => {
                       </div>
                     </Grid>
                   <Grid xs={12} md={8} item className="listing-grid-item">
-                        <Typography variant="subtitle1" style={{color: '#0cafe5'}} className="curs-hver">
+                        <Typography variant="subtitle1" style={{color: blue}} className="curs-hver">
                           {name}
                         </Typography>
 
-                        <Typography variant="subtitle2" style={{color: '#999'}}>
+                        <Typography variant="subtitle2" style={{color: dark_gray}}>
                           {description}
                         </Typography>
                          <Typography variant="subtitle1" style={{display: 'flex', justifyContent: 'space-between'}}>
                            <div style={{color: '#43cf22'}}>
                               {price+"$"}   
                            </div>
-                           <div style={{color: '#0cafe5', marginRight: 15}}>
+                           <div style={{color: blue, marginRight: 15}}>
                               {type}
                            </div>
                         </Typography>
@@ -82,18 +83,18 @@ const search = () => {
                       </div>
                     </Grid>
                   <Grid xs={12} md={8} item className="listing-grid-item">
-                        <Typography variant="subtitle1" style={{color: '#0cafe5'}} className="curs-hver">
+                        <Typography variant="subtitle1" style={{color: blue}} className="curs-hver">
                           {userName}
                         </Typography>
 
-                        <Typography variant="subtitle2" style={{color: '#999'}}>
+                        <Typography variant="subtitle2" style={{color: dark_gray}}>
                           {description ? description : "This user has no description"}
                         </Typography>
                          <Typography variant="subtitle1" style={{display: 'flex', justifyContent: 'space-between'}}>
-                           <div style={{color: '#0cafe5'}}>
+                           <div style={{color: blue}}>
                               Phones Sold: {phones_sold}   
                            </div>
-                           <div style={{color: '#0cafe5', marginRight: 15}}>
+                           <div style={{color: blue, marginRight: 15}}>
                               User
                            </div>
                         </Typography>
@@ -106,13 +107,13 @@ const search = () => {
   return (
     <>
       {data.phones.length === 0 && data.bids.length === 0 && data.users.length === 0 ? loading ?
-       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614, backgroundColor: '#fff'}}>
+       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614, backgroundColor: white}}>
             <Loading size={60}/>
       </div>
             :
             (
-       <div style={{backgroundColor: '#fff', display: 'flex', alignItems: 'center', flexDirection: 'column', paddingBottom: 150}}>
-         <Typography variant="h2" style={{color: '#0cafe5', padding: 15}}>Couldn't find anything with this name</Typography> 
+       <div style={{backgroundColor: white, display: 'flex', alignItems: 'center', flexDirection: 'column', paddingBottom: 150}}>
+         <Typography variant="h2" style={{color: blue, padding: 15}}>Couldn't find anything with this name</Typography> 
          <Image src="/search_fail.svg" width="500px" height="500px"/>
          <Link href="/">
             <div className="shopping-button">
@@ -122,8 +123,8 @@ const search = () => {
          </Link>
        </div>
        ): (
-        <div style={{paddingBottom: 150, backgroundColor: '#fff',display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 600}}>
-        <Typography variant="h6" style={{color: '#0cafe5', marginTop: 15}}>Results for {id}</Typography>
+        <div style={{paddingBottom: 150, backgroundColor: white,display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 600}}>
+        <Typography variant="h6" style={{color: blue, marginTop: 15}}>Results for {id}</Typography>
         {data.phones.slice(0,4).map(x => ListingMap({phone: x, type: "Listing"}))}
         {data.bids.slice(0,4).map(x => ListingMap({phone: x, type: "Bid"}))}
         {data.users.slice(0,4).map(x => UserMap(x))}

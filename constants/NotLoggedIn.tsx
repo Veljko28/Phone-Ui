@@ -2,6 +2,7 @@ import { Grid, Typography, Button} from '@material-ui/core';
 import React from 'react';
 import Link from 'next/link';
 import TitleChange from './TitleChange';
+import { blue, dark_gray } from './CustomColors';
 
 const NotLoggedIn = () => {
   return (
@@ -10,10 +11,10 @@ const NotLoggedIn = () => {
             <Grid item md={3}/>
             <Grid item xs={12} md={6} className="page404">
                 <Typography variant="h6" style={{margin: '10px'}}>You are not logged in !</Typography>
-                <Typography variant="subtitle2" style={{color: '#999', margin: '15px'}}>You cannot access this page because your are not logged in.
+                <Typography variant="subtitle2" style={{color: dark_gray, margin: '15px'}}>You cannot access this page because your are not logged in.
                 Please first login or register and then access this page. You may have been logged out because of your long inactivity usually 7 days.</Typography>
             <Link href="/login">
-                <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', width: '100%', marginTop: '10px'}}>
+                <Button variant="contained" style={{backgroundColor: blue, color: '#fff', width: '100%', marginTop: '10px'}}>
                     LOGIN
                 </Button>
             </Link>

@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import Link from 'next/link';
+import { blue, white } from '../../constants/CustomColors';
 
 
 
@@ -62,7 +63,7 @@ const Pages = ({pageId, bid} : {pageId: any, bid?: boolean}) => {
         return (
             <Link key={Math.random() % 100} href={bid === true ? `/bids/${id}` : `/phones/${id}`}>
                     <Button variant="contained" 
-                    style={{backgroundColor: id == pageId ? '#0a85ae' : '#0cafe5', color: '#fff', margin: '5px'}}>
+                    style={{backgroundColor: id == pageId ? '#0a85ae' : blue, color: white, margin: '5px'}}>
                         {title}
                     </Button>
             </Link>

@@ -16,6 +16,7 @@ import NotLoggedIn from '../../constants/NotLoggedIn';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
 import { fetchForm, fetchPost, fetchPostForm } from '../../constants/CustomFetching';
+import { blue, white, red } from '../../constants/CustomColors';
 
 
 
@@ -191,7 +192,7 @@ const AddBid = () => {
     return (
         <>
         {jwt === null ? <NotLoggedIn/> : (
-        <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
+        <Grid container style={{backgroundColor: white, paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Bid Add`} />
             <Grid item lg={1}/>
 
@@ -200,8 +201,8 @@ const AddBid = () => {
                 <Grid item>
                     {currentImage === '' ? (
                         <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
-                           <CloudUploadIcon style={{fontSize: 150, color: '#0cafe5'}}/>
-                            <div style={{fontSize: 25, color: '#0cafe5'}}>Upload product images</div> 
+                           <CloudUploadIcon style={{fontSize: 150, color: blue}}/>
+                            <div style={{fontSize: 25, color: blue}}>Upload product images</div> 
                         </div>
                     ) : (
                         <div className="display-image">
@@ -223,7 +224,7 @@ const AddBid = () => {
                             <input type="file" accept="image/*" onChange={(e: any) => uploadFile(e)} ref={inputRef} style={{display: 'none'}}/>
                             <button onClick={() => (inputRef as any).current.click()}
                             className="add-another">
-                            <ImageIcon style={{fontSize: 35, color: '#0cafe5'}}/> Add Picture
+                            <ImageIcon style={{fontSize: 35, color: blue}}/> Add Picture
                             </button>
                         </div>
                     )}
@@ -239,9 +240,9 @@ const AddBid = () => {
 
             <Grid item lg={1}/>
 
-            <Grid item sm={12} md={6} lg={5} style={{backgroundColor: '#0cafe5', padding: 25, height: yupErrors.length > 0 ? 550 : 450}}>
+            <Grid item sm={12} md={6} lg={5} style={{backgroundColor: blue, padding: 25, height: yupErrors.length > 0 ? 550 : 450}}>
                 <Typography variant="h4"  
-                style={{color: '#fff', marginTop: 10, marginLeft: 10}}>Add Bid</Typography>
+                style={{color: white, marginTop: 10, marginLeft: 10}}>Add Bid</Typography>
                 
                 <Grid container item xs={12} style={{marginTop: 15}}>
                     <Grid xs={6} item>
@@ -251,7 +252,7 @@ const AddBid = () => {
                             className: yupErrors.filter((x: any) => x.path === 'name').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
-                       <YupError errors={yupErrors} path="name" color="#fff"/>
+                       <YupError errors={yupErrors} path="name" color={white}/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField placeholder="Price" type="number" fullWidth
@@ -265,7 +266,7 @@ const AddBid = () => {
                         ),
                         disableUnderline: true
                     }}/>
-                    <YupError errors={yupErrors} path="price" color="#fff"/>
+                    <YupError errors={yupErrors} path="price" color={white}/>
                     </Grid>
                 </Grid>
 
@@ -280,7 +281,7 @@ const AddBid = () => {
                             <option value="ios">IOS Phone</option>
                             <option value="other">Other</option>
                         </select>
-                     <YupError errors={yupErrors} path="category" color="#fff"/>
+                     <YupError errors={yupErrors} path="category" color={white}/>
                     </Grid>
                     <Grid xs={6} item>
                     <select name="brand"
@@ -293,7 +294,7 @@ const AddBid = () => {
                             <option value="htc">Htc</option>
                             <option value="alc">Alcatel</option>
                         </select>
-                     <YupError errors={yupErrors} path="brand" color="#fff"/>
+                     <YupError errors={yupErrors} path="brand" color={white}/>
                     </Grid>
 
                 </Grid>
@@ -310,7 +311,7 @@ const AddBid = () => {
                             className: yupErrors.filter((x: any) => x.path === 'timeCreated').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
-                     <YupError errors={yupErrors} path="timeCreated" color="#fff"/>
+                     <YupError errors={yupErrors} path="timeCreated" color={white}/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField
@@ -337,7 +338,7 @@ const AddBid = () => {
                             changeFormInfo({...formInfo, date_Ends: time})
                         }}
                     />
-                     <YupError errors={yupErrors} path="date_Ends" color="#fff"/>
+                     <YupError errors={yupErrors} path="date_Ends" color={white}/>
                     </Grid>
                 </Grid>
 
@@ -348,13 +349,13 @@ const AddBid = () => {
                         style: {padding: 10},
                         disableUnderline: true
                 }}/>
-                <YupError errors={yupErrors} path="description" color="#fff"/>
+                <YupError errors={yupErrors} path="description" color={white}/>
                 <br/>
 
                 <Button variant="contained" 
-                style={{backgroundColor: '#fff', color: '#0cafe5', width: 110}}
+                style={{backgroundColor: white, color: blue, width: 110}}
                 onClick={() => addPhoneApi()}>
-                    {loading ? <CircularProgress style={{color: '#0cafe5'}} size={24}/> :
+                    {loading ? <CircularProgress style={{color: blue}} size={24}/> :
                      (<>
                         <CheckIcon style={{fontSize: 20, margin: 2}}/>
                         Submit
@@ -363,7 +364,7 @@ const AddBid = () => {
                 </Button>
                 <Link href="/management">
                     <Button variant="contained" 
-                    style={{backgroundColor: 'red', color: '#fff', margin: 10}}>
+                    style={{backgroundColor: red, color: white, margin: 10}}>
                         <ClearIcon style={{fontSize: 20, margin: 2}}/>
                         Cancel
                     </Button>  

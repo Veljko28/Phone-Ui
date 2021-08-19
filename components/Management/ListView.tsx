@@ -15,6 +15,7 @@ import Loading from '../Loading';
 import NoPhones from './NoPhones';
 import Phone from '../models/Phone';
 import MngmSkeletonList from '../Skeletons/MngmSkeletonList';
+import { blue, white } from '../../constants/CustomColors';
 
 
 
@@ -70,7 +71,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                  : (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
             <div style={{minHeight: 575, maxHeight: 1500}}>
-                <Typography variant="h4" style={{color: '#0cafe5',margin: 15}}>{currentPage}</Typography>
+                <Typography variant="h4" style={{color: blue,margin: 15}}>{currentPage}</Typography>
                 {currentPage === 'My Phones' ? <MyPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
 
@@ -87,7 +88,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <span style={{display: 'inline-block',marginLeft: 10}}>
                       <div>
-                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}}
+                        <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 5}}
                             onClick={() => {
                                 if (page > 1){
                                     changePage(page-1);
@@ -95,10 +96,10 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                             }}>
                             Prev
                         </Button>
-                        <Button variant="contained" disabled style={{backgroundColor: '#0a85ae', color: '#fff', margin: 5}}>
+                        <Button variant="contained" disabled style={{backgroundColor: '#0a85ae', color: white, margin: 5}}>
                             {page}
                         </Button>
-                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 5}} onClick={() => changePage(page+1)}>
+                        <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 5}} onClick={() => changePage(page+1)}>
                             Next
                         </Button>
                         </div>

@@ -12,6 +12,7 @@ import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 import EmailIcon from '@material-ui/icons/Email';
 import PersonIcon from '@material-ui/icons/Person';
 import CreateIcon from '@material-ui/icons/Create';
+import { blue, gray } from '../../constants/CustomColors';
 
 
 const ContactForm = () => {
@@ -68,7 +69,7 @@ const ContactForm = () => {
   return (
     <Grid container className="contact-tab">
       <Typography variant="h6" style={{margin: '10px'}}>Contact Us</Typography>
-      <ColoredLine color="#eee"/>
+      <ColoredLine color={gray}/>
 
 
        <TextField placeholder="Your Name" value={form.name} 
@@ -124,7 +125,7 @@ const ContactForm = () => {
 
       <Button title="Contact"
       onClick={() => onSubmit()}
-      variant="contained" style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>
+      variant="contained" style={{margin: '10px', backgroundColor: blue, color: '#fff'}}>
         {
         snackBar.loading ? <CircularProgress style={{color: '#fff'}} size={24}/> : "Submit"
        }

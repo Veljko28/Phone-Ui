@@ -4,6 +4,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 
 import Phone from '../models/Phone';
 import { fetchPost } from '../../constants/CustomFetching';
+import { blue, dark_gray, white } from '../../constants/CustomColors';
 
 
 
@@ -40,11 +41,11 @@ const UserWishList = ({id} : {id: string}) => {
                     </div>
                   </Grid>
                 <Grid xs={12} md={8} item className="listing-grid-item">
-                      <Typography variant="subtitle1" style={{color: '#0cafe5'}} className="curs-hver">
+                      <Typography variant="subtitle1" style={{color: blue}} className="curs-hver">
                         {name}
                       </Typography>
 
-                      <Typography variant="subtitle2" style={{color: '#999'}}>
+                      <Typography variant="subtitle2" style={{color: dark_gray}}>
                         {description}
                       </Typography>
                 </Grid>
@@ -58,7 +59,7 @@ const UserWishList = ({id} : {id: string}) => {
         <Grid className="phone-details" container style={{marginTop: 10, marginBottom: 10}}>
             {list.map((x: Phone) => ListingMap(x) )}
         </Grid>
-        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type}</Button>
+        <Button variant="contained" style={{backgroundColor: blue, color: white, width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type}</Button>
       </div>
     );
 }

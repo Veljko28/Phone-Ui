@@ -10,6 +10,7 @@ import YupError from '../../constants/YupError';
 import { fetchPost } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
+import { blue, white } from '../../constants/CustomColors';
 
 
 const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: boolean) => any}) => {
@@ -81,7 +82,7 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
         <>
         <Dialog open={open} onClose={() => handleOpen(false)}>
              <DialogTitle onClose={() => handleOpen(false)}>
-                <Typography variant="h4" style={{color: '#0cafe5',margin: 15, marginBottom: 0}}>Checkout</Typography>
+                <Typography variant="h4" style={{color: blue,margin: 15, marginBottom: 0}}>Checkout</Typography>
              </DialogTitle>
             <DialogContent>
                   <CardReactFormContainer
@@ -119,7 +120,7 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
             <div id="card-wrapper" style={{margin: 10}}></div>
             </DialogContent>
             <DialogActions>
-                    <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 10}}
+                    <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 10}}
                     onClick={() => onSubmit()}>Submit</Button>
             </DialogActions>
         </Dialog>

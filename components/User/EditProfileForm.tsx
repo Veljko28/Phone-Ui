@@ -16,6 +16,7 @@ import YupError from '../../constants/YupError';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess } from '../../constants/CustomSnackBars';
 import { fetchGet, fetchPost } from '../../constants/CustomFetching';
+import { blue, white } from '../../constants/CustomColors';
 
 
 const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (value: boolean) => any,id: string}) => {
@@ -99,10 +100,10 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
         <>
         <Dialog open={open} onClose={() => handleOpen(false)}>
              <DialogTitle onClose={() => handleOpen(false)}>
-                <Typography variant="h4" style={{color: '#0cafe5',margin: 15, marginBottom: 0}}>Edit Profile</Typography>
+                <Typography variant="h4" style={{color: blue,margin: 15, marginBottom: 0}}>Edit Profile</Typography>
              </DialogTitle>
             <DialogContent>
-                  <Grid container style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#fff'}}>
+                  <Grid container style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: white}}>
                     <Grid xs={12} item container>
                        <Grid xs={6} item>
                                 <TextField placeholder="Email" value={form.email} 
@@ -156,9 +157,9 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
             </DialogContent>
             <DialogActions>
                     <Link href={`/user/changepassword/${id}`}>
-                        <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 10}}>Change Password</Button>
+                        <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 10}}>Change Password</Button>
                     </Link>
-                    <Button variant="contained" style={{backgroundColor: '#0cafe5', color: '#fff', margin: 10}}
+                    <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 10}}
                     onClick={() => onSubmit()}>Submit</Button>
             </DialogActions>
         </Dialog>

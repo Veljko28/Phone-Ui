@@ -8,6 +8,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 import { timeLeft } from '../constants/formatDate';
+import { blue } from '../constants/CustomColors';
 
 
 export const BidCard = (props: {image: string, name: string, price: string, date_ends: Date, id: string}) => {
@@ -43,9 +44,9 @@ export const BidCard = (props: {image: string, name: string, price: string, date
                 {props.name}
               </Typography>
               <Typography variant="subtitle1" style={{display: 'inline-block'}}>
-                <span style={{fontSize: "15px"}}>Current Price: <span style={{color: '#0cafe5'}}>{props.price + "$"}</span></span>
+                <span style={{fontSize: "15px"}}>Current Price: <span style={{color: blue}}>{props.price + "$"}</span></span>
               </Typography>
-              <div style={{fontSize: "15px"}}>Ends in: <span style={{color: '#0cafe5'}}>{time}</span></div>
+              <div style={{fontSize: "15px"}}>Ends in: <span style={{color: blue}}>{time}</span></div>
             </div>
           </div>
         </Link>

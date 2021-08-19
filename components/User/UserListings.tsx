@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Grid, Typography } from '@material-ui/core';
 
 import { fetchGet } from '../../constants/CustomFetching';
+import { blue, dark_gray } from '../../constants/CustomColors';
 
 
 
@@ -32,11 +33,11 @@ const UserListings = ({id} : {id: string}) => {
                       </div>
                     </Grid>
                   <Grid xs={12} md={8} item className="listing-grid-item">
-                        <Typography variant="subtitle1" style={{color: '#0cafe5'}} className="curs-hver">
+                        <Typography variant="subtitle1" style={{color: blue}} className="curs-hver">
                           {name}
                         </Typography>
 
-                        <Typography variant="subtitle2" style={{color: '#999'}}>
+                        <Typography variant="subtitle2" style={{color: dark_gray}}>
                           {description}
                         </Typography>
                   </Grid>

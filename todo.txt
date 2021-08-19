@@ -89,7 +89,8 @@ already logged in for login and register ✅
 folder with images of all the pages
 sold phone display design
 send notifications on phone sold and change phone status
-change static colors to custom color class
+change static colors to custom color class ✅
+adjustments for dark mode 
 
 language translations (react-i18next)
 language icon fix ✅

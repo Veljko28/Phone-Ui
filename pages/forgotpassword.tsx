@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Grid, Typography, TextField, InputAdornment, Button } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import { useRouter } from 'next/router';
+import { blue, white, dark_gray } from '../constants/CustomColors';
 
  
  const ForgotPassword = () => {
@@ -31,7 +32,7 @@ import { useRouter } from 'next/router';
              <span style={{marginTop: 40, marginBottom: 50}}>
                 <Image src="/logo.png" width="157" height="47" />
              </span>
-             <Typography variant="subtitle2" style={{color: '#999'}}>Enter the email address associated with your account <br/>
+             <Typography variant="subtitle2" style={{color: dark_gray}}>Enter the email address associated with your account <br/>
               and we'll send you a link to reset your password</Typography>
               <TextField placeholder="Email" value={email}
               onChange={e => changeEmail(e.target.value)}
@@ -44,7 +45,7 @@ import { useRouter } from 'next/router';
                     ),
                     disableUnderline: true
                 }}/>
-              <Button style={{margin: '10px 0 10px 0', backgroundColor: '#0cafe5', color: '#fff', padding: 10, minWidth: 350}}
+              <Button style={{margin: '10px 0 10px 0', backgroundColor: blue, color: white, padding: 10, minWidth: 350}}
                onClick={() => onSubmit()}
               >Continue</Button>
          </Grid>

@@ -2,6 +2,7 @@ import Rating from '@material-ui/lab/Rating';
 import { Grid, Typography, Button } from '@material-ui/core';
 
 import ColoredLine from '../../constants/ColoredLine';
+import { blue, dark_gray } from '../../constants/CustomColors';
 
 const ReviewMap = ({id, rating, user, date, message}
     : {id: string, rating: number, user: string, date: string, message: string}) => {
@@ -18,10 +19,10 @@ const ReviewMap = ({id, rating, user, date, message}
             <div>
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
-                    <span style={{color: '#999', marginLeft: '10px'}}>By 
-                    <span style={{color: "#0cafe5"}}> {user} </span>on {date}</span>
+                    <span style={{color: dark_gray, marginLeft: '10px'}}>By 
+                    <span style={{color: blue}}> {user} </span>on {date}</span>
             </div>
-            <div style={{color: '#999', padding: '10px'}}>
+            <div style={{color: dark_gray, padding: '10px'}}>
                 {message}
             </div>
             {hasLine(id)}

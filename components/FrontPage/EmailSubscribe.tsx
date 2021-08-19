@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
 import { fetchPost } from '../../constants/CustomFetching';
+import { white } from '../../constants/CustomColors';
 
 const EmailSubscribe = () => {
 
@@ -31,7 +32,7 @@ const EmailSubscribe = () => {
 
     return (
         <Grid container className="subscribe-form" justify="center">
-                <Typography variant="h5" style={{color: '#fff'}}>
+                <Typography variant="h5" style={{color: white}}>
                     Subscribe To Get Discounts &#38; Offers</Typography>
                 <div className="subscribe-input">
                     <input type="text" className="subscribe-input-field" placeholder="Your Email" 

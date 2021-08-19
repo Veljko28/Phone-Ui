@@ -18,6 +18,7 @@ import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars
 import { formatYupError } from '../../constants/formYupError';
 import YupError from '../../constants/YupError';
 import { useRouter } from 'next/router';
+import { blue, gray, white } from '../../constants/CustomColors';
 
 
 const RegisterForm = () => {
@@ -74,7 +75,7 @@ const RegisterForm = () => {
     <>
     <Grid container className="register-tab">
       <Typography variant="h6" style={{margin: '10px'}}>Register</Typography>
-      <ColoredLine color="#eee"/>
+      <ColoredLine color={gray}/>
 
       <TextField placeholder="Email" value={form.email} 
       onChange={e => changeForm({...form,email: e.target.value})}
@@ -137,8 +138,8 @@ const RegisterForm = () => {
 
       <Button title="Register" variant="contained" 
         onClick={() => sendRegister()}
-      style={{margin: '10px', backgroundColor: '#0cafe5', color: '#fff'}}>{
-        snackBar.loading ? <CircularProgress style={{color: '#fff'}} size={24}/> : "Register"
+      style={{margin: '10px', backgroundColor: blue, color: white}}>{
+        snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Register"
     }</Button>
 
       <Typography variant="subtitle2" style={{margin: '10px', color: '#b3b3b3'}}>Already Have An Account ?

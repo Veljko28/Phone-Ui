@@ -5,6 +5,7 @@ import links from '../../constants/Links';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { toggleNavbar } from '../../redux/actions/userInfoActions';
+import { white } from '../../constants/CustomColors';
 
 const NavItem = ({href, name} : {href: string, name: string}) => {
     return (
@@ -23,7 +24,7 @@ const NavBar = () => {
         <div className={displayMenu ? "navbar-main-display" : "navbar-main"}>
            {links.map(x => NavItem(x))}
            <span className="closeMenu" onClick={() => dispatch(toggleNavbar())}>
-            <CloseIcon style={{fontSize: '20px', color: '#fff'}}/>
+            <CloseIcon style={{fontSize: '20px', color: white}}/>
           </span>
         </div>
     );   

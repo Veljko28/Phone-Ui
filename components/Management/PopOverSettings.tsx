@@ -7,6 +7,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import PopUpDialog from '../../constants/PopUpDialog';
 import { fetchDelete } from '../../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
+import { white } from '../../constants/CustomColors';
 
 
 const PopOverSettings = ({id, open, anchorEl, handleClose, myBid} : 
@@ -49,9 +50,9 @@ const PopOverSettings = ({id, open, anchorEl, handleClose, myBid} :
         }}
       >
         <div style={{padding: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          {myBid === true ? null : <Link href={`/phone/edit/${id}`}><div className="edit-btn-mngm"><EditIcon style={{fontSize: '15px', color: '#fff',marginBottom: '5px'}}/> Edit</div></Link> }
+          {myBid === true ? null : <Link href={`/phone/edit/${id}`}><div className="edit-btn-mngm"><EditIcon style={{fontSize: '15px', color: white,marginBottom: '5px'}}/> Edit</div></Link> }
           <div className="delete-btn-mngm"
-           onClick={() => changeDialogOpen(true)}><ClearIcon style={{fontSize: '15px', color: '#fff',marginBottom: '5px'}}/> Delete</div>
+           onClick={() => changeDialogOpen(true)}><ClearIcon style={{fontSize: '15px', color: white,marginBottom: '5px'}}/> Delete</div>
         </div>
 
 

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { blue } from '../../constants/CustomColors';
 
 
 const EmptyCart = () => {
@@ -12,7 +13,7 @@ const EmptyCart = () => {
     className="empty-cart"
     >
       <div>
-        <Typography variant="h2" style={{color: '#0cafe5'}}>Your cart is currently empty !</Typography>
+        <Typography variant="h2" style={{color: blue}}>Your cart is currently empty !</Typography>
         <Image src="/empty-cart.svg" width="500px" height="500px"/>
       </div>
         <Link href="/phones/1">

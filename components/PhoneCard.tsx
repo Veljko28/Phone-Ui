@@ -13,6 +13,7 @@ import PhoneSkeletonCard from './Skeletons/PhoneSkeletonCard';
 import { addToCart } from '../redux/actions/cartActions';
 import { fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
+import { blue, red, white } from '../constants/CustomColors';
 
 
 export const PhoneCard = (props: Phone) => {
@@ -48,10 +49,10 @@ export const PhoneCard = (props: Phone) => {
               <Typography variant="subtitle1" style={{display: 'inline-block'}}>
                 {props.discount ? (
                 <>
-                <span style={{color: '#0cafe5', fontSize: "15px"}}>{props.discount} </span>
-                <span style={{color: 'red', textDecoration: 'line-through', fontSize: "10px"}}>{props.price}</span>
+                <span style={{color: blue, fontSize: "15px"}}>{props.discount} </span>
+                <span style={{color: red, textDecoration: 'line-through', fontSize: "10px"}}>{props.price}</span>
                 </>) : 
-                (<span style={{color: '#0cafe5', fontSize: "15px"}}>{props.price + "$"}</span>)
+                (<span style={{color: blue, fontSize: "15px"}}>{props.price + "$"}</span>)
                 }
               </Typography>
             </div>
@@ -59,17 +60,17 @@ export const PhoneCard = (props: Phone) => {
         </Link>
 
         <div className="buttonConainer">
-          <IconButton size="small" onClick={() => addToWishList()}  style={{backgroundColor: 'red', color: 'white', padding: '5px', margin: '5px'}}>
+          <IconButton size="small" onClick={() => addToWishList()}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
             <FavoriteIcon/>
           </IconButton>
           {props?.seller === localStorage.getItem('userId') ? (
           <Link href={`/phone/${props.id}`}>
-            <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} >
+            <IconButton size="small" style={{backgroundColor: '#4d88ff', color: white, padding: '5px', margin: '5px', fontSize: '15px'}} >
               <ArrowForwardIosIcon/>
             </IconButton>
           </Link>
           ) : (
-            <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} 
+            <IconButton size="small" style={{backgroundColor: '#4d88ff', color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
             onClick={() => dispatch(addToCart(props))}>
               <ShoppingCartIcon/>
             </IconButton>

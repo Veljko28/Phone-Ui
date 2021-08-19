@@ -27,6 +27,8 @@ import { addToCart } from "../../redux/actions/cartActions";
 import { changePhoneCategory } from "../../redux/actions/phonesActions";
 import { timeLeft } from '../../constants/formatDate';
 import PhoneDisplaySkeleton from '../Skeletons/PhoneDisplaySkeleton';
+import { blue, white } from '../../constants/CustomColors';
+import { BluetoothAudioRounded } from '@material-ui/icons';
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -104,7 +106,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
         </div>
         <Typography variant="subtitle1" >
 
-          <span style={{color: '#0cafe5', fontSize: "35px"}}>{bid ? "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
+          <span style={{color: blue, fontSize: "35px"}}>{bid ? "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
 
           <span style={{color: '#999', fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
@@ -112,13 +114,13 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
           {bid ? 
           userId === currentUserId ? (
             <>
-            <Typography variant="h6" style={{color: '#0cafe5'}}>This is your bid. Wait until the bid ends and contact the buyer</Typography>
+            <Typography variant="h6" style={{color: blue}}>This is your bid. Wait until the bid ends and contact the buyer</Typography>
            <div 
            onClick={e => openHistory(e)} className="bid-history">
              <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History ({history?.length})
             </div>
             <BidHistory open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
-            <Typography variant="subtitle1" style={{color: '#0cafe5'}}>Ends in: {timeLeft((phone as Bid)?.date_Ends)}</Typography>
+            <Typography variant="subtitle1" style={{color: blue}}>Ends in: {timeLeft((phone as Bid)?.date_Ends)}</Typography>
           </>
           ) :
 
@@ -132,14 +134,14 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
           min={phone ? (phone?.price as number)+1 : 1}
           className="bid-price"/>
           <Button variant="contained" onClick={() => changeDialogOpen(true)}
-          style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>
+          style={{backgroundColor: blue, color: white, padding: '15px', marginTop: '10px'}}>
             <MonetizationOnIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid {bidAmount}$</Button>
            <div 
            onClick={e => openHistory(e)} className="bid-history">
              <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History ({history?.length})
             </div>
             <BidHistory open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
-            <Typography variant="subtitle1" style={{color: '#0cafe5'}}>Ends in: {timeLeft((phone as Bid)?.date_Ends)}</Typography>
+            <Typography variant="subtitle1" style={{color: blue}}>Ends in: {timeLeft((phone as Bid)?.date_Ends)}</Typography>
           </>)
           
           
@@ -149,13 +151,13 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
            userId === currentUserId ? (
               <>
                 <Button variant="contained" onClick={() => router.push(`/phone/edit/${id}`)}
-                style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>
+                style={{backgroundColor:  blue, color: white, padding: '15px', marginTop: '10px'}}>
                 <EditIcon style={{fontSize: '20px', marginRight: '5px'}}/> EDIT PHONE</Button>
               </>
           ) : (<> 
           <Button variant="contained" 
           onClick={() => dispatch(addToCart(phone as Phone))}
-          style={{backgroundColor: '#0cafe5', color: '#fff', padding: '15px', marginTop: '10px'}}>
+          style={{backgroundColor: blue, color: white, padding: '15px', marginTop: '10px'}}>
             <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> ADD TO CART</Button>
           </>)}
 
@@ -164,8 +166,8 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
 
         </Typography>
           <div style={{margin: 10, marginLeft: 0}}>
-              <Chip style={{margin: 5, marginLeft: 0 ,backgroundColor: '#0cafe5', color: '#fff'}}
-              icon={<CategoryIcon style={{color: '#fff', fontSize: 20}}/>}
+              <Chip style={{margin: 5, marginLeft: 0 ,backgroundColor: blue, color: white}}
+              icon={<CategoryIcon style={{color: white, fontSize: 20}}/>}
               label={phone?.category}
               onClick={() => {
                 const obj = {
@@ -178,7 +180,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
                   router.push('/phones/1');
               }}
               />
-              <Chip style={{marginLeft: 5,backgroundColor: '#0cafe5', color: '#fff'}}
+              <Chip style={{marginLeft: 5,backgroundColor: blue, color: white}}
               icon={<GradeIcon style={{color: '#fff', fontSize: 20}}/>}
               label={phone?.brand}
                onClick={() => {

@@ -16,6 +16,7 @@ import TitleChange from '../../../constants/TitleChange';
 import { formatYupError } from '../../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../../constants/CustomSnackBars';
 import { fetchForm, fetchPostForm, fetchGet, fetchPatch} from '../../../constants/CustomFetching';
+import { white, blue, red } from '../../../constants/CustomColors';
 
 
 const EditPage = () => {
@@ -174,7 +175,7 @@ const EditPage = () => {
       <>
       {jwt === null ? <NotLoggedIn/> : (
 
-    <Grid container style={{backgroundColor: '#fff', paddingBottom: 200, paddingTop: 50}}>
+    <Grid container style={{backgroundColor: white, paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Edit`} />
             <Grid item lg={1}/>
 
@@ -183,8 +184,8 @@ const EditPage = () => {
                 <Grid item>
                     {currentImage === '' ? (
                          <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
-                           <CloudUploadIcon style={{fontSize: 150, color: '#0cafe5'}}/>
-                            <div style={{fontSize: 25, color: '#0cafe5'}}>Upload product images</div> 
+                           <CloudUploadIcon style={{fontSize: 150, color: blue}}/>
+                            <div style={{fontSize: 25, color: blue}}>Upload product images</div> 
                         </div>
                     ) : (
                         <div className="display-image">
@@ -206,7 +207,7 @@ const EditPage = () => {
                             <input type="file" accept="image/*" onChange={(e: any) => uploadFile(e)} ref={inputRef} style={{display: 'none'}}/>
                             <button onClick={() => (inputRef as any).current.click()}
                             className="add-another">
-                            <ImageIcon style={{fontSize: 35, color: '#0cafe5'}}/> Add Picture
+                            <ImageIcon style={{fontSize: 35, color: blue}}/> Add Picture
                             </button>
                         </div>
                     )}
@@ -222,9 +223,9 @@ const EditPage = () => {
 
             <Grid item lg={1}/>
 
-            <Grid item sm={12} md={6} lg={5}  style={{backgroundColor: '#0cafe5', padding: 25, height: yupErrors.length > 0 ? 450 : 400}}>
+            <Grid item sm={12} md={6} lg={5}  style={{backgroundColor: blue, padding: 25, height: yupErrors.length > 0 ? 450 : 400}}>
                 <Typography variant="h4"  
-                style={{color: '#fff', marginTop: 10, marginLeft: 10}}>Edit Phone</Typography>
+                style={{color: white, marginTop: 10, marginLeft: 10}}>Edit Phone</Typography>
                 
                 <Grid container item xs={12} style={{marginTop: 15}}>
                     <Grid xs={6} item>
@@ -291,9 +292,9 @@ const EditPage = () => {
                 <YupError errors={yupErrors} path="description"/>
                 <br/>
                 <Button variant="contained" 
-                style={{backgroundColor: '#fff', color: '#0cafe5', width: 110}}
+                style={{backgroundColor: white, color: blue, width: 110}}
                 onClick={() => EditPhoneApi()}>
-                    {loading ? <CircularProgress style={{color: '#0cafe5'}} size={24}/> :
+                    {loading ? <CircularProgress style={{color: blue}} size={24}/> :
                      (<>
                         <CheckIcon style={{fontSize: 20, margin: 2}}/>
                         Update
@@ -301,7 +302,7 @@ const EditPage = () => {
                 </Button>
                 <Link href="/management">
                   <Button variant="contained" 
-                  style={{backgroundColor: 'red', color: '#fff', margin: 10}}>
+                  style={{backgroundColor: red, color: white, margin: 10}}>
                       <ClearIcon style={{fontSize: 20, margin: 2}}/>
                       Cancel
                   </Button>

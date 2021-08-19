@@ -11,6 +11,7 @@ import EditProfileForm from './EditProfileForm';
 import UserSearchSkeleton from '../Skeletons/UserSearchSkeleton';
 import UserCardSkeleton from '../Skeletons/UserCardSkeleton';
 import User from '../models/User';
+import { blue, dark_gray, white } from '../../constants/CustomColors';
 
 
 
@@ -51,11 +52,11 @@ const UserCard = (props: {email: string, id: string, phoneNumber: string, search
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Phones Sold: <span style={{color: '#0cafe5'}}>226</span>
-                 <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
+                 Phones Sold: <span style={{color: blue}}>226</span>
+                 <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
               </Typography>
               <Button variant="contained" 
-                    style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                    style={{color: white, backgroundColor: blue, padding: '10px', width: '175px', margin: '5px'}}
                     >Go To Profile</Button>
             </div>
           </a>
@@ -69,31 +70,31 @@ const UserCard = (props: {email: string, id: string, phoneNumber: string, search
                 {props.name}
               </Typography>
               <Typography variant="subtitle1" style={{display: 'inline-block'}}>
-                <span style={{color: '#999', fontSize: "15px"}}>{props.desc}</span>
+                <span style={{color: dark_gray, fontSize: "15px"}}>{props.desc}</span>
               </Typography>
               <Typography variant="subtitle1">
                 Rating: <Rating name="seller-rating" value={props.rating} precision={0.1} readOnly
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
               <Typography variant="subtitle1">
-                 Phones Sold: <span style={{color: '#0cafe5'}}>226</span>
-                 <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
+                 Phones Sold: <span style={{color: blue}}>226</span>
+                 <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Currently Selling: <span style={{color: '#0cafe5'}}>3</span>
-                 <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
+                 Currently Selling: <span style={{color: blue}}>3</span>
+                 <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
               </Typography>
               {props.id === currentUser ? (
                 <>
                 <Button variant="contained" onClick={() => handleEditOpen(true)}
-                 style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                 style={{color: '#fff', backgroundColor: blue, padding: '10px', width: '175px', margin: '5px'}}
                 >Edit Profile</Button>
 
                <EditProfileForm open={editOpen} handleOpen={(value: boolean) => handleEditOpen(value)} id={props.id}/>
                 </>
               ) : (<>
                 <Button variant="contained" onClick={e => openContanct(e)}
-                      style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                      style={{color: '#fff', backgroundColor: blue, padding: '10px', width: '175px', margin: '5px'}}
                       >Contact The Seller</Button>
                 <UserContact  email={props.email} phoneNumber={props.phoneNumber} open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
                 </>

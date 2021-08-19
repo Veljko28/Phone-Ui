@@ -8,6 +8,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
 import PopOverSettings from '../PopOverSettings';
 import { formatDate } from '../../../constants/formatDate';
+import { blue, green, red, white } from '../../../constants/CustomColors';
 
 const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
@@ -32,9 +33,9 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                       </Grid>
                     </Grid>
               </td>
-              <td style={{color: '#43cf22'}}>{price + "$"}</td>
+              <td style={{color: green}}>{price + "$"}</td>
               <td>
-                  <div style={status === "Sold !" ? {color: '#43cf22'} : status === "Running" ? {color: "#0cafe5"} : {color: "red"}}>
+                  <div style={status === "Sold !" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
                       {status}
                   </div>
               </td>
@@ -45,9 +46,9 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                       navigator.clipboard.writeText(`http://localhost:3000/bid/${id}`)
                       changeSnackBar(true);
                     }} 
-                  style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#0cafe5'}} 
+                  style={{width: '35px', height: '35px', margin: '5px', backgroundColor: blue }} 
                   className="share-icon-mngm">
-                      <FileCopyIcon style={{fontSize: 15, color: "#fff"}}/>
+                      <FileCopyIcon style={{fontSize: 15, color: white}}/>
                  </IconButton>
                  {status === "Running" ? (
                      <>
@@ -64,13 +65,13 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                     </>
                  ) : status === "Deleted" ? (
                     <IconButton 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: 'red'}} 
+                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: red}} 
                     className="share-icon-mngm">
                         <ClearIcon style={{fontSize: 15, color: "#fff"}}/>
                     </IconButton>
                  ): (
                      <IconButton 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#43cf22'}} 
+                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: green}} 
                     className="share-icon-mngm">
                         <EmailIcon style={{fontSize: 15, color: "#fff"}}/>
                     </IconButton>

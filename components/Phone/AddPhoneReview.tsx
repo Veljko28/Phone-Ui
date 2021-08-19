@@ -5,6 +5,7 @@ import { Grid, Typography, TextField, Button, CircularProgress } from '@material
 import ColoredLine from '../../constants/ColoredLine';
 import { fetchPost } from '../../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
+import { blue, gray, white } from '../../constants/CustomColors';
 
 
 const AddPhoneReview = ({phoneId} : {phoneId: string}) => {
@@ -34,8 +35,8 @@ const AddPhoneReview = ({phoneId} : {phoneId: string}) => {
         <Grid 
         className="phone-details" style={{display: 'flex', flexDirection: 'column'}} container>
             <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: '#0cafe5'}}>Add a Review</Typography>
-        <ColoredLine color="#eee"/>
+        color: blue}}>Add a Review</Typography>
+        <ColoredLine color={gray}/>
         <div style={{margin: '20px'}}>
         <Typography style={{display: 'inline-block', 
         marginRight: '15px', marginLeft: '5px', paddingBottom: '10px'}}>Your Rating: </Typography>
@@ -55,9 +56,9 @@ const AddPhoneReview = ({phoneId} : {phoneId: string}) => {
         disableUnderline: true
         }}/>
         <Button variant="contained" onClick={() => onSubmit()}
-        style={{backgroundColor: '#0cafe5', color: '#fff',
+        style={{backgroundColor: blue, color: white,
         width: '100px', margin: '20px'}}>{
-        snackBar.loading ? <CircularProgress style={{color: '#fff'}} size={24}/> : "Submit"
+        snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Submit"
         }</Button>
 
 

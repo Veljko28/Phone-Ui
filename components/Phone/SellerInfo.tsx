@@ -8,6 +8,7 @@ import User from '../models/User';
 import UserContact from '../User/UserContact';
 import ColoredLine from '../../constants/ColoredLine';
 import SellerInfoSkeleton from '../Skeletons/SellerInfoSkeleton';
+import { blue, white } from '../../constants/CustomColors';
 
 
 const SellerInfo = ({user} : {user?: User}) => {
@@ -31,7 +32,7 @@ const SellerInfo = ({user} : {user?: User}) => {
     return loading ? <SellerInfoSkeleton/> : (
         <Grid className="phone-details" container>
              <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: '#0cafe5'}}>About The Seller</Typography>
+        color: blue}}>About The Seller</Typography>
             <ColoredLine color="#eee"/>
             <Grid xs={12} container item>
              <Link href={`/user/${user?.id}`}>
@@ -48,21 +49,21 @@ const SellerInfo = ({user} : {user?: User}) => {
                      style={{fontSize: '16px', margin: '10px', marginTop: '15px'}}/>
                     </Typography>
                     <Typography variant="subtitle1">
-                        Phones Sold: <span style={{color: '#0cafe5'}}>226</span>
-                        <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
+                        Phones Sold: <span style={{color: blue}}>226</span>
+                        <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
                     </Typography>
                     <Typography variant="subtitle1">
-                        Currently Selling: <span style={{color: '#0cafe5'}}>27</span>
-                        <PhoneAndroidIcon style={{fontSize: '20px', color: '#0cafe5',marginBottom: '5px'}}/>
+                        Currently Selling: <span style={{color: blue}}>27</span>
+                        <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
                     </Typography>
                 </Grid>
                 <Grid xs={12} md={4} item className="review-grid-item">
                     <Button variant="contained" onClick={e => openContanct(e)}
-                    style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                    style={{color: white, backgroundColor: blue, padding: '10px', width: '175px', margin: '5px'}}
                     >Contact The Seller</Button>
                     <Link href={`/user/${user?.id}`}>
                       <Button variant="contained" 
-                      style={{color: '#fff', backgroundColor: '#0cafe5', padding: '10px', width: '175px', margin: '5px'}}
+                      style={{color: white, backgroundColor: blue, padding: '10px', width: '175px', margin: '5px'}}
                       >View Listings</Button>
                     </Link>
                     <UserContact open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl} email={user?.email as string}
