@@ -4,6 +4,7 @@ import langReducers from './reducers/langReducers';
 import phoneReducers from './reducers/phoneReducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userInfoReducers } from './reducers/userInfoReducers';
+import { notificationReducers } from './reducers/notificationReducers';
 
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     cart: cartReducers,
     phones: phoneReducers,
     userInfo: userInfoReducers,
+    notification: notificationReducers, 
 });
 
 const store = createStore(rootReducer, composeWithDevTools());
