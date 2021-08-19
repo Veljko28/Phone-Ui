@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -15,11 +16,13 @@ import { changeLoginStatus, toggleNavbar } from '../../redux/actions/userInfoAct
 import { fetchPost } from '../../constants/CustomFetching';
 import { JwtToken } from '../../constants/jwtTypes';
 import { clearCart } from '../../redux/actions/cartActions';
+import NotificationsPopOver from './NotificationsPopOver';
 
 const MainHeader = () => {
   const router = useRouter();
 
   const numOfItems = useSelector((state : State) => state.cart.items.length);
+  const numOfNotifications = 4;
   const [userSearch,ChangeUserSearch] = React.useState('');
 
   const dispatch = useDispatch();
@@ -27,6 +30,18 @@ const MainHeader = () => {
 
   let jwt: string | null = "";
   const loggedIn = useSelector((state : State) => state.userInfo.logged_in);
+
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const notificationsOpen = Boolean(anchorEl);
+
+  const openNotifications = (e: any) => {
+    setAnchorEl(e.currentTarget);
+  }
+
+  const closeNotifications = () => {
+    setAnchorEl(null);
+  }
 
 
   React.useEffect( () => {
@@ -116,6 +131,12 @@ const MainHeader = () => {
                     </Badge>
                   </IconButton>
                 </Link>
+                <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple onClick={e => openNotifications(e)}>
+                    <Badge badgeContent={numOfNotifications} color="secondary">
+                      <NotificationsIcon className="cartIcon" style={{fontSize: '20px'}}/>
+                    </Badge>
+                </IconButton>
+                <NotificationsPopOver open={notificationsOpen} handleClose={() => closeNotifications()} anchorEl={anchorEl}/>
               </>
               )
             : ""}
