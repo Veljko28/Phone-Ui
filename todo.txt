@@ -77,7 +77,8 @@ management max page
 remove buy from card if phone owner ✅
 clear cart on logout ✅
 other users cant see your wish list ✅
-confirm email
+confirm email api ✅
+confirm email front end
 email notifications
 notifications button ✅
 notification pop-up ✅
