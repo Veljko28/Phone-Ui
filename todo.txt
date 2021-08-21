@@ -79,12 +79,12 @@ clear cart on logout ✅
 other users cant see your wish list ✅
 confirm email api ✅
 confirm email front end
-email notifications
+email notifications ✅
 notifications button ✅
 notification pop-up ✅
 phones sold api config
 rating api config
-related product fix - same product
+related product fix - same product ✅
 fix phone display on smaller screens
 already logged in for login and register ✅
 folder with images of all the pages

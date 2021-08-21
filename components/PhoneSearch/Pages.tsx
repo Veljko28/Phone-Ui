@@ -5,65 +5,71 @@ import { blue, white } from '../../constants/CustomColors';
 
 
 
-const Pages = ({pageId, bid} : {pageId: any, bid?: boolean}) => {
+const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOfPages: number}) => {
     
     let first = false;
+    const intPageId = parseInt(pageId);
 
-    if (pageId == 1) {
+    if (intPageId == 1) {
         first = true;
     }
 
     const list = [
         {
-            id: parseInt(pageId)-1,
-            title: 'Prev'
+            id: intPageId-1,
+            title: (intPageId-1).toString()
         },
         {
-            id: parseInt(pageId)-1,
-            title: (parseInt(pageId)-1).toString()
-        },
-        {
-            id: pageId,
+            id: intPageId,
             title: pageId
         },
         {
-             id: parseInt(pageId)+1,
-            title: (parseInt(pageId)+1).toString()
+             id: intPageId+1,
+            title: (intPageId+1).toString()
         },
          {
-            id: parseInt(pageId)+1,
+            id: intPageId+1,
             title: 'Next'
         },
     ]
 
+    if (numOfPages !== 1) 
+        list.unshift( {
+            id: 1,
+            title: 'Prev'
+        });
+
      const firstList = [
         {
-            id: '1#',
-            title: 'Prev'
-        },
-        {
-            id: pageId,
+            id: intPageId,
             title: pageId
         },
         {
-             id: parseInt(pageId)+1,
-            title: (parseInt(pageId)+1).toString()
+             id: intPageId+1,
+            title: (intPageId+1).toString()
         },
         {
-             id: parseInt(pageId)+2,
-            title: (parseInt(pageId)+2).toString()
+             id: intPageId+2,
+            title: (intPageId+2).toString()
         },
         {
-            id: parseInt(pageId)+1,
+            id: intPageId+1,
             title: 'Next'
         },
     ]
+
+     if (numOfPages !== 1) 
+        firstList.unshift( {
+            id: 1,
+            title: 'Prev'
+        });
     
     const PageButton = ({id, title} : {id: number, title: string}) => {
+        if (id > numOfPages) return;
         return (
             <Link key={Math.random() % 100} href={bid === true ? `/bids/${id}` : `/phones/${id}`}>
                     <Button variant="contained" 
-                    style={{backgroundColor: id == pageId ? '#0a85ae' : blue, color: white, margin: '5px'}}>
+                    style={{backgroundColor: id == intPageId ? '#0a85ae' : blue, color: white, margin: '5px'}}>
                         {title}
                     </Button>
             </Link>
