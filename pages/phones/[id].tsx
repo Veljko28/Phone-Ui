@@ -19,6 +19,7 @@ const phones = () => {
   const router = useRouter()
   const id = router.query['id'];
   const [list,changeList] = React.useState([]);
+  const [numOfPages, changeNumOfPages] = React.useState(1);
 
   const options = useSelector((state: State) => state.phones.phoneOptions);
 
@@ -26,14 +27,13 @@ const phones = () => {
       const func = async () => {
         const res = await fetchGet(`http://localhost:10025/api/v1/phones/page/${id}`);
         const json = await res.json();
-        changeList(json);
-
+        changeList(json.phones);
+        changeNumOfPages(json.numOfPages);
       }
-
-      func();
+      
+      if (id) func();
     },[id])
-
-
+    
     const categoryList = list.filter((x: Phone) => {
       if (options.category !== "All Phones") return x.category?.toLowerCase() === options.category.toLowerCase();
       return true;
@@ -83,7 +83,7 @@ const phones = () => {
                 <PhoneList 
                 list={categoryList}
                 />
-                <Pages pageId={id}/>
+                <Pages pageId={id as string} numOfPages={numOfPages}/>
             </Grid> 
         </Grid>
     )
