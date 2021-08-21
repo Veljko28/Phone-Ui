@@ -42,7 +42,7 @@ const PhonePage = () => {
           changeUser(await userRes.json());
         }
 
-        const related = await fetchGet('http://localhost:10025/api/v1/phones/featured');
+        const related = await fetchGet(`http://localhost:10025/api/v1/phones/featured/${id}`);
 
         if ((related as Response).ok){
             changeRelatedProducts(await (related as Response).json());
