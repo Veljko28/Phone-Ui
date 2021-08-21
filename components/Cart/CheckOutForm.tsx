@@ -7,7 +7,7 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 
 import YupError from '../../constants/YupError';
-import { fetchPost } from '../../constants/CustomFetching';
+import { fetchPost, fetchGet } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
 import { blue, white } from '../../constants/CustomColors';
@@ -23,6 +23,12 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
       expiry: '',
       name: ''
     });
+
+    let userId: string | null = null;
+
+    if (typeof window !== 'undefined'){
+        userId = localStorage.getItem('userId');
+    }
  
     const yupSchema = yup.object().shape({
         number: yup.string().min(19).max(23),
@@ -77,18 +83,33 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
             return;
         }
 
+        const badRequest = () => {
+            handleSnackBar({success: false, error: true});
+            return;
+        }
         
         list.forEach(async (x) => {
             const res = await fetchPost('http://localhost:10025/api/v1/phones/status', {phoneId: x.id,status: 1});
             if (!res.ok){
-                handleSnackBar({success: false, error: true});
-                return;
+                return badRequest();
             }
             const notifRes = await fetchPost('http://localhost:10025/api/v1/notifications/add', 
             {name: x.name, type: "phone", userId: x.seller, message: ""});
              if (!notifRes.ok){
-                handleSnackBar({success: false, error: true});
-                return;
+                return badRequest();
+            }
+            const userEmail = await fetchGet(`http://localhost:10025/api/v1/users/${x.seller}/email`);
+            if (!userEmail.ok){
+                return badRequest();
+            }
+            else {
+                let email = await userEmail.text();
+                const sendPhoneSoldEmail = await fetchPost('http://localhost:10025/api/v1/email/itemsold', {
+                    name: x.name, type: "phone", email, buyerId: userId
+                })
+                if (!sendPhoneSoldEmail){
+                    return badRequest();
+                }
             }
         })
 

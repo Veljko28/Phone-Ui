@@ -78,7 +78,7 @@ remove buy from card if phone owner ✅
 clear cart on logout ✅
 other users cant see your wish list ✅
 confirm email api ✅
-confirm email front end
+confirm email front end ✅
 email notifications ✅
 notifications button ✅
 notification pop-up ✅
@@ -93,6 +93,7 @@ change static colors to custom color class ✅
 adjustments for dark mode
 notification api config ✅
 on register add notification for confirm email ✅
+checkout form yup errors
 
 sold phone display design ✅
 links to buyer on phone sold
