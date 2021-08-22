@@ -19,6 +19,7 @@ import { formatYupError } from '../../constants/formYupError';
 import YupError from '../../constants/YupError';
 import { useRouter } from 'next/router';
 import { blue, gray, white } from '../../constants/CustomColors';
+import { v4 } from 'uuid';
 
 
 const RegisterForm = () => {
@@ -73,6 +74,14 @@ const RegisterForm = () => {
         name: "",
         message: ""
       })
+
+      const confirmEmailId = v4();
+      
+      if (typeof window !== 'undefined'){
+        localStorage.setItem('confirmEmailId', confirmEmailId);
+      }
+
+      await fetchPost('http://localhost:10025/api/v1/email/confirm', {email: form.email, confirmEmailId});
 
 
       changeSnackBar({...snackBar, success: true, loading: false});
