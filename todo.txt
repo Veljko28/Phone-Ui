@@ -94,6 +94,9 @@ adjustments for dark mode
 notification api config ✅
 on register add notification for confirm email ✅
 checkout form yup errors
+confirm email expired / re-send
+no items in wish list 
+no notifications
 
 sold phone display design ✅
 links to buyer on phone sold
