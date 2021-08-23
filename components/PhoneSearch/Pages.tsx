@@ -35,7 +35,7 @@ const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOf
 
     if (numOfPages !== 1) 
         list.unshift( {
-            id: 1,
+            id: intPageId-1,
             title: 'Prev'
         });
 
@@ -60,7 +60,7 @@ const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOf
 
      if (numOfPages !== 1) 
         firstList.unshift( {
-            id: 1,
+            id: intPageId-1,
             title: 'Prev'
         });
     

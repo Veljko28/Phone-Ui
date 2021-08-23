@@ -9,13 +9,18 @@ import PhoneSkeletonCard from '../Skeletons/PhoneSkeletonCard';
 
 import Bid from '../models/Bid';
 import Phone from '../models/Phone';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
     const phoneSkeletons = [<PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>,
       <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>]
 
     const bidSkeletons = [<BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>,
-      <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>]
+      <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>];
+
+      const items = useSelector((state: State) => state.cart.items);
+
       return (
         <Grid container style={{minHeight: 614}}> 
             {list === undefined || list.length === 0 ? bids ?
@@ -28,7 +33,7 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
             )
             :
             list.map((x: Phone) => 
-              <PhoneCard 
+              <PhoneCard inCart={items.filter(y => y.id == x.id).length === 1}
               key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} status={x.status} />
             )}
         </Grid>
