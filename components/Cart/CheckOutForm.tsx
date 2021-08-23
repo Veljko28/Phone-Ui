@@ -1,7 +1,7 @@
 import React from 'react';
 import * as yup from 'yup';
 import CardReactFormContainer from 'card-react';
-import { Typography, Button, Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
+import { Typography, Button, Dialog, DialogActions, DialogContent, withStyles, IconButton, TextField} from '@material-ui/core';
 
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
@@ -9,13 +9,16 @@ import CloseIcon from '@material-ui/icons/Close';
 import YupError from '../../constants/YupError';
 import { fetchPost, fetchGet } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
-import { SnackBarSuccess, SnackBarFailed } from '../../constants/CustomSnackBars';
+import { SnackBarFailed } from '../../constants/CustomSnackBars';
 import { blue, white } from '../../constants/CustomColors';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
+import { clearCart } from '../../redux/actions/cartActions';
 
 
-const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: boolean) => any}) => {
+const CheckOutForm = ({open, handleOpen,snackBar,handleSnackBar} : {
+open: boolean,handleOpen: (value: boolean) => any,
+snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void}) => {
     
     const [form, changeForm] = React.useState({
       number: '',
@@ -23,6 +26,8 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
       expiry: '',
       name: ''
     });
+
+    const dispatch = useDispatch();
 
     let userId: string | null = null;
 
@@ -32,17 +37,13 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
  
     const yupSchema = yup.object().shape({
         number: yup.string().min(19).max(23),
-        name: yup.string().min(3).max(30),
+        name: yup.string().min(8).max(100),
         cvc: yup.string().min(3).max(4),
         expiry: yup.string().length(9)
     });
 
     const [errors,changeErrors] = React.useState([]); 
-    const [snackBar,handleSnackBar] = React.useState({
-        success: false,
-        error: false
-    });
-
+  
     const list = useSelector((state: State) => state.cart.items);
 
     const styles = (theme: any) => ({
@@ -73,20 +74,20 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
     });
 
     const onSubmit = async () => {
+        
+        const badRequest = () => {
+            handleSnackBar({success: false, error: true});
+            return;
+        }
 
         try {
             await yupSchema.validate(form, {abortEarly: false});
         }
         catch (err) {
             changeErrors(formatYupError(err) as any);
-            handleSnackBar({success: false, error: true});
-            return;
+            return badRequest();
         }
 
-        const badRequest = () => {
-            handleSnackBar({success: false, error: true});
-            return;
-        }
         
         list.forEach(async (x) => {
             const res = await fetchPost('http://localhost:10025/api/v1/phones/status', {phoneId: x.id,status: 1});
@@ -103,14 +104,16 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
                 return badRequest();
             }
             else {
-                let email = await userEmail.text();
-                const sendPhoneSoldEmail = await fetchPost('http://localhost:10025/api/v1/email/itemsold', {
+                const email = await userEmail.text();
+                const sendPhoneSoldEmail = await fetchPost('http://localhost:10025/api/v1/email/sold', {
                     name: x.name, type: "phone", email, buyerId: userId
                 })
                 if (!sendPhoneSoldEmail){
                     return badRequest();
                 }
             }
+
+            dispatch(clearCart());
         })
 
         handleSnackBar({success: true, error: false});
@@ -145,16 +148,47 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
             formatting={true} 
             >
             
-            <form>
-                <input placeholder="Full name" type="text" name="CCname" className="check-input" 
-                onChange={e => changeForm({...form,name: e.target.value})}/>
-                <input placeholder="Card number" type="text" name="CCnumber" className="check-input"
-                onChange={e => changeForm({...form,number: e.target.value})}/>
-                <input placeholder="MM/YYYY" type="text" name="CCexpiry" className="check-input"
-                onChange={e => changeForm({...form,expiry: e.target.value})}/>
-                <input placeholder="CVC" type="text" name="CCcvc" className="check-input"
-                onChange={e => changeForm({...form,cvc: e.target.value})}/>
-            </form>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <div>
+                    <TextField placeholder="Full name" type="text" name="CCname" className="check-input" style={{margin: 5}}
+                    onChange={e => changeForm({...form,name: e.target.value})}
+                    InputProps={{
+                    className: errors.filter((x: any) => x.path === 'name').length > 0 ? "check-imput-error" : "check-imput",
+                    disableUnderline: true
+                    }}/>
+                    <br/>
+                    <YupError errors={errors} path="name"/>
+
+                    <TextField placeholder="Card number" type="text" name="CCnumber"  className="check-input"  style={{margin: 5}}
+                    onChange={e => changeForm({...form,number: e.target.value})}
+                    InputProps={{
+                    className: errors.filter((x: any) => x.path === 'number').length > 0 ? "check-imput-error" : "check-imput",
+                    disableUnderline: true
+                    }}/>
+                    <br/>
+                    <YupError errors={errors} path="number"/>
+                </div>
+                <div>
+                    <TextField placeholder="MM/YYYY" type="text" name="CCexpiry"  className="check-input" style={{margin: 5}}
+                    onChange={e => changeForm({...form,expiry: e.target.value})}
+                    InputProps={{
+                    className: errors.filter((x: any) => x.path === 'expiry').length > 0 ? "check-imput-error" : "check-imput",
+                    disableUnderline: true
+                    }}/>
+                    <br/>
+                    <YupError errors={errors} path="expiry"/>
+
+                    <TextField placeholder="CVC" type="text" name="CCcvc" className="check-input" style={{margin: 5}}
+                    onChange={e => changeForm({...form,cvc: e.target.value})}
+                    InputProps={{
+                    className: errors.filter((x: any) => x.path === 'cvc').length > 0 ? "check-imput-error" : "check-imput",
+                    disableUnderline: true
+                    }}/>
+                    <br/>
+                    <YupError errors={errors} path="expiry"/>
+                </div>
+ 
+            </div>
             
             </CardReactFormContainer>
             <div id="card-wrapper" style={{margin: 10}}></div>
@@ -164,10 +198,6 @@ const CheckOutForm = ({open, handleOpen} : {open: boolean,handleOpen: (value: bo
                     onClick={() => onSubmit()}>Submit</Button>
             </DialogActions>
         </Dialog>
-        
-        <SnackBarSuccess snackBarOpen={snackBar.success}
-         changeSnackBarOpen={() => handleSnackBar({success: false, error: false})}
-          message="Successful purchase the items !"/>
 
         <SnackBarFailed snackBarOpen={snackBar.error}
          changeSnackBarOpen={() => handleSnackBar({success: false, error: false})}

@@ -8,7 +8,7 @@ import { State } from '../../redux/reduxTypes';
 import ColoredLine from '../../constants/ColoredLine';
 import { blue, green } from '../../constants/CustomColors';
 
-const PriceDetails = () => {
+const PriceDetails = ({snackBar,handleSnackBar} : {snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void}) => {
 
   const list = useSelector((state: State) => state.cart.items);
   const [checkoutOpen, changeCheckoutOpen] = React.useState(false);
@@ -25,16 +25,18 @@ const PriceDetails = () => {
             Price ({list.length} {list.length == 1 ? "item" : "items"}): <span style={{marginLeft: '15px'}}>{totalPrice + "$"}</span>
           </Typography>
           <Typography variant="subtitle2" style={{marginBottom: '10px'}}>
-              Delivery Charges: <span style={{color: green, marginLeft: '15px'}}>Free</span>
+              Tax Costs: <span style={{color: blue, marginLeft: '15px'}}>{list.length * 4.99}$</span>
           </Typography>
           <ColoredLine color="#eee" height="2px" />
           <Typography variant="subtitle2" style={{marginTop: '10px'}}>
-            <strong>Amount to Pay {totalPrice + "$"}</strong>
+            <strong>Amount to Pay: <span style={{color: blue}}>{(totalPrice + list.length * 4.99) + "$"}</span></strong>
           </Typography>
           <Button style={{color: '#fff', backgroundColor: blue, padding: '10px', marginTop: '15px'}}
           onClick={() => changeCheckoutOpen(true)}>Proceed To Checkout</Button>
         </div>
-        <CheckOutForm open={checkoutOpen} handleOpen={(value: boolean) => changeCheckoutOpen(value)}/>
+        <CheckOutForm open={checkoutOpen} handleOpen={(value: boolean) => changeCheckoutOpen(value)}
+          snackBar={snackBar} handleSnackBar={(value: {error: boolean, success: boolean}) => handleSnackBar(value)}
+        />
     </Grid>
   )
 }
