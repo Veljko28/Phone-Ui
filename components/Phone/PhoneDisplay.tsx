@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Rating from '@material-ui/lab/Rating';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -14,21 +14,25 @@ import CategoryIcon from '@material-ui/icons/Category';
 import HistoryIcon from '@material-ui/icons/History';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 
 import Bid from "../models/Bid";
 import Phone from "../models/Phone";
 import BidHistory from "./BidHistory";
 import BidHistoryModel from "../models/BidHistory";
+
+import { timeLeft } from '../../constants/formatDate';
 import ImageMapper from "../../constants/ImageMapper";
 import PopUpDialog from "../../constants/PopUpDialog";
 import { fetchPost } from "../../constants/CustomFetching";
-import { addToCart } from "../../redux/actions/cartActions";
-import { changePhoneCategory } from "../../redux/actions/phonesActions";
-import { timeLeft } from '../../constants/formatDate';
-import PhoneDisplaySkeleton from '../Skeletons/PhoneDisplaySkeleton';
 import { blue, dark_gray, white } from '../../constants/CustomColors';
-import { BluetoothAudioRounded } from '@material-ui/icons';
+
+import { State } from '../../redux/reduxTypes';
+import { changePhoneCategory } from "../../redux/actions/phonesActions";
+import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
+
+import PhoneDisplaySkeleton from '../Skeletons/PhoneDisplaySkeleton';
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -56,6 +60,9 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
       changeLoading(false);
     }
   },[images, phone?.price]);
+
+  const items = useSelector((state: State) => state.cart.items);
+  const inCart = items.filter(y => y.id == id).length === 1;
 
   const [currentImage,changeCurrentImage] = React.useState('');
   const [dialogOpen,changeDialogOpen] = React.useState(false);
@@ -156,11 +163,18 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
                 style={{backgroundColor:  blue, color: white, padding: '15px', marginTop: '10px'}}>
                 <EditIcon style={{fontSize: '20px', marginRight: '5px'}}/> EDIT PHONE</Button>
               </>
-          ) : (<> 
+          ) : inCart ? (
+            <Button variant="contained" 
+            style={{backgroundColor: blue, color: white, padding: '15px', marginTop: '10px'}} onClick={() => dispatch(removeFromCart(id as string))}>
+              <RemoveShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> REMOVE FROM CART</Button>
+            )
+            :
+            (<> 
           <Button variant="contained" 
           onClick={currentUserId !== null ? () => dispatch(addToCart(phone as Phone)) : () => router.push('/login')}
           style={{backgroundColor: blue, color: white, padding: '15px', marginTop: '10px'}}>
-            <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> ADD TO CART</Button>
+              <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> Add To Cart
+          </Button>
           </>)}
 
 
