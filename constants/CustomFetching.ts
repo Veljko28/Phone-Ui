@@ -182,6 +182,14 @@ export const fetchGet: (url:string) => any = async (url: string) => {
       })
       .catch(err => console.log('failed to fetch'));
 
+    let success = false;
+
+    if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
+
+    if (success){
+      return fetchGet(url);
+    }   
+
   return res;
 }
 
