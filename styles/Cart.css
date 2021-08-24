@@ -8,14 +8,14 @@
 .cart-table {
   margin: 25px;
   border: 1px solid #999;
+  width: 100%;
 }
 
 .cart-table thead {
   background-color: #eee;
   border: 1px solid #999;
   font-size: 12px;
-  padding: 15px;
-  text-align: center;
+  padding: 10px;
 }
 
 .cart-table thead td {
@@ -100,7 +100,12 @@
   background-color: #eee;
   color: #000;
   margin: 10px;
-  padding: 10px;
   border: none;
+}
+
+.check-imput-error {
+  background-color: #eee;
+  color: #000;
+  border: 1px solid red;
 }
 
