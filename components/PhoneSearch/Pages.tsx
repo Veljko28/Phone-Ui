@@ -7,78 +7,44 @@ import { blue, white } from '../../constants/CustomColors';
 
 const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOfPages: number}) => {
     
-    let first = false;
     const intPageId = parseInt(pageId);
 
-    if (intPageId == 1) {
-        first = true;
-    }
-
-    const list = [
-        {
-            id: intPageId-1,
-            title: (intPageId-1).toString()
-        },
-        {
-            id: intPageId,
-            title: pageId
-        },
-        {
-             id: intPageId+1,
-            title: (intPageId+1).toString()
-        },
-         {
-            id: intPageId+1,
-            title: 'Next'
-        },
-    ]
-
-    if (numOfPages !== 1) 
-        list.unshift( {
-            id: intPageId-1,
-            title: 'Prev'
-        });
-
-     const firstList = [
-        {
-            id: intPageId,
-            title: pageId
-        },
-        {
-             id: intPageId+1,
-            title: (intPageId+1).toString()
-        },
-        {
-             id: intPageId+2,
-            title: (intPageId+2).toString()
-        },
-        {
-            id: intPageId+1,
-            title: 'Next'
-        },
-    ]
-
-     if (numOfPages !== 1) 
-        firstList.unshift( {
-            id: intPageId-1,
-            title: 'Prev'
-        });
-    
-    const PageButton = ({id, title} : {id: number, title: string}) => {
-        if (id > numOfPages) return;
+    const PageButton = ({id} : {id: number}) => {
         return (
             <Link key={Math.random() % 100} href={bid === true ? `/bids/${id}` : `/phones/${id}`}>
                     <Button variant="contained" 
                     style={{backgroundColor: id == intPageId ? '#0a85ae' : blue, color: white, margin: '5px'}}>
-                        {title}
+                        {id}
                     </Button>
             </Link>
         )
     }
 
+    const PrevButton = () => {
+        return (<Link key={Math.random() % 100} href={bid === true ? `/bids/${intPageId-1}` : `/phones/${intPageId-1}`}>
+                    <Button variant="contained" 
+                    style={{backgroundColor: blue, color: white, margin: '5px'}}>
+                        Prev
+                    </Button>
+            </Link>)
+    }
+
+     const NextButton = () => {
+        return (<Link key={Math.random() % 100} href={bid === true ? `/bids/${intPageId+1}` : `/phones/${intPageId+1}`}>
+                    <Button variant="contained" 
+                    style={{backgroundColor: blue, color: white, margin: '5px'}}>
+                        Next
+                    </Button>
+            </Link>)
+    }
+
     return (
         <div className="page-buttons">
-            {first ? firstList.map(x => PageButton(x)) : list.map(x => PageButton(x))}
+            {intPageId > 1 ? <PrevButton/> : null}
+            {intPageId > 1 ? <PageButton id={intPageId-1}/> : null}
+            <PageButton id={intPageId}/>
+            {intPageId < numOfPages ? <PageButton id={intPageId+1}/> : null}
+            {intPageId !== numOfPages ? <NextButton/> : null}
         </div>
     );
 }
