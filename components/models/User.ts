@@ -5,5 +5,6 @@ export default interface User {
   userName: string,
   description?: string,
   phones_sold: number,
-  phoneNumber: string
+  phoneNumber: string,
+  emailConfirmed?: boolean
 }

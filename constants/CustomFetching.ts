@@ -194,9 +194,14 @@ export const fetchGet: (url:string) => any = async (url: string) => {
 }
 
 
-export const fetchDelete: (url: string) => any = async (url: string) => {
+export const fetchDelete: (url: string, payload?: any) => any = async (url: string, payload?: any) => {
   
     let jwt: string | null = "";
+    let str: string | null = null;
+
+    if (payload) {
+      str = JSON.stringify(payload);
+    }
 
     if (typeof window !== 'undefined') {
       jwt = localStorage.getItem('jwt');
@@ -209,6 +214,7 @@ export const fetchDelete: (url: string) => any = async (url: string) => {
         'Authorization': `Bearer ${jwt}`
       },
       method: 'DELETE',
+      body: str
     }).catch((error) => {
       console.log(error);
     })
@@ -218,7 +224,7 @@ export const fetchDelete: (url: string) => any = async (url: string) => {
     if (res?.statusText === 'Unauthorized') success = await unauthorizedCheck();
 
     if (success){
-      return fetchDelete(url);
+      return fetchDelete(url, payload);
     }
 
     return res;

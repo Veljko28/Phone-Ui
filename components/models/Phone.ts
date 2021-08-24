@@ -11,4 +11,6 @@ export default interface Phone {
   category?: string,
   brand?: string,
   seller?: string
+  inCart?: boolean,
+  inWishList?: string[]
 }
