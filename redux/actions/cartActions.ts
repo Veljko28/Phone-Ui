@@ -11,7 +11,7 @@ export const addToCart = ( payload: Phone) => ({
 });
 
 
-export const removeFromCart = (payload: Phone) => ({
+export const removeFromCart = (payload: string) => ({
   type: REMOVE_FROM_CART,
   payload
 })
