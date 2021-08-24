@@ -2,10 +2,14 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+import { v4 } from 'uuid';
+import EmailIcon from '@material-ui/icons/Email';
 import { Grid, Typography, Button } from '@material-ui/core';
+
 import {blue, dark_gray, white} from '../../constants/CustomColors';
-import NotFound from '../../components/NotFound';
 import { fetchGet, fetchPost } from '../../constants/CustomFetching';
+
 
 const ConfirmEmail = () => {
 
@@ -13,26 +17,27 @@ const ConfirmEmail = () => {
 
   const id = router.query['id'];
   const [valid, changeValid] = React.useState<boolean | null>(null);
+  const [alreadyConfirmed, changeAlreadyConfirmed] = React.useState<boolean>(false);
   let confirmEmailId: string | null = "";
   let userId: string | null = "";
 
 
   if (typeof window !== 'undefined'){
     confirmEmailId = localStorage.getItem('confirmEmailId');
+    console.log(confirmEmailId);
     userId = localStorage.getItem('userId');
-    if (confirmEmailId == null || userId == null) {
-      changeValid(false);
-    }
   }
 
   React.useEffect(() => {
     const func = async () => {
-      if (id != confirmEmailId) changeValid(false);
+      if (id != confirmEmailId) {
+        changeValid(false);
+        return;
+      }
       const res = await fetchGet(`http://localhost:10025/api/v1/generic/confirmemail/${userId}`);
 
       if (res.ok){
         changeValid(true);
-
         // removing notification for confirming email
         await fetchPost('http://localhost:10025/api/v1/notifications/remove', {
           userId,
@@ -40,28 +45,74 @@ const ConfirmEmail = () => {
           name: "",
           message: ""
         })
+        return;
       }
-      else changeValid(false);
-
+      else if (res.status === 400){
+        changeAlreadyConfirmed(true);
+        return;
+       }
+      else {
+        changeValid(false);
+        return;
+      }
     }
 
-    if (id && confirmEmailId && userId) func();
+    if (id && userId) func();
   }, [id]) 
+
+    const sendNewEmail = async () => {
+
+       const res = await fetchGet(`http://localhost:10025/api/v1/users/${userId}`);
+
+       if (res.ok){
+          const user = await res.json();
+          confirmEmailId = v4();
+          const resend = await fetchPost('http://localhost:10025/api/v1/email/confirm', {email: user.email, confirmEmailId});
+
+          if (resend.ok){
+            localStorage.setItem('confirmEmailId', confirmEmailId);
+          }
+       }
+
+    }
 
   return valid ? (
     <Grid container 
     style={{display: 'flex', flexDirection: 'column', 
     alignItems: 'center',justifyContent: 'center',
     backgroundColor: white, minHeight: 650}}>
-      <Image src="/logo.png" width="180px" height="50px"/>
-      <Typography variant="h5" style={{color: blue, marginTop: 20}}>Successfully confirmed your email address !</Typography>
-      <Typography variant="subtitle2" style={{color: dark_gray, marginTop: 10, marginBottom: 20, textAlign: 'center'}}>
+      <Image src="/email-verified.png" width="250px" height="250px"/>
+      <Typography variant="h4" style={{color: blue, marginTop: 20}}>Successfully confirmed your email address !</Typography>
+      <Typography variant="subtitle1" style={{color: dark_gray, marginTop: 10, marginBottom: 20, textAlign: 'center'}}>
         Thank you for confirming your email. <br/>Now you can start selling, buying and biding on phones</Typography>
       <Link href="/">
-        <Button variant="contained" style={{backgroundColor: blue, color: white, padding: 10}}>Back to Home</Button>
+        <Button variant="contained" style={{backgroundColor: blue, color: white, padding: 20, width: 175, fontSize: 15}}>Back to Home</Button>
       </Link>
     </Grid>
-  ) : <NotFound/>
+  ) : alreadyConfirmed ? (
+     <Grid container style={{display: 'flex', flexDirection: 'column', 
+    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: white, minHeight: 650}}>
+      <EmailIcon style={{fontSize: 200, color: blue}}/>
+      <Typography variant="h4" style={{color: blue}}>You have already confirmed your email</Typography>
+      <Typography variant="h6" style={{color: dark_gray, marginTop: 10, marginBottom: 20, textAlign: 'center'}}>
+        This account's email has already been confirmed.<br/> 
+        Continue to home page</Typography>
+       <Button variant="contained" style={{backgroundColor: blue, color: white, padding: 20, width: 175, fontSize: 15}}
+      >Back to Home</Button>
+    </Grid>
+  ) : (
+    <Grid container style={{display: 'flex', flexDirection: 'column', 
+    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: white, minHeight: 650}}>
+      <Typography variant="h3" style={{color: blue}}>This Link has Expired</Typography>
+      <Typography variant="h5" style={{color: dark_gray, marginTop: 10, marginBottom: 20, textAlign: 'center'}}>
+        This link has either expired or is invalid. <br/> 
+        Click the button below and recieve a new link to confirm your email</Typography>
+      <Button variant="contained" style={{backgroundColor: blue, color: white, padding: 20, width: 175, fontSize: 15}}
+      onClick={() => sendNewEmail()}>Resend Email</Button>
+    </Grid>
+  )
 }
 
 export default ConfirmEmail
