@@ -13,22 +13,32 @@ import { fetchGet } from '../../constants/CustomFetching';
 
 import { State } from '../../redux/reduxTypes';
 import { changeBidCategory } from '../../redux/actions/phonesActions';
+import NotFound from '../../components/NotFound';
 
 const bids = () => {
 
   const router = useRouter()
   const id = router.query['id'];
   const [list,changeList] = React.useState([]);
+  const [numOfPages, changeNumOfPages] = React.useState(1);
+
   const options = useSelector((state: State) => state.phones.bidOptions);
 
   React.useEffect(() => {
      const func = async () => {
         const res = await fetchGet(`http://localhost:10025/api/v1/bids/page/${id}`);
         const json = await res.json();
-        changeList(json);
+        
+         if (id == '1'){
+          changeList(json.phones);
+          changeNumOfPages(json.numOfPages);
+        }
+        else {
+          changeList(json);
+        }
      };
 
-     func();
+     if (id && parseInt(id as string) <= numOfPages) func();
   },[id]);
 
    const categoryList = list.filter((x: Phone) => {
@@ -70,7 +80,7 @@ const bids = () => {
 
    const dispatch = useDispatch();
 
-    return ( 
+    return parseInt(id as string) > numOfPages ? <NotFound/> : ( 
         <Grid container>
             <TitleChange title={`MobiStore - Bids Page ${id}`} />
            
@@ -82,7 +92,7 @@ const bids = () => {
             </Grid> 
             <Grid item xs={12} md={9}>
                 <PhoneList bids={true} list={categoryList}/>
-                <Pages pageId={id} bid={true}/>
+                <Pages pageId={id as string} bid={true} numOfPages={numOfPages}/>
             </Grid> 
         </Grid>
     )

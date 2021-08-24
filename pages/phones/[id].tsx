@@ -13,6 +13,7 @@ import { fetchGet } from '../../constants/CustomFetching';
 import { State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePhoneCategory } from '../../redux/actions/phonesActions';
+import NotFound from '../../components/NotFound';
 
 const phones = () => {
 
@@ -27,14 +28,19 @@ const phones = () => {
       const func = async () => {
         const res = await fetchGet(`http://localhost:10025/api/v1/phones/page/${id}`);
         const json = await res.json();
-        changeList(json.phones);
-        changeNumOfPages(json.numOfPages);
+        if (id == '1'){
+          changeList(json.phones);
+          changeNumOfPages(json.numOfPages);
+        }
+        else {
+          changeList(json);
+        }
       }
       
-      if (id) func();
+      if (id && parseInt(id as string) <= numOfPages) func();
     },[id])
     
-    const categoryList = list.filter((x: Phone) => {
+    const categoryList = list?.filter((x: Phone) => {
       if (options.category !== "All Phones") return x.category?.toLowerCase() === options.category.toLowerCase();
       return true;
     }).filter((x: Phone) => {
@@ -73,7 +79,7 @@ const phones = () => {
 
    const dispatch = useDispatch();
 
-    return ( 
+    return parseInt(id as string) > numOfPages ? <NotFound/> : ( 
         <Grid container>
           <TitleChange title={`MobiStore - Phones Page ${id}`} />
             <Grid item xs={12} md={3}>
