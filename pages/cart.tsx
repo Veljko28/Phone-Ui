@@ -10,6 +10,7 @@ import TitleChange from '../constants/TitleChange';
 import { useSelector } from 'react-redux';
 import { State } from '../redux/reduxTypes';
 import NotLoggedIn from '../constants/NotLoggedIn';
+import PurchaseSuccessful from '../components/Cart/PurchaseSuccessful';
 
 
 const cart = () => {
@@ -22,36 +23,13 @@ const cart = () => {
       jwt = localStorage.getItem('jwt');
     }
 
-
-  // return (
-  //   <>
-  //   <TitleChange title="MobiStore - Cart" />
-  //    {empty ? <EmptyCart/> : (
-       
-  //      <Grid container>
-
-  //      <Grid md={1} lg={2} item/>
-
-  //      <Grid xs={12} md={10} lg={8} item container> 
-
-  //        <Grid md={7} xs={12}item>
-  //          <ItemsInCart />
-  //        </Grid>
-
-  //        <Grid md={5} xs={12} item>
-  //          <PriceDetails />
-  //          <CouponTab />
-  //        </Grid>
-  //      </Grid>
-
-  //      <Grid md={1}  lg={2} item/>
-  //    </Grid>
-  //   )}
-  //   </>
-  // )
+    const [snackBar,handleSnackBar] = React.useState({
+        success: false,
+        error: false
+    });
 
 
-  return (jwt === null ? <NotLoggedIn/> : (
+  return (jwt === null ? <NotLoggedIn/> : snackBar.success ? <PurchaseSuccessful/> : (
     <>
      <TitleChange title="MobiStore - Cart" />
       {empty ? <EmptyCart/> : (
@@ -67,7 +45,7 @@ const cart = () => {
           </Grid>
 
           <Grid md={5} xs={12} item>
-            <PriceDetails />
+            <PriceDetails snackBar={snackBar} handleSnackBar={(value: {error: boolean, success: boolean}) => handleSnackBar(value)}/>
             <CouponTab />
           </Grid>
         </Grid>

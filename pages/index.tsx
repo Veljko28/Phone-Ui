@@ -18,7 +18,7 @@ export default function Home() {
 
   React.useEffect(() => {
     const func = async () => {
-      const res = await fetchGet('http://localhost:10025/api/v1/phones/featured');
+      const res = await fetchGet('http://localhost:10025/api/v1/phones/featured/1');
 
       const json = await (res as Response).json();
 
@@ -33,7 +33,7 @@ export default function Home() {
   },[]);
 
   return (
-    <Grid container justify="center">
+    <Grid container justifyContent="center">
 
           <TitleChange title="MobiStore - Online Mobile Store" />
           
