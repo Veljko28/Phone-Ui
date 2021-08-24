@@ -6,7 +6,8 @@ import { Grid, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { fetchGet } from '../../constants/CustomFetching';
 import Loading from '../../components/Loading';
-import { blue, dark_gray, white, red } from '../../constants/CustomColors';
+import { blue, dark_gray, white } from '../../constants/CustomColors';
+import SearchSkeleton from '../../components/Skeletons/SearchSkeleton';
 
 
 const search = () => {
@@ -34,7 +35,7 @@ const search = () => {
         }
         else console.log('error');
 
-        changeLoading(false);
+        // changeLoading(false);
       }
 
       func();
@@ -76,7 +77,7 @@ const search = () => {
       {id: number, userName: string, description: string, phones_sold: string}) => {
         return (
             <Link href={`/user/${id.toString()}`} key={id}>
-              <Grid container style={{width: '80%'}}>
+              <Grid container className="curs-hver" style={{width: '80%'}}>
                     <Grid xs={12} md={4} item className="review-grid-item">
                       <div className="curs-hvr">
                         <img src='/user.png' width="100px" height="100px" />
@@ -106,9 +107,14 @@ const search = () => {
 
   return (
     <>
-      {data.phones.length === 0 && data.bids.length === 0 && data.users.length === 0 ? loading ?
-       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 614, backgroundColor: white}}>
-            <Loading size={60}/>
+      {
+      data.phones.length === 0 && data.bids.length === 0 && data.users.length === 0 ? 
+      loading ?
+       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',paddingBottom: 150 , backgroundColor: white}}>
+            <Typography variant="h6" style={{color: blue, marginTop: 15}}>Results for {id}</Typography>
+            <SearchSkeleton/>
+            <SearchSkeleton/>
+            <SearchSkeleton/>
       </div>
             :
             (
@@ -123,11 +129,11 @@ const search = () => {
          </Link>
        </div>
        ): (
-        <div style={{paddingBottom: 150, backgroundColor: white,display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 600}}>
+        <div style={{paddingBottom: 150, backgroundColor: white,display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 650}}>
         <Typography variant="h6" style={{color: blue, marginTop: 15}}>Results for {id}</Typography>
-        {data.phones.slice(0,4).map(x => ListingMap({phone: x, type: "Listing"}))}
-        {data.bids.slice(0,4).map(x => ListingMap({phone: x, type: "Bid"}))}
-        {data.users.slice(0,4).map(x => UserMap(x))}
+        {data.phones.map(x => ListingMap({phone: x, type: "Listing"}))}
+        {data.bids.map(x => ListingMap({phone: x, type: "Bid"}))}
+        {data.users.map(x => UserMap(x))}
         </div>)}
      
     </>
