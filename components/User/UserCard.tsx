@@ -10,12 +10,12 @@ import UserContact from './UserContact';
 import EditProfileForm from './EditProfileForm';
 import UserSearchSkeleton from '../Skeletons/UserSearchSkeleton';
 import UserCardSkeleton from '../Skeletons/UserCardSkeleton';
-import User from '../models/User';
 import { blue, dark_gray, white } from '../../constants/CustomColors';
 
 
 
-const UserCard = (props: {email: string, id: string, phoneNumber: string, search?: boolean, name: string, rating: number, desc: string}) => {
+const UserCard = (props: {email: string, id: string, phoneNumber: string, search?: boolean, name: string, rating: number, desc: string,
+phones_sold: string, selling_phones: string}) => {
 
   let currentUser: string | null = null;
   
@@ -52,7 +52,7 @@ const UserCard = (props: {email: string, id: string, phoneNumber: string, search
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Phones Sold: <span style={{color: blue}}>226</span>
+                 Phones Sold: <span style={{color: blue}}>{props.phones_sold}</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
               </Typography>
               <Button variant="contained" 
@@ -77,11 +77,11 @@ const UserCard = (props: {email: string, id: string, phoneNumber: string, search
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
               <Typography variant="subtitle1">
-                 Phones Sold: <span style={{color: blue}}>226</span>
+                 Phones Sold: <span style={{color: blue}}>{props.phones_sold}</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Currently Selling: <span style={{color: blue}}>3</span>
+                 Currently Selling: <span style={{color: blue}}>{props.selling_phones}</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
               </Typography>
               {props.id === currentUser ? (
