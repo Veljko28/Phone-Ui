@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { Grid, Typography, TextField, InputAdornment, Button, 
-        Dialog, DialogActions, DialogContent, withStyles, IconButton} from '@material-ui/core';
+        Dialog, DialogActions, DialogContent, withStyles, IconButton, Tooltip} from '@material-ui/core';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
 
@@ -25,7 +25,8 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
         userName: "",
         email: "",
         description: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        emailConfirmed: false
     });
 
     React.useEffect(() => {
@@ -33,13 +34,17 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
          const res = await fetchGet(`http://localhost:10025/api/v1/users/${id}`);
          if (res.ok){
            const json = await res.json();
-           const newForm = {userName: json.userName, email: json.email, description: json.description, phoneNumber: json.phoneNumber};
+           const newForm = {userName: json.userName, email: json.email, description: json.description, phoneNumber: json.phoneNumber, 
+            emailConfirmed: json.emailConfirmed
+        };
            changeForm(newForm);
          }
       };
 
       if (id) func();
     },[id])
+
+    console.log(form);
 
     const yupSchema = yup.object().shape({
         email: yup.string().min(5).max(150),
@@ -106,7 +111,10 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
                   <Grid container style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: white}}>
                     <Grid xs={12} item container>
                        <Grid xs={6} item>
-                                <TextField placeholder="Email" value={form.email} 
+                      <Tooltip 
+                      placement="bottom"
+                      title={form.emailConfirmed ? "Cannot change an email that's already been confirmed" : "Change your email"}>
+                        <TextField placeholder="Email" value={form.email} disabled={form.emailConfirmed}
                             onChange={e => changeForm({...form,email: e.target.value})}
                             InputProps={{
                                 className: errors.filter((x: any) => x.path === 'email').length > 0 ? "login-imput-error" : "login-imput",
@@ -115,8 +123,9 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
                                     <MailIcon style={{fontSize: '15px', color: '#656'}}/>
                                 </InputAdornment>
                                 ),
-                                disableUnderline: true
+                                disableUnderline: true,
                             }}/>
+                        </Tooltip>
                             <div>
                                 <YupError errors={errors} path="email" fontSize={8}/>
                             </div>
