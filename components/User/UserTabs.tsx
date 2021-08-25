@@ -22,7 +22,7 @@ const UserTabs = ({id} : {id: string}) => {
 
   return (
     <div style={{margin: '5px'}}>
-      <Button  disableRipple
+      <Button  disableRipple 
       style={selected === 'Listings' ? selectedStyle : normalStyle}
       onClick={() => {
         changeSelected('Listings');
@@ -43,7 +43,7 @@ const UserTabs = ({id} : {id: string}) => {
         >Wish List</Button>
       ) : ""}
 
-      {selected === 'Listings' ? <UserListings id={id}/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList id={id} />}
+      {selected === 'Listings' ? <UserListings id={id} ownProfile={id === userId}/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList id={id} />}
     </div>
   )
 }
