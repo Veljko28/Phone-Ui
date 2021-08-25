@@ -8,7 +8,7 @@ import { blue, dark_gray, green, white } from '../../constants/CustomColors';
 
 const PurchaseSuccessful = () => {
   return (
-    <Grid style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: white, textAlign: 'center', minHeight: 620, paddingTop: 40 }}>
+    <Grid style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: white, textAlign: 'center', minHeight: 620, paddingTop: 100 }}>
         <CheckCircleIcon style={{fontSize: 150, color: green}}/>
         <Typography variant="h4" style={{color: green}}>Your purchase was successful!</Typography>
         <Typography variant="subtitle1" style={{color: dark_gray}}>Please wait for the seller to contact you about the shipping

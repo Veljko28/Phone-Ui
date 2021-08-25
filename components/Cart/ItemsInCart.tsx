@@ -17,8 +17,6 @@ const ItemsInCart = () => {
   const list = useSelector((state: State) => state.cart.items);
   const dispatch = useDispatch();
 
-  console.log(list);
-
   return (
     <>
     <Grid container className="item-cart">

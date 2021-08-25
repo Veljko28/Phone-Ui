@@ -89,6 +89,7 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
         }
 
         
+        dispatch(clearCart());
         list.forEach(async (x) => {
             const res = await fetchPost('http://localhost:10025/api/v1/phones/status', {phoneId: x.id,status: 1});
             if (!res.ok){
@@ -106,16 +107,17 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
             else {
                 const email = await userEmail.text();
                 const sendPhoneSoldEmail = await fetchPost('http://localhost:10025/api/v1/email/sold', {
-                    name: x.name, type: "phone", email, buyerId: userId
+                    name: x.name, type: "phone", email, buyerId: userId, sellerId: x.seller
                 })
                 if (!sendPhoneSoldEmail){
                     return badRequest();
                 }
             }
-
-            dispatch(clearCart());
         })
-
+        
+        const purhcaseList = list.map(x => ({phoneId: x.id, sellerId: x.seller, buyerId: userId}));
+        await fetchPost('http://localhost:10025/api/v1/purchase/add', purhcaseList);
+       
         handleSnackBar({success: true, error: false});
         handleOpen(false);
         // const res = await fetchPost('http://localhost:10025/api/v1/generic/checkout', form);
