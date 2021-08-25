@@ -72,8 +72,8 @@ cannot bid on own bid ✅
 cannot buy own phone ✅
 on product delete / delete from user wish list  ✅
 date formating function ✅
-phone max page
-management max page
+phone max page ✅
+management max page ✅
 remove buy from card if phone owner ✅
 clear cart on logout ✅
 other users cant see your wish list ✅
@@ -82,25 +82,55 @@ confirm email front end ✅
 email notifications ✅
 notifications button ✅
 notification pop-up ✅
-phones sold api config
+phones sold api config ✅
 rating api config
 related product fix - same product ✅
 fix phone display on smaller screens
 already logged in for login and register ✅
-folder with images of all the pages
 send notifications on phone sold and change phone status ✅
 change static colors to custom color class ✅
 adjustments for dark mode
 notification api config ✅
 on register add notification for confirm email ✅
-checkout form yup errors
-confirm email expired / re-send
-no items in wish list 
-no notifications
+checkout form yup errors ✅
+confirm email expired / re-send ✅
+no items in wish list ✅
+no notifications ✅
+confirm email failed design ✅ 
+already confirmed ✅
+bid page numbering ✅
+bid max page ✅ 
+cannot buy two of the same phones ✅
+cart adjust to one phone buying ✅ 
+no listings ✅
+listings skeleton ✅
+search skeleton ✅
+successful checkout ✅
+fix page buttons ✅
+change email / email confirmed ✅
+remove from wish list phone card ✅
+wish list phone list update on click ✅
+bid wish list config ✅ 
+remove from wish list profile ✅
+remove from shopping cart buttons ✅
+phone favorited times on display ✅
+fix bid pagination on management ✅
 
 sold phone display design ✅
-links to buyer on phone sold
-purchase api config 
+purchase api config  ✅
+management purchased phones ✅
+purchased phones pagination ✅
+seller info phones sold ✅
+
+
+links to buyer on phone sold notification
+fix help bar and language 
+placed bids api
+place bids management
+place bids bought and notifications
+placed bids email
+review tab appears if you've bought the phone
+order by price stored procedures for desc and asc sorts
 
 language translations (react-i18next)
 language icon fix ✅
@@ -120,3 +150,6 @@ contact api config ✅
 jwt store ✅
 phone display api ✅
 add phone / bid page ✅
+
+folder with images of all the pages
+

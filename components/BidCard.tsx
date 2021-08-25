@@ -1,35 +1,53 @@
 import React from 'react'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {Grid, Typography, IconButton} from '@material-ui/core';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-import { fetchPost } from '../constants/CustomFetching';
+
+import { fetchDelete, fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 import { timeLeft } from '../constants/formatDate';
-import { blue } from '../constants/CustomColors';
+import { blue, red, white } from '../constants/CustomColors';
 
 
-export const BidCard = (props: {image: string, name: string, price: string, date_ends: Date, id: string}) => {
+export const BidCard = (props: {image: string, name: string, price: string, date_ends: Date, id: string, 
+  inWishList: string[],getWishListItems: () => Promise<void> }) => {
 
   let time = timeLeft(props.date_ends);
+  const router = useRouter();
 
-   const [snackBar, changeSnackBar] = React.useState({
+  const [snackBar, changeSnackBar] = React.useState({
     success: false,
     error: false,
   })
 
+  let userId: string | null = null;
+
+  if (typeof window !== 'undefined'){
+    userId = localStorage.getItem('userId');
+  }
 
   const addToWishList = async () => {
-    const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/add`, {userId: localStorage.getItem('userId'), phoneId: props.id, type: "bid"});
+    const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/add`, {userId, phoneId: props.id, type: "bid"});
 
     if (res.ok) {
+      await props.getWishListItems();
       changeSnackBar({success: true, error: false});
     }
     else changeSnackBar({success: false, error: true}); 
   }
 
+  const removeFromWishList = async () => {
+    const res = await fetchDelete(`http://localhost:10025/api/v1/wishlist/remove`, {userId, phoneId: props.id});
+
+    if (res.ok) {
+      await props.getWishListItems();
+    }
+  }
 
   return (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee',maxHeight: 350}}>
@@ -52,10 +70,15 @@ export const BidCard = (props: {image: string, name: string, price: string, date
         </Link>
 
         <div className="buttonConainer">
-          <IconButton size="small" onClick={() => addToWishList()} style={{backgroundColor: 'red', color: 'white', padding: '5px', margin: '5px'}}>
+          {props.inWishList?.includes(props.id) ? (
+          <IconButton size="small" onClick={userId !== null ? () => removeFromWishList() : () => router.push('/login')}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
             <FavoriteIcon/>
           </IconButton>
-
+          ) : (
+          <IconButton size="small" onClick={userId !== null ? () => addToWishList() : () => router.push('/login')}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
+            <FavoriteBorderIcon/>
+          </IconButton>
+          )}
           <Link href={`/bid/${props.id}`}>
             <IconButton size="small" style={{backgroundColor: '#4d88ff', color: 'white', padding: '5px', margin: '5px', fontSize: '15px'}} >
               <ArrowForwardIosIcon/>

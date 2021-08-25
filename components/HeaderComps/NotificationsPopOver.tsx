@@ -82,11 +82,8 @@ const NotificationsPopOver = ({open, anchorEl, handleClose} :
       <div style={{padding: '15px', width: 350}}>
         <Typography variant="subtitle1" style={{color: blue}}>Your Notifications</Typography>
         <ColoredLine color={blue}/>
-        {list.map(x => ListMap(x))}
-        {/* {ListMap({name: "IPhone 7+", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "bid"})}
-        {ListMap({name: "Redmi Note 7", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "phone"})}
-        {ListMap({name: "", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "email"})}
-        {ListMap({name: "Please Add A Phone Number !", userId: "14b7a203-922d-41ba-921f-b51659e664da", type: "settings", message: "Go to your profile and add your phone number by editing"})} */}
+        {list.length > 0 ? list.map(x => ListMap(x)) : 
+        <Typography variant="h6" style={{color: blue, fontSize: 18, marginTop: 10}}>You currently have no notifications !</Typography>}
       </div>
       </Popover>
   )

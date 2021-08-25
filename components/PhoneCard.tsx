@@ -9,7 +9,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
-import Phone from './models/Phone';
 import PhoneSkeletonCard from './Skeletons/PhoneSkeletonCard';
 
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
@@ -19,7 +18,9 @@ import { blue, primary, red, white } from '../constants/CustomColors';
 import { useRouter } from 'next/router';
 
 
-export const PhoneCard = (props: Phone) => {
+export const PhoneCard = (props: 
+  {name: string, price: string | number, image: string, key: string, seller?: string, id: string, status?: string | number, discount?: string,
+  inCart: boolean, inWishList: string[],getWishListItems: () => Promise<void> }) => {
 
   const router = useRouter();
 
@@ -28,7 +29,6 @@ export const PhoneCard = (props: Phone) => {
     success: false,
     error: false,
   })
-  const [isInWishList, changeIsInWishList] = React.useState(false);
 
   let userId: string | null = null;
 
@@ -36,39 +36,22 @@ export const PhoneCard = (props: Phone) => {
     userId = localStorage.getItem('userId');
   }
 
-  React.useEffect( () => {
-    const func = async () => {
-        const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/contains`, {userId, phoneId: props.id, type: "phone"});
-        if (res.ok){
-          changeIsInWishList(true);
-        }
-    }
-    if (userId) func();
-  }, [userId, isInWishList])
-
   const addToWishList = async () => {
     const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/add`, {userId, phoneId: props.id, type: "phone"});
 
     if (res.ok) {
       changeSnackBar({success: true, error: false});
+      await props.getWishListItems();
     }
     else changeSnackBar({success: false, error: true}); 
   }
 
   const removeFromWishList = async () => {
-    //  const res = await fetchDelete(`http://localhost:10025/api/v1/wishlist/remove`, {userId, phoneId: props.id});
-
-    // if (res.ok) {
-    //   changeIsInWishList(false);
-    // }
+     const res = await fetchDelete(`http://localhost:10025/api/v1/wishlist/remove`, {userId, phoneId: props.id});
+     if (res.ok){
+       await props.getWishListItems();
+     }
   }
-
-  let currentUserId: string | null = null;
-
-  if (typeof window !== 'undefined') {
-    currentUserId = localStorage.getItem('userId');
-  }
-
 
   return ( props.id === undefined ? <PhoneSkeletonCard/> : (
     <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
@@ -96,12 +79,12 @@ export const PhoneCard = (props: Phone) => {
         </Link>
 
         <div className="buttonConainer">
-          {isInWishList ? (
-          <IconButton size="small" onClick={currentUserId !== null ? () => removeFromWishList() : () => router.push('/login')}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
+          {props.inWishList?.includes(props.id) ? (
+          <IconButton size="small" onClick={userId !== null ? () => removeFromWishList() : () => router.push('/login')}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
             <FavoriteIcon/>
           </IconButton>
           ) : (
-          <IconButton size="small" onClick={currentUserId !== null ? () => addToWishList() : () => router.push('/login')}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
+          <IconButton size="small" onClick={userId !== null ? () => addToWishList() : () => router.push('/login')}  style={{backgroundColor: red, color: white, padding: '5px', margin: '5px'}}>
             <FavoriteBorderIcon/>
           </IconButton>
           )}
@@ -109,7 +92,7 @@ export const PhoneCard = (props: Phone) => {
 
 
 
-          {props?.seller === currentUserId ? (
+          {props?.seller === userId ? (
           <Link href={`/phone/${props.id}`}>
             <IconButton size="small" style={{backgroundColor: primary, color: white, padding: '5px', margin: '5px', fontSize: '15px'}} >
               <ArrowForwardIosIcon/>
@@ -118,13 +101,13 @@ export const PhoneCard = (props: Phone) => {
           ) : props.inCart ? 
           (
             <IconButton size="small" style={{backgroundColor: primary, color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
-            onClick={currentUserId !== null ? () => dispatch(removeFromCart(props.id)) : () => router.push('/login')}>
+            onClick={userId !== null ? () => dispatch(removeFromCart(props.id)) : () => router.push('/login')}>
               <RemoveShoppingCartIcon/>
             </IconButton>
           )
           : (
             <IconButton size="small" style={{backgroundColor: primary, color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
-            onClick={currentUserId !== null ? () => dispatch(addToCart(props)) : () => router.push('/login')}>
+            onClick={userId !== null ? () => dispatch(addToCart(props)) : () => router.push('/login')}>
               <ShoppingCartIcon/>
             </IconButton>
           )}
