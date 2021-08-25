@@ -9,6 +9,7 @@ import { Button, Chip, Grid, Typography } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import GradeIcon from '@material-ui/icons/Grade';
 import CategoryIcon from '@material-ui/icons/Category';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 import HistoryIcon from '@material-ui/icons/History';
@@ -25,7 +26,7 @@ import BidHistoryModel from "../models/BidHistory";
 import { timeLeft } from '../../constants/formatDate';
 import ImageMapper from "../../constants/ImageMapper";
 import PopUpDialog from "../../constants/PopUpDialog";
-import { fetchPost } from "../../constants/CustomFetching";
+import { fetchGet, fetchPost } from "../../constants/CustomFetching";
 import { blue, dark_gray, white } from '../../constants/CustomColors';
 
 import { State } from '../../redux/reduxTypes';
@@ -46,6 +47,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
 
   const [bidAmount,changeBidAmount] = React.useState(1);
   const [loading,changeLoading] = React.useState(true);
+  const [numOfFavorites, changeNumOfFavorites] = React.useState("0");
 
   let currentUserId: string | null = null;
 
@@ -53,11 +55,21 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
     currentUserId = localStorage.getItem('userId');
   }
 
+  const getFavoritedTimes = async () => {
+    const res = await fetchGet(`http://localhost:10025/api/v1/wishlist/favorites/${phone?.id}`);
+
+    if (res.ok){
+      const favorites = await res.text();
+      changeNumOfFavorites(favorites);
+    }
+  }
+
   React.useEffect(() => {
     if (images !== undefined) changeCurrentImage(images[0]);
     if (phone !== undefined) {
       changeBidAmount(phone.price as number + 1);
       changeLoading(false);
+      getFavoritedTimes();
     }
   },[images, phone?.price]);
 
@@ -212,7 +224,11 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
               }}
               />
           </div>
-          
+          <div>
+            <FavoriteIcon style={{fontSize: 20, color: blue, marginBottom: 5}}/>
+            <Typography variant="h6" style={{color: blue, display: 'inline-block'}}>Added to wish list:  
+            {numOfFavorites === "1" ? " " + numOfFavorites + " time" : " " + numOfFavorites + " times"}</Typography>
+          </div>
 
       </Grid>
 

@@ -11,7 +11,7 @@ import SellerInfoSkeleton from '../Skeletons/SellerInfoSkeleton';
 import { blue, white } from '../../constants/CustomColors';
 
 
-const SellerInfo = ({user} : {user?: User}) => {
+const SellerInfo = ({user, sellingPhones} : {user?: User,sellingPhones: string}) => {
 
   const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
   const contactOpen = Boolean(contactAnchorEl);
@@ -49,11 +49,11 @@ const SellerInfo = ({user} : {user?: User}) => {
                      style={{fontSize: '16px', margin: '10px', marginTop: '15px'}}/>
                     </Typography>
                     <Typography variant="subtitle1">
-                        Phones Sold: <span style={{color: blue}}>226</span>
+                        Phones Sold: <span style={{color: blue}}>{user?.phones_sold}</span>
                         <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
                     </Typography>
                     <Typography variant="subtitle1">
-                        Currently Selling: <span style={{color: blue}}>27</span>
+                        Currently Selling: <span style={{color: blue}}>{sellingPhones ? sellingPhones :'0'}</span>
                         <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
                     </Typography>
                 </Grid>
