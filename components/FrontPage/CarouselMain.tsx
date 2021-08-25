@@ -1,5 +1,6 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
+import Link from 'next/link';
 import Image from 'next/image';
 
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -27,7 +28,9 @@ const CarouselMain = () => {
           <h3 style={{color: 'black'}}>Red Mi Y1</h3>
           <p style={{color: 'black'}}>LED Selfie-light | Fingerprint sensor 
           <br/> Dedicated microSD card slot Snapdragon 435 octa-core processor</p>
-          <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
+          <Link href="/phones/1">
+            <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
+          </Link>
         </div>
       </Carousel.Caption>
     </Carousel.Item>
@@ -45,7 +48,9 @@ const CarouselMain = () => {
           <h3 style={{color: 'black'}}>Google Pixel 2</h3>
           <p style={{color: 'black'}}>The latest Qualcomm Snapdragon 835 processor 
           <br/> Water-resistant metal unibody | Up to 7 hours of battery.</p>
-          <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
+          <Link href="/phones/1">
+            <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
+          </Link>
         </div>
       </Carousel.Caption>
     </Carousel.Item>
@@ -62,7 +67,9 @@ const CarouselMain = () => {
           <Image src="/slider/apple_logo.png" width="40px" height="40px"/>
           <h3 style={{color: 'black'}}>Iphone 8 Plus</h3>
           <p style={{color: 'black'}}>5.5 inch Retina HD Display | 12MP wide-angle cameras</p>
-          <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
+          <Link href="/phones/1">
+            <Button variant="contained" style={{padding: '20px', backgroundColor: '#ff4a00', color: '#fff'}}>BUY NOW !</Button>
+          </Link>
         </div>
       </Carousel.Caption>
     </Carousel.Item>

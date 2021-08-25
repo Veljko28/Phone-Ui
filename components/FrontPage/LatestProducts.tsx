@@ -5,12 +5,16 @@ import { Grid, Typography } from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
 import PhoneSkeletonCard from '../Skeletons/PhoneSkeletonCard';
 import { blue, gray } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 
 export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]}) => {
 
   const skeletons = [<PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>];
+
+  const list = useSelector((state: State) => state.cart.items);
 
   return (
     <Grid container style={{
@@ -26,7 +30,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
       ) : ""}
       {phones?.map(x => (
         <div style={{margin: 15}} key={x.id}>
-          <PhoneCard
+          <PhoneCard inCart={list.filter(y => y.id == x.id).length === 1}
           name={x.name} 
           image={x.image ? x.image : "/phone.jpg"} price={x.price} id={x.id} 
           />
