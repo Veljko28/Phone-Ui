@@ -80,7 +80,7 @@ const bids = () => {
 
    const dispatch = useDispatch();
 
-    return parseInt(id as string) > numOfPages ? <NotFound/> : ( 
+    return parseInt(id as string) > numOfPages || parseInt(id as string) <= 0 || isNaN(parseInt(id as string)) ? <NotFound/> : ( 
         <Grid container>
             <TitleChange title={`MobiStore - Bids Page ${id}`} />
            

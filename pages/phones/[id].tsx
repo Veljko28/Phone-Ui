@@ -79,7 +79,9 @@ const phones = () => {
 
    const dispatch = useDispatch();
 
-    return parseInt(id as string) > numOfPages ? <NotFound/> : ( 
+   console.log(parseInt(id as string));
+
+    return parseInt(id as string) > numOfPages || parseInt(id as string) <= 0 || isNaN(parseInt(id as string)) ? <NotFound/> : ( 
         <Grid container>
           <TitleChange title={`MobiStore - Phones Page ${id}`} />
             <Grid item xs={12} md={3}>
