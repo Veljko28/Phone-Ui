@@ -123,14 +123,22 @@ purchased phones pagination ✅
 seller info phones sold ✅
 
 
-links to buyer on phone sold notification
+links to buyer on phone sold notification ✅
 fix help bar and language 
-placed bids api
-place bids management
-place bids bought and notifications
+placed bids api ✅
+place bids management ✅
+phone list id fix ✅
+placed bids and notifications ✅
+bid notification link ✅
 placed bids email
 review tab appears if you've bought the phone
 order by price stored procedures for desc and asc sorts
+email button on bought phones
+bid status on management 
+bid sold display
+create seperate components for display phone
+
+
 
 language translations (react-i18next)
 language icon fix ✅

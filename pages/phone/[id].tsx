@@ -26,6 +26,7 @@ const PhonePage = () => {
   const [images, changeImages] = React.useState<string[] | undefined>(undefined);
   const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
   const [user, changeUser] = React.useState<User | undefined>(undefined);
+  const [sellingPhones, changeSellingPhones] = React.useState("");
   const [notFound, changeNotFound] = React.useState<boolean>(false);
   
   React.useEffect(() => {
@@ -60,6 +61,11 @@ const PhonePage = () => {
               changeUser( await getUser.json());
             }
           }
+
+         const phones = await fetchGet(`http://localhost:10025/api/v1/phones/userphones/${phone?.seller}`);
+         if ((phones as Response).ok){
+          changeSellingPhones(await phones.text());
+        }
     }
 
     if (id) func();
@@ -82,7 +88,7 @@ const PhonePage = () => {
           <PhoneDisplay 
           phone={phone} images={images} id={id as string} userId={user?.id as string}
           />
-          <SellerInfo user={user} />
+          <SellerInfo user={user} sellingPhones={sellingPhones}/>
           <PhoneRatings />
           <PhoneReviews  phoneId={id as string}/>
           <AddPhoneReview phoneId={id as string}/>

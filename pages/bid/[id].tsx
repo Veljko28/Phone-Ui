@@ -8,12 +8,13 @@ import PhoneReviews from '../../components/Phone/PhoneReviews';
 import { LatestProducts } from '../../components/FrontPage/LatestProducts';
 
 import TitleChange from '../../constants/TitleChange';
-import { fetchGet } from '../../constants/CustomFetching';
+import { fetchGet, fetchPost } from '../../constants/CustomFetching';
 
 import Bid from '../../components/models/Bid';
 import User from '../../components/models/User';
 import Phone from '../../components/models/Phone';
 import NotFound from '../../components/NotFound';
+import { timeLeft } from '../../constants/formatDate';
 
 
 const PhonePage = () => {
@@ -26,7 +27,7 @@ const PhonePage = () => {
   const [relatedProducts, changeRelatedProducts] = React.useState<Phone[] | undefined>(undefined);
   const [history, changeHistory] = React.useState([]);
   const [notFound, changeNotFound] = React.useState<boolean>(false);
-
+  const [sellingPhones, changeSellingPhones] = React.useState("");
 
 
   React.useEffect(() => {
@@ -37,16 +38,38 @@ const PhonePage = () => {
         const json = await (res as Response).json();
         changeBid(json);
         const userRes = await fetchGet(`http://localhost:10025/api/v1/users/${json!.seller}`);
+        if (timeLeft(json!.date_Ends) === "Finished !" && json!.status === 0){
+           // change status
+           const userNameReq = await fetchPost(`http://localhost:10025/api/v1/bids/status`, {bid_Id: id,status: 1});
+           if (userNameReq?.ok){
+              const userName = (await userNameReq.json()).userName;
+              const userIdReq = await fetchGet(`http://localhost:10025/api/v1/users/userId/${userName}`);
+
+              if (userIdReq?.ok){
+                // send notification
+                const buyerId = await userIdReq.text(); 
+
+                await fetchPost('http://localhost:10025/api/v1/notifications/add', 
+                 {name: json!.name, type: "bid", userId: json!.seller, message: `/user/${buyerId}`});
+              }
+           }
+        }
 
         if (userRes.ok){
           changeUser(await userRes.json());
         }
+
+         const phones = await fetchGet(`http://localhost:10025/api/v1/phones/userphones/${json!.seller}`);
+         if ((phones as Response).ok){
+          changeSellingPhones(await phones.text());
+       }
 
         const related = await fetchGet(`http://localhost:10025/api/v1/phones/featured/${id}`);
 
         if ((related as Response).ok){
             changeRelatedProducts(await (related as Response).json());
         }
+
 
       }
       else {
@@ -65,6 +88,8 @@ const PhonePage = () => {
         changeHistory(await histories.json());
       }
 
+     
+
     }
 
      if (id) func();
@@ -81,7 +106,7 @@ const PhonePage = () => {
       {notFound === true ? <NotFound/> : (
         <>
           <PhoneDisplay bid={true} phone={bid} images={images} history={history} userId={user?.id as string} id={id as string}/>
-          <SellerInfo user={user}/>
+          <SellerInfo user={user} sellingPhones={sellingPhones}/>
           <PhoneReviews phoneId={id as string}/>
           <LatestProducts title="Related Products"  phones={relatedProducts} />
         </>

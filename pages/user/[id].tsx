@@ -14,6 +14,7 @@ const user = () => {
   const router = useRouter()
   const id = router.query['id'];
   const [user,changeUser] = React.useState<any>({});
+  const [sellingPhones, changeSellingPhones] = React.useState("");
   const [notFound, changeNotFound] = React.useState(false);
 
   React.useEffect(() => {
@@ -24,6 +25,12 @@ const user = () => {
       }
       else {
         changeNotFound(true);
+        return;
+      }
+
+      const phones = await fetchGet(`http://localhost:10025/api/v1/phones/userphones/${id}`);
+      if ((phones as Response).ok){
+        changeSellingPhones(await phones.text());
       }
     }
 
@@ -44,8 +51,8 @@ const user = () => {
       {notFound === true ? (<NotFound/>) : (
         <>
           <Grid md={4} xs={12} item>
-            <UserCard 
-            name={user.userName ? user.userName : "User Profile"} email={user.email} phoneNumber={user.phoneNumber}
+            <UserCard selling_phones={sellingPhones}
+            name={user.userName ? user.userName : "User Profile"} email={user.email} phoneNumber={user.phoneNumber} phones_sold={user.phones_sold}
             desc={user.description ? user.description : "This user has no description"} rating={user.rating ? user.rating : 3.5} id={id as string} />          
           </Grid>
 
