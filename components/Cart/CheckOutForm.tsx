@@ -96,7 +96,7 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
                 return badRequest();
             }
             const notifRes = await fetchPost('http://localhost:10025/api/v1/notifications/add', 
-            {name: x.name, type: "phone", userId: x.seller, message: ""});
+            {name: x.name, type: "phone", userId: x.seller, message: `/user/${userId}`});
              if (!notifRes.ok){
                 return badRequest();
             }

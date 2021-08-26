@@ -43,7 +43,7 @@ const NotificationsPopOver = ({open, anchorEl, handleClose} :
   const iconStyles = {fontSize: 40, color: blue, marginTop: 20, marginLeft: 15};
 
     return (
-   <Link href={`/user/${userId}`}>
+   <Link href={type === "phone" || type === "bid" ? message as string : ``}>
     <Grid container style={{marginTop: 10, marginBottom: 10}} className="curs-hver">
       <Grid item xs={3}>
         {type === "phone" ?  <ContactPhoneIcon style={iconStyles}/> :
