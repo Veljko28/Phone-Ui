@@ -32,6 +32,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
             changeLoading(true);
             let res: Response | undefined = undefined;
             const userId = localStorage.getItem('userId');
+            const userName = localStorage.getItem('username');
 
             if (currentPage === 'My Phones'){
                 res = await fetchGet(`http://localhost:10025/api/v1/phones/seller/${userId}/${page}`);
@@ -42,6 +43,9 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
             else if (currentPage === "Bought Phones"){
                 res = await fetchGet(`http://localhost:10025/api/v1/purchase/phones/${userId}/${page}`)
             }
+            else {
+                res = await fetchGet(`http://localhost:10025/api/v1/bids/placed/${userName}/${page}`)
+            }
 
             if (res?.ok){
                 const json: any = await res.json();
@@ -49,7 +53,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                     
                     if (currentPage === 'My Bids') {
                         const newList = json.bids.map((x: Phone) => {
-                            x.status = x.status == 0 ? "Running" : x.status == 1 ? "Sold" : "Deleted";
+                            x.status = x.status == 0 ? "Running" : x.status == 1 ? "Won" : x.status == 2 ? "Lost" : "Failed";
                             return x; 
                         });
                         changeList(newList);   
@@ -110,7 +114,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                 currentPage === 'Bought Phones' ? <BoughtPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
 
-                <PlacedBids list={[]} changeSnackBar={(value: boolean) => changeSnackBar(value)}
+                <PlacedBids list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/>}
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>

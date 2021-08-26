@@ -1,5 +1,4 @@
 import { Grid, IconButton } from '@material-ui/core';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -8,37 +7,58 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ClearIcon from '@material-ui/icons/Clear';
 import EmailIcon from '@material-ui/icons/Email';
 import { blue, green, red, white } from '../../../constants/CustomColors';
+import { fetchGet } from '../../../constants/CustomFetching';
+import { timeLeft } from '../../../constants/formatDate';
 
 const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
 
-   const rowMap = ({name,price,seller,status} :
-        {name: string, price: string, seller: string, status: string}) => {
+    const [phoneList, changePhoneList] = React.useState<any>([]);
+
+    React.useEffect(() => {
+       const func = async () => {
+          // mapping the username of the seller to a new phoneList 
+          let newList = [];
+          for (const phone of list){
+            const res = await fetchGet(`http://localhost:10025/api/v1/users/username/${phone.seller}`);
+            phone.sellerName = await res.text();
+            newList.push(phone);
+          }
+          changePhoneList(newList);
+       }
+       func();
+    },[list])
+
+   const rowMap = ({id,name,price,seller,status, image, sellerName, date_Ends} :
+        {id:string, name: string, price: string, seller: string, status: string, image: string, sellerName: string, date_Ends: Date}) => {
         return (
             <tr>
               <td>
                   <Grid container item style={{display: 'flex', alignContent: 'center'}}>
                       <Grid item xs={12} sm={6}>
-                        <Image src={'/phone.jpg'} width="50px" height="50px"/>
+                        <img src={image} width="50px" height="50px"/>
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>
-                        <div className="phone-name-mngm">{name}</div>
+                        <Link href={`/bid/${id}`}>
+                          <div className="phone-name-mngm">{name}</div>
+                        </Link>
                       </Grid>
                     </Grid>
               </td>
-              <td>{price}</td>
+              <td style={{color: blue}}>{price}$</td>
               <td>
-                <Link href="/user/1">
+                <Link href={`/user/${seller}`}>
                   <div style={{color: blue}} className="curs-hvr">
-                      {seller}
+                      {sellerName}
                   </div>
                 </Link>
               </td>
-              <td style={status === "Running" ? {color: blue} : status === "Won !" ? {color: green} : {color: red}}>{status}</td>
+              <td style={{color: blue}}>
+                {timeLeft(date_Ends) !== "Finished !" ? "Running" : "Finished"}</td>
               <td>
                   <IconButton
                   onClick={() => {
-                      navigator.clipboard.writeText("http://localhost:3000/phone/1")
+                      navigator.clipboard.writeText(`http://localhost:3000/bid/${id}`)
                       changeSnackBar(true);
                     }} 
                   style={{width: '35px', height: '35px', margin: '5px', backgroundColor: blue}} 
@@ -58,7 +78,7 @@ const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}
                         <ClearIcon style={{fontSize: 15, color: white}}/>
                     </IconButton>
                  ): (
-                   <Link href="/phone/1">
+                   <Link href={`/bid/${id}`}>
                        <IconButton
                     style={{width: '35px', height: '35px', margin: '5px', backgroundColor: '#4542f5'}} 
                     className="share-icon-mngm">
@@ -84,7 +104,7 @@ const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}
             </tr>
           </thead>
           <tbody>
-            {list.map((x: any) => rowMap(x))}
+            {phoneList.map((x: any) => rowMap(x))}
           </tbody>
         </table>
   )
