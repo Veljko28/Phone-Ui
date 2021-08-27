@@ -21,7 +21,7 @@ import { timeLeft } from '../../constants/formatDate';
 import ImageMapper from "../../constants/ImageMapper";
 import PopUpDialog from "../../constants/PopUpDialog";
 import { fetchGet, fetchPost } from "../../constants/CustomFetching";
-import { blue, dark_gray, white } from '../../constants/CustomColors';
+import { blue, dark_gray, green, white } from '../../constants/CustomColors';
 
 import { State } from '../../redux/reduxTypes';
 import { changePhoneCategory } from "../../redux/actions/phonesActions";
@@ -44,6 +44,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
   const [bidAmount,changeBidAmount] = React.useState(1);
   const [loading,changeLoading] = React.useState(true);
   const [numOfFavorites, changeNumOfFavorites] = React.useState("0");
+  const [userWon, changeUserWon] = React.useState("");
 
   let currentUserId: string | null = null;
 
@@ -67,7 +68,16 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
       changeLoading(false);
       getFavoritedTimes();
     }
-  },[images, phone?.price]);
+    if (phone?.status !== 0 && bid && history!.length > 0) {
+      const historyClone = history;
+      const maxAmout = Math.max.apply(Math, historyClone!.map(function(o) { return o.amount; }));
+      const userHistory = historyClone?.filter(x => x.amount = maxAmout)[0];
+
+      if (userHistory != null){
+        changeUserWon(userHistory.userName);
+      }
+    }
+  },[images, phone?.price, history]);
 
   const items = useSelector((state: State) => state.cart.items);
   const inCart = items.filter(y => y.id == id).length === 1;
@@ -125,8 +135,10 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
           <span style={{color: dark_gray, fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
           </span>
-          {phone?.status === 1 ? (<>
-            <Typography variant="h5" style={{color: blue,marginTop: 10}}>{bid ? "This bid has finished !" : "This Phone has been sold !"}</Typography>
+          {phone?.status !== 0 ? (<>
+            <Typography variant="h5" style={{color: blue,marginTop: 10}}>{bid ? "This bid has ended !" : "This Phone has been sold !"}</Typography>
+            {bid && userWon != "" ?  <Typography variant="h4" style={{color: green,marginTop: 10}}>{userWon} has won this bid !</Typography> : 
+            <Typography variant="h5" style={{color: blue,marginTop: 10}}>No bids were placed on this bid !</Typography>}
             {bid ? (<> 
                <div 
               onClick={e => openHistory(e)} className="bid-history">
@@ -143,7 +155,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
 
           <BidInfo bidAmount={bidAmount} changeBidAmount={(value: any) => changeBidAmount(value)} phone={phone}
            closeHistory={() => closeHistory()} historyOpen={historyOpen} anchorEl={anchorEl} history={history} 
-           openHistory={(value: any) => openHistory(value)}/>
+           openHistory={(value: any) => openHistory(value)} changeDialogOpen={(value: boolean) => changeDialogOpen(value)}/>
           
           : 
           

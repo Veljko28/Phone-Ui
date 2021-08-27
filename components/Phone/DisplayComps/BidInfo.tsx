@@ -16,7 +16,7 @@ const BidInfo = ({bidAmount, changeBidAmount, phone, changeDialogOpen, historyOp
       <span style={{fontSize: '12px'}}>Your Bid</span>
       <input type="number"
       value={bidAmount}
-      onChange={e => changeBidAmount(e.target.value as any)}
+      onBlur={e => changeBidAmount(e.target.value as any)}
       min={phone ? (phone?.price as number)+1 : 1}
       className="bid-price"/>
       <Button variant="contained" onClick={() => changeDialogOpen(true)}
