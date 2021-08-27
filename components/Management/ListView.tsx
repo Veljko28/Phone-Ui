@@ -150,7 +150,7 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
             </div>
                       
 
-        <SnackBarSuccess snackBarOpen={snackBar} changeSnackBarOpen={() => changeSnackBar(false)} message="Successfully copied link !"/>
+        <SnackBarSuccess snackBarOpen={snackBar} changeSnackBarOpen={() => changeSnackBar(false)} message="Successfully copied to clipboard !"/>
 
         </div>
             

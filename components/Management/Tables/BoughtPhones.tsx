@@ -11,6 +11,7 @@ import PopOverSettings from '../PopOverSettings';
 import { blue, green, red, white } from '../../../constants/CustomColors';
 import Phone from '../../models/Phone';
 import { fetchGet } from '../../../constants/CustomFetching';
+import User from '../../models/User';
 
 const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
@@ -22,8 +23,10 @@ const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorE
           // mapping the username of the seller to a new phoneList 
           let newList = [];
           for (const phone of list){
-            const res = await fetchGet(`http://localhost:10025/api/v1/users/username/${phone.seller}`);
-            phone.sellerName = await res.text();
+            const res = await fetchGet(`http://localhost:10025/api/v1/users/${phone.seller}`);
+            const user: User = await res.json();
+            phone.sellerName = user.userName;
+            phone.email = user.email;
             newList.push(phone);
           }
           changePhoneList(newList);
@@ -31,8 +34,8 @@ const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorE
        func();
     },[list])
 
-   const rowMap = ({id, image, name,category,seller,price, sellerName} :
-        {id: string, image: string, name: string, category: string, seller: string, price: string, sellerName: string}) => {
+   const rowMap = ({id, image, name,category,seller,price, sellerName, email} :
+        {id: string, image: string, name: string, category: string, seller: string, price: string, sellerName: string, email: string}) => {
         return (
             <tr>
               <td>
@@ -41,7 +44,9 @@ const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorE
                         <img src={image} width="50px" height="50px"/>
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>
-                        <div className="phone-name-mngm">{name}</div>
+                        <Link href={`/phone/${id}`}>
+                          <div className="phone-name-mngm">{name}</div>
+                        </Link>
                       </Grid>
                     </Grid>
               </td>
@@ -82,6 +87,10 @@ const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorE
                     </IconButton>
                  ): (
                      <IconButton 
+                     onClick={() => {
+                      navigator.clipboard.writeText(email)
+                      changeSnackBar(true);
+                    }}
                     style={{width: '35px', height: '35px', margin: '5px', backgroundColor: green}} 
                     className="share-icon-mngm">
                         <EmailIcon style={{fontSize: 15, color: white}}/>
