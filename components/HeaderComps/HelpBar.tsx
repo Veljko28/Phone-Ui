@@ -4,6 +4,7 @@ import {Grid, Switch} from '@material-ui/core';
 import { State } from '../../redux/reduxTypes';
 import { useSelector } from 'react-redux';
 import LanguagePopUp from './LanguagePopUp';
+import { dark_gray } from '../../constants/CustomColors';
 
 
 
@@ -26,17 +27,16 @@ const HelpBar = () => {
 
   return (
     <Grid container className="helper-container">
-      <Grid item xs={6}/>
-      <Grid item xs={6} className="top-grid">
-        <Switch
-        defaultChecked
-        color="default"
-        size="small"/>
+      <Grid item xs={12} lg={4} style={{display: 'flex', justifyContent: 'center'}}>
+        <div style={{fontSize: 12, marginTop: 5, color: dark_gray, marginLeft: 25}}>Best Online Mobile Selling Store !</div>
+      </Grid>
+      <Grid item xs={12} lg={8} className="top-grid">
+        <div className="support">support: +381 063 800-3210 </div>
+        <div className="support">support@mobistore.com</div>
         <div onClick={e => openLang(e)} className="flag-support">
          <Image src={lang == 'en' ? '/lang/en.png' : '/lang/sr.png'} 
               alt={lang == 'en' ? "English" : "Српски"} width="20" height="15"  />
         </div>
-        <div className="support">Support: +381 063 800-3210 support@mobistore.com</div>
         <LanguagePopUp open={langOpen} handleClose={() => closeLang()} anchorEl={langAnchorEl}/>
       </Grid>
     </Grid>

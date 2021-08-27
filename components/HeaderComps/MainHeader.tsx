@@ -91,7 +91,7 @@ const MainHeader = () => {
   return (
     <Grid container className="main-header">
       <Grid item lg={1}/>
-      <Grid item xs={12} lg={2} container justify="center">
+      <Grid item xs={12} lg={2} container justifyContent="center">
         <Link href="/"><Image src="/logo.png" alt="logo" width="157" height="47" className="pointer"/></Link>
       </Grid>
       <Grid item xs={12} lg={5}>
@@ -110,7 +110,7 @@ const MainHeader = () => {
         </form>
       </div>
       </Grid>
-      <Grid item xs={12} lg={3} container justify="center">
+      <Grid item xs={12} lg={3} container justifyContent="center">
         <ul className="user-control">
           <li><Link href={loggedIn ? `/user/${localStorage.getItem('userId')}` : "/login"}>
             {loggedIn ? "Profile" : "Login"}</Link></li>
