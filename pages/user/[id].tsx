@@ -50,7 +50,7 @@ const user = () => {
 
       {notFound === true ? (<NotFound/>) : (
         <>
-          <Grid md={4} xs={12} item>
+          <Grid md={4} xs={12} item style={{display: 'flex', justifyContent: 'center'}}>
             <UserCard selling_phones={sellingPhones}
             name={user.userName ? user.userName : "User Profile"} email={user.email} phoneNumber={user.phoneNumber} phones_sold={user.phones_sold}
             desc={user.description ? user.description : "This user has no description"} rating={user.rating ? user.rating : 3.5} id={id as string} />          

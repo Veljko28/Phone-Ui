@@ -130,13 +130,18 @@ place bids management ✅
 phone list id fix ✅
 placed bids and notifications ✅
 bid notification link ✅
-placed bids email
-review tab appears if you've bought the phone
+placed bids email ✅
+review tab appears if you've bought the phone ✅
 order by price stored procedures for desc and asc sorts
-email button on bought phones
-bid status on management 
-bid sold display
-create seperate components for display phone
+email button on bought phones ✅
+bid status on management ✅
+bid sold display ✅ 
+create seperate components for display phone ✅
+get num of pages on every request ✅
+fix not found for phone and bid lists ✅
+bid ends in seconds ✅
+bid history data problem ?
+no diplicate bids on management ✅
 
 
 
