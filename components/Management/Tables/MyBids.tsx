@@ -9,12 +9,27 @@ import EmailIcon from '@material-ui/icons/Email';
 import PopOverSettings from '../PopOverSettings';
 import { formatDate } from '../../../constants/formatDate';
 import { blue, green, red, white } from '../../../constants/CustomColors';
+import PopUpDialog from '../../../constants/PopUpDialog';
+import { fetchDelete } from '../../../constants/CustomFetching';
 
 const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
 
 
      const [selectedId, changeSelectedId] = React.useState<string | undefined>(undefined);
+     const [dialogOpen,changeDialogOpen] = React.useState(false);
+
+
+     const deletePhone = async () => {
+
+        const res = await fetchDelete(`http://localhost:10025/api/v1/bids/delete/${selectedId}`);
+        changeDialogOpen(false);
+        if (res.ok){
+          setTimeout(() => {
+          location.reload();
+          },1500)
+        }
+    }
 
    const rowMap = ({id,image, name,price,status,date_Ends} :
         {id: string, image: string, name: string, price: string, status: string, date_Ends: Date}) => {
@@ -35,8 +50,8 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
               </td>
               <td style={{color: green}}>{price + "$"}</td>
               <td>
-                  <div style={status === "Sold !" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
-                      {status}
+                  <div style={status === "Won" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
+                      {status === "Won" ? "Sold !" : status}
                   </div>
               </td>
               <td>{date}</td>
@@ -63,11 +78,19 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                     </IconButton>
                     <PopOverSettings open={open} id={selectedId} myBid={true} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
                     </>
-                 ) : status === "Deleted" ? (
+                 ) : status === "Failed" ? (
                     <IconButton 
                     style={{width: '35px', height: '35px', margin: '5px', backgroundColor: red}} 
-                    className="share-icon-mngm">
+                    className="share-icon-mngm"
+                    onClick={() => {
+                        changeSelectedId(id);
+                        changeDialogOpen(true);
+                      }}>
                         <ClearIcon style={{fontSize: 15, color: "#fff"}}/>
+                          <PopUpDialog open={dialogOpen} closeDialog={() => changeDialogOpen(false)} 
+                      title={`Are you sure you want to delete this phone?`}
+                      message={"By agreeing with this, your phone will be delete from our server forever !"}
+                      onConfirm={() => deletePhone()}/>
                     </IconButton>
                  ): (
                      <IconButton 

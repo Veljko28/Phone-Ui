@@ -9,11 +9,26 @@ import EmailIcon from '@material-ui/icons/Email';
 import PopOverSettings from '../PopOverSettings';
 import { formatDate } from '../../../constants/formatDate';
 import { blue, green, red, white } from '../../../constants/CustomColors';
+import PopUpDialog from '../../../constants/PopUpDialog';
+import { fetchDelete } from '../../../constants/CustomFetching';
 
 const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
   changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
 
    const [selectedId, changeSelectedId] = React.useState<string | undefined>(undefined);
+   const [dialogOpen,changeDialogOpen] = React.useState(false);
+
+
+     const deletePhone = async () => {
+
+        const res = await fetchDelete(`http://localhost:10025/api/v1/phones/delete/${selectedId}`);
+        changeDialogOpen(false);
+        if (res.ok){
+          setTimeout(() => {
+          location.reload();
+          },1500)
+        }
+    }
 
    const rowMap = ({id, name, image, price, status, dateCreated} :
         {id: string,name: string, image: string, price: string | number, status: string, dateCreated: Date, idx: number}) => {
@@ -64,19 +79,21 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
                     </IconButton>
                     <PopOverSettings id={selectedId} open={open} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
                     </>
-                 ) : status === "Deleted" ? (
+                 ) : (<>
                     <IconButton 
                     style={{width: '35px', height: '35px', margin: '5px', backgroundColor: red}} 
-                    className="share-icon-mngm">
-                        <ClearIcon style={{fontSize: 15, color: white}}/>
-                    </IconButton>
-                 ): (
-                     <IconButton 
-                    style={{width: '35px', height: '35px', margin: '5px', backgroundColor: green}} 
-                    className="share-icon-mngm">
-                        <EmailIcon style={{fontSize: 15, color: white}}/>
-                    </IconButton>
-                 )}
+                    className="share-icon-mngm"
+                   onClick={() => {
+                        changeSelectedId(id);
+                        changeDialogOpen(true);
+                      }}>
+                    <ClearIcon style={{fontSize: 20, color: white}}/>
+                   </IconButton>
+                   <PopUpDialog open={dialogOpen} closeDialog={() => changeDialogOpen(false)} 
+                    title={`Are you sure you want to delete this phone?`}
+                    message={"By agreeing with this, your phone will be delete from our server forever !"}
+                    onConfirm={() => deletePhone()}/>
+                 </>)}
                 
               </td>
             </tr>
