@@ -21,23 +21,36 @@ const phones = () => {
   const id = router.query['id'];
   const [list,changeList] = React.useState([]);
   const [numOfPages, changeNumOfPages] = React.useState(1);
+  const [notValid, changeNotValid] = React.useState(false);
 
   const options = useSelector((state: State) => state.phones.phoneOptions);
 
     React.useEffect(() => {
       const func = async () => {
+       
+        
         const res = await fetchGet(`http://localhost:10025/api/v1/phones/page/${id}`);
         const json = await res.json();
-        if (id == '1'){
-          changeList(json.phones);
-          changeNumOfPages(json.numOfPages);
+        
+        changeList(json.phones);
+        changeNumOfPages(json.numOfPages);
+
+        if (parseInt(id as string) <= 0 || parseInt(id as string) > numOfPages){
+          changeNotValid(true);
+          return;
         }
-        else {
-          changeList(json);
-        }
+
       }
       
-      if (id && parseInt(id as string) <= numOfPages) func();
+      if (id){
+        const regExp = /[a-zA-Z]/g;
+        if (regExp.test(id as string)){
+          changeNotValid(true);
+          return;
+        }
+      }
+
+      if (id) func();
     },[id])
     
     const categoryList = list?.filter((x: Phone) => {
@@ -79,9 +92,8 @@ const phones = () => {
 
    const dispatch = useDispatch();
 
-   console.log(parseInt(id as string));
 
-    return parseInt(id as string) > numOfPages || parseInt(id as string) <= 0 || isNaN(parseInt(id as string)) ? <NotFound/> : ( 
+    return  notValid ? <NotFound/> : ( 
         <Grid container>
           <TitleChange title={`MobiStore - Phones Page ${id}`} />
             <Grid item xs={12} md={3}>

@@ -21,6 +21,8 @@ const bids = () => {
   const id = router.query['id'];
   const [list,changeList] = React.useState([]);
   const [numOfPages, changeNumOfPages] = React.useState(1);
+  const [notValid, changeNotValid] = React.useState(false);
+
 
   const options = useSelector((state: State) => state.phones.bidOptions);
 
@@ -29,19 +31,28 @@ const bids = () => {
         const res = await fetchGet(`http://localhost:10025/api/v1/bids/page/${id}`);
         const json = await res.json();
         
-         if (id == '1'){
-          changeList(json.phones);
-          changeNumOfPages(json.numOfPages);
-        }
-        else {
-          changeList(json);
+        changeList(json.phones);
+        changeNumOfPages(json.numOfPages);
+
+         if (parseInt(id as string) <= 0 || parseInt(id as string) > numOfPages){
+          changeNotValid(true);
+          return;
         }
      };
 
-     if (id && parseInt(id as string) <= numOfPages) func();
+       
+      if (id){
+        const regExp = /[a-zA-Z]/g;
+        if (regExp.test(id as string)){
+          changeNotValid(true);
+          return;
+        }
+      }
+
+     if (id) func();
   },[id]);
 
-   const categoryList = list.filter((x: Phone) => {
+   const categoryList = list?.filter((x: Phone) => {
       if (options.category !== "All Phones") return x.category?.toLowerCase() === options.category.toLowerCase();
       return true;
     }).filter((x: Phone) => {
@@ -80,7 +91,7 @@ const bids = () => {
 
    const dispatch = useDispatch();
 
-    return parseInt(id as string) > numOfPages || parseInt(id as string) <= 0 || isNaN(parseInt(id as string)) ? <NotFound/> : ( 
+    return notValid ? <NotFound/> : ( 
         <Grid container>
             <TitleChange title={`MobiStore - Bids Page ${id}`} />
            
