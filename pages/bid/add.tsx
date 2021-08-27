@@ -58,7 +58,7 @@ const AddBid = () => {
     });
 
     const yupSchema = yup.object().shape({
-        name: yup.string().min(5),
+        name: yup.string().min(5).max(20),
         description: yup.string().min(25),
         price: yup.number().moreThan(0),
         category: yup.string().min(1, "Please select a category"),

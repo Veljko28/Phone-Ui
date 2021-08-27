@@ -29,7 +29,7 @@ const AddPhone = () => {
     const [files,changeFiles] = React.useState([]);
 
     const yupSchema = yup.object().shape({
-        name: yup.string().min(5),
+        name: yup.string().min(5).max(20),
         image: yup.string().min(5),
         description: yup.string().min(25),
         price: yup.number().moreThan(0),

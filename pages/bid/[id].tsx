@@ -48,9 +48,17 @@ const PhonePage = () => {
               if (userIdReq?.ok){
                 // send notification
                 const buyerId = await userIdReq.text(); 
-
+                
                 await fetchPost('http://localhost:10025/api/v1/notifications/add', 
                  {name: json!.name, type: "bid", userId: json!.seller, message: `/user/${buyerId}`});
+
+                const userEmail = await fetchGet(`http://localhost:10025/api/v1/users/${json!.seller}/email`);
+
+                const email = await userEmail.text();
+
+                await fetchPost('http://localhost:10025/api/v1/email/sold', {
+                    name: json!.name, type: "bid", email, buyerId, sellerId: json!.seller
+                })
               }
            }
         }
@@ -85,7 +93,9 @@ const PhonePage = () => {
       const histories = await fetchGet(`http://localhost:10025/api/v1/bids/histories/${id}`);
 
       if (histories.ok){
-        changeHistory(await histories.json());
+        const historyJson = await histories.json();
+        changeHistory(historyJson);
+        console.log(historyJson);
       }
 
      

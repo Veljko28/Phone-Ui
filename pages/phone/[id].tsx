@@ -28,6 +28,7 @@ const PhonePage = () => {
   const [user, changeUser] = React.useState<User | undefined>(undefined);
   const [sellingPhones, changeSellingPhones] = React.useState("");
   const [notFound, changeNotFound] = React.useState<boolean>(false);
+  const [userBought, changeUserBought] = React.useState(false);
   
   React.useEffect(() => {
     const func = async () => {
@@ -66,6 +67,14 @@ const PhonePage = () => {
          if ((phones as Response).ok){
           changeSellingPhones(await phones.text());
         }
+
+        if (phone?.status !== 0){
+          const boughtByUserRes = await fetchGet(`http://localhost:10025/api/v1/purchase/bought/${localStorage.getItem('userId')}/${phone?.id}`);
+
+          if (boughtByUserRes.ok){
+            changeUserBought(true);
+          }
+        }
     }
 
     if (id) func();
@@ -91,7 +100,7 @@ const PhonePage = () => {
           <SellerInfo user={user} sellingPhones={sellingPhones}/>
           <PhoneRatings />
           <PhoneReviews  phoneId={id as string}/>
-          <AddPhoneReview phoneId={id as string}/>
+          {phone?.status !== 0 && userBought ? <AddPhoneReview phoneId={id as string}/> : null}
           <LatestProducts title="Related Products" phones={relatedProducts} />
         </>
         )}
