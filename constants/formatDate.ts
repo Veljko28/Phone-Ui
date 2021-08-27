@@ -21,11 +21,12 @@ export const timeLeft = (date?: Date) => {
 
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    console.log(days);
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    if (days >= 0) {
+    if (days > 0) {
       return days + "d " + hours + "h " + minutes + "m ";
     }
     

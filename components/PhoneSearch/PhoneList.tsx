@@ -39,13 +39,13 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
 
       React.useEffect(() => {
         const func = async () => await getWishListItems();
-        if (userId && list.length > 0) func();
+        if (userId && list?.length > 0) func();
 
       }, [userId, list])
  
       return (
         <Grid container style={{minHeight: 614}}> 
-            {list === undefined || list.length === 0 ? bids ?
+            {list === undefined || list?.length === 0 ? bids ?
             <Grid item container xs={12}>{bidSkeletons.map(x => (<div>{x}</div>))}</Grid>
             :
             <Grid item container xs={12}>{phoneSkeletons.map(x => (<div>{x}</div>))}</Grid> : bids ? 
