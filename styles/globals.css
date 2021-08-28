@@ -1,15 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
   margin: 0;
+  opacity: 100%;
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #eee;
 }
 
 :root {
   --white: #ffffff;
   --dark: #292C35;
+  --primary: #0cafe5;
 }
 
 a {
@@ -27,6 +32,13 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.page-container-dark {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #292C35;
 }
 
 .content-wrap {
