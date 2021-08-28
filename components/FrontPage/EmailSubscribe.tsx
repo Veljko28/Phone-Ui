@@ -3,6 +3,8 @@ import { Grid, Typography } from '@material-ui/core';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
 import { fetchPost } from '../../constants/CustomFetching';
 import { white } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 const EmailSubscribe = () => {
 
@@ -14,6 +16,9 @@ const EmailSubscribe = () => {
         success: false,
         loading: false
     });
+
+   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
 
     const submitEmail = async () => {
         changeSnackBar({...snackBar,loading: true});
@@ -31,13 +36,13 @@ const EmailSubscribe = () => {
     }
 
     return (
-        <Grid container className="subscribe-form" justify="center">
+        <Grid container className={darkMode ? "subscribe-form-dark" : "subscribe-form"} justify="center">
                 <Typography variant="h5" style={{color: white}}>
                     Subscribe To Get Discounts &#38; Offers</Typography>
                 <div className="subscribe-input">
                     <input type="text" className="subscribe-input-field" placeholder="Your Email" 
                     value={email} onChange={e => changeEmail(e.target.value)}/>
-                    <button type="submit" className="subscribe-button" onClick={() => submitEmail()}>
+                    <button type="submit" className={darkMode ? "subscribe-button-dark" : "subscribe-button"} onClick={() => submitEmail()}>
                         Subscribe
                     </button>
                 </div>

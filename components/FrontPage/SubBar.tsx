@@ -5,10 +5,15 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import PeopleIcon from '@material-ui/icons/People';
 import ReplayIcon from '@material-ui/icons/Replay';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 const SubBar = () => {
+
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
   return (
-    <Grid container className="subBar-container"> 
+    <Grid container className={darkMode ? "subBar-container-dark" : "subBar-container"}> 
       <Grid item xs={12} md={6} lg={3}>
           <div style={{float: 'left', marginTop: '10px'}}>
                 <CreditCardIcon className="icon-border" />
