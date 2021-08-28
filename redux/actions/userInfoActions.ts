@@ -11,7 +11,6 @@ export const changeLoginStatus = (active: boolean) => ({
   payload: active
 })
 
-export const toggleDarkMode = (active: boolean) => ({
+export const toggleDarkMode = () => ({
   type: TOGGLE_DARKMODE,
-  payload: active
 })

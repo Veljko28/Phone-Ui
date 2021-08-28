@@ -30,7 +30,8 @@ export interface State {
     },
     userInfo: {
         navbarToggle: boolean,
-        logged_in: boolean
+        logged_in: boolean,
+        darkMode: boolean
     },
     notification: {
         numOfNotifications: number
