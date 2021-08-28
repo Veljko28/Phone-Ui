@@ -7,10 +7,10 @@ import { State } from '../../redux/reduxTypes';
 import { toggleNavbar } from '../../redux/actions/userInfoActions';
 import { white } from '../../constants/CustomColors';
 
-const NavItem = ({href, name} : {href: string, name: string}) => {
+const NavItem = ({href, name, darkMode} : {href: string, name: string, darkMode: boolean}) => {
     return (
     <Link href={href} key={v4()}>
-        <button className="navbtn">{name}</button>
+        <button className={darkMode ? "navbtn-dark" : "navbtn"}>{name}</button>
    </Link>
    );
 }
@@ -18,11 +18,16 @@ const NavItem = ({href, name} : {href: string, name: string}) => {
 const NavBar = () => {
 
   const displayMenu = useSelector((state : State) => state.userInfo.navbarToggle);
-   const dispatch = useDispatch();
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+  const dispatch = useDispatch();
+
 
     return (
-        <div className={displayMenu ? "navbar-main-display" : "navbar-main"}>
-           {links.map(x => NavItem(x))}
+        <div className={displayMenu ? 
+          darkMode ? "navbar-main-display-dark" : "navbar-main-display"
+            :
+           darkMode ? "navbar-main-dark" : "navbar-main"}>
+           {links.map(x => NavItem({...x,darkMode}))}
            <span className="closeMenu" onClick={() => dispatch(toggleNavbar())}>
             <CloseIcon style={{fontSize: '20px', color: white}}/>
           </span>

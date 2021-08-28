@@ -30,6 +30,7 @@ const MainHeader = () => {
 
   let jwt: string | null = "";
   const loggedIn = useSelector((state : State) => state.userInfo.logged_in);
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -92,7 +93,7 @@ const MainHeader = () => {
     <Grid container className="main-header">
       <Grid item lg={1}/>
       <Grid item xs={12} lg={2} container justifyContent="center">
-        <Link href="/"><Image src="/logo.png" alt="logo" width="157" height="47" className="pointer"/></Link>
+        <Link href="/"><Image src={darkMode ? "/logo_dark.png" : "/logo.png"} alt="logo" width="157" height="47" className="pointer"/></Link>
       </Grid>
       <Grid item xs={12} lg={5}>
       <div className="wrap">
@@ -100,9 +101,9 @@ const MainHeader = () => {
           e.preventDefault();
           router.push(`/search/${userSearch}`)
           }} className="search">
-            <input type="text" className="searchTerm" placeholder="What are you looking for?" value={userSearch} 
+            <input type="text" className={darkMode ? "searchTerm-dark" : "searchTerm"} placeholder="What are you looking for?" value={userSearch} 
             onChange={e => ChangeUserSearch(e.target.value)} />
-            <div className="searchButton">
+            <div className={darkMode ? "searchButton-dark" : "searchButton"}>
               <Link href={`/search/${userSearch}`}>
                 <SearchIcon/>
               </Link>
@@ -111,7 +112,7 @@ const MainHeader = () => {
       </div>
       </Grid>
       <Grid item xs={12} lg={3} container justifyContent="center">
-        <ul className="user-control">
+        <ul className={darkMode ? "user-control-dark" : "user-control"}>
           <li><Link href={loggedIn ? `/user/${localStorage.getItem('userId')}` : "/login"}>
             {loggedIn ? "Profile" : "Login"}</Link></li>
           <li>|</li>
@@ -122,18 +123,18 @@ const MainHeader = () => {
              (
                <>
                 <IconButton onClick={() => exitApp()} style={{marginRight: 0, padding: '0', background: 'transparent'}} disableRipple>
-                    <ExitToAppIcon className="cartIcon" style={{fontSize: '20px'}}/>
+                    <ExitToAppIcon className={darkMode ? "cartIcon-dark" : "cartIcon"} style={{fontSize: '20px'}}/>
                 </IconButton>
                 <Link href="/cart">
                   <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
                     <Badge badgeContent={numOfItems} color="secondary">
-                      <ShoppingCartIcon className="cartIcon" style={{fontSize: '20px'}}/>
+                      <ShoppingCartIcon  className={darkMode ? "cartIcon-dark" : "cartIcon"} style={{fontSize: '20px'}}/>
                     </Badge>
                   </IconButton>
                 </Link>
                 <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple onClick={e => openNotifications(e)}>
                     <Badge badgeContent={numOfNotifications} color="secondary">
-                      <NotificationsIcon className="cartIcon" style={{fontSize: '20px'}}/>
+                      <NotificationsIcon  className={darkMode ? "cartIcon-dark" : "cartIcon"} style={{fontSize: '20px'}}/>
                     </Badge>
                 </IconButton>
                 <NotificationsPopOver open={notificationsOpen} handleClose={() => closeNotifications()} anchorEl={anchorEl}/>
@@ -142,7 +143,7 @@ const MainHeader = () => {
             : ""}
           </li>
           <li className={displayMenu ? "closed" : "openMenu"} onClick={() => dispatch(toggleNavbar())}>
-            <MenuIcon className="cartIcon" style={{fontSize: '20px'}}/>
+            <MenuIcon className={darkMode ? "cartIcon-dark" : "cartIcon"} style={{fontSize: '20px'}}/>
           </li>
         </ul> 
       </Grid>
