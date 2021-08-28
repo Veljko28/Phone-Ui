@@ -1,19 +1,20 @@
 import {Header} from './Header';
 import Footer from './Footer';
-// import BreadCrums from './BreadCrums';
+import { State } from '../redux/reduxTypes';
+import { useSelector } from 'react-redux';
 
 export default function Layout({children} : any) {
 
-  // const paths = window.location.pathname.split('/');
-  // console.log(paths);
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
   return (
-    <div className="page-container">
+    <div className={darkMode ? "page-container-dark" : "page-container" }>
       <Header/>
-      <div className="content-wrap">
-       {/* <BreadCrums others={paths}/> */}
+      <div className="content-wrap"> 
+       {/* <BreadCrums others={paths}/> */} 
         {children}
       </div>
-      <Footer/>
+      <Footer/> 
     </div>
   )
 }
