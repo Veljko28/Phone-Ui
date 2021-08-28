@@ -10,7 +10,9 @@ import UserContact from './UserContact';
 import EditProfileForm from './EditProfileForm';
 import UserSearchSkeleton from '../Skeletons/UserSearchSkeleton';
 import UserCardSkeleton from '../Skeletons/UserCardSkeleton';
-import { blue, dark_gray, white } from '../../constants/CustomColors';
+import { blue, darker_green, dark_gray, white } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 
@@ -22,6 +24,8 @@ phones_sold: string, selling_phones: string}) => {
     if (typeof window !== 'undefined') {
       currentUser = localStorage.getItem('userId');
     }
+
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
     const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
     const [editOpen, handleEditOpen] = React.useState(false);
@@ -63,7 +67,7 @@ phones_sold: string, selling_phones: string}) => {
         ): props.id === undefined ? <UserCardSkeleton/> : (
           <>
             <div>
-              <Image src="/user.png" width="225px" height="225px"/>
+              <Image src={darkMode ? "/user_dark.png" : "/user.png"} width="225px" height="225px"/>
             </div>
             <div className="card-textarea">
               <Typography variant="h6">
@@ -77,17 +81,17 @@ phones_sold: string, selling_phones: string}) => {
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
               <Typography variant="subtitle1">
-                 Phones Sold: <span style={{color: blue}}>{props.phones_sold}</span>
-                 <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
+                 Phones Sold: <span style={{color: darkMode ? darker_green : blue}}>{props.phones_sold}</span>
+                 <PhoneAndroidIcon style={{fontSize: '20px', color: darkMode ? darker_green : blue,marginBottom: '5px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Currently Selling: <span style={{color: blue}}>{props.selling_phones}</span>
-                 <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
+                 Currently Selling: <span style={{color: darkMode ? darker_green : blue}}>{props.selling_phones}</span>
+                 <PhoneAndroidIcon style={{fontSize: '20px', color: darkMode ? darker_green : blue,marginBottom: '5px'}}/>
               </Typography>
               {props.id === currentUser ? (
                 <>
                 <Button variant="contained" onClick={() => handleEditOpen(true)}
-                 style={{color: '#fff', backgroundColor: blue, padding: '10px', width: '175px', margin: '5px'}}
+                 style={{color: '#fff', backgroundColor: darkMode ? darker_green : blue, padding: '10px', width: '175px', margin: '5px'}}
                 >Edit Profile</Button>
 
                <EditProfileForm open={editOpen} handleOpen={(value: boolean) => handleEditOpen(value)} id={props.id}/>
@@ -107,7 +111,7 @@ phones_sold: string, selling_phones: string}) => {
     }
 
   return (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee'}}>
+    <Grid container className={darkMode ? "darkCardContainer" : "cardContainer"} style={{width: '250px', border: '1px solid #eee'}}>
         <div>
           {props.search ? (
             <Link href={`/user/${props.id}`}>

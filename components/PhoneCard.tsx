@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {Grid, Typography, IconButton} from '@material-ui/core';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -14,8 +14,9 @@ import PhoneSkeletonCard from './Skeletons/PhoneSkeletonCard';
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 import { fetchDelete, fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
-import { blue, primary, red, white } from '../constants/CustomColors';
+import { blue, dark_green, primary, red, white } from '../constants/CustomColors';
 import { useRouter } from 'next/router';
+import { State } from '../redux/reduxTypes';
 
 
 export const PhoneCard = (props: 
@@ -31,6 +32,7 @@ export const PhoneCard = (props:
   })
 
   let userId: string | null = null;
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
   if (typeof window !== 'undefined'){
     userId = localStorage.getItem('userId');
@@ -54,7 +56,8 @@ export const PhoneCard = (props:
   }
 
   return ( props.id === undefined ? <PhoneSkeletonCard/> : (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
+    <Grid container 
+    className={darkMode ? "darkCardContainer" : "cardContainer"} style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
        <Link href={`/phone/${props.id}`}>
         <div>
             <div className="imageConatiner">
@@ -71,7 +74,7 @@ export const PhoneCard = (props:
                 <span style={{color: blue, fontSize: "15px"}}>{props.discount} </span>
                 <span style={{color: red, textDecoration: 'line-through', fontSize: "10px"}}>{props.price}</span>
                 </>) : 
-                (<span style={{color: blue, fontSize: "15px"}}>{props.price + "$"}</span>)
+                (<span style={{color: darkMode ?  dark_green : blue , fontSize: "15px"}}>{props.price + "$"}</span>)
                 }
               </Typography>
             </div>
@@ -100,13 +103,13 @@ export const PhoneCard = (props:
           </Link>
           ) : props.inCart ? 
           (
-            <IconButton size="small" style={{backgroundColor: primary, color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
+            <IconButton size="small" style={{backgroundColor: darkMode ? dark_green : primary, color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
             onClick={userId !== null ? () => dispatch(removeFromCart(props.id)) : () => router.push('/login')}>
               <RemoveShoppingCartIcon/>
             </IconButton>
           )
           : (
-            <IconButton size="small" style={{backgroundColor: primary, color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
+            <IconButton size="small" style={{backgroundColor: darkMode ? dark_green : primary, color: white, padding: '5px', margin: '5px', fontSize: '15px'}} 
             onClick={userId !== null ? () => dispatch(addToCart(props)) : () => router.push('/login')}>
               <ShoppingCartIcon/>
             </IconButton>
