@@ -4,6 +4,13 @@
   color: #fff;
 }
 
+.subBar-container-dark {
+  padding: 50px;
+  background-color: #6cd60f;
+  color: #fff;
+}
+
+
 .icon-border {
   font-size: 15px;
   padding: 2px;
@@ -13,6 +20,11 @@
 
 .subscribe-form {
   background: rgb(12,175,229);
+  padding: 50px;
+}
+
+.subscribe-form-dark {
+  background: #6cd60f;
   padding: 50px;
 }
 
@@ -45,6 +57,17 @@
   font-size: 20px;
 }
 
+.subscribe-button-dark {
+  width: 120px;
+  height: 54.5px;
+  text-align: center;
+  color: black;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
 .cardContainer {
   display: inline-flex;
   flex-direction: column;
@@ -53,6 +76,22 @@
   border-radius: 5px;
   margin: 10px;
   padding: 5px;
+}
+
+.darkCardContainer {
+  display: inline-flex;
+  flex-direction: column;
+  background-color: #292C35;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+}
+
+.darkCardContainer:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .cardContainer:hover {
@@ -87,6 +126,18 @@
   background-color: #e8eaec;
 }
 
+.phone-block-dark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #393d4a;
+}
+
+.phone-block-dark:hover {
+  background-color: #5c6378;
+  cursor: pointer;
+}
+
 .phone-block:hover {
   background-color: #fff;
   cursor: pointer;
@@ -95,6 +146,16 @@
 .phone-block-big { 
   background-color: #e8eaec;
   display: flex;
+}
+
+.phone-block-big-dark{
+  background-color: #393d4a;
+  display: flex;
+}
+
+.phone-block-big-dark:hover {
+  background-color: #5c6378;
+  cursor: pointer;
 }
 
 .phone-block-big:hover {

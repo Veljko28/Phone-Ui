@@ -84,7 +84,15 @@ body {
 
 .support {
     color: #333;
-    font-size: 10px;
+    font-size: 11px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-left: 0;
+}
+
+.support-dark {
+    color: #fff;
+    font-size: 11px;
     margin-right: 10px;
     margin-top: 5px;
     margin-left: 0;
@@ -123,9 +131,15 @@ body {
   margin-bottom: 0;
 }
 
+.helper-container-dark {
+  background-color: #393d4a;
+  height: 25px;
+  margin-bottom: 0;
+}
+
 
 .main-header {
-  background-color: #fff;
+  background-color: inherit;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -153,6 +167,18 @@ body {
   font-size: 15px;
 }
 
+.searchTerm-dark {
+  width: 100%;
+  border: 3px solid #6cd60f;
+  border-right: none;
+  padding: 5px;
+  height: 40px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #999;
+  font-size: 15px;
+}
+
 .searchTerm:focus{
   color: #000;
 }
@@ -169,10 +195,33 @@ body {
   font-size: 20px;
 }
 
-.user-control {
+.searchButton-dark {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #6cd60f;
+  background: #6cd60f;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
 
+.user-control {
   display: flex;
   list-style-type: none;
+}
+
+.user-control-dark {
+  display: flex;
+  list-style-type: none;
+}
+
+.user-control-dark li {
+  margin-top: 10px;
+  padding: 0 10px 0 10px;
+  font-size: 17px;
+  color: #6cd60f;
 }
 
 .user-control li {
@@ -192,6 +241,13 @@ body {
   background-color: #0cafe5;
 }
 
+.navbar-main-dark {
+ display: flex;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: #6cd60f;
+}
+
 .navbar-main-display {
   display: flex;
   flex-direction: column;
@@ -199,6 +255,14 @@ body {
   padding-right: 50px;
   background-color: #0cafe5;
 } 
+
+.navbar-main-display-dark {
+  display: flex;
+  flex-direction: column;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: #6cd60f;
+}
 
 @media(min-width: 800px) {
   .navbar-main-display {
@@ -208,6 +272,15 @@ body {
 
 .navbtn {
   background-color: #0cafe5;
+  padding: 10px;
+  width: 100%;
+  color: white;
+  font-size: 15px;
+  border: none;
+}
+
+.navbtn-dark {
+  background-color: #6cd60f;
   padding: 10px;
   width: 100%;
   color: white;
@@ -267,6 +340,12 @@ body {
 
 .cartIcon {
   color: #0cafe5;
+  margin-left: 10px;
+  padding: 0;
+}
+
+.cartIcon-dark {
+  color: #6cd60f;
   margin-left: 10px;
   padding: 0;
 }

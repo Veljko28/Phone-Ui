@@ -5,3 +5,7 @@ export const gray = "#eee";
 export const dark_gray = "#999";
 export const red = "red";
 export const primary = "#4d88ff";
+export const dark = "#292C35";
+export const dark_cont = "#393d4a";
+export const dark_green = "#85ea2d";
+export const darker_green = "#6cd60f";

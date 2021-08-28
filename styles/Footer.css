@@ -5,6 +5,14 @@
   border-top: 1px solid #eee;
 }
 
+.footer-container-dark {
+  padding: 20px 120px 20px 120px;
+  background-color: #292C35;
+  color: white;
+  margin-top: auto;
+  border-top: 1px solid #eee;
+}
+
 .footer-title {
   color: #333;
 }
@@ -14,10 +22,15 @@
   margin: 5px 10px 10px 0;
 }
 
+.footer-mui-icons-dark {
+  color: #85ea2d;
+  margin: 5px 10px 10px 0;
+}
+
 .footer-text {
   font-size: 13px;
   margin-top: 5px;
-  color: #667;
+  color: inherit;
 }
 
 .footer-links {
