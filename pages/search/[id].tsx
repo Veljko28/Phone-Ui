@@ -6,8 +6,10 @@ import { Grid, Typography } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { fetchGet } from '../../constants/CustomFetching';
 import Loading from '../../components/Loading';
-import { blue, dark_gray, white } from '../../constants/CustomColors';
+import { blue, dark, darker_green, dark_gray, gray, green, white } from '../../constants/CustomColors';
 import SearchSkeleton from '../../components/Skeletons/SearchSkeleton';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 const search = () => {
@@ -23,6 +25,8 @@ const search = () => {
 
   const [data,changeData] = React.useState(initState);
   const [loading, changeLoading] = React.useState(true);
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
 
   React.useEffect(() => {
       const func = async () => {
@@ -35,7 +39,7 @@ const search = () => {
         }
         else console.log('error');
 
-        // changeLoading(false);
+        changeLoading(false);
       }
 
       func();
@@ -52,18 +56,18 @@ const search = () => {
                       </div>
                     </Grid>
                   <Grid xs={12} md={8} item className="listing-grid-item">
-                        <Typography variant="subtitle1" style={{color: blue}} className="curs-hver">
+                        <Typography variant="subtitle1" style={{color: darkMode ? darker_green : blue}} className="curs-hver">
                           {name}
                         </Typography>
 
-                        <Typography variant="subtitle2" style={{color: dark_gray}}>
+                        <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray}}>
                           {description}
                         </Typography>
                          <Typography variant="subtitle1" style={{display: 'flex', justifyContent: 'space-between'}}>
-                           <div style={{color: '#43cf22'}}>
+                           <div style={{color: green}}>
                               {price+"$"}   
                            </div>
-                           <div style={{color: blue, marginRight: 15}}>
+                           <div style={{color: darkMode ? darker_green : blue, marginRight: 15}}>
                               {type}
                            </div>
                         </Typography>
@@ -80,22 +84,22 @@ const search = () => {
               <Grid container className="curs-hver" style={{width: '80%'}}>
                     <Grid xs={12} md={4} item className="review-grid-item">
                       <div className="curs-hvr">
-                        <img src='/user.png' width="100px" height="100px" />
+                        <img src={darkMode ? "/user_dark.png" : '/user.png'} width="100px" height="100px" />
                       </div>
                     </Grid>
                   <Grid xs={12} md={8} item className="listing-grid-item">
-                        <Typography variant="subtitle1" style={{color: blue}} className="curs-hver">
+                        <Typography variant="subtitle1" style={{color: darkMode ? darker_green : blue}} className="curs-hver">
                           {userName}
                         </Typography>
 
-                        <Typography variant="subtitle2" style={{color: dark_gray}}>
+                        <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray}}>
                           {description ? description : "This user has no description"}
                         </Typography>
                          <Typography variant="subtitle1" style={{display: 'flex', justifyContent: 'space-between'}}>
-                           <div style={{color: blue}}>
+                           <div style={{color: darkMode ? darker_green : blue}}>
                               Phones Sold: {phones_sold}   
                            </div>
-                           <div style={{color: blue, marginRight: 15}}>
+                           <div style={{color: darkMode ? darker_green : blue, marginRight: 15}}>
                               User
                            </div>
                         </Typography>
@@ -110,16 +114,17 @@ const search = () => {
       {
       data.phones.length === 0 && data.bids.length === 0 && data.users.length === 0 ? 
       loading ?
-       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',paddingBottom: 150 , backgroundColor: white}}>
-            <Typography variant="h6" style={{color: blue, marginTop: 15}}>Results for {id}</Typography>
+       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',paddingBottom: 150 , 
+       backgroundColor: darkMode ? dark : white}}>
+            <Typography variant="h6" style={{color: darkMode ? darker_green : blue, marginTop: 15}}>Results for {id}</Typography>
             <SearchSkeleton/>
             <SearchSkeleton/>
             <SearchSkeleton/>
       </div>
             :
             (
-       <div style={{backgroundColor: white, display: 'flex', alignItems: 'center', flexDirection: 'column', paddingBottom: 150}}>
-         <Typography variant="h2" style={{color: blue, padding: 15}}>Couldn't find anything with this name</Typography> 
+       <div style={{backgroundColor: darkMode ? dark : white, display: 'flex', alignItems: 'center', flexDirection: 'column', paddingBottom: 150}}>
+         <Typography variant="h2" style={{color: darkMode ? darker_green : blue, padding: 15}}>Couldn't find anything with this name</Typography> 
          <Image src="/search_fail.svg" width="500px" height="500px"/>
          <Link href="/">
             <div className="shopping-button">
@@ -129,8 +134,8 @@ const search = () => {
          </Link>
        </div>
        ): (
-        <div style={{paddingBottom: 150, backgroundColor: white,display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 650}}>
-        <Typography variant="h6" style={{color: blue, marginTop: 15}}>Results for {id}</Typography>
+        <div style={{paddingBottom: 150, backgroundColor: darkMode ? dark : white, display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 650}}>
+        <Typography variant="h6" style={{color: darkMode ? darker_green : blue, marginTop: 15}}>Results for {id}</Typography>
         {data.phones.map(x => ListingMap({phone: x, type: "Listing"}))}
         {data.bids.map(x => ListingMap({phone: x, type: "Bid"}))}
         {data.users.map(x => UserMap(x))}
