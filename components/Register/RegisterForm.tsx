@@ -18,13 +18,16 @@ import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars
 import { formatYupError } from '../../constants/formYupError';
 import YupError from '../../constants/YupError';
 import { useRouter } from 'next/router';
-import { blue, gray, white } from '../../constants/CustomColors';
+import { blue, gray, white, darker_green } from '../../constants/CustomColors';
 import { v4 } from 'uuid';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 const RegisterForm = () => {
 
   const router = useRouter();
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
   const [form,changeForm] = React.useState({
     email: '',
@@ -92,14 +95,17 @@ const RegisterForm = () => {
 
   return (
     <>
-    <Grid container className="register-tab">
-      <Typography variant="h6" style={{margin: '10px'}}>Register</Typography>
+    <Grid container className={darkMode ? "register-tab-dark" : "register-tab"}>
+      <Typography variant="h6" style={{margin: '10px', color: darkMode ? white : 'black'}}>Register</Typography>
       <ColoredLine color={gray}/>
 
       <TextField placeholder="Email" value={form.email} 
       onChange={e => changeForm({...form,email: e.target.value})}
        InputProps={{
-        className: errors.filter((x: any) => x.path === 'email').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'email').length > 0 ?
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         startAdornment: (
         <InputAdornment position="start">
           <EmailIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -112,7 +118,10 @@ const RegisterForm = () => {
        <TextField placeholder="Username"  value={form.userName} 
       onChange={e => changeForm({...form,userName: e.target.value})}
         InputProps={{
-        className: errors.filter((x: any) => x.path === 'userName').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'userName').length > 0 ? 
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         startAdornment: (
         <InputAdornment position="start">
           <PersonIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -125,7 +134,10 @@ const RegisterForm = () => {
       <TextField placeholder="Password" type={showPass ? "text" : "password"}
       value={form.password} onChange={e => changeForm({...form,password: e.target.value})}
         InputProps={{
-        className: errors.filter((x: any) => x.path === 'password').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'password').length > 0 ? 
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         startAdornment: (
         <InputAdornment position="start">
           <LockIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -144,7 +156,10 @@ const RegisterForm = () => {
       <TextField placeholder="Confirm Password"  type={showPass ? "text" : "password"}
       value={form.confirm_Password} onChange={e => changeForm({...form,confirm_Password: e.target.value})}
        InputProps={{
-        className: errors.filter((x: any) => x.path === 'confirm_Password').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'confirm_Password').length > 0 ? 
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         startAdornment: (
         <InputAdornment position="start">
           <LockOpenTwoToneIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -157,17 +172,18 @@ const RegisterForm = () => {
 
       <Button title="Register" variant="contained" 
         onClick={() => sendRegister()}
-      style={{margin: '10px', backgroundColor: blue, color: white}}>{
+      style={{margin: '10px', backgroundColor: darkMode ? darker_green : blue, color: white}}>{
         snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Register"
     }</Button>
 
       <Typography variant="subtitle2" style={{margin: '10px', color: '#b3b3b3'}}>Already Have An Account ?
-        <Link href="/login"><span style={{color: '#656', cursor: 'pointer'}}> Login !</span></Link>
+        <Link href="/login"><span style={{color: darkMode ? gray : '#656', cursor: 'pointer'}}> Login !</span></Link>
       </Typography>
 
-      <Typography variant="subtitle1" style={{margin: '10px'}}>Register With</Typography>
+      <Typography variant="subtitle1" style={{margin: '10px', color: darkMode ? gray : 'black'}}>Register With</Typography>
       <div style={{display: 'inline-block'}}>
-      {socialLinks.slice(0,3).map(x => <SocialIcon url={x} key={x} style={{width: '30px', height: '30px', margin: '5px'}} /> )}
+      {socialLinks.slice(0,3).map(x => <SocialIcon url={x} key={x} style={{width: '30px', height: '30px', margin: '5px',
+      backgroundColor: white, borderRadius: 50}} /> )}
       </div>
 
 

@@ -3,9 +3,9 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import React from 'react'
 
 
-const PhoneDisplaySkeleton = () => {
+const PhoneDisplaySkeleton = ({darkMode} : {darkMode: boolean}) => {
   return (
-    <Grid container className="display-container" style={{height: 525, marginTop: 20, marginBottom: 20}}>
+    <Grid container className={darkMode ? "display-container-dark" : "display-container"} style={{height: 525, marginTop: 20, marginBottom: 20}}>
       <Grid item className="other-images" xs={12} md={6} lg={2}>
         <Skeleton  width="55px" height="75px"/>
         <Skeleton  width="55px" height="75px"/>
@@ -13,7 +13,7 @@ const PhoneDisplaySkeleton = () => {
       </Grid>
 
       <Grid item xs={12} md={6} lg={2}>
-          <Skeleton width="350px" height="550px" style={{position: 'absolute', top: 75, left: 400}}/>
+          <Skeleton width="350px" height="550px" style={{position: 'absolute', top: 75, left: 450}}/>
       </Grid>
 
       <Grid item style={{padding: '20px'}} md={12} lg={8}>

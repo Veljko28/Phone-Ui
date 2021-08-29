@@ -2,12 +2,13 @@ import { Grid, Typography } from '@material-ui/core'
 import Skeleton from '@material-ui/lab/Skeleton';
 import React from 'react'
 import ColoredLine from '../../constants/ColoredLine';
+import { blue, darker_green } from '../../constants/CustomColors';
 
-const SellerInfoSkeleton = () => {
+const SellerInfoSkeleton = ({darkMode} : {darkMode: boolean}) => {
   return (
-      <Grid className="phone-details" container>
+      <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container>
         <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: '#0cafe5'}}>About The Seller</Typography>
+        color: darkMode ? darker_green : blue}}>About The Seller</Typography>
             <ColoredLine color="#eee"/>
             <Grid xs={12} container item>
                 <Grid xs={12} md={4} item className="review-grid-item">
