@@ -12,12 +12,16 @@ import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 import EmailIcon from '@material-ui/icons/Email';
 import PersonIcon from '@material-ui/icons/Person';
 import CreateIcon from '@material-ui/icons/Create';
-import { blue, gray } from '../../constants/CustomColors';
+import { blue, darker_green, gray } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 const ContactForm = () => {
 
   const router = useRouter();
+
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
   const [form, changeForm] = React.useState({
     email: '',
@@ -61,13 +65,14 @@ const ContactForm = () => {
       else changeSnackbarOpen({...snackBar, error: true, loading: false});
     }
     catch (err){
+      changeSnackbarOpen({...snackBar, loading: false});
       changeErrors(formatYupError(err) as any);
     }
 
   }
 
   return (
-    <Grid container className="contact-tab">
+    <Grid container className={darkMode ? "contact-tab-dark" : "contact-tab"}>
       <Typography variant="h6" style={{margin: '10px'}}>Contact Us</Typography>
       <ColoredLine color={gray}/>
 
@@ -75,7 +80,10 @@ const ContactForm = () => {
        <TextField placeholder="Your Name" value={form.name} 
       onChange={e => changeForm({...form,name: e.target.value})}
         InputProps={{
-          className: errors.filter((x: any) => x.path === 'name').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'name').length > 0 ?
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         startAdornment: (
           <InputAdornment position="start">
           <PersonIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -89,7 +97,10 @@ const ContactForm = () => {
       <TextField placeholder="Enter Your Email Address" value={form.email}
       onChange={e => changeForm({...form,email: e.target.value})}
       InputProps={{
-        className: errors.filter((x: any) => x.path === 'email').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'email').length > 0 ? 
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         startAdornment: (
         <InputAdornment position="start">
           <EmailIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -103,7 +114,10 @@ const ContactForm = () => {
       <TextField placeholder="Subject" value={form.subject}
       onChange={e => changeForm({...form,subject: e.target.value})}
       InputProps={{
-        className: errors.filter((x: any) => x.path === 'subject').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'subject').length > 0 ? 
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         startAdornment: (
         <InputAdornment position="start">
           <CreateIcon style={{fontSize: '15px', color: '#656'}}/>
@@ -117,7 +131,10 @@ const ContactForm = () => {
       <TextField placeholder="Message" value={form.message} rows="3" multiline={true}
       onChange={e => changeForm({...form,message: e.target.value})}
       InputProps={{
-        className: errors.filter((x: any) => x.path === 'message').length > 0 ? "login-imput-error" : "login-imput",
+        className: errors.filter((x: any) => x.path === 'message').length > 0 ? 
+        darkMode ? "login-imput-error-dark" : "login-imput-error" 
+        : 
+        darkMode ? "login-imput-dark" : "login-imput",
         style: {padding: "10px"},
         disableUnderline: true
       }}/>
@@ -125,7 +142,7 @@ const ContactForm = () => {
 
       <Button title="Contact"
       onClick={() => onSubmit()}
-      variant="contained" style={{margin: '10px', backgroundColor: blue, color: '#fff'}}>
+      variant="contained" style={{margin: '10px', backgroundColor: darkMode ? darker_green : blue, color: '#fff'}}>
         {
         snackBar.loading ? <CircularProgress style={{color: '#fff'}} size={24}/> : "Submit"
        }

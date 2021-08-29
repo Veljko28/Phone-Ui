@@ -2,11 +2,16 @@ import { Grid, Typography} from '@material-ui/core';
 import Image from 'next/image';
 import ColoredLine  from '../../constants/ColoredLine';
 import { gray } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
+
 
 const ContactSubBar = () => {
     
+   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
     return (    
-        <Grid container className="sub-bar-container">
+        <Grid container className={darkMode ? "sub-bar-container-dark" : "sub-bar-container"}>
 
             <Grid item xs={12} md={12}>
                 <Typography variant="h6">How Can We Help You ?</Typography>
