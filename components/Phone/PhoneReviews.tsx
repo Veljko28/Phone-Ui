@@ -5,10 +5,12 @@ import { Grid, Typography } from '@material-ui/core';
 
 import ColoredLine from '../../constants/ColoredLine';
 import { fetchGet } from '../../constants/CustomFetching';
-import { blue, dark_gray, gray } from '../../constants/CustomColors';
+import { blue, darker_green, dark_gray, gray } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
-const ReviewMap = ({id, rating, userId, dateCreated, message, userName}
-    : {id: string, rating: number, userId: string, dateCreated: Date, message: string, userName: string}) => {
+const ReviewMap = ({id, rating, userId, dateCreated, message, userName, darkMode}
+    : {id: string, rating: number, userId: string, dateCreated: Date, message: string, userName: string, darkMode: boolean}) => {
 
         const hasLine = (id : string) => {
             if (id !== '3'){
@@ -30,11 +32,11 @@ const ReviewMap = ({id, rating, userId, dateCreated, message, userName}
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
                     <span style={{color: dark_gray, marginLeft: '10px'}}>By 
-                    <Link href={`/user/${userId}`}><span style={{color: blue}} className="curs-hvr"> {userName} </span></Link>on  
+                    <Link href={`/user/${userId}`}><span style={{color: darkMode ? darker_green : blue}} className="curs-hvr"> {userName} </span></Link>on  
                     {" " + date.day + "/" + date.month + "/" + date.year}</span>
             </div>
             <br/>
-            <div style={{color: dark_gray, padding: '10px'}}>
+            <div style={{color: darkMode ? gray : dark_gray, padding: '10px'}}>
                 {message}
             </div>
             {hasLine(id)}
@@ -45,7 +47,7 @@ const ReviewMap = ({id, rating, userId, dateCreated, message, userName}
 const PhoneReviews = ({phoneId} : {phoneId: string}) => {
 
    const [reviews, changeReviews] = React.useState([]);
-
+   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
     React.useEffect(() => {
         const func = async () => {
@@ -61,9 +63,9 @@ const PhoneReviews = ({phoneId} : {phoneId: string}) => {
     },[phoneId])
 
     return (
-        <Grid className="phone-details" container> 
+        <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container> 
             <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-            color: blue}}>Customer Reviews</Typography>
+            color: darkMode ? darker_green : blue}}>Customer Reviews</Typography>
             <ColoredLine color={gray}/>
             {reviews.length !== 0 ? reviews.map( (x: any) => {
 
@@ -76,9 +78,9 @@ const PhoneReviews = ({phoneId} : {phoneId: string}) => {
                     }
 
                     func();
-                    return ReviewMap(x)
+                    return ReviewMap({...x,darkMode})
                 }) : <div>
-            <Typography variant="h5" style={{margin: 30,color: blue}}>
+            <Typography variant="h5" style={{margin: 30,color: darkMode ? darker_green : blue}}>
               Couldn't find any reviews for this product !
             </Typography></div>}
         </Grid>

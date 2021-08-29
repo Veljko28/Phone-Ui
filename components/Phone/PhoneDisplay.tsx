@@ -17,11 +17,10 @@ import Phone from "../models/Phone";
 import BidHistory from "./BidHistory";
 import BidHistoryModel from "../models/BidHistory";
 
-import { timeLeft } from '../../constants/formatDate';
 import ImageMapper from "../../constants/ImageMapper";
 import PopUpDialog from "../../constants/PopUpDialog";
 import { fetchGet, fetchPost } from "../../constants/CustomFetching";
-import { blue, dark_gray, green, white } from '../../constants/CustomColors';
+import { blue, darker_green, dark_gray, gray, green, white } from '../../constants/CustomColors';
 
 import { State } from '../../redux/reduxTypes';
 import { changePhoneCategory } from "../../redux/actions/phonesActions";
@@ -47,6 +46,8 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
   const [userWon, changeUserWon] = React.useState("");
 
   let currentUserId: string | null = null;
+
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
   if (typeof window !== 'undefined') {
     currentUserId = localStorage.getItem('userId');
@@ -110,10 +111,10 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
     changeDialogOpen(false);
   }
 
-  return loading ? <PhoneDisplaySkeleton/> : (
-    <Grid container className="display-container">
+  return loading ? <PhoneDisplaySkeleton darkMode={darkMode}/> : (
+    <Grid container className={darkMode ? "display-container-dark" : "display-container"}>
       <Grid item className="other-images">
-          {ImageMapper(images as any, changeCurrentImage)}
+          {ImageMapper(images as any, changeCurrentImage, darkMode)}
       </Grid>
 
       <Grid item>
@@ -123,28 +124,28 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
       </Grid>
 
       <Grid item style={{padding: '20px'}}>
-        <Typography variant='subtitle1' style={{fontSize: '20px'}}>{phone?.name}</Typography>
+        <Typography variant='subtitle1' style={{fontSize: '20px', color: darkMode ? white : 'black'}}>{phone?.name}</Typography>
         <div className="phone-rating">
           <Rating name="phone-rating" value={4.6} precision={0.1} readOnly style={{fontSize: '13px'}}/>
           <span style={{color: '#999', fontSize: '12px',margin: '5px' }}>(4.6 Review Stars)</span>
         </div>
         <Typography variant="subtitle1" >
 
-          <span style={{color: blue, fontSize: "35px"}}>{bid ? "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
+          <span style={{color: darkMode ? darker_green : blue, fontSize: "35px"}}>{bid ? "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
 
-          <span style={{color: dark_gray, fontSize: '15px', display: 'flex', width: '400px'}}>
+          <span style={{color: darkMode ? gray : dark_gray, fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
           </span>
           {phone?.status !== 0 ? (<>
-            <Typography variant="h5" style={{color: blue,marginTop: 10}}>{bid ? "This bid has ended !" : "This Phone has been sold !"}</Typography>
-            {bid && userWon != "" ?  <Typography variant="h4" style={{color: green,marginTop: 10}}>{userWon} has won this bid !</Typography> : 
-            <Typography variant="h5" style={{color: blue,marginTop: 10}}>No bids were placed on this bid !</Typography>}
+            <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>{bid ? "This bid has ended !" : "This Phone has been sold !"}</Typography>
+            {bid && userWon != "" ?  <Typography variant="h4" style={{color: darkMode ? blue : green,marginTop: 10}}>{userWon} has won this bid !</Typography> : 
+            <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>No bids were placed on this bid !</Typography>}
             {bid ? (<> 
                <div 
-              onClick={e => openHistory(e)} className="bid-history">
+              onClick={e => openHistory(e)} className={darkMode ? "bid-history-dark" : "bid-history"}>
               <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History ({history?.length})
               </div>
-              <BidHistory open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
+              <BidHistory darkMode={darkMode} open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
             </>) : null}
             </>
           ) : bid ? 
@@ -159,14 +160,14 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
           
           : 
           
-          <PhoneButtonTypes id={id as string} userId={userId} currentUserId={currentUserId} inCart={inCart} phone={phone} /> 
+          <PhoneButtonTypes id={id as string} userId={userId} currentUserId={currentUserId} inCart={inCart} phone={phone} darkMode={darkMode} /> 
 
           }
 
 
         </Typography>
           <div style={{margin: 10, marginLeft: 0}}>
-              <Chip style={{margin: 5, marginLeft: 0 ,backgroundColor: blue, color: white}}
+              <Chip style={{margin: 5, marginLeft: 0 ,backgroundColor: darkMode ? darker_green : blue, color: white}}
               icon={<CategoryIcon style={{color: white, fontSize: 20}}/>}
               label={phone?.category}
               onClick={() => {
@@ -180,7 +181,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
                   router.push('/phones/1');
               }}
               />
-              <Chip style={{marginLeft: 5,backgroundColor: blue, color: white}}
+              <Chip style={{marginLeft: 5,backgroundColor: darkMode ? darker_green : blue, color: white}}
               icon={<GradeIcon style={{color: '#fff', fontSize: 20}}/>}
               label={phone?.brand}
                onClick={() => {
@@ -197,8 +198,8 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
               />
           </div>
           <div>
-            <FavoriteIcon style={{fontSize: 20, color: blue, marginBottom: 5}}/>
-            <Typography variant="h6" style={{color: blue, display: 'inline-block'}}>Added to wish list:  
+            <FavoriteIcon style={{fontSize: 20, color: darkMode ? darker_green : blue, marginBottom: 5}}/>
+            <Typography variant="h6" style={{color: darkMode ? darker_green : blue, display: 'inline-block'}}>Added to wish list:  
             {numOfFavorites === "1" ? " " + numOfFavorites + " time" : " " + numOfFavorites + " times"}</Typography>
           </div>
 

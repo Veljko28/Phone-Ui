@@ -2,10 +2,10 @@ import React from 'react'
 import { Popover, Typography } from '@material-ui/core'
 
 import BidHistoryModel from '../models/BidHistory'
-import { blue } from '../../constants/CustomColors'
+import { blue, darker_green, dark_cont, white, gray } from '../../constants/CustomColors'
 
-const BidHistory = ({open, anchorEl, handleClose, history} : 
-  {open: boolean, anchorEl: any, handleClose: () => void, history?: BidHistoryModel[] }) => {
+const BidHistory = ({open, anchorEl, handleClose, history, darkMode} : 
+  {open: boolean, anchorEl: any, handleClose: () => void, history?: BidHistoryModel[], darkMode: boolean }) => {
 
   return (
     <Popover
@@ -21,11 +21,11 @@ const BidHistory = ({open, anchorEl, handleClose, history} :
           horizontal: 'left',
         }}
       >
-      <div style={{padding: '15px'}}>
+      <div style={{padding: '15px', backgroundColor: darkMode ? dark_cont : white}}>
         {history !== undefined && history.length !== 0 ? (
           <table style={{minWidth: '225px'}}>
             <thead style={{borderBottom: '1px solid #eee'}}>
-              <tr>
+              <tr style={{color: darkMode ? gray : 'black'}}>
                 <th>User</th>
                 <th>Amount</th>
               </tr>
@@ -33,8 +33,8 @@ const BidHistory = ({open, anchorEl, handleClose, history} :
             <tbody>
               {history?.map((x: BidHistoryModel) => (
                 <tr key={x.amount}>
-                  <td>{x.userName}</td>
-                  <td style={{color: blue}}>{x.amount+"$"}</td>
+                  <td style={{color: darkMode ? gray : 'black'}}>{x.userName}</td>
+                  <td style={{color: darkMode ? darker_green : blue}}>{x.amount+"$"}</td>
                 </tr>
               ))}
             </tbody>
