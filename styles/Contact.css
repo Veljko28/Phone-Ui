@@ -10,6 +10,19 @@
     margin-left: 20px;
   }
 
+  .contact-tab-dark {
+    background-color: #393d4a;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    max-width: 500px;
+    min-width: 250px;
+    height: 550px;
+    padding: 30px;
+    margin: 30px;
+    margin-left: 20px;
+  }
+
   .contact-info-tab {
       background-color: #fff;
       margin: 30px;
@@ -22,6 +35,13 @@
   
   .sub-bar-container {
       background-color: #fff;
+      padding: 20px;
+      margin-bottom: 50px;
+  }
+
+  .sub-bar-container-dark {
+      background-color: #393d4a;
+      color: white;
       padding: 20px;
       margin-bottom: 50px;
   }

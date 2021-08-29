@@ -29,10 +29,10 @@ edit validation ✅
 user profile edit ✅
 search styling ✅
 remove user images ✅
-phone details
+phone details ✅
 User Reviews and Ratings ✅
 Checkout and Payments ✅
-Darkmode
+Darkmode ✅
 better styles for adding and editing phones ✅
 page buttons fix ✅
 carousel images on phone
@@ -54,9 +54,6 @@ display phone skeleton ✅
 seller info skeleton ✅
 management page table skeleton ✅
 skeleton phone / bid list ✅
-listings pagination 
-reviews pagination 
-wishlist pagination 
 fix skeleton grids ✅
 wish list profile config ✅
 wish list fetching ✅
@@ -64,7 +61,7 @@ contact seller api ✅ / phone number ✅
 fix bid delete ✅
 spinner on bid add ✅
 spinner on phone add / edit ✅
-check if refresh token expired and logout
+check if refresh token expired and logout ✅
 profile not found ✅
 bid not found ✅
 phone not found ✅
@@ -89,7 +86,7 @@ fix phone display on smaller screens
 already logged in for login and register ✅
 send notifications on phone sold and change phone status ✅
 change static colors to custom color class ✅
-adjustments for dark mode
+adjustments for dark mode ✅
 notification api config ✅
 on register add notification for confirm email ✅
 checkout form yup errors ✅
@@ -124,7 +121,7 @@ seller info phones sold ✅
 
 
 links to buyer on phone sold notification ✅
-fix help bar and language 
+fix help bar and language ✅
 placed bids api ✅
 place bids management ✅
 phone list id fix ✅
@@ -143,14 +140,23 @@ bid ends in seconds ✅
 bid history data problem ?
 no diplicate bids on management ✅
 dark mode button ✅
-remove background on phone images
-wish list on related products and latest phones
+remove background on phone images ✅
 logo for dark mode ✅
-navbar stays phone after full screen change
 front page dark mode ✅
 dark mode button functionality ✅
+skeletons dark mode ✅
+login / register dark mode ✅
+contact / about dark mode ✅
 
 
+
+navbar stays phone after full screen change
+wish list on related products and latest phones
+loyality points implementation
+loyality points display
+listings pagination 
+reviews pagination 
+wishlist pagination 
 
 
 language translations (react-i18next)

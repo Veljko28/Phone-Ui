@@ -9,9 +9,30 @@
   margin: 30px;
 }
 
+.login-tab-dark {
+  background-color: #393d4a;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  min-width: 250px;
+  height: 475px;
+  padding: 30px;
+  margin: 30px;
+}
+
 
 .register-tab {
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  min-width: 250px;
+  padding: 30px;
+  margin: 30px;
+}
+
+.register-tab-dark {
+  background-color: #393d4a;
   display: flex;
   flex-direction: column;
   max-width: 500px;
@@ -31,6 +52,17 @@
   margin: 30px;
 }
 
+.register-info-tab-dark {
+  background-color: #393d4a;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  min-width: 250px;
+  height: 570px;
+  padding: 10px;
+  margin: 30px;
+}
+
 .login-imput {
   background-color: #eee;
   font-size: 15px;
@@ -38,8 +70,24 @@
   margin: 10px;
 }
 
+.login-imput-dark {
+  background-color: #fff;
+  color: #fff;
+  font-size: 15px;
+  padding: 8px;
+  margin: 10px;
+}
+
 .login-imput-error {
   background-color: #eee;
+  font-size: 15px;
+  padding: 8px;
+  margin: 10px;
+  border: 1px solid red;
+}
+
+.login-imput-error-dark {
+  background-color: #fff;
   font-size: 15px;
   padding: 8px;
   margin: 10px;

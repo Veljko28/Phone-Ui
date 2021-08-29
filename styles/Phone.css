@@ -10,6 +10,18 @@
     border: 1px solid #eee;
     background-color: #fff;
   }
+
+  .other-image-dark {
+    margin-top: 20px;
+    padding: 3px;
+    border: 1px solid #eee;
+    background-color: #393d4a;
+  }
+
+  .other-image-dark:hover {
+    cursor: pointer;
+    border: 1px solid #6cd60f;
+  }
   
   .other-image:hover {
     cursor: pointer;
@@ -42,6 +54,13 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
+  .display-container-dark {
+    background-color: #393d4a;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   
   .quantity-value {
     display: flex;
@@ -51,6 +70,11 @@
 
   .phone-details {
     background-color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .phone-details-dark {
+    background-color: #393d4a;
     margin-bottom: 10px;
   }
 
@@ -102,6 +126,16 @@
     color: #0cafe5;
     margin-top: 10px;
     font-size: 15px;
+   }
+
+   .bid-history-dark {
+    color: #6cd60f;
+    margin-top: 10px;
+    font-size: 15px;
+   }
+
+   .bid-history-dark:hover {
+     cursor: pointer;
    }
 
    .bid-history:hover {
@@ -194,6 +228,14 @@
       padding: 10px
     }
 
+    .mngm-side-dark {
+      display: 'flex';
+      border-bottom: 1px solid #eee;
+      width: 100%;
+      padding: 10px;
+      background-color: #393d4a;
+    }
+
     
     @keyframes nameHover {
       from {
@@ -223,7 +265,33 @@
     }
 
     .mngm-text {
+      color: #000;
+    }
+
+    .mngm-text:hover {
+      cursor: pointer;
+    }
+
+    .mngm-text-selected {
       color: #0cafe5;
+    }
+
+    .mngm-text-selected:hover {
+      cursor: pointer
+    }
+
+    .mngm-text-dark {
+      color: #eee;
+    }
+
+    .mngm-text-dark:hover { cursor: pointer; }
+
+    .mngm-text-selected-dark {
+      color: #6cd60f;
+    }
+
+    .mngm-text-selected-dark:hover {
+      cursor: pointer;
     }
 
     .phone-name-mngm {
