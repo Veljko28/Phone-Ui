@@ -1,11 +1,15 @@
 import { Button } from '@material-ui/core';
 import Link from 'next/link';
-import { blue, white } from '../../constants/CustomColors';
+import { blue, darker_green, dark_green, white } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 
 
 const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOfPages: number}) => {
+
+   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
     
     const intPageId = parseInt(pageId);
 
@@ -13,7 +17,9 @@ const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOf
         return (
             <Link key={Math.random() % 100} href={bid === true ? `/bids/${id}` : `/phones/${id}`}>
                     <Button variant="contained" 
-                    style={{backgroundColor: id == intPageId ? '#0a85ae' : blue, color: white, margin: '5px'}}>
+                    style={{backgroundColor: id == intPageId ? 
+                    darkMode ? "#326307" : '#0a85ae' :
+                    darkMode ? darker_green : blue, color: white, margin: '5px'}}>
                         {id}
                     </Button>
             </Link>
@@ -23,7 +29,7 @@ const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOf
     const PrevButton = () => {
         return (<Link key={Math.random() % 100} href={bid === true ? `/bids/${intPageId-1}` : `/phones/${intPageId-1}`}>
                     <Button variant="contained" 
-                    style={{backgroundColor: blue, color: white, margin: '5px'}}>
+                    style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: '5px'}}>
                         Prev
                     </Button>
             </Link>)
@@ -32,7 +38,7 @@ const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOf
      const NextButton = () => {
         return (<Link key={Math.random() % 100} href={bid === true ? `/bids/${intPageId+1}` : `/phones/${intPageId+1}`}>
                     <Button variant="contained" 
-                    style={{backgroundColor: blue, color: white, margin: '5px'}}>
+                    style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: '5px'}}>
                         Next
                     </Button>
             </Link>)
