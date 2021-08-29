@@ -3,10 +3,14 @@ import Image from 'next/image';
 import { Grid, Typography } from '@material-ui/core';
 
 import ColoredLine from '../../constants/ColoredLine';
+import { State } from '../../redux/reduxTypes';
+import { useSelector } from 'react-redux';
 
 const NumbersTab = () => {
+
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
   return (
-    <Grid container className="welcome-tab">
+    <Grid container className={darkMode ? "welcome-tab-dark" : "welcome-tab"}>
       <Grid item xs={12}>
         <Typography variant="h6" style={{padding: '5px'}}>
           MobiStore is a large company with
@@ -16,7 +20,7 @@ const NumbersTab = () => {
       <Grid container item xs={12} style={{display: 'flex', justifyContent: 'space-around'}} className="about-images-row">
 
           <div className="about-image">
-            <div className="about-image-circle">
+            <div className={darkMode ? "about-image-circle-dark" : "about-image-circle"}>
               <Image src="/about/mobile_icon.png" width="26px" height="46px" />
             </div> 
             <Typography variant="subtitle1" style={{textAlign: 'center'}}>
@@ -25,7 +29,7 @@ const NumbersTab = () => {
           </div>
        
           <div className="about-image">
-            <div className="about-image-circle">
+            <div className={darkMode ? "about-image-circle-dark" : "about-image-circle"}>
               <Image src="/about/user_icon.png" width="41px" height="42px" />
             </div>
             <Typography variant="subtitle1" style={{textAlign: 'center'}}>
@@ -34,7 +38,7 @@ const NumbersTab = () => {
           </div>
 
           <div className="about-image">
-              <div className="about-image-circle">
+              <div className={darkMode ? "about-image-circle-dark" : "about-image-circle"}>
                 <Image src="/about/location_icon.png" width="40px" height="40px" />
               </div>
               <Typography variant="subtitle1" style={{textAlign: 'center'}}>

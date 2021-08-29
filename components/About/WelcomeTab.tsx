@@ -3,10 +3,14 @@ import { Grid, Typography } from '@material-ui/core';
 
 import ColoredLine from '../../constants/ColoredLine';
 import { dark_gray } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 const WelcomeTab = () => {
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
   return (
-    <Grid className="welcome-tab">
+    <Grid className={darkMode ? "welcome-tab-dark" : "welcome-tab"}>
       <Typography variant="h6" style={{padding: '5px'}}>
         Welcome to MobiStore
       </Typography>
