@@ -11,7 +11,9 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { fetchDelete, fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 import { timeLeft } from '../constants/formatDate';
-import { blue, red, white } from '../constants/CustomColors';
+import { blue, darker_green, red, white } from '../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../redux/reduxTypes';
 
 
 export const BidCard = (props: {image: string, name: string, price: string, date_ends: Date, id: string, 
@@ -19,6 +21,7 @@ export const BidCard = (props: {image: string, name: string, price: string, date
 
   let time = timeLeft(props.date_ends);
   const router = useRouter();
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
   const [snackBar, changeSnackBar] = React.useState({
     success: false,
@@ -50,10 +53,10 @@ export const BidCard = (props: {image: string, name: string, price: string, date
   }
 
   return (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee',maxHeight: 350}}>
+    <Grid container className={darkMode ? "darkCardContainer" : "cardContainer"} style={{width: '250px', border: '1px solid #eee',maxHeight: 350}}>
        <Link href={`/bid/${props.id}`}>
         <div>
-            <div className="imageConatiner">
+            <div style={{display: 'flex', justifyContent: 'center', height: 150}}>
             <img src={props.image}  width="150px" height="150px"/>
             </div>
 
@@ -62,9 +65,9 @@ export const BidCard = (props: {image: string, name: string, price: string, date
                 {props.name}
               </Typography>
               <Typography variant="subtitle1" style={{display: 'inline-block'}}>
-                <span style={{fontSize: "15px"}}>Current Price: <span style={{color: blue}}>{props.price + "$"}</span></span>
+                <span style={{fontSize: "15px"}}>Current Price: <span style={{color: darkMode ? darker_green : blue}}>{props.price + "$"}</span></span>
               </Typography>
-              <div style={{fontSize: "15px"}}>Ends in: <span style={{color: blue}}>{time}</span></div>
+              <div style={{fontSize: "15px"}}>Ends in: <span style={{color: darkMode ? darker_green : blue}}>{time}</span></div>
             </div>
           </div>
         </Link>

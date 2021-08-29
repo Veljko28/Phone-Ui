@@ -60,7 +60,7 @@ export const PhoneCard = (props:
     className={darkMode ? "darkCardContainer" : "cardContainer"} style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
        <Link href={`/phone/${props.id}`}>
         <div>
-            <div className="imageConatiner">
+            <div style={{display: 'flex', justifyContent: 'center'}}>
                <img src={props.image}  width="150px" height="150px"/>
             </div>
 
