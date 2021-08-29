@@ -13,11 +13,11 @@ import { fetchPost } from '../../constants/CustomFetching';
 
 export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]}) => {
 
-  const skeletons = [<PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>];
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+  const skeletons = [<PhoneSkeletonCard darkMode={darkMode}/>, <PhoneSkeletonCard darkMode={darkMode}/>, <PhoneSkeletonCard darkMode={darkMode}/>, <PhoneSkeletonCard darkMode={darkMode}/>];
 
   const list = useSelector((state: State) => state.cart.items);
 
-  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
   let userId: string | null = null;
 
   if (typeof window !== 'undefined'){
@@ -47,7 +47,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
         <Grid item container xs={12} style={{display: 'flex',margin: 20}}>{skeletons.map(x => (<Grid xs={12} md={6} lg={3} item>{x}</Grid>))}</Grid>
       ) : ""}
       {phones?.map(x => (
-        <div style={{margin: 15}} key={x.id}>
+        <div style={{margin: 15, display: 'flex'}} key={x.id}>
           <PhoneCard inCart={list.filter(y => y.id == x.id).length === 1} inWishList={inWishList} 
             getWishListItems={async () => await getWishListItems()}
               key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} status={x.status}
