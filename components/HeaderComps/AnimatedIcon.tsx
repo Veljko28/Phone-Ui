@@ -56,21 +56,21 @@ const AnimatedIcon = () => {
   return (
     <animated.svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
+      width="18"
+      height="18"
       viewBox="0 0 24 24"
       fill="none"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      stroke="currentColor"
+      stroke={darkMode ? "yellow" : "black"}
       onClick={() => {
         setTheme(colorTheme);
         dispatch(toggleDarkMode());
 
         }}
       style={{
-        marginTop: 2,
+        marginTop: 3,
         marginRight: 10,
         cursor: "pointer",
         ...svgContainerProps
@@ -85,7 +85,7 @@ const AnimatedIcon = () => {
         cx="12"
         cy="12"
         style={centerCircleProps as any}
-        fill="black"
+        fill={darkMode ? "yellow" : "black"}
         mask="url(#myMask2)"
       />
       <animated.g stroke="currentColor" style={linesProps}>
