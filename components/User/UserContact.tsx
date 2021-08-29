@@ -1,11 +1,10 @@
 import { Popover} from '@material-ui/core'
 import React from 'react'
-import PhoneInput from 'react-phone-input-2';
 import StringMask from 'string-mask';
-import { blue } from '../../constants/CustomColors';
+import { blue, dark_cont, white, darker_green, gray } from '../../constants/CustomColors';
 
-const UserContact = ({open, anchorEl, handleClose, phoneNumber, email} : 
-  {open: boolean,anchorEl: any, handleClose: () => void, phoneNumber?: string, email: string}) => {
+const UserContact = ({open, anchorEl, handleClose, phoneNumber, email, darkMode} : 
+  {open: boolean,anchorEl: any, handleClose: () => void, phoneNumber?: string, email: string, darkMode: boolean}) => {
 
     let mask = "";
 
@@ -33,9 +32,9 @@ const UserContact = ({open, anchorEl, handleClose, phoneNumber, email} :
           horizontal: 'left',
         }}
       >
-        <div style={{padding: '15px'}}>
-          {phoneNumber ? <div>Phone Number: <span style={{color: blue}}>{phoneNumber}</span></div> : ""}
-          <div>Email: <span style={{color: blue}}>{email}</span></div>
+        <div style={{padding: '15px', backgroundColor: darkMode ? dark_cont : white}}>
+          {phoneNumber ? <div style={{color: darkMode ? gray : 'black'}}>Phone Number: <span style={{color: darkMode ? darker_green :blue}}>{phoneNumber}</span></div> : ""}
+          <div style={{color: darkMode ? gray : 'black'}}>Email: <span style={{color: darkMode ? darker_green :blue}}>{email}</span></div>
         </div>
       </Popover>
   )

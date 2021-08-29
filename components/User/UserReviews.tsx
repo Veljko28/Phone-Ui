@@ -1,11 +1,14 @@
 import Rating from '@material-ui/lab/Rating';
 import { Grid, Typography, Button } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
+
 
 import ColoredLine from '../../constants/ColoredLine';
-import { blue, dark_gray } from '../../constants/CustomColors';
+import { blue, darker_green, dark_gray } from '../../constants/CustomColors';
 
-const ReviewMap = ({id, rating, user, date, message}
-    : {id: string, rating: number, user: string, date: string, message: string}) => {
+const ReviewMap = ({id, rating, user, date, message, darkMode}
+    : {id: string, rating: number, user: string, date: string, message: string,darkMode: boolean}) => {
 
         const hasLine = (id : string) => {
             if (id !== '3'){
@@ -20,7 +23,7 @@ const ReviewMap = ({id, rating, user, date, message}
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
                     <span style={{color: dark_gray, marginLeft: '10px'}}>By 
-                    <span style={{color: blue}}> {user} </span>on {date}</span>
+                    <span style={{color: darkMode ? darker_green : blue}}> {user} </span>on {date}</span>
             </div>
             <div style={{color: dark_gray, padding: '10px'}}>
                 {message}
@@ -31,6 +34,9 @@ const ReviewMap = ({id, rating, user, date, message}
 }
 
 const UserReviews = () => {
+
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
 
     const reviews = [
         {
@@ -62,8 +68,8 @@ const UserReviews = () => {
     ]
 
     return (
-        <Grid className="phone-details" container style={{marginTop: 15}}> 
-            {reviews.map(x => ReviewMap(x))}
+        <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container style={{marginTop: 15}}> 
+            {reviews.map(x => ReviewMap({...x,darkMode}))}
         </Grid>
     )
 }

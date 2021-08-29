@@ -4,11 +4,16 @@ import { Button, Grid, Typography } from '@material-ui/core';
 
 import Phone from '../models/Phone';
 import { fetchDelete, fetchPost } from '../../constants/CustomFetching';
-import { blue, dark_gray, red, white } from '../../constants/CustomColors';
+import { blue, darker_green, dark_cont, dark_gray, gray, red, white } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 
 const UserWishList = ({id} : {id: string}) => {
+
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
 
   const [list, changeList] = React.useState<any[]>([]);
   const [type, changeType] = React.useState<string>("phone");
@@ -52,11 +57,11 @@ const UserWishList = ({id} : {id: string}) => {
                 <Grid xs={12} md={8} item className="listing-grid-item">
                     <Link href={`/${type}/${id}`} key={id}>
                         <>
-                          <Typography variant="subtitle1" style={{color: blue}} className="curs-hver">
+                          <Typography variant="subtitle1" style={{color: darkMode ? darker_green : blue}} className="curs-hver">
                             {name}
                           </Typography>
 
-                          <Typography variant="subtitle2" style={{color: dark_gray}}>
+                          <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray}}>
                             {description}
                           </Typography>
                         </>
@@ -68,16 +73,16 @@ const UserWishList = ({id} : {id: string}) => {
         )
       }
 
-    return list.length === 0 ? ( <Grid style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: white,height: 410, marginTop: 10}}>
-       <Typography style={{color: blue, marginBottom: 25}} variant="h3">There are no {type}s in your wish list !</Typography>
-        <Button variant="contained" style={{backgroundColor: blue, color: white, width: 200}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
+    return list.length === 0 ? ( <Grid style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: darkMode ? dark_cont : white,height: 410, marginTop: 10}}>
+       <Typography style={{color:  darkMode ? darker_green : blue, marginBottom: 25}} variant="h3">There are no {type}s in your wish list !</Typography>
+        <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 200}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
        </Grid>
     ) : (
       <div style={{display: 'flex',flexDirection: 'column', alignItems: 'flex-end'}}>
-        <Grid className="phone-details" container style={{marginTop: 10, marginBottom: 10}}>
+        <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container style={{marginTop: 10, marginBottom: 10}}>
             { list.map((x: Phone) => ListingMap(x) )}
         </Grid>
-        <Button variant="contained" style={{backgroundColor: blue, color: white, width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
+        <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
       </div>
     );
 }
