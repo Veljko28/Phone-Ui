@@ -35,7 +35,7 @@ const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}
             <tr>
               <td>
                   <Grid container item style={{display: 'flex', alignContent: 'center'}}>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} sm={6} style={{display: 'flex', justifyContent: 'center'}}>
                         <img src={image} width="50px" height="50px"/>
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>

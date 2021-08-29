@@ -40,8 +40,8 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
             <tr key={id}>
               <td>
                   <Grid container item style={{display: 'flex', alignContent: 'center'}}>
-                      <Grid item xs={12} sm={6}>
-                        <img src={image} width="50px" height="50px"/>
+                      <Grid item xs={12} sm={6} style={{display: 'flex', justifyContent: 'center'}}>
+                        <img src={image} width="50px" height="50px" />
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex', alignItems: 'center'}}>
                         <Link href={`http://localhost:3000/bid/${id}`}><div className="phone-name-mngm">{name}</div></Link>

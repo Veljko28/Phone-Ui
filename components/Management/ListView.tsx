@@ -14,11 +14,11 @@ import { SnackBarSuccess } from '../../constants/CustomSnackBars';
 import NoPhones from './NoPhones';
 import Phone from '../models/Phone';
 import MngmSkeletonList from '../Skeletons/MngmSkeletonList';
-import { blue, white } from '../../constants/CustomColors';
+import { blue, dark_cont, white, darker_green, gray } from '../../constants/CustomColors';
 
 
 
-const ListView = ({currentPage, page, changePage}: {currentPage: string, page: number, changePage: (value: number) => void}) => {
+const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: string, page: number, changePage: (value: number) => void, darkMode: boolean}) => {
 
     const [snackBar,changeSnackBar] = React.useState(false);
     const [list,changeList] = React.useState<Phone[] | []>([]);
@@ -101,9 +101,9 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
         :
         <NoPhones currentPage={currentPage}/> 
                  : (
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
-            <div style={{minHeight: 575, maxHeight: 1500}}>
-                <Typography variant="h4" style={{color: blue,margin: 15}}>{currentPage}</Typography>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', backgroundColor: darkMode ? dark_cont : '#fff'}}>
+            <div style={{minHeight: 675, maxHeight: 1500, color: darkMode ? gray : 'black'}}>
+                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15}}>{currentPage}</Typography>
                 {currentPage === 'My Phones' ? <MyPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
                 openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
 
@@ -121,16 +121,16 @@ const ListView = ({currentPage, page, changePage}: {currentPage: string, page: n
                     <span style={{display: 'inline-block',marginLeft: 10}}>
                       <div>
                         {page !== 1 ? (
-                        <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 5}}
+                        <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}}
                             onClick={() => changePage(page-1)}>
                             Prev
                         </Button>
                         ) : null}
-                        <Button variant="contained" disabled style={{backgroundColor: '#0a85ae', color: white, margin: 5}}>
+                        <Button variant="contained" disabled style={{backgroundColor: darkMode ? "#326307" : '#0a85ae', color: white, margin: 5}}>
                             {page}
                         </Button>
                         {page < numOfPages ? (
-                            <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 5}} onClick={() => changePage(page+1)}>
+                            <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}} onClick={() => changePage(page+1)}>
                                 Next
                             </Button>
                         ) : null}

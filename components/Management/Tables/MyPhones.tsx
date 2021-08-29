@@ -39,7 +39,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
             <tr key={id}>
               <td>
                   <Grid container item style={{display: 'flex', alignContent: 'center'}}>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} sm={6} style={{display: 'flex', justifyContent: 'center'}}>
                         <img src={image} width="50px" height="50px"/>
                       </Grid>
                       <Link href={`http://localhost:3000/phone/${id}`}>
