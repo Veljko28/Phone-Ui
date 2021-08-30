@@ -10,15 +10,15 @@ import YupError from '../../constants/YupError';
 import { fetchPost, fetchGet } from '../../constants/CustomFetching';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarFailed } from '../../constants/CustomSnackBars';
-import { blue, white } from '../../constants/CustomColors';
+import { blue, dark, darker_green, white } from '../../constants/CustomColors';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { clearCart } from '../../redux/actions/cartActions';
 
 
-const CheckOutForm = ({open, handleOpen,snackBar,handleSnackBar} : {
+const CheckOutForm = ({open, handleOpen,snackBar,handleSnackBar, darkMode} : {
 open: boolean,handleOpen: (value: boolean) => any,
-snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void}) => {
+snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void, darkMode: boolean}) => {
     
     const [form, changeForm] = React.useState({
       number: '',
@@ -113,6 +113,8 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
                     return badRequest();
                 }
             }
+
+            await fetchPost(`http://localhost:10025/api/v1/users/loyality/add/${userId}`, {});
         })
         
         const purhcaseList = list.map(x => ({phoneId: x.id, sellerId: x.seller, buyerId: userId}));
@@ -125,9 +127,15 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
 
     return (
         <>
-        <Dialog open={open} onClose={() => handleOpen(false)}>
+        <Dialog open={open} onClose={() => handleOpen(false)}
+          PaperProps={{
+            style: {
+            backgroundColor: darkMode ? dark : white,
+            boxShadow: 'none',
+            },
+         }}>
              <DialogTitle onClose={() => handleOpen(false)}>
-                <Typography variant="h4" style={{color: blue,margin: 15, marginBottom: 0}}>Checkout</Typography>
+                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15, marginBottom: 0}}>Checkout</Typography>
              </DialogTitle>
             <DialogContent>
                   <CardReactFormContainer
@@ -196,7 +204,7 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
             <div id="card-wrapper" style={{margin: 10}}></div>
             </DialogContent>
             <DialogActions>
-                    <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 10}}
+                    <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}
                     onClick={() => onSubmit()}>Submit</Button>
             </DialogActions>
         </Dialog>

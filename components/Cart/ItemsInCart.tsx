@@ -11,19 +11,19 @@ import { useSelector, useDispatch} from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { removeFromCart } from '../../redux/actions/cartActions';
 import Phone from '../models/Phone';
-import { blue, gray, red } from '../../constants/CustomColors';
+import { blue, gray, red, darker_green } from '../../constants/CustomColors';
 
-const ItemsInCart = () => {
+const ItemsInCart = ({darkMode} : {darkMode: boolean}) => {
   const list = useSelector((state: State) => state.cart.items);
   const dispatch = useDispatch();
 
   return (
     <>
-    <Grid container className="item-cart">
+    <Grid container className={darkMode ? "item-cart-dark" : "item-cart"}>
         <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: blue}}>My Cart ({list.length})</Typography>
+        color: darkMode ? darker_green : blue}}>My Cart ({list.length})</Typography>
         <ColoredLine color={gray}/>
-        <table className="cart-table">
+        <table className={darkMode ? "cart-table-dark" : "cart-table"}>
           <thead>
             <tr>
               <td style={{textAlign: 'center'}}>ITEM</td>
@@ -39,16 +39,16 @@ const ItemsInCart = () => {
                 <td colSpan={3}>
                   <Link href={`/phone/${x.id}`}>
                     <Grid container item style={{display: 'flex', alignContent: 'center'}}>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} sm={6} style={{display: 'flex', justifyContent: 'center'}}>
                         <img src={x.image} width="50px" height="50px" className="phone-image-cart"/>
                       </Grid>
                       <Grid item xs={12} sm={6} style={{display: 'flex'}}>
-                        <span className="phone-name-cart">{x.name}</span>
+                        <span className={darkMode ? "phone-name-cart-dark" : "phone-name-cart"}>{x.name}</span>
                       </Grid>
                     </Grid>
                   </Link>
                   </td>
-                <td style={{color: blue, marginLeft: 15}}>{(list.filter((y: Phone) => y == x).length * parseInt(x.price as string)) + "$"}</td>
+                <td style={{color: darkMode ? darker_green : blue, marginLeft: 15}}>{(list.filter((y: Phone) => y == x).length * parseInt(x.price as string)) + "$"}</td>
                 <td>
                   <IconButton style={{background: 'transparent'}} disableRipple onClick={() => dispatch(removeFromCart(x.id))}>
                     <RemoveCircleIcon style={{color: red}}/>
@@ -60,7 +60,7 @@ const ItemsInCart = () => {
         </table>
     </Grid>
     <Link href="/phones/1">
-      <div className="shopping-button">
+      <div className={darkMode ? "shopping-button-dark" : "shopping-button"}>
         <ArrowBackIosIcon style={{fontSize: '15px',marginBottom: '5px'}}/>
         BACK TO SHOPPING
       </div>
