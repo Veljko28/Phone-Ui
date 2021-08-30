@@ -62,7 +62,7 @@ const UserListings = ({id, ownProfile} : {id: string, ownProfile: boolean}) => {
         <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container style={{marginTop: 10, marginBottom: 10}}>
                 {list.length > 0 ? list.map(x => ListingMap(x) ) : loading ? <div>{skeletons}</div> : ownProfile ? (
                   <Grid container item style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',height: 450}}>
-                    <ReportIcon style={{color: blue,fontSize: 175}}/>
+                    <ReportIcon style={{color: darkMode ? darker_green : blue,fontSize: 175}}/>
                     <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>You don't have any listings</Typography>
                     <Link href="/phone/add"><Button variant="contained" style={{color: white, backgroundColor: darkMode ? darker_green : blue, marginTop: 15}}>Add new listing</Button></Link>
                   </Grid>

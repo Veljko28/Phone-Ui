@@ -16,10 +16,10 @@ import YupError from '../../constants/YupError';
 import { formatYupError } from '../../constants/formYupError';
 import { SnackBarSuccess } from '../../constants/CustomSnackBars';
 import { fetchGet, fetchPost } from '../../constants/CustomFetching';
-import { blue, white } from '../../constants/CustomColors';
+import { blue, darker_green, dark_cont, white } from '../../constants/CustomColors';
 
 
-const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (value: boolean) => any,id: string}) => {
+const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handleOpen: (value: boolean) => any,id: string, darkMode: boolean}) => {
     
     const [form, changeForm] = React.useState({
         userName: "",
@@ -44,7 +44,6 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
       if (id) func();
     },[id])
 
-    console.log(form);
 
     const yupSchema = yup.object().shape({
         email: yup.string().min(5).max(150),
@@ -103,12 +102,18 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
 
     return (
         <>
-        <Dialog open={open} onClose={() => handleOpen(false)}>
+        <Dialog open={open} onClose={() => handleOpen(false)}
+        PaperProps={{
+            style: {
+            backgroundColor: darkMode ? dark_cont : white,
+            boxShadow: 'none',
+            },
+         }}>
              <DialogTitle onClose={() => handleOpen(false)}>
-                <Typography variant="h4" style={{color: blue,margin: 15, marginBottom: 0}}>Edit Profile</Typography>
+                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15, marginBottom: 0}}>Edit Profile</Typography>
              </DialogTitle>
             <DialogContent>
-                  <Grid container style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: white}}>
+                  <Grid container style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <Grid xs={12} item container>
                        <Grid xs={6} item>
                       <Tooltip 
@@ -159,16 +164,16 @@ const EditProfileForm = ({open, handleOpen, id} : {open: boolean,handleOpen: (va
                         <PhoneInput style={{marginLeft: 20}} autoFormat
                         masks={{rs: '(...) ...-....'}}
                         country={'rs'}
-                        value={form.phoneNumber}
+                        value={form.phoneNumber} specialLabel={false}
                         onChange={(phone: string) => changeForm({...form, phoneNumber: phone})}
                         />
                 </Grid>
             </DialogContent>
             <DialogActions>
                     <Link href={`/user/changepassword/${id}`}>
-                        <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 10}}>Change Password</Button>
+                        <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>Change Password</Button>
                     </Link>
-                    <Button variant="contained" style={{backgroundColor: blue, color: white, margin: 10}}
+                    <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}
                     onClick={() => onSubmit()}>Submit</Button>
             </DialogActions>
         </Dialog>
