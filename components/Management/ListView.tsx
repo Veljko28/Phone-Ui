@@ -99,7 +99,7 @@ const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: strin
         <>
         {list.length === 0 ? loading ? <MngmSkeletonList currentPage={currentPage}/>
         :
-        <NoPhones currentPage={currentPage}/> 
+        <NoPhones currentPage={currentPage} darkMode={darkMode}/> 
                  : (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', backgroundColor: darkMode ? dark_cont : '#fff'}}>
             <div style={{minHeight: 675, maxHeight: 1500, color: darkMode ? gray : 'black'}}>
@@ -141,7 +141,7 @@ const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: strin
                         {currentPage === "Bought Phones" || currentPage === "Placed Bids" ? null : (
                             
                             <Link href={currentPage === "My Phones" ? "/phone/add" : "/bid/add"}>
-                            <Fab color="primary" aria-label="add" style={{marginRight: 50, marginBottom: 5}}>
+                            <Fab aria-label="add" style={{marginRight: 50, marginBottom: 5, backgroundColor: darkMode ? darker_green : blue, color: white}}>
                                 <AddIcon />
                             </Fab>
                         </Link>
