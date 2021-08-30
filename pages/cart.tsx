@@ -16,6 +16,8 @@ import PurchaseSuccessful from '../components/Cart/PurchaseSuccessful';
 const cart = () => {
   const empty = useSelector((state: State) => state.cart.items.length) == 0;
 
+  const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
 
   let jwt: string | null = null;
 
@@ -29,10 +31,10 @@ const cart = () => {
     });
 
 
-  return (jwt === null ? <NotLoggedIn/> : snackBar.success ? <PurchaseSuccessful/> : (
+  return (jwt === null ? <NotLoggedIn darkMode={darkMode}/> : snackBar.success ? <PurchaseSuccessful darkMode={darkMode}/> : (
     <>
      <TitleChange title="MobiStore - Cart" />
-      {empty ? <EmptyCart/> : (
+      {empty ? <EmptyCart darkMode={darkMode}/> : (
         
         <Grid container>
 
@@ -40,13 +42,13 @@ const cart = () => {
 
         <Grid xs={12} md={10} lg={8} item container> 
 
-          <Grid md={7} xs={12}item>
-            <ItemsInCart />
+          <Grid md={7} xs={12} item>
+            <ItemsInCart darkMode={darkMode}/>
           </Grid>
 
           <Grid md={5} xs={12} item>
-            <PriceDetails snackBar={snackBar} handleSnackBar={(value: {error: boolean, success: boolean}) => handleSnackBar(value)}/>
-            <CouponTab />
+            <PriceDetails darkMode={darkMode} snackBar={snackBar} handleSnackBar={(value: {error: boolean, success: boolean}) => handleSnackBar(value)}/>
+            <CouponTab darkMode={darkMode}/>
           </Grid>
         </Grid>
 
