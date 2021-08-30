@@ -16,23 +16,27 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
   const skeletons = [<PhoneSkeletonCard darkMode={darkMode}/>, <PhoneSkeletonCard darkMode={darkMode}/>, <PhoneSkeletonCard darkMode={darkMode}/>, <PhoneSkeletonCard darkMode={darkMode}/>];
 
-  const list = useSelector((state: State) => state.cart.items);
-
   let userId: string | null = null;
 
   if (typeof window !== 'undefined'){
     userId = localStorage.getItem('userId');
   }
 
-
   const [inWishList, changeInWishList] = React.useState([]);
   const getWishListItems = async () => {
-          const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/contains`, {userId, list, type: "phone"});
+          const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/contains`, {userId, list: phones, type: "phone"});
           if (res.ok){
               const json = await res.json();
               changeInWishList(json);
           }
       }
+
+  React.useEffect(() => {
+    const func = async () => await getWishListItems();
+
+    if (phones) func();
+  },[phones])
+
 
   return (
     <Grid container style={{
@@ -48,7 +52,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
       ) : ""}
       {phones?.map(x => (
         <div style={{margin: 15, display: 'flex'}} key={x.id}>
-          <PhoneCard inCart={list.filter(y => y.id == x.id).length === 1} inWishList={inWishList} 
+          <PhoneCard inCart={phones.filter(y => y.id == x.id).length === 1} inWishList={inWishList} 
             getWishListItems={async () => await getWishListItems()}
               key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} status={x.status}
           />
