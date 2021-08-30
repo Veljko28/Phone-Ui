@@ -149,11 +149,18 @@ login / register dark mode ✅
 contact / about dark mode ✅
 
 
-
+cart dark mode ✅
+dark mode svgs ✅
+email confirmed dark mode 
+change password dark mode
 navbar stays phone after full screen change
-wish list on related products and latest phones
-loyality points implementation
-loyality points display
+wish list on related products and latest phones ✅
+loyality points implementation ✅
+loyality points display ✅
+coupons page ✅
+remove loyality points on buy
+send email with coupons and save in db
+buy coupons codes with loyality points
 listings pagination 
 reviews pagination 
 wishlist pagination 

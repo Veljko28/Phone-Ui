@@ -5,7 +5,21 @@
   margin-top: 50px;
 }
 
+.item-cart-dark {
+  background-color: #393d4a;
+  max-width: 600px;
+  min-width: 150px;
+  margin-top: 50px;
+}
+
 .cart-table {
+  margin: 25px;
+  border: 1px solid #999;
+  width: 100%;
+}
+
+.cart-table-dark {
+  color: white;
   margin: 25px;
   border: 1px solid #999;
   width: 100%;
@@ -17,6 +31,26 @@
   font-size: 12px;
   padding: 10px;
 }
+
+.cart-table-dark thead {
+  background-color: #393d4a;
+  border: 1px solid #999;
+  font-size: 12px;
+  padding: 10px;
+}
+
+.cart-table-dark tbody {
+  background-color: #292C35;
+}
+
+.cart-table-dark thead td {
+  padding: 10px
+}
+
+.cart-table-dark tbody td {
+  padding: 10px;
+}
+
 
 .cart-table thead td {
   padding: 10px;
@@ -31,12 +65,26 @@
   margin-top: 15px;
 }
 
+.phone-name-cart-dark {
+  color: white;
+  margin-top: 15px;
+}
+
 @keyframes nameHover {
   from {
     color: #000;
   }
   to {
     color: #0cafe5;
+  }
+}
+
+@keyframes nameHoverDark {
+  from {
+    color: #000;
+  }
+  to {
+    color: #6cd60f;
   }
 }
 
@@ -49,8 +97,21 @@
   cursor: pointer;
 }
 
+.phone-name-cart-dark:hover {
+  animation: nameHoverDark 200ms forwards;
+  cursor: pointer;
+}
+
+
 .price-details {
   background-color: #fff;
+  margin: 50px 20px 20px 10px;
+  max-width: 325px;
+  min-width: 325px;
+}
+
+.price-details-dark {
+  background-color: #393d4a;
   margin: 50px 20px 20px 10px;
   max-width: 325px;
   min-width: 325px;
@@ -66,7 +127,17 @@
 .shopping-button {
   font-size: 15px;
   margin-top: 25px;
-  
+}
+
+.shopping-button-dark {
+  color: white;
+  font-size: 15px;
+  margin-top: 25px;
+}
+
+.shopping-button-dark:hover {
+  animation: nameHoverDark 200ms forwards;
+  cursor: pointer;
 }
 
 .shopping-button:hover {
@@ -77,6 +148,13 @@
 
 .coupon-tab {
   background-color: #fff;
+  margin: 20px 20px 20px 10px;
+  max-width: 325px;
+  min-width: 325px;
+}
+
+.coupon-tab-dark {
+  background-color: #393d4a;
   margin: 20px 20px 20px 10px;
   max-width: 325px;
   min-width: 325px;
@@ -96,16 +174,26 @@
   padding: 20px;
 }
 
+.empty-cart-dark {
+  background-color: #292C35;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
 .check-input {
   background-color: #eee;
   color: #000;
   margin: 10px;
+  padding: 5px;
   border: none;
 }
 
 .check-imput-error {
   background-color: #eee;
   color: #000;
+  padding: 5px;
   border: 1px solid red;
 }
 
