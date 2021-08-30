@@ -2,20 +2,27 @@ import { Button, DialogActions, DialogContent, DialogContentText } from '@materi
 import { DialogTitle } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog'
 import React from 'react'
-import { blue, red, white } from './CustomColors'
+import { blue, red, white, darker_green, dark_cont } from './CustomColors'
 
-const PopUpDialog = ({open, closeDialog, title, message, onConfirm} :
-   {open: boolean, closeDialog: () => any ,title: string,message: string, onConfirm: () => any}) => {
+const PopUpDialog = ({open, closeDialog, title, message, onConfirm, darkMode} :
+   {open: boolean, closeDialog: () => any ,title: string,message: string, onConfirm: () => any, darkMode?: boolean}) => {
   return (
     <Dialog
         open={open}
         onClose={() => closeDialog()}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        PaperProps={{
+            style: {
+            backgroundColor: darkMode ? dark_cont : white,
+            color: darkMode ? white : 'black',
+            boxShadow: 'none',
+            },
+         }}
       >
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+        <DialogTitle id="alert-dialog-title" style={{color: darkMode ? darker_green : blue}}>{title}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id="alert-dialog-description" style={{color: darkMode ? white : 'black'}}>
             {message}
           </DialogContentText>
         </DialogContent>
@@ -23,7 +30,7 @@ const PopUpDialog = ({open, closeDialog, title, message, onConfirm} :
           <Button onClick={() => closeDialog()} variant="contained" style={{backgroundColor: red, color: white}}>
             Disagree
           </Button>
-          <Button onClick={() => onConfirm()} variant="contained" style={{backgroundColor: blue, color: white}} autoFocus>
+          <Button onClick={() => onConfirm()} variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white}} autoFocus>
             Agree
           </Button>
         </DialogActions>
