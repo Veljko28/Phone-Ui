@@ -1,4 +1,4 @@
-import { Grid, IconButton, Badge } from '@material-ui/core'
+import { Grid, IconButton, Badge, Typography, Tooltip } from '@material-ui/core'
 import { useRouter } from 'next/router';
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,10 +13,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import { State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLoginStatus, toggleNavbar } from '../../redux/actions/userInfoActions';
-import { fetchPost } from '../../constants/CustomFetching';
+import { fetchGet, fetchPost } from '../../constants/CustomFetching';
 import { JwtToken } from '../../constants/jwtTypes';
 import { clearCart } from '../../redux/actions/cartActions';
 import NotificationsPopOver from './NotificationsPopOver';
+import { darker_green, blue } from '../../constants/CustomColors';
 
 const MainHeader = () => {
   const router = useRouter();
@@ -44,6 +45,8 @@ const MainHeader = () => {
     setAnchorEl(null);
   }
 
+  const [loyalityPoints, changeLoyalityPoints] = React.useState(0);
+
 
   React.useEffect( () => {
     if (typeof window !== 'undefined') {
@@ -52,7 +55,7 @@ const MainHeader = () => {
         const exp = localStorage.getItem('exp');
         const refreshToken = localStorage.getItem('refresh');
 
-        if (jwt !== null && refreshToken !== null && loggedIn === false) {
+        if (jwt !== null && refreshToken !== null) {
           if ((parseInt(exp as string)*1000) < Date.now()){
             const func = async () => {
                   const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
@@ -73,8 +76,16 @@ const MainHeader = () => {
                   }
                 }
               }
-           dispatch(changeLoginStatus(true));
+              dispatch(changeLoginStatus(true));
         }
+
+        const func2 = async () => {
+          const res = await fetchGet(`http://localhost:10025/api/v1/users/loyality/get/${localStorage.getItem('userId')}`)
+
+          changeLoyalityPoints(await res.text());
+        }
+
+        func2();
     }
   }, [])
 
@@ -122,9 +133,14 @@ const MainHeader = () => {
             {loggedIn ? 
              (
                <>
-                <IconButton onClick={() => exitApp()} style={{marginRight: 0, padding: '0', background: 'transparent'}} disableRipple>
-                    <ExitToAppIcon className={darkMode ? "cartIcon-dark" : "cartIcon"} style={{fontSize: '20px'}}/>
-                </IconButton>
+                <Link href="/coupons">
+                  <Tooltip
+                      placement="bottom"
+                          title={`You currently have ${loyalityPoints} Loyality Points`}>
+                    <Typography style={{color: darkMode ? darker_green : blue,
+                      fontSize: 17, marginRight: 10,  display: 'inline-block'}} className="curs-hver">{loyalityPoints}₽</Typography>
+                    </Tooltip>
+                  </Link>
                 <Link href="/cart">
                   <IconButton style={{margin: '0', padding: '0', background: 'transparent'}} disableRipple>
                     <Badge badgeContent={numOfItems} color="secondary">
@@ -137,7 +153,10 @@ const MainHeader = () => {
                       <NotificationsIcon  className={darkMode ? "cartIcon-dark" : "cartIcon"} style={{fontSize: '20px'}}/>
                     </Badge>
                 </IconButton>
-                <NotificationsPopOver open={notificationsOpen} handleClose={() => closeNotifications()} anchorEl={anchorEl}/>
+                <NotificationsPopOver darkMode={darkMode} open={notificationsOpen} handleClose={() => closeNotifications()} anchorEl={anchorEl}/>
+                <IconButton onClick={() => exitApp()} style={{marginRight: 0, padding: '0', background: 'transparent'}} disableRipple>
+                    <ExitToAppIcon className={darkMode ? "cartIcon-dark" : "cartIcon"} style={{fontSize: '20px'}}/>
+                </IconButton>
               </>
               )
             : ""}
