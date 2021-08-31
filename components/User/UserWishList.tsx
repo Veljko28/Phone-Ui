@@ -17,12 +17,29 @@ const UserWishList = ({id} : {id: string}) => {
 
   const [list, changeList] = React.useState<any[]>([]);
   const [type, changeType] = React.useState<string>("phone");
+  const [currentPage, changeCurrentPage] = React.useState(0);
 
 
   const fetchList = async () => {
       const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/get`, {userId: id, type});
       if (res.ok){
-        changeList(await res.json());
+        const json = await res.json();
+
+        let pageList: Phone[] = [];
+        const listOfPages: any[] = [];
+
+       json.forEach((x: Phone, idx: number) => {
+          pageList.push(x);
+
+          if (pageList.length === 3 || idx === json.length-1 ) {
+            listOfPages.push(pageList);
+            pageList = [];
+          }
+        }) 
+        console.log(listOfPages);
+
+
+        changeList(listOfPages);
       }
       else changeList([]);
   }
@@ -78,11 +95,31 @@ const UserWishList = ({id} : {id: string}) => {
         <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 200}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
        </Grid>
     ) : (
-      <div style={{display: 'flex',flexDirection: 'column', alignItems: 'flex-end'}}>
+      <div style={{display: 'flex',flexDirection: 'column'}}>
         <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container style={{marginTop: 10, marginBottom: 10}}>
-            { list.map((x: Phone) => ListingMap(x) )}
+            { list[currentPage].map((x: Phone) => ListingMap(x) )}
         </Grid>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <span>
+                      <div>
+                        {currentPage !== 0 ? (
+                        <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}}
+                            onClick={() => changeCurrentPage(currentPage-1)}>
+                            Prev
+                        </Button>
+                        ) : null}
+                        <Button variant="contained" disabled style={{backgroundColor: darkMode ? "#326307" : '#0a85ae', color: white, margin: 5}}>
+                            {currentPage+1}
+                        </Button>
+                        {currentPage < list.length-1 ? (
+                            <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}} onClick={() => changeCurrentPage(currentPage+1)}>
+                                Next
+                            </Button>
+                        ) : null}
+                        </div>
+        </span>
         <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
+        </div>
       </div>
     );
 }

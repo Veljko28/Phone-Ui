@@ -47,7 +47,7 @@ const UserTabs = ({id} : {id: string}) => {
         >Wish List</Button>
       ) : ""}
 
-      {selected === 'Listings' ? <UserListings id={id} ownProfile={id === userId}/> : selected === 'Reviews' ? <UserReviews/> : <UserWishList id={id} />}
+      {selected === 'Listings' ? <UserListings id={id} ownProfile={id === userId}/> : selected === 'Reviews' ? <UserReviews userId={id}/> : <UserWishList id={id} />}
     </div>
   )
 }
