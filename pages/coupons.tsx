@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from '@material-ui/core'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { darker_green, blue, gray, white, dark_cont, green, red } from '../constants/CustomColors'
-import { fetchPost } from '../constants/CustomFetching'
+import { fetchGet, fetchPost } from '../constants/CustomFetching'
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars'
 import PopUpDialog from '../constants/PopUpDialog'
 import { State } from '../redux/reduxTypes'
@@ -25,8 +25,17 @@ const coupons = () => {
   const onCofirm = async () => {
     const removeAmount = dialog.amount === 10 ? 100 : dialog.amount === 20 ? 200 : dialog.amount === 50 ? 350 : 500;
 
-    // check if the user has enough points --for_later
+    const res = await fetchGet(`http://localhost:10025/api/v1/users/loyality/get/${localStorage.userId}`)
 
+    const points = await res.text();
+
+    if (removeAmount > points) {
+      changeSnackBar({error: true, success: false});
+      changeDialog({...dialog, open: false});
+      return;
+    }
+    
+    changeDialog({...dialog, open: false});
     const removePoints = await fetchPost('http://localhost:10025/api/v1/users/loyality/remove', {
       userId: localStorage.userId,
       amount: removeAmount
@@ -37,8 +46,12 @@ const coupons = () => {
         userId: localStorage.userId,
         amount: dialog.amount
       })
-      // if send coupon failed return points
-      changeDialog({...dialog, open: false});
+      // give back point if coupon not sent
+      if (!sendCoupon.ok){
+        await fetchPost(`http://localhost:10025/api/v1/users/loyality/add`, {userId: localStorage.userId, amount: removeAmount});
+        changeSnackBar({error: true, success: false});
+        return;
+      }
       changeSnackBar({...snackBar, success: true});
       setTimeout(() => location.reload(), 1500);
     }
@@ -75,7 +88,7 @@ const coupons = () => {
                   variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>Get 20% off coupon</Button>
               </Grid>
 
-            <Grid lg={2}/>
+            <Grid item lg={2}/>
           </Grid>
 
           <Grid container item xs={12}>

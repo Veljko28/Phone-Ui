@@ -11,10 +11,9 @@ import { fetchGet } from "../constants/CustomFetching";
 
 export default function Home() {
 
-  const [phones,changePhones] = React.useState({
-    featured: undefined,
-    latest: undefined
-  });
+  const initState = {featured: undefined, latest: undefined};
+
+  const [phones,changePhones] = React.useState(initState);
 
   React.useEffect(() => {
     const func = async () => {
@@ -29,7 +28,7 @@ export default function Home() {
       }
     }
 
-    func();
+     func();
   },[]);
 
   return (
