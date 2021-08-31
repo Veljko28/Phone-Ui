@@ -15,6 +15,7 @@ import TitleChange from '../../constants/TitleChange';
 import { fetchGet } from '../../constants/CustomFetching';
 import SellerInfo from '../../components/Phone/SellerInfo';
 import NotFound from '../../components/NotFound';
+import UserReviews from '../../components/User/UserReviews';
 
 
 const PhonePage = () => {
@@ -68,11 +69,14 @@ const PhonePage = () => {
           changeSellingPhones(await phones.text());
         }
 
-        if (phone?.status !== 0){
-          const boughtByUserRes = await fetchGet(`http://localhost:10025/api/v1/purchase/bought/${localStorage.getItem('userId')}/${phone?.id}`);
+        if (phone && phone?.status !== 0 && localStorage.userId){
+          const boughtByUserRes = await fetchGet(`http://localhost:10025/api/v1/purchase/bought/${localStorage.userId}/${phone?.id}`);
 
           if (boughtByUserRes.ok){
-            changeUserBought(true);
+            const alreadyReviewed = await fetchGet(`http://localhost:10025/api/v1/reviews/reviewed/${localStorage.userId}/${phone?.id}`)
+            if (alreadyReviewed.ok){
+              changeUserBought(true);
+            }
           }
         }
     }
@@ -99,8 +103,9 @@ const PhonePage = () => {
           />
           <SellerInfo user={user} sellingPhones={sellingPhones}/>
           <PhoneRatings />
-          <PhoneReviews  phoneId={id as string}/>
-          {phone?.status !== 0 && userBought ? <AddPhoneReview phoneId={id as string}/> : null}
+          {/* <PhoneReviews  phoneId={id as string}/> */}
+          <UserReviews userId={phone?.seller as string}/>
+          {phone?.status !== 0 && userBought ? <AddPhoneReview sellerId={phone?.seller as string} phoneId={phone?.id as string}/> : null}
           <LatestProducts title="Related Products" phones={relatedProducts} />
         </>
         )}
