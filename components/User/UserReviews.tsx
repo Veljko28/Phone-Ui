@@ -5,27 +5,30 @@ import { State } from '../../redux/reduxTypes';
 
 
 import ColoredLine from '../../constants/ColoredLine';
-import { blue, darker_green, dark_gray } from '../../constants/CustomColors';
+import { blue, darker_green, dark_gray, gray } from '../../constants/CustomColors';
+import React from 'react';
+import { fetchGet } from '../../constants/CustomFetching';
+import { formatDate } from '../../constants/formatDate';
 
-const ReviewMap = ({id, rating, user, date, message, darkMode}
-    : {id: string, rating: number, user: string, date: string, message: string,darkMode: boolean}) => {
+const ReviewMap = ({id, rating, userId, dateCreated, message, userName,  darkMode, idx}
+    : {id: string, rating: number, userId: string, dateCreated: Date, message: string, userName:string, darkMode: boolean, idx: number}) => {
 
         const hasLine = (id : string) => {
-            if (id !== '3'){
+            if (idx == 2){
                 return <ColoredLine color="#eee"/>
             }
             else return "";
         }
 
     return (
-        <Grid container style={{padding: '10px'}} key={id}>
+        <Grid container style={{padding: 23}} key={id}>
             <div>
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
                     <span style={{color: dark_gray, marginLeft: '10px'}}>By 
-                    <span style={{color: darkMode ? darker_green : blue}}> {user} </span>on {date}</span>
+                    <span style={{color: darkMode ? darker_green : blue}}> {userName} </span>on {formatDate(dateCreated)}</span>
             </div>
-            <div style={{color: dark_gray, padding: '10px'}}>
+            <div style={{color: darkMode ? gray : dark_gray, padding: '10px'}}>
                 {message}
             </div>
             {hasLine(id)}
@@ -33,12 +36,38 @@ const ReviewMap = ({id, rating, user, date, message, darkMode}
     );
 }
 
-const UserReviews = () => {
+const UserReviews = ({userId} : {userId: string}) => {
 
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+    const [reviews,changeReviews] = React.useState([]);
 
+    React.useEffect(() => {
+        const func = async () => {
+            const res = await fetchGet(`http://localhost:10025/api/v1/reviews/${userId}`);
 
-    const reviews = [
+            const json = await res.json();
+            const temp = json.slice(0,3);
+
+            changeReviews( temp.map((x: any) => {
+                let userName = "";
+                const func2 = async () => {
+                    const res = fetchGet(`http://localhost:10025/api/v1/users/username/${userId}`);
+                    if (res.ok){
+                      userName = await res.text(); // map username to user reviews
+                    }
+                }
+                func2();
+
+                return {...x,userName};
+            })
+            );
+        } 
+
+        if (userId) func();
+    },[userId])
+
+    console.log(reviews);
+    const reviewsTest = [
         {
             id: '1',
             rating: 5,
@@ -69,7 +98,7 @@ const UserReviews = () => {
 
     return (
         <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container style={{marginTop: 15}}> 
-            {reviews.map(x => ReviewMap({...x,darkMode}))}
+            {reviews.map((x: any, idx) => ReviewMap({...x,darkMode, idx}))}
         </Grid>
     )
 }

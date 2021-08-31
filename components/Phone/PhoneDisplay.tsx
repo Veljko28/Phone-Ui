@@ -119,7 +119,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
 
       <Grid item>
         <div className="display-image">
-          <img src={currentImage} width="325px" height="325px" />
+          <img src={currentImage} width="300px" height="300px" />
         </div>
       </Grid>
 
@@ -139,7 +139,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
           {phone?.status !== 0 ? (<>
             <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>{bid ? "This bid has ended !" : "This Phone has been sold !"}</Typography>
             {bid && userWon != "" ?  <Typography variant="h4" style={{color: darkMode ? blue : green,marginTop: 10}}>{userWon} has won this bid !</Typography> : 
-            <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>No bids were placed on this bid !</Typography>}
+            bid && <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>No bids were placed on this bid !</Typography>}
             {bid ? (<> 
                <div 
               onClick={e => openHistory(e)} className={darkMode ? "bid-history-dark" : "bid-history"}>

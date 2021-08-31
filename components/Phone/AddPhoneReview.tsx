@@ -5,10 +5,12 @@ import { Grid, Typography, TextField, Button, CircularProgress } from '@material
 import ColoredLine from '../../constants/ColoredLine';
 import { fetchPost } from '../../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
-import { blue, gray, white } from '../../constants/CustomColors';
+import { blue, gray, white, darker_green } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
-const AddPhoneReview = ({phoneId} : {phoneId: string}) => {
+const AddPhoneReview = ({sellerId, phoneId} : {sellerId: string, phoneId: string}) => {
     const [value,setValue] = React.useState(0);
     const [message,changeMessage] = React.useState('');
     const [snackBar, changeSnackBar] = React.useState({
@@ -16,13 +18,16 @@ const AddPhoneReview = ({phoneId} : {phoneId: string}) => {
       error: false,
       loading: false
     })
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
         
     const onSubmit = async () => {
       changeSnackBar({...snackBar, loading: true});
 
       const userId = localStorage.getItem('userId');
 
-      const res = await fetchPost(`http://localhost:10025/api/v1/generic/review`, {userId,phoneId,message, rating: value} );
+      const res = await fetchPost(`http://localhost:10025/api/v1/reviews/add`, {
+        rating: value, buyerId: userId, sellerId, message, phoneId
+      });
 
       if (res.ok) {
         changeSnackBar({...snackBar, success: true, loading: false});
@@ -33,13 +38,13 @@ const AddPhoneReview = ({phoneId} : {phoneId: string}) => {
 
     return ( 
         <Grid 
-        className="phone-details" style={{display: 'flex', flexDirection: 'column'}} container>
+        className={darkMode ? "phone-details-dark" : "phone-details"} style={{display: 'flex', flexDirection: 'column'}} container>
             <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: blue}}>Add a Review</Typography>
+        color: darkMode ? darker_green : blue}}>Add a Review</Typography>
         <ColoredLine color={gray}/>
         <div style={{margin: '20px'}}>
         <Typography style={{display: 'inline-block', 
-        marginRight: '15px', marginLeft: '5px', paddingBottom: '10px'}}>Your Rating: </Typography>
+        marginRight: '15px', marginLeft: '5px', marginBottom: 10, color: darkMode ? gray : 'black'}}>Your Rating: </Typography>
         <Rating
           name="simple-controlled"
           value={value}
@@ -56,7 +61,7 @@ const AddPhoneReview = ({phoneId} : {phoneId: string}) => {
         disableUnderline: true
         }}/>
         <Button variant="contained" onClick={() => onSubmit()}
-        style={{backgroundColor: blue, color: white,
+        style={{backgroundColor: darkMode ? darker_green : blue, color: white,
         width: '100px', margin: '20px'}}>{
         snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Submit"
         }</Button>
