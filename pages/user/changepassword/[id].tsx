@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Typography, TextField, InputAdornment, Button, CircularProgress } from '@material-ui/core';
 
 import LockIcon from '@material-ui/icons/Lock';
@@ -14,13 +14,16 @@ import { fetchPatch } from '../../../constants/CustomFetching';
 import { formatYupError } from '../../../constants/formYupError';
 import { changeLoginStatus } from '../../../redux/actions/userInfoActions';
 import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackBars';
-import { dark_gray, blue, white } from '../../../constants/CustomColors';
+import { dark_gray, blue, white, gray, darker_green } from '../../../constants/CustomColors';
+import { State } from '../../../redux/reduxTypes';
 
  
  const ForgotPassword = () => {
 
     const router = useRouter();
     const dispatch = useDispatch();
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+
 
     const id = router.query['id'];
 
@@ -77,11 +80,11 @@ import { dark_gray, blue, white } from '../../../constants/CustomColors';
     }
 
     return (
-         <Grid container className="change-pass" style={{display: 'flex', flexDirection: "column", alignItems: 'center', minHeight: 650}}>
+         <Grid container className={darkMode ? "change-pass-dark" : "change-pass"} style={{display: 'flex', flexDirection: "column", alignItems: 'center', minHeight: 750}}>
              <span style={{marginTop: 40, marginBottom: 50}}>
-                <Image src="/logo.png" width="157" height="47" />
+                <Image src={darkMode ? "/logo_dark.png" : "/logo.png"} width="157" height="47" />
              </span>
-             <Typography variant="subtitle2" style={{color: dark_gray}}>Please enter your current password associated <br/>
+             <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray}}>Please enter your current password associated <br/>
               with your account 
               and the password your want to use.</Typography>
               <TextField placeholder="Current Password" value={form.current_password} type="password"
@@ -131,7 +134,7 @@ import { dark_gray, blue, white } from '../../../constants/CustomColors';
                 }}/>
                 <YupError errors={errors} path="new_password"/>
 
-              <Button style={{margin: '10px 0 10px 0', backgroundColor: blue, color: white, padding: 10, minWidth: 350}}
+              <Button style={{margin: '10px 0 10px 0', backgroundColor: darkMode ? darker_green : blue, color: white, padding: 10, minWidth: 350}}
                onClick={() => onSubmit()}
               >{ snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Continue" }</Button>
 
