@@ -55,27 +55,25 @@ const MainHeader = () => {
         const exp = localStorage.getItem('exp');
         const refreshToken = localStorage.getItem('refresh');
 
-        if (jwt !== null && refreshToken !== null) {
-          if ((parseInt(exp as string)*1000) < Date.now()){
-            const func = async () => {
-                  const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
-                    token: jwt,
-                    refreshToken
-                  });
+        if (jwt !== null && refreshToken !== null && exp !== null) {
+            // const func = async () => {
+            //       const res = await fetchPost('http://localhost:10025/api/v1/token/refresh', {
+            //         token: jwt,
+            //         refreshToken
+            //       });
   
-                  if (res?.ok){
-                    const json: JwtToken = await res.json();
-                    localStorage.setItem('jwt', json.token);
-                    localStorage.setItem('refresh', json.refreshToken);
-                    return;
-                  }
-                  else {
-                    dispatch(changeLoginStatus(false));
-                    localStorage.clear();
-                    return;
-                  }
-                }
-              }
+            //       if (res?.ok){
+            //         const json: JwtToken = await res.json();
+            //         localStorage.setItem('jwt', json.token);
+            //         localStorage.setItem('refresh', json.refreshToken);
+            //         return;
+            //       }
+            //       else {
+            //         dispatch(changeLoginStatus(false));
+            //         localStorage.clear();
+            //         return;
+            //       }
+            //     }
               dispatch(changeLoginStatus(true));
         }
 
@@ -85,7 +83,7 @@ const MainHeader = () => {
           changeLoyalityPoints(await res.text());
         }
 
-        func2();
+        if (localStorage.userId) func2();
     }
   }, [])
 

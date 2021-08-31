@@ -3,9 +3,8 @@ import { Grid, Typography, Button, TextField} from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
 import { blue, darker_green } from '../../constants/CustomColors';
 
-const CouponTab = ({darkMode} : {darkMode: boolean}) => {
-
-  const [coupon,changeCoupon] = React.useState('');
+const CouponTab = ({darkMode, coupon, changeCoupon, checkCoupon} : {darkMode: boolean,coupon: string, changeCoupon: (value: string) => void,
+checkCoupon: () => Promise<void>}) => {
 
   return (
     <Grid container className={darkMode ? "coupon-tab-dark" : "coupon-tab"}>
@@ -18,7 +17,7 @@ const CouponTab = ({darkMode} : {darkMode: boolean}) => {
         className: "coupon-imput", style: {padding: "10px"},
         disableUnderline: true
         }}/>
-        <Button style={{color: '#fff', backgroundColor: darkMode ? darker_green : blue, padding: '10px', margin: '10px', width: '300px'}}>
+        <Button onClick={async () => await checkCoupon()} style={{color: '#fff', backgroundColor: darkMode ? darker_green : blue, padding: '10px', margin: '10px', width: '300px'}}>
           Apply Coupon</Button>
     </Grid>
   )

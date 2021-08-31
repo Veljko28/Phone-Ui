@@ -38,7 +38,6 @@ page buttons fix ✅
 carousel images on phone
 bid history with api ✅
 bid categories with redux ✅
-change display image on removal of it
 reset password ✅
 forgot password ✅
 chip labels on phone display ✅
@@ -80,9 +79,7 @@ email notifications ✅
 notifications button ✅
 notification pop-up ✅
 phones sold api config ✅
-rating api config
 related product fix - same product ✅
-fix phone display on smaller screens
 already logged in for login and register ✅
 send notifications on phone sold and change phone status ✅
 change static colors to custom color class ✅
@@ -129,7 +126,6 @@ placed bids and notifications ✅
 bid notification link ✅
 placed bids email ✅
 review tab appears if you've bought the phone ✅
-order by price stored procedures for desc and asc sorts
 email button on bought phones ✅
 bid status on management ✅
 bid sold display ✅ 
@@ -137,7 +133,6 @@ create seperate components for display phone ✅
 get num of pages on every request ✅
 fix not found for phone and bid lists ✅
 bid ends in seconds ✅
-bid history data problem ?
 no diplicate bids on management ✅
 dark mode button ✅
 remove background on phone images ✅
@@ -151,25 +146,42 @@ contact / about dark mode ✅
 
 cart dark mode ✅
 dark mode svgs ✅
-email confirmed dark mode 
-change password dark mode
-navbar stays phone after full screen change
+email confirmed dark mode ✅
+change password dark mode ✅
+front page refresh fix ✅
 wish list on related products and latest phones ✅
 loyality points implementation ✅
 loyality points display ✅
 coupons page ✅
-remove loyality points on buy
-send email with coupons and save in db
-buy coupons codes with loyality points
-listings pagination 
+remove loyality points on buy ✅
+send email with coupons and save in db ✅
+buy coupons codes with loyality points ✅
+listings pagination ✅
+wishlist pagination  ✅
+apply coupon at checkout ✅
+create reviews only on bought phones ✅
+dont display review if already reviewed ✅
+
+order by price stored procedures for desc and asc sorts
+navbar stays phone after full screen change dark mode
 reviews pagination 
-wishlist pagination 
-
-
+reviews on profile
+username on user Reviews
+folder with images of all the pages
+rating api config
+change display image on removal of it
+bid history data problem ?
+fix phone display on smaller screens
 language translations (react-i18next)
+compress images
+carousel images on phone
+
+
+
+
+
 language icon fix ✅
 
-compress images
 move nessesary images to api ✅
 
 clean the code / imports ✅
@@ -185,5 +197,4 @@ jwt store ✅
 phone display api ✅
 add phone / bid page ✅
 
-folder with images of all the pages
 

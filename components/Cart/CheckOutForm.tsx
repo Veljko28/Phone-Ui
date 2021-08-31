@@ -114,7 +114,7 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
                 }
             }
 
-            await fetchPost(`http://localhost:10025/api/v1/users/loyality/add/${userId}`, {});
+            await fetchPost(`http://localhost:10025/api/v1/users/loyality/add`, {userId, amount: 15});
         })
         
         const purhcaseList = list.map(x => ({phoneId: x.id, sellerId: x.seller, buyerId: userId}));
