@@ -9,11 +9,12 @@ import { blue, darker_green, dark_gray, gray } from '../../constants/CustomColor
 import React from 'react';
 import { fetchGet } from '../../constants/CustomFetching';
 import { formatDate } from '../../constants/formatDate';
+import Link from 'next/link';
 
-const ReviewMap = ({id, rating, userId, dateCreated, message, userName,  darkMode, idx}
-    : {id: string, rating: number, userId: string, dateCreated: Date, message: string, userName:string, darkMode: boolean, idx: number}) => {
+const ReviewMap = ({id, rating, buyerId, dateCreated, message, userName,  darkMode, idx}
+    : {id: string, rating: number, buyerId: string, dateCreated: Date, message: string, userName:string, darkMode: boolean, idx: number}) => {
 
-        const hasLine = (id : string) => {
+        const hasLine = () => {
             if (idx == 2){
                 return <ColoredLine color="#eee"/>
             }
@@ -26,12 +27,15 @@ const ReviewMap = ({id, rating, userId, dateCreated, message, userName,  darkMod
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
                     <span style={{color: dark_gray, marginLeft: '10px'}}>By 
-                    <span style={{color: darkMode ? darker_green : blue}}> {userName} </span>on {formatDate(dateCreated)}</span>
+                    <Link href={`/user/${buyerId}`}>
+                        <span style={{color: darkMode ? darker_green : blue}} className="curs-hver"> {userName} </span>
+                    </Link>
+                        on {formatDate(dateCreated)}</span>
             </div>
             <div style={{color: darkMode ? gray : dark_gray, padding: '10px'}}>
                 {message}
             </div>
-            {hasLine(id)}
+            {hasLine()}
         </Grid>
     );
 }
@@ -43,24 +47,11 @@ const UserReviews = ({userId} : {userId: string}) => {
 
     React.useEffect(() => {
         const func = async () => {
-            const res = await fetchGet(`http://localhost:10025/api/v1/reviews/${userId}`);
+            const res = await fetchGet(`http://localhost:10025/api/v1/users/reviews/${userId}`);
 
             const json = await res.json();
             const temp = json.slice(0,3);
-
-            changeReviews( temp.map((x: any) => {
-                let userName = "";
-                const func2 = async () => {
-                    const res = fetchGet(`http://localhost:10025/api/v1/users/username/${userId}`);
-                    if (res.ok){
-                      userName = await res.text(); // map username to user reviews
-                    }
-                }
-                func2();
-
-                return {...x,userName};
-            })
-            );
+            changeReviews(temp);
         } 
 
         if (userId) func();
