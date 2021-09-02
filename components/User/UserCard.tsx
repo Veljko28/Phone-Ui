@@ -20,6 +20,8 @@ const UserCard = (props: {email: string, id: string, phoneNumber: string, search
 phones_sold: string, selling_phones: string}) => {
 
   let currentUser: string | null = null;
+
+  console.log();
   
     if (typeof window !== 'undefined') {
       currentUser = localStorage.getItem('userId');
@@ -77,7 +79,7 @@ phones_sold: string, selling_phones: string}) => {
                 <span style={{color: dark_gray, fontSize: "15px"}}>{props.desc}</span>
               </Typography>
               <Typography variant="subtitle1">
-                Rating: <Rating name="seller-rating" value={props.rating} precision={0.1} readOnly
+                Rating: <Rating name="seller-rating" value={props.rating ? parseFloat(props.rating.toFixed(1)) : 0} precision={0.1} readOnly
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
               <Typography variant="subtitle1">
