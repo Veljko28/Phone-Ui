@@ -268,6 +268,9 @@ body {
   .navbar-main-display {
     flex-direction: row;
   }
+  .navbar-main-display-dark {
+    flex-direction: row;
+  }
 }
 
 .navbtn {
@@ -302,6 +305,15 @@ body {
 
 @media (max-width: 800px){
   .navbar-main {
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: top 1s ease;
+    display: none;
+  }
+
+  .navbar-main-dark {
     z-index: 10;
     flex-direction: column;
     justify-content: center;
