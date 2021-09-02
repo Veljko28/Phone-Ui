@@ -163,18 +163,21 @@ create reviews only on bought phones ✅
 dont display review if already reviewed ✅
 
 order by price stored procedures for desc and asc sorts
-navbar stays phone after full screen change dark mode
-reviews pagination 
-reviews on profile
-username on user Reviews
+navbar stays phone after full screen change dark mode ✅
+reviews pagination ✅
+reviews on profile ✅
+username on user Reviews ✅
 folder with images of all the pages
-rating api config
+rating api config ✅
+rating display ✅
 change display image on removal of it
 bid history data problem ?
 fix phone display on smaller screens
 language translations (react-i18next)
 compress images
 carousel images on phone
+carousel images dark mode ✅
+fixed pagination button on profile
 
 
 

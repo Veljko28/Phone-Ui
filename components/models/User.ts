@@ -6,5 +6,6 @@ export default interface User {
   description?: string,
   phones_sold: number,
   phoneNumber: string,
-  emailConfirmed?: boolean
+  emailConfirmed?: boolean,
+  rating?: number
 }
