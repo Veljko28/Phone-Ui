@@ -102,9 +102,9 @@ const PhonePage = () => {
           phone={phone} images={images} id={id as string} userId={user?.id as string}
           />
           <SellerInfo user={user} sellingPhones={sellingPhones}/>
-          <PhoneRatings />
+          <PhoneRatings user={user as User}/>
           {/* <PhoneReviews  phoneId={id as string}/> */}
-          <UserReviews userId={phone?.seller as string}/>
+          <UserReviews userId={phone?.seller as string} display={true}/>
           {phone?.status !== 0 && userBought ? <AddPhoneReview sellerId={phone?.seller as string} phoneId={phone?.id as string}/> : null}
           <LatestProducts title="Related Products" phones={relatedProducts} />
         </>
