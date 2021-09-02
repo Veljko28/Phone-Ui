@@ -5,9 +5,10 @@ import ColoredLine from '../../constants/ColoredLine';
 import { blue, dark_gray, gray, white, darker_green } from '../../constants/CustomColors';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
+import User from '../models/User';
 
 
-const PhoneRatings = () => {
+const PhoneRatings = ({user} : {user: User}) => {
 
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
@@ -18,11 +19,11 @@ const PhoneRatings = () => {
             <ColoredLine color={gray}/>
             <Grid xs={12} container item>
                 <Grid xs={12} md={4} item className="review-grid-item">
-                    <Typography variant="h4" style={{color: darkMode ? white : 'black'}}>4.6</Typography>
-                    <Rating name="phone-rating" value={4.6} precision={0.1} readOnly
+                    <Typography variant="h4" style={{color: darkMode ? white : 'black'}}>{user?.rating}</Typography>
+                    <Rating name="phone-rating" value={user?.rating ? parseFloat(user?.rating.toFixed(1)) : 0} precision={0.1} readOnly
                      style={{fontSize: '20px', marginBottom: '20px'}}/>
                     <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray}}>
-                        20 Ratings &#38; 10 Reviews
+                        Based on {user?.phones_sold} Reviews
                     </Typography>
                 </Grid>
                 <Grid xs={12} md={4} item className="review-grid-item">

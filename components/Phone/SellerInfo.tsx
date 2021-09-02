@@ -49,7 +49,7 @@ const SellerInfo = ({user, sellingPhones} : {user?: User,sellingPhones: string})
               </Link>
                 <Grid xs={12} md={4} item className="review-grid-item">
                     <Typography variant="subtitle1"  style={{color: darkMode ? white : 'black' }}>
-                        Rating: <Rating name="seller-rating" value={4.5} precision={0.1} readOnly
+                        Rating: <Rating name="seller-rating" value={user?.rating ? parseFloat(user?.rating.toFixed(1)) : 0} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px', marginTop: '15px'}}/>
                     </Typography>
                     <Typography variant="subtitle1"  style={{color: darkMode ? white : 'black' }}>

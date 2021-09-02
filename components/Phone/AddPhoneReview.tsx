@@ -3,7 +3,7 @@ import Rating from '@material-ui/lab/Rating';
 import { Grid, Typography, TextField, Button, CircularProgress } from '@material-ui/core';
 
 import ColoredLine from '../../constants/ColoredLine';
-import { fetchPost } from '../../constants/CustomFetching';
+import { fetchPatch, fetchPost } from '../../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
 import { blue, gray, white, darker_green } from '../../constants/CustomColors';
 import { useSelector } from 'react-redux';
@@ -30,6 +30,7 @@ const AddPhoneReview = ({sellerId, phoneId} : {sellerId: string, phoneId: string
       });
 
       if (res.ok) {
+        await fetchPatch(`http://localhost:10025/api/v1/users/rating/${sellerId}`, {});
         changeSnackBar({...snackBar, success: true, loading: false});
         setTimeout(() =>  location.reload(), 1500);
       }
