@@ -16,7 +16,9 @@ import NotLoggedIn from '../../constants/NotLoggedIn';
 import { formatYupError } from '../../constants/formYupError';
 import {SnackBarSuccess, SnackBarFailed} from '../../constants/CustomSnackBars';
 import { fetchPost, fetchPostForm, fetchForm } from '../../constants/CustomFetching';
-import { white, blue, red } from '../../constants/CustomColors';
+import { white, blue, red, dark, darker_green, gray, dark_cont } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 
@@ -57,6 +59,7 @@ const AddPhone = () => {
     const [yupErrors, changeYupErrors] = React.useState([]);
     const [loading, changeLoading] = React.useState(false);
 
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
     const inputRef = React.useRef(null);
     
     const uploadFile = (e: any) => {
@@ -166,9 +169,9 @@ const AddPhone = () => {
        changeLoading(false);
     }
 
-    return (jwt === null ? <NotLoggedIn/> : (
+    return (jwt === null ? <NotLoggedIn darkMode={darkMode}/> : (
 
-        <Grid container style={{backgroundColor: white, paddingBottom: 200, paddingTop: 50}}>
+        <Grid container style={{backgroundColor: darkMode ? dark : white, paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Add`} />
             <Grid item lg={1}/>
 
@@ -176,9 +179,10 @@ const AddPhone = () => {
 
                 <Grid item>
                     {currentImage === '' ? (
-                        <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
-                           <CloudUploadIcon style={{fontSize: 150, color: blue}}/>
-                            <div style={{fontSize: 25, color: blue}}>Upload product images</div> 
+                        <div className={darkMode ? "display-image-none-dark": "display-image-none"} 
+                        onClick={() => (inputRef as any).current.click()}>
+                           <CloudUploadIcon style={{fontSize: 150, color: darkMode ? darker_green : blue}}/>
+                            <div style={{fontSize: 25, color: darkMode ? darker_green : blue}}>Upload product images</div> 
                         </div>
                     ) : (
                         <div className="display-image">
@@ -199,8 +203,10 @@ const AddPhone = () => {
                         <div className="other-image" style={{margin: 10, marginLeft: 0}}>
                             <input type="file" accept="image/*" onChange={(e: any) => uploadFile(e)} ref={inputRef} style={{display: 'none'}}/>
                             <button onClick={() => (inputRef as any).current.click()}
-                            className="add-another">
-                            <ImageIcon style={{fontSize: 35, color: blue}}/> Add Image
+                            className={darkMode ? "add-another-dark" : "add-another"}>
+                            <ImageIcon style={{fontSize: 35, color: darkMode ? darker_green : blue}}/>
+                            <br/>
+                            <span style={{color: darkMode ? darker_green : blue }}>Add Image</span>
                             </button>
                         </div>
                     )}
@@ -214,7 +220,7 @@ const AddPhone = () => {
                     
             </Grid>
             <Grid item lg={1}/>
-            <Grid item sm={12} md={6} lg={5} style={{backgroundColor: blue, padding: 25, height: 450}}>
+            <Grid item sm={12} md={6} lg={5} style={{backgroundColor: darkMode ? darker_green : blue, padding: 25, height: 450}}>
                 <Typography variant="h3"  
                 style={{color: white, marginTop: 10, marginLeft: 10}}>Add Phone</Typography>
                 
@@ -226,7 +232,7 @@ const AddPhone = () => {
                             className: yupErrors.filter((x: any) => x.path === 'name').length > 0 ? "money-imput-error" : "money-imput",
                             disableUnderline: true
                         }}/>
-                      <YupError errors={yupErrors} path="name" color={white}/>
+                      <YupError errors={yupErrors} path="name" color={darkMode ? red : white}/>
                     </Grid>
                     <Grid xs={6} item>
                     <TextField placeholder="Price" type="number" fullWidth
@@ -240,7 +246,7 @@ const AddPhone = () => {
                         ),
                         disableUnderline: true
                       }}/>
-                      <YupError errors={yupErrors} path="price" color={white}/>
+                      <YupError errors={yupErrors} path="price" color={darkMode ? red : white}/>
                     </Grid>
                 </Grid>
 
@@ -256,7 +262,7 @@ const AddPhone = () => {
                             <option value="ios">IOS Phone</option>
                             <option value="other">Other</option>
                         </select>
-                       <YupError errors={yupErrors} path="category" color={white}/>
+                       <YupError errors={yupErrors} path="category" color={darkMode ? red : white}/>
                     </Grid>
                     <Grid xs={6} item>
                     <select name="brand"
@@ -270,7 +276,7 @@ const AddPhone = () => {
                             <option value="redmi">Redmi</option>
                             <option value="alcatel">Alcatel</option>
                         </select>
-                       <YupError errors={yupErrors} path="brand" color={white}/>
+                       <YupError errors={yupErrors} path="brand" color={darkMode ? red : white}/>
                     </Grid>
 
                 </Grid>
@@ -282,14 +288,14 @@ const AddPhone = () => {
                         style: {padding: 10},
                         disableUnderline: true
                 }}/>
-                <YupError errors={yupErrors} path="description" color={white}/>
+                <YupError errors={yupErrors} path="description" color={darkMode ? red : white}/>
                 <br/>
 
 
                 <Button variant="contained" 
-                style={{backgroundColor: white, color: blue, width: 110}}
+                style={{backgroundColor: darkMode ? dark_cont : white, color: darkMode ? darker_green : blue, width: 110}}
                 onClick={() => addPhoneApi()}>
-                   {loading ? <CircularProgress style={{color: blue}} size={24}/> :
+                   {loading ? <CircularProgress style={{color: darkMode ? darker_green : blue}} size={24}/> :
                      (<>
                         <CheckIcon style={{fontSize: 20, margin: 2}}/>
                         Submit

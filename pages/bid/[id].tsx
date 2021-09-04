@@ -15,6 +15,7 @@ import User from '../../components/models/User';
 import Phone from '../../components/models/Phone';
 import NotFound from '../../components/NotFound';
 import { timeLeft } from '../../constants/formatDate';
+import UserReviews from '../../components/User/UserReviews';
 
 
 const PhonePage = () => {
@@ -117,7 +118,7 @@ const PhonePage = () => {
         <>
           <PhoneDisplay bid={true} phone={bid} images={images} history={history} userId={user?.id as string} id={id as string}/>
           <SellerInfo user={user} sellingPhones={sellingPhones}/>
-          <PhoneReviews phoneId={id as string}/>
+          <UserReviews display={true} userId={user?.id as string}/>
           <LatestProducts title="Related Products"  phones={relatedProducts} />
         </>
       )}
