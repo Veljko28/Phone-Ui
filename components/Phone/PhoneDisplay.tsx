@@ -29,6 +29,7 @@ import PhoneDisplaySkeleton from '../Skeletons/PhoneDisplaySkeleton';
 import BidInfo from './DisplayComps/BidInfo';
 import PhoneButtonTypes from './DisplayComps/PhoneButtonTypes';
 import YourBid from './DisplayComps/YourBid';
+import { timeLeft } from '../../constants/formatDate';
 
 const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -72,7 +73,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
     if (phone?.status !== 0 && bid && history!.length > 0) {
       const historyClone = history;
       const maxAmout = Math.max.apply(Math, historyClone!.map(function(o) { return o.amount; }));
-      const userHistory = historyClone?.filter(x => x.amount = maxAmout)[0];
+      const userHistory = historyClone?.filter(x => x.amount == maxAmout)[0];
 
       if (userHistory != null){
         changeUserWon(userHistory.userName);
@@ -111,6 +112,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
     changeDialogOpen(false);
   }
 
+
   return loading ? <PhoneDisplaySkeleton darkMode={darkMode}/> : (
     <Grid container className={darkMode ? "display-container-dark" : "display-container"}>
       <Grid item className="other-images">
@@ -131,7 +133,8 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
         </div>
         <Typography variant="subtitle1" >
 
-          <span style={{color: darkMode ? darker_green : blue, fontSize: "35px"}}>{bid ? "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
+          <span style={{color: darkMode ? darker_green : blue, fontSize: "35px"}}>{bid ? 
+          history?.length === 0 ? "Starting Price: " : "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
 
           <span style={{color: darkMode ? gray : dark_gray, fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
@@ -156,7 +159,8 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
 
           <BidInfo bidAmount={bidAmount} changeBidAmount={(value: any) => changeBidAmount(value)} phone={phone}
            closeHistory={() => closeHistory()} historyOpen={historyOpen} anchorEl={anchorEl} history={history} 
-           openHistory={(value: any) => openHistory(value)} changeDialogOpen={(value: boolean) => changeDialogOpen(value)}/>
+           openHistory={(value: any) => openHistory(value)} changeDialogOpen={(value: boolean) => changeDialogOpen(value)}
+           darkMode={darkMode}/>
           
           : 
           

@@ -44,10 +44,28 @@
     border-style: dotted;
     height: 450px;
   }
+
+  .display-image-none-dark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 20px 10px 20px;
+    background-color: #393d4a;
+    border: 5px solid #fff;
+    border-style: dotted;
+    height: 450px;
+  }
+
+  .display-image-none-dark:hover {
+    cursor: pointer;
+  }
   
   .display-image-none:hover {
     cursor: pointer;
   }
+
+
   .display-container {
     background-color: #fff;
     padding: 20px;
@@ -120,6 +138,7 @@
     display: flex;
     width: 100px;
     padding: 10px;
+    background-color: #eee;
    }
 
    .bid-history {
@@ -147,6 +166,15 @@
      background-color: #fff;
      font-size: 9px;
      color: #0cafe5;
+     width: 65px;
+     height: 65px;
+   }
+
+   .add-another-dark {
+     border: none;
+     background-color: #393d4a;
+     font-size: 9px;
+     color: #6cd60f;
      width: 65px;
      height: 65px;
    }

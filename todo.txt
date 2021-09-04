@@ -167,19 +167,21 @@ navbar stays phone after full screen change dark mode ✅
 reviews pagination ✅
 reviews on profile ✅
 username on user Reviews ✅
-folder with images of all the pages
+folder with images of all the pages ✅ / dark mode
 rating api config ✅
 rating display ✅
 change display image on removal of it
-bid history data problem ?
+bid history data problem ? ✅
 fix phone display on smaller screens
 language translations (react-i18next)
 compress images
 carousel images on phone
 carousel images dark mode ✅
-fixed pagination button on profile
-
-
+no reviews page ✅
+review skeleton ✅
+add bid dark mode ✅
+add phone dark mode ✅
+starting bid if no bids ✅
 
 
 
