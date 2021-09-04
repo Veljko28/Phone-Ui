@@ -5,11 +5,13 @@ import { State } from '../../redux/reduxTypes';
 
 
 import ColoredLine from '../../constants/ColoredLine';
-import { blue, darker_green, dark_gray, gray, white } from '../../constants/CustomColors';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import { blue, darker_green, dark_cont, dark_gray, gray, white } from '../../constants/CustomColors';
 import React from 'react';
 import { fetchGet } from '../../constants/CustomFetching';
 import { formatDate } from '../../constants/formatDate';
 import Link from 'next/link';
+import ReviewSkeleton from '../Skeletons/ReviewSkeleton';
 
 
 const UserReviews = ({userId, display} : {userId: string, display?: boolean}) => {
@@ -17,9 +19,11 @@ const UserReviews = ({userId, display} : {userId: string, display?: boolean}) =>
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
     const [reviews,changeReviews] = React.useState<any>([]);
     const [currentPage, changeCurrentPage] = React.useState(0);
+    const [loading, changeLoading] = React.useState(false);
 
 
     React.useEffect(() => {
+        changeLoading(true);
         const func = async () => {
             const res = await fetchGet(`http://localhost:10025/api/v1/users/reviews/${userId}`);
 
@@ -47,8 +51,9 @@ const UserReviews = ({userId, display} : {userId: string, display?: boolean}) =>
                 changeReviews(listOfPages);
             }
         } 
-
+        
         if (userId) func();
+        changeLoading(false);
     },[userId])
 
 
@@ -82,13 +87,24 @@ const ReviewMap = ({id, rating, buyerId, dateCreated, message, userName,  darkMo
     );
     }
 
+    const skeletons = [<ReviewSkeleton/>, <ReviewSkeleton/>, <ReviewSkeleton/>]
+
     return ( <>
+        {loading ? 
+        <div style={{backgroundColor: darkMode ? dark_cont : white, marginTop: 10}}>
+            {skeletons.map(x => <div>{x}</div>)}
+        </div> : reviews.length === 0 ? (
+            <Grid container item style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',height: 450, backgroundColor: darkMode ? dark_cont : white, marginTop: 10}}>
+                    <RateReviewIcon style={{color:  darkMode ? darker_green : blue,fontSize: 175}}/>
+                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>Couldn't find any reviews for this user</Typography>
+            </Grid>
+        ) : (
         <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container style={{marginTop: 15}}> 
             {display ? reviews.map((x: any, idx: number) => ReviewMap({...x,darkMode, idx})) : 
              reviews[currentPage]?.map((x: any, idx: number) => ReviewMap({...x,darkMode, idx}))}
-        </Grid>
+        </Grid>)}
         
-            {!display && <span style={{display: 'inline-block',}}>
+            {!display && reviews.length !== 0 && <span style={{display: 'inline-block',}}>
                       <div>
                         {currentPage !== 0 ? (
                         <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}}
