@@ -153,7 +153,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
             </>
           ) : bid ? 
 
-          userId === currentUserId ? <YourBid phone={phone}
+          userId === currentUserId ? <YourBid phone={phone} darkMode={darkMode}
            closeHistory={() => closeHistory()} historyOpen={historyOpen} anchorEl={anchorEl} history={history} 
            openHistory={(value: any) => openHistory(value)} /> :
 
