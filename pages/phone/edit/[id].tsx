@@ -16,7 +16,9 @@ import TitleChange from '../../../constants/TitleChange';
 import { formatYupError } from '../../../constants/formYupError';
 import { SnackBarSuccess, SnackBarFailed } from '../../../constants/CustomSnackBars';
 import { fetchForm, fetchPostForm, fetchGet, fetchPatch} from '../../../constants/CustomFetching';
-import { white, blue, red } from '../../../constants/CustomColors';
+import { white, blue, red, dark, darker_green, dark_cont } from '../../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../../redux/reduxTypes';
 
 
 const EditPage = () => {
@@ -49,7 +51,7 @@ const EditPage = () => {
 
     const yupSchema = yup.object().shape({
         name: yup.string().min(5),
-        image: yup.string().min(5),
+        image: yup.string(),
         description: yup.string().min(25),
         price: yup.number().moreThan(0),
         category: yup.string().min(1),
@@ -109,9 +111,6 @@ const EditPage = () => {
         let list = imageBlobs as any;
         list = list.filter((x: string) => x !== currentImage);
         
-       
-
- 
         changeImageBlob(list);
         if (list.length > 0) {
             changeCurrentImage(list[0]);
@@ -121,33 +120,11 @@ const EditPage = () => {
 
     const EditPhoneApi = async () => {
        changeLoading(true);
-
-       if (imageBlobs[0] !== formInfo.image){
-          const file = files[0];
-            if (file == null) {
-                changeError({open: true, message: "Please add a photo"});
-                changeLoading(false);
-                return;
-            }
-
-
-          const displayPhotoRes = await fetchForm('http://localhost:10025/api/v1/generic/phone/display', file);
-          if ((displayPhotoRes as Response).status !== 200 && (displayPhotoRes as Response).status !== 401){
-              changeError({open: true, message: "Failed to add a photo, please try again"});
-              changeLoading(false);
-              return;
-          }
-          const photo = await displayPhotoRes.text();
-
-          const newForm = {...formInfo, image: photo};
-          changeFormInfo(newForm);
-        }
-        
         try {
             await yupSchema.validate(formInfo, {abortEarly: false});
         }
         catch (err) {
-            changeYupErrors(formatYupError(err) as any);
+            changeYupErrors(formatYupError(err as any) as any);
             changeLoading(false);
             return;
         }
@@ -157,25 +134,33 @@ const EditPage = () => {
 
         if (res.ok){
               // Sending New Images
-              const ok = await fetchPostForm('http://localhost:10025/api/v1/generic/phone/image', files, 0, id as string);
+              const updateImage = await fetchPostForm('http://localhost:10025/api/v1/generic/phone/image', files, 0, id as string);
 
-            if (ok) {
+            if (updateImage) {
               changeSnackbarOpen(true);
               setTimeout(() => {
                   router.push(`/phone/${id}`)
               }, 3000)
             }
-            else changeError({open: true, message: "Failed to edit the phone"});
+            else {
+                changeSnackbarOpen(false);
+                changeError({open: true, message: "Failed to edit the phone"});
+                return;
+            }
         }
+        changeSnackbarOpen(true);
+        setTimeout(() => router.push(`/phone/${id}`), 3000)
         changeLoading(false);
     }
+
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
 
   return (
       <>
-      {jwt === null ? <NotLoggedIn/> : (
+      {jwt === null ? <NotLoggedIn darkMode={darkMode}/> : (
 
-    <Grid container style={{backgroundColor: white, paddingBottom: 200, paddingTop: 50}}>
+    <Grid container style={{backgroundColor: darkMode ? dark : white, paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Phone Edit`} />
             <Grid item lg={1}/>
 
@@ -183,9 +168,10 @@ const EditPage = () => {
 
                 <Grid item>
                     {currentImage === '' ? (
-                         <div className="display-image-none" onClick={() => (inputRef as any).current.click()}>
-                           <CloudUploadIcon style={{fontSize: 150, color: blue}}/>
-                            <div style={{fontSize: 25, color: blue}}>Upload product images</div> 
+                         <div className={darkMode ? "display-iamge-none-dark" : "display-image-none"}
+                          onClick={() => (inputRef as any).current.click()}>
+                           <CloudUploadIcon style={{fontSize: 150, color: darkMode ? darker_green : blue}}/>
+                            <div style={{fontSize: 25, color: darkMode ? darker_green : blue}}>Upload product images</div> 
                         </div>
                     ) : (
                         <div className="display-image">
@@ -206,8 +192,10 @@ const EditPage = () => {
                         <div className="other-image" style={{margin: 10, marginLeft: 0}}>
                             <input type="file" accept="image/*" onChange={(e: any) => uploadFile(e)} ref={inputRef} style={{display: 'none'}}/>
                             <button onClick={() => (inputRef as any).current.click()}
-                            className="add-another">
-                            <ImageIcon style={{fontSize: 35, color: blue}}/> Add Picture
+                            className={darkMode ? "add-another-dark" : "add-another"}>
+                            <ImageIcon style={{fontSize: 35, color: darkMode ? darker_green : blue}}/>
+                            <br/>
+                            Add Picture
                             </button>
                         </div>
                     )}
@@ -223,7 +211,8 @@ const EditPage = () => {
 
             <Grid item lg={1}/>
 
-            <Grid item sm={12} md={6} lg={5}  style={{backgroundColor: blue, padding: 25, height: yupErrors.length > 0 ? 450 : 400}}>
+            <Grid item sm={12} md={6} lg={5}  
+            style={{backgroundColor: darkMode ? darker_green : blue, padding: 25, height: yupErrors.length > 0 ? 450 : 400}}>
                 <Typography variant="h4"  
                 style={{color: white, marginTop: 10, marginLeft: 10}}>Edit Phone</Typography>
                 
@@ -292,9 +281,9 @@ const EditPage = () => {
                 <YupError errors={yupErrors} path="description"/>
                 <br/>
                 <Button variant="contained" 
-                style={{backgroundColor: white, color: blue, width: 110}}
+                style={{backgroundColor: darkMode ? dark_cont : white, color: darkMode ? darker_green : blue, width: 110}}
                 onClick={() => EditPhoneApi()}>
-                    {loading ? <CircularProgress style={{color: blue}} size={24}/> :
+                    {loading ? <CircularProgress style={{color: darkMode ? darker_green : blue}} size={24}/> :
                      (<>
                         <CheckIcon style={{fontSize: 20, margin: 2}}/>
                         Update
