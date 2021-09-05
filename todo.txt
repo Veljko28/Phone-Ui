@@ -162,26 +162,30 @@ apply coupon at checkout ✅
 create reviews only on bought phones ✅
 dont display review if already reviewed ✅
 
-order by price stored procedures for desc and asc sorts
 navbar stays phone after full screen change dark mode ✅
 reviews pagination ✅
 reviews on profile ✅
-username on user Reviews ✅
-folder with images of all the pages ✅ / dark mode
+username on user Reviews ✅ 
+folder with images of all the pages ✅ / dark mode ✅
 rating api config ✅
 rating display ✅
-change display image on removal of it
+change display image on removal of it ✅
 bid history data problem ? ✅
+
+language in localstorage
 fix phone display on smaller screens
-language translations (react-i18next)
+language translations (react-i18next) / translate main pages
 compress images
 carousel images on phone
+
 carousel images dark mode ✅
 no reviews page ✅
 review skeleton ✅
 add bid dark mode ✅
 add phone dark mode ✅
 starting bid if no bids ✅
+edit page dark mode ✅
+history dark mode ✅
 
 
 

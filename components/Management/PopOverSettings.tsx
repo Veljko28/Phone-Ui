@@ -7,7 +7,9 @@ import ClearIcon from '@material-ui/icons/Clear';
 import PopUpDialog from '../../constants/PopUpDialog';
 import { fetchDelete } from '../../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
-import { white } from '../../constants/CustomColors';
+import { dark_cont, white } from '../../constants/CustomColors';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/reduxTypes';
 
 
 const PopOverSettings = ({id, open, anchorEl, handleClose, myBid} : 
@@ -31,9 +33,10 @@ const PopOverSettings = ({id, open, anchorEl, handleClose, myBid} :
         }
         else changeSnackbar({error: true,success: false});
         
-       
-
     }
+
+
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
   return (
     <Popover
@@ -49,7 +52,8 @@ const PopOverSettings = ({id, open, anchorEl, handleClose, myBid} :
           horizontal: 'left',
         }}
       >
-        <div style={{padding: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div style={{padding: '15px', display: 'flex', flexDirection: 'column', alignItems: 'center',
+         backgroundColor: darkMode ? dark_cont : white}}>
           {myBid === true ? null : <Link href={`/phone/edit/${id}`}><div className="edit-btn-mngm"><EditIcon style={{fontSize: '15px', color: white,marginBottom: '5px'}}/> Edit</div></Link> }
           <div className="delete-btn-mngm"
            onClick={() => changeDialogOpen(true)}><ClearIcon style={{fontSize: '15px', color: white,marginBottom: '5px'}}/> Delete</div>
