@@ -4,16 +4,13 @@ import { Popover} from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { changeLanguage } from '../../redux/actions/langActions';
-import { blue } from '../../constants/CustomColors';
+import { blue, dark_cont, white } from '../../constants/CustomColors';
 
 
-const LanguagePopUp = ({open, anchorEl, handleClose} : 
-  {open: boolean,anchorEl: any, handleClose: () => void}) => {
+const LanguagePopUp = ({open, anchorEl, handleClose, darkMode} : 
+  {open: boolean,anchorEl: any, handleClose: () => void, darkMode: boolean}) => {
 
-  const lang = useSelector((state: State) => state.language.lang);
   const dispatch = useDispatch();
-
-  const selected = {color: blue};
 
   return (
     <Popover
@@ -29,12 +26,18 @@ const LanguagePopUp = ({open, anchorEl, handleClose} :
           horizontal: 'left',
         }}
       >
-        <div style={{padding: '15px'}}>
-        <div onClick={() => dispatch(changeLanguage("en"))} className="curs-hvr">
+        <div style={{padding: '15px', backgroundColor: darkMode ? dark_cont : white, color: darkMode ? white : 'black'}}>
+        <div onClick={() => {
+          dispatch(changeLanguage("en"));
+          if (typeof window !== 'undefined') localStorage.setItem("lang", "en");
+        }} className="curs-hvr">
             <Image src="/lang/en.png" alt="english" width="20" height="15"/>
             <span className="active"> English</span>
         </div>
-        <div onClick={() => dispatch(changeLanguage("sr"))} className="curs-hvr">
+        <div onClick={() => {
+          dispatch(changeLanguage("sr"))
+          if (typeof window !== 'undefined') localStorage.setItem("lang", "sr");
+          }} className="curs-hvr">
             <Image src="/lang/sr.png" alt="Српски" width="20" height="15" />
             <span> Српски</span>
         </div>

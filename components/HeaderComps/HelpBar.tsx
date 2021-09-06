@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import LanguagePopUp from './LanguagePopUp';
 import { dark_gray } from '../../constants/CustomColors';
 import AnimatedIcon from './AnimatedIcon';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -15,6 +16,7 @@ const HelpBar = () => {
   const lang = useSelector((state: State) => state.language.lang);
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
+  const { t } = useTranslation();
 
   const [langAnchorEl, setLangAnchorEl] = React.useState(null);
   const langOpen = Boolean(langAnchorEl);
@@ -30,7 +32,7 @@ const HelpBar = () => {
   return (
     <Grid container className={darkMode ? "helper-container-dark" : "helper-container"}>
       <Grid item xs={12} lg={4} style={{display: 'flex', justifyContent: 'center'}}>
-        <div style={{fontSize: 12, marginTop: 5, color: dark_gray, marginLeft: 25}}>Best Online Mobile Selling Store !</div>
+        <div style={{fontSize: 12, marginTop: 5, color: dark_gray, marginLeft: 25}}>{t("helpBar.slogan")}</div>
       </Grid>
       <Grid item xs={12} lg={8} className="top-grid">
         <div className={darkMode ? "support-dark" : "support"}>support: +381 063 800-3210 </div>
@@ -39,7 +41,7 @@ const HelpBar = () => {
          <Image src={lang == 'en' ? '/lang/en.png' : '/lang/sr.png'} 
               alt={lang == 'en' ? "English" : "Српски"} width="20" height="15"  />
         </div>
-        <LanguagePopUp open={langOpen} handleClose={() => closeLang()} anchorEl={langAnchorEl}/>
+        <LanguagePopUp darkMode={darkMode} open={langOpen} handleClose={() => closeLang()} anchorEl={langAnchorEl}/>
         <AnimatedIcon/>
       </Grid>
     </Grid>

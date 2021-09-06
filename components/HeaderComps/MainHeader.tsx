@@ -18,6 +18,8 @@ import { JwtToken } from '../../constants/jwtTypes';
 import { clearCart } from '../../redux/actions/cartActions';
 import NotificationsPopOver from './NotificationsPopOver';
 import { darker_green, blue } from '../../constants/CustomColors';
+import { changeLanguage } from '../../redux/actions/langActions';
+import { useTranslation } from 'react-i18next';
 
 const MainHeader = () => {
   const router = useRouter();
@@ -47,6 +49,8 @@ const MainHeader = () => {
 
   const [loyalityPoints, changeLoyalityPoints] = React.useState(0);
 
+
+  const { t } = useTranslation();
 
   React.useEffect( () => {
     if (typeof window !== 'undefined') {
@@ -81,6 +85,8 @@ const MainHeader = () => {
           const res = await fetchGet(`http://localhost:10025/api/v1/users/loyality/get/${localStorage.getItem('userId')}`)
 
           changeLoyalityPoints(await res.text());
+
+          if (localStorage.lang === "sr") dispatch(changeLanguage("sr"));
         }
 
         if (localStorage.userId) func2();
@@ -110,7 +116,7 @@ const MainHeader = () => {
           e.preventDefault();
           router.push(`/search/${userSearch}`)
           }} className="search">
-            <input type="text" className={darkMode ? "searchTerm-dark" : "searchTerm"} placeholder="What are you looking for?" value={userSearch} 
+            <input type="text" className={darkMode ? "searchTerm-dark" : "searchTerm"} placeholder={t("mainHeader.search") as any} value={userSearch} 
             onChange={e => ChangeUserSearch(e.target.value)} />
             <div className={darkMode ? "searchButton-dark" : "searchButton"}>
               <Link href={`/search/${userSearch}`}>
@@ -123,10 +129,10 @@ const MainHeader = () => {
       <Grid item xs={12} lg={3} container justifyContent="center">
         <ul className={darkMode ? "user-control-dark" : "user-control"}>
           <li><Link href={loggedIn ? `/user/${localStorage.getItem('userId')}` : "/login"}>
-            {loggedIn ? "Profile" : "Login"}</Link></li>
+            {loggedIn ? t("mainHeader.profile") : t("mainHeader.login")}</Link></li>
           <li>|</li>
           <li><Link href={loggedIn ? "/management" : "/register" }>
-            {loggedIn ? "Management" : "Register"}</Link></li>
+            {loggedIn ? t("mainHeader.management") : t("mainHeader.register")}</Link></li>
           <li>
             {loggedIn ? 
              (
@@ -134,7 +140,7 @@ const MainHeader = () => {
                 <Link href="/coupons">
                   <Tooltip
                       placement="bottom"
-                          title={`You currently have ${loyalityPoints} Loyality Points`}>
+                          title={t("mainHeader.loyalityPoints", {points: loyalityPoints}) as any}>
                     <Typography style={{color: darkMode ? darker_green : blue,
                       fontSize: 17, marginRight: 10,  display: 'inline-block'}} className="curs-hver">{loyalityPoints}₽</Typography>
                     </Tooltip>
