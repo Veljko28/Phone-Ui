@@ -5,15 +5,18 @@ import { Grid, Typography } from '@material-ui/core';
 import ColoredLine from '../../constants/ColoredLine';
 import { State } from '../../redux/reduxTypes';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const NumbersTab = () => {
+
+  const { t } = useTranslation();
 
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
   return (
     <Grid container className={darkMode ? "welcome-tab-dark" : "welcome-tab"}>
       <Grid item xs={12}>
         <Typography variant="h6" style={{padding: '5px'}}>
-          MobiStore is a large company with
+          {t("numbersTab.title")}
         </Typography>
         <ColoredLine color="#eee"/>
       </Grid>
@@ -24,7 +27,7 @@ const NumbersTab = () => {
               <Image src="/about/mobile_icon.png" width="26px" height="46px" />
             </div> 
             <Typography variant="subtitle1" style={{textAlign: 'center'}}>
-              100,000+ <br/>Phones Sold
+              100,000+ <br/>{t("numbersTab.sold")}
             </Typography>
           </div>
        
@@ -33,7 +36,7 @@ const NumbersTab = () => {
               <Image src="/about/user_icon.png" width="41px" height="42px" />
             </div>
             <Typography variant="subtitle1" style={{textAlign: 'center'}}>
-            10,000+ <br/>Active Users
+            10,000+ <br/>{t("numbersTab.active")}
             </Typography>
           </div>
 
@@ -42,7 +45,7 @@ const NumbersTab = () => {
                 <Image src="/about/location_icon.png" width="40px" height="40px" />
               </div>
               <Typography variant="subtitle1" style={{textAlign: 'center'}}>
-                100+ <br/>Countries
+                100+ <br/>{t("numbersTab.coutries")}
             </Typography>
           </div>
 
