@@ -6,12 +6,14 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import { blue, dark_gray, darker_green, gray, white } from '../../constants/CustomColors';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
 
 const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: (value: any) => any}) => {
 
   const [open, setOpen] = React.useState(-1);
 
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+  const { t } = useTranslation();
 
 
   const handleClick = (id:number) => {
@@ -44,34 +46,34 @@ const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: 
   const list = [
     {
       id: 1,
-      title: 'Category',
+      title: t("category.title1"),
       children: (id : number) => (
         <div key={id}>
           <ListItem button disableRipple
           onClick={() => changeCategory({...options, category: "All Phones"})} 
           style={options.category === "All Phones" ? selectedStyle : normalStyle}
-          >All Phones</ListItem>
+          >{t("category.fields1.all")}</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, category: "android"})} 
           style={options.category === "android" ? selectedStyle : normalStyle}
-          >Android Phone</ListItem>
+          >Android</ListItem>
           <ListItem button disableRipple
           onClick={() => changeCategory({...options, category: "ios"})} 
           style={options.category === "ios" ? selectedStyle : normalStyle}
-          >IOS Phone</ListItem>
+          >IOS</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, category: "other"})} 
           style={options.category === "other" ? selectedStyle : normalStyle}
-          >Others</ListItem>
+          >{t("category.fields1.other")}</ListItem>
         </div>
       )
     },
     {
       id: 2,
-      title: 'Brand',
+      title: t("category.title2"),
       children: (id : number) => (
         <div key={id}>
-         {['All', 'Google', 'Apple', 'Samsung', 'Vivo', 'Redmi', 'Alcatel'].map(x => (
+         {[t("category.all"), 'Google', 'Apple', 'Samsung', 'Vivo', 'Redmi', 'Alcatel'].map(x => (
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options,brand: x})}
           style={{color: options.brand.toLowerCase() == x.toLowerCase() ? 
@@ -83,13 +85,13 @@ const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: 
     },
     {
       id: 3,
-      title: 'Price',
+      title: t("category.title3"),
       children: (id : number) => (
         <div key={id}>
           <ListItem button disableRipple
           onClick={() => changeCategory({...options, price: "All"})} 
           style={options.price === "All" ? selectedStyle : normalStyle}
-          >All</ListItem>
+          >{t("category.all")}</ListItem>
           <ListItem button disableRipple
           onClick={() => changeCategory({...options, price: "100"})} 
           style={options.price === "100" ? selectedStyle : normalStyle}
@@ -111,27 +113,27 @@ const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: 
     },
     {
       id: 4,
-      title: 'Sorting',
+      title: t("category.title4"),
       children: (id : number) => (
         <div key={id}>
           <ListItem button disableRipple
           onClick={() => changeCategory({...options, sorting: "none"})} 
           style={options.sorting === "none" ? selectedStyle : normalStyle}
-          >None</ListItem>
+          >{t("category.fields4.none")}</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, sorting: "newer"})} 
           style={options.sorting === "newer" ? selectedStyle : normalStyle}
-          >Date Created Newer</ListItem>
+          >{t("category.fields4.newer")}</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, sorting: "older"})} 
           style={options.sorting === "older" ? selectedStyle : normalStyle}
-          >Date Created Older</ListItem>
+          >{t("category.fields4.older")}</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, sorting: "asc"})} 
-          style={options.sorting === "asc" ? selectedStyle : normalStyle}>Price Ascending</ListItem>
+          style={options.sorting === "asc" ? selectedStyle : normalStyle}>{t("category.fields4.asc")}</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, sorting: "desc"})} 
-          style={options.sorting === "desc" ? selectedStyle : normalStyle}>Price Descending</ListItem>
+          style={options.sorting === "desc" ? selectedStyle : normalStyle}>{t("category.fields4.desc")}</ListItem>
         </div>
       )
     },

@@ -49,7 +49,7 @@ const Footer = () => {
             </div>
           </Grid>
           <Grid xs={12} md={6} lg={3} item >
-            <div style={{marginLeft: '25px'}}>Quick Links</div>
+            <div style={{marginLeft: '5px'}}>Quick Links</div>
             <ul className="footer-links">
               {links.map(x => QuickLink(x))}
             </ul>
