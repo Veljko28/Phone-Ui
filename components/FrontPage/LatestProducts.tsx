@@ -8,6 +8,7 @@ import { blue, dark_cont, dark_green, gray, white } from '../../constants/Custom
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { fetchPost } from '../../constants/CustomFetching';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -21,6 +22,8 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
   if (typeof window !== 'undefined'){
     userId = localStorage.getItem('userId');
   }
+
+  const { t } = useTranslation();
 
   const [inWishList, changeInWishList] = React.useState([]);
   const getWishListItems = async () => {
@@ -37,6 +40,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
     if (phones) func();
   },[phones])
 
+  title = title.replace(/\s/g, '').toLocaleLowerCase();
 
   return (
     <Grid container style={{
@@ -45,7 +49,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
       marginTop: '25px',
       marginBottom: '25px'
     }}>
-      <Typography variant="h6" style={{color: darkMode ? dark_green : blue, marginLeft: '40px'}}>{title}</Typography>
+      <Typography variant="h6" style={{color: darkMode ? dark_green : blue, marginLeft: '40px'}}>{t("latestProducts." + title)}</Typography>
       <ColoredLine color={gray}/>
       {phones?.length === 0 || phones === undefined ? (
         <Grid item container xs={12} style={{display: 'flex',margin: 20}}>{skeletons.map(x => (<Grid xs={12} md={6} lg={3} item>{x}</Grid>))}</Grid>

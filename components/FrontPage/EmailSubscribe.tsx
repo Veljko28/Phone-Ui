@@ -5,6 +5,7 @@ import { fetchPost } from '../../constants/CustomFetching';
 import { white } from '../../constants/CustomColors';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
 
 const EmailSubscribe = () => {
 
@@ -18,6 +19,7 @@ const EmailSubscribe = () => {
     });
 
    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+   const { t } = useTranslation();
 
 
     const submitEmail = async () => {
@@ -29,25 +31,25 @@ const EmailSubscribe = () => {
                 setTimeout(() => location.reload(), 1200)
                 changeSnackBar({...snackBar,success: true,loading: false});
             }
-            else changeSnackBar({...snackBar,error: "Failed to Subscribe !",loading: false});
+            else changeSnackBar({...snackBar,error: t("subscribe.failed"),loading: false});
         }
-        else changeSnackBar({...snackBar,error: "Invalid Email !",loading: false});
+        else changeSnackBar({...snackBar,error: t("subscribe.invalid"),loading: false});
 
     }
 
     return (
         <Grid container className={darkMode ? "subscribe-form-dark" : "subscribe-form"} justify="center">
-                <Typography variant="h5" style={{color: white}}>
-                    Subscribe To Get Discounts &#38; Offers</Typography>
+                <Typography variant="h5" style={{color: white}}>{t("subscribe.title")}</Typography>
                 <div className="subscribe-input">
-                    <input type="text" className="subscribe-input-field" placeholder="Your Email" 
+                    <input type="text" className="subscribe-input-field" placeholder={t("subscribe.input")}
                     value={email} onChange={e => changeEmail(e.target.value)}/>
                     <button type="submit" className={darkMode ? "subscribe-button-dark" : "subscribe-button"} onClick={() => submitEmail()}>
-                        Subscribe
+                        {t("subscribe.button")}
                     </button>
                 </div>
 
-                <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} message="Successfully subscribed !"/>
+                <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} 
+                message={t("subscribe.success") as any}/>
 
                 <SnackBarFailed snackBarOpen={snackBar.error !== ''} changeSnackBarOpen={() => changeSnackBar({...snackBar, error: ''})} 
                 message={snackBar.error}/>
