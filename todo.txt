@@ -44,7 +44,6 @@ chip labels on phone display ✅
 checkout card ✅
 refresh token fix ✅
 mui skeletons for loading phone cards ✅
-oauth with google / facebook / twitter
 contact page loading / validation ✅
 guid image names for no overlapping ✅
 wish list api config ✅
@@ -172,11 +171,27 @@ rating display ✅
 change display image on removal of it ✅
 bid history data problem ? ✅
 
-language in localstorage
-fix phone display on smaller screens
-language translations (react-i18next) / translate main pages
+language in localstorage ✅
+fix phone display on smaller screens ✅
+language translations config (react-i18next) ✅ 
+translate front page ✅
+translate about page ✅
+translate categories ✅
+translate contact ✅
+translate management
+translate phone page
+translate bid page
+translate footer
+translate bid card
+translate search
+translate forgot password / change password / edit
+translate add phone / bid
+translate user profile
 compress images
 carousel images on phone
+oauth with google / facebook / twitter
+add more brands when adding
+no phones in this category page
 
 carousel images dark mode ✅
 no reviews page ✅
@@ -186,9 +201,6 @@ add phone dark mode ✅
 starting bid if no bids ✅
 edit page dark mode ✅
 history dark mode ✅
-
-
-
 language icon fix ✅
 
 move nessesary images to api ✅
