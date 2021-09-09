@@ -16,6 +16,7 @@ import { fetchGet } from '../../constants/CustomFetching';
 import SellerInfo from '../../components/Phone/SellerInfo';
 import NotFound from '../../components/NotFound';
 import UserReviews from '../../components/User/UserReviews';
+import { useTranslation } from 'react-i18next';
 
 
 const PhonePage = () => {
@@ -90,21 +91,23 @@ const PhonePage = () => {
       jwt = localStorage.getItem('jwt');
     }
 
+    const { t } = useTranslation();
+
   return (
     <Grid container> 
       <TitleChange title={`MobiStore - Phone Listing ${phone?.name ? phone.name : ""}`} />
-      <Grid md={1} lg={2} item/>
+      <Grid md={1} lg={2} item/> 
 
       <Grid xs={12} md={10} lg={8} item>
         {notFound === true ? <NotFound/> : (
         <>
           <PhoneDisplay 
-          phone={phone} images={images} id={id as string} userId={user?.id as string}
+          phone={phone} images={images} id={id as string} userId={user?.id as string} t={t}
           />
-          <SellerInfo user={user} sellingPhones={sellingPhones}/>
-          <PhoneRatings user={user as User}/>
+          <SellerInfo t={t} user={user} sellingPhones={sellingPhones}/>
+          <PhoneRatings user={user as User} t={t}/>
           {/* <PhoneReviews  phoneId={id as string}/> */}
-          <UserReviews userId={phone?.seller as string} display={true}/>
+          <UserReviews userId={phone?.seller as string} display={true} t={t}/>
           {phone?.status !== 0 && userBought ? <AddPhoneReview sellerId={phone?.seller as string} phoneId={phone?.id as string}/> : null}
           <LatestProducts title="Related Products" phones={relatedProducts} />
         </>
