@@ -18,7 +18,7 @@ import { blue, dark_cont, white, darker_green, gray } from '../../constants/Cust
 
 
 
-const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: string, page: number, changePage: (value: number) => void, darkMode: boolean}) => {
+const ListView = ({t,currentPage, page, changePage, darkMode}: {t: any, currentPage: string, page: number, changePage: (value: number) => void, darkMode: boolean}) => {
 
     const [snackBar,changeSnackBar] = React.useState(false);
     const [list,changeList] = React.useState<Phone[] | []>([]);
@@ -53,14 +53,17 @@ const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: strin
                     
                     if (currentPage === 'My Bids') {
                         const newList = json.bids.map((x: Phone) => {
-                            x.status = x.status == 0 ? "Running" : x.status == 1 ? "Won" : x.status == 2 ? "Lost" : "Failed";
+                            x.status = x.status == 0 ? t("management.status.running") 
+                            : x.status == 1 ? t("management.status.won")  : x.status == 2 ? t("management.status.lost") : 
+                            t("management.status.failed");
                             return x; 
                         });
                         changeList(newList);   
                     }
                     else {
                         const newList = json.phones.map((x: Phone) => {
-                            x.status = x.status == 0 ? "Running" : x.status == 1 ? "Sold" : "Deleted";
+                            x.status = x.status == 0 ? t("management.status.running") : x.status == 1 ? t("management.status.sold") : 
+                            t("management.status.deleted");
                             return x; 
                         });
                         changeList(newList);  
@@ -70,7 +73,8 @@ const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: strin
                 }
                 else {
                      const newList = (json as any[]).map((x: Phone) => {
-                    x.status = x.status == 0 ? "Running" : x.status == 1 ? "Sold" : "Deleted";
+                    x.status = x.status == 0 ? t("management.status.running")  : x.status == 1 ? 
+                    t("management.status.sold") : t("management.status.deleted");
                     return x; 
                     })
                     changeList(newList)
@@ -103,19 +107,20 @@ const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: strin
                  : (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', backgroundColor: darkMode ? dark_cont : '#fff'}}>
             <div style={{minHeight: 675, maxHeight: 1500, color: darkMode ? gray : 'black'}}>
-                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15}}>{currentPage}</Typography>
+                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15}}>
+                    {t("management." + currentPage.replace(/\s/g, '').toLocaleLowerCase())}</Typography>
                 {currentPage === 'My Phones' ? <MyPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl} t={t}/> : 
 
                 
                 currentPage === 'My Bids' ? <MyBids list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl} t={t}/> : 
                 
                 currentPage === 'Bought Phones' ? <BoughtPhones list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/> : 
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl} t={t}/> : 
 
                 <PlacedBids list={list} changeSnackBar={(value: boolean) => changeSnackBar(value)}
-                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl}/>}
+                openPopUp={(e: any) => openPopUp(e)} open={open} closePopUp={() => closePopUp()} AnchorEl={AnchorEl} t={t}/>}
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <span style={{display: 'inline-block',marginLeft: 10}}>
@@ -123,7 +128,7 @@ const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: strin
                         {page !== 1 ? (
                         <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}}
                             onClick={() => changePage(page-1)}>
-                            Prev
+                            {t("pages.prev")}
                         </Button>
                         ) : null}
                         <Button variant="contained" disabled style={{backgroundColor: darkMode ? "#326307" : '#0a85ae', color: white, margin: 5}}>
@@ -131,7 +136,7 @@ const ListView = ({currentPage, page, changePage, darkMode}: {currentPage: strin
                         </Button>
                         {page < numOfPages ? (
                             <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}} onClick={() => changePage(page+1)}>
-                                Next
+                                {t("pages.next")}
                             </Button>
                         ) : null}
                         </div>

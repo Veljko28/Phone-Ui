@@ -3,8 +3,8 @@ import { Grid } from '@material-ui/core';
 import Image from 'next/image';
 import { blue, darker_green, dark_cont, gray, white } from '../../constants/CustomColors';
 
-const SideBar = ({currentPage, changeCurrentPage, darkMode} :
-    {currentPage: string, changeCurrentPage: (chnage: string) => void, darkMode: boolean}) => {
+const SideBar = ({t,currentPage, changeCurrentPage, darkMode} :
+    {t: any, currentPage: string, changeCurrentPage: (chnage: string) => void, darkMode: boolean}) => {
 
 
     return (
@@ -16,7 +16,7 @@ const SideBar = ({currentPage, changeCurrentPage, darkMode} :
                         </span>
                         <div className={currentPage === 'My Phones' ? 
                     darkMode ? "mngm-text-selected-dark" : "mngm-text-selected" : 
-                    darkMode ? "mngm-text-dark" : "mngm-text"}>My Phones</div>
+                    darkMode ? "mngm-text-dark" : "mngm-text"}>{t("management.myphones")}</div>
                     </span>
             </div>
 
@@ -25,7 +25,7 @@ const SideBar = ({currentPage, changeCurrentPage, darkMode} :
                     <Image src={'/bid_img.png'} width="55px" height="35px" />
                     <div className={ currentPage === 'My Bids' ? 
                     darkMode ? "mngm-text-selected-dark" : "mngm-text-selected" : 
-                    darkMode ? "mngm-text-dark" : "mngm-text"}>My Bids</div>
+                    darkMode ? "mngm-text-dark" : "mngm-text"}>{t("management.mybids")}</div>
                 </span>
              </div>
 
@@ -36,7 +36,7 @@ const SideBar = ({currentPage, changeCurrentPage, darkMode} :
                         </span>
                         <div className={currentPage === 'Bought Phones' ? 
                     darkMode ? "mngm-text-selected-dark" : "mngm-text-selected" : 
-                    darkMode ? "mngm-text-dark" : "mngm-text"}>Bought Phones</div>
+                    darkMode ? "mngm-text-dark" : "mngm-text"}>{t("management.boughtphones")}</div>
                     </span>
             </div>
 
@@ -46,7 +46,7 @@ const SideBar = ({currentPage, changeCurrentPage, darkMode} :
                     <Image src={'/bid_bought.png'} width="55px" height="35px" />
                     <div className={ currentPage === 'Placed Bids' ? 
                     darkMode ? "mngm-text-selected-dark" : "mngm-text-selected" : 
-                    darkMode ? "mngm-text-dark" : "mngm-text"}>Placed Bids</div>
+                    darkMode ? "mngm-text-dark" : "mngm-text"}>{t("management.placedbids")}</div>
                 </span>
              </div>
         </Grid>
