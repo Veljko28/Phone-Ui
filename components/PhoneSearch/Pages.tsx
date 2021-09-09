@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { blue, darker_green, dark_green, white } from '../../constants/CustomColors';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -10,6 +11,7 @@ import { State } from '../../redux/reduxTypes';
 const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOfPages: number}) => {
 
    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+   const { t } = useTranslation();
     
     const intPageId = parseInt(pageId);
 
@@ -30,7 +32,7 @@ const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOf
         return (<Link key={Math.random() % 100} href={bid === true ? `/bids/${intPageId-1}` : `/phones/${intPageId-1}`}>
                     <Button variant="contained" 
                     style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: '5px'}}>
-                        Prev
+                      {t("pages.prev")}
                     </Button>
             </Link>)
     }
@@ -39,7 +41,7 @@ const Pages = ({pageId, bid, numOfPages} : {pageId: string, bid?: boolean, numOf
         return (<Link key={Math.random() % 100} href={bid === true ? `/bids/${intPageId+1}` : `/phones/${intPageId+1}`}>
                     <Button variant="contained" 
                     style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: '5px'}}>
-                        Next
+                        {t("pages.next")}
                     </Button>
             </Link>)
     }

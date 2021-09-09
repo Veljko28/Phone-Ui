@@ -13,13 +13,17 @@ import socialLinks from '../constants/SocialLinks';
 import { dark_gray, white } from '../constants/CustomColors';
 import { useSelector } from 'react-redux';
 import { State } from '../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
 
-const QuickLink = ({href,name} : {href: string, name: string}) => {
+const QuickLink = ({href,name,t} : {href: string, name: string, t: any}) => {
+
+  name = name.replace(/\s/g, '').toLocaleLowerCase();
+
   return (
   <div className="footer-text" key={name}>
    <li>
      <ArrowForwardIosIcon style={{fontSize: '10px', margin: '5px'}}/>
-     <Link href={href}>{name}</Link>
+     <Link href={href}>{t("navBar." + name)}</Link>
     </li>
  </div>
   );
@@ -29,10 +33,12 @@ const Footer = () => {
 
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
+  const { t } = useTranslation();
+
   return (
       <Grid container className={darkMode ? "footer-container-dark" : "footer-container"}>
           <Grid xs={12} md={6} lg={3} item>
-            Contact Info
+            {t("footer.info")}
             <div className="footer-text">
               <RoomIcon className={darkMode ? "footer-mui-icons-dark" : "footer-mui-icons"} style={{fontSize: '15px'}}/>
                16. октобра 40, Смедерево 11300
@@ -49,14 +55,14 @@ const Footer = () => {
             </div>
           </Grid>
           <Grid xs={12} md={6} lg={3} item >
-            <div style={{marginLeft: '5px'}}>Quick Links</div>
+            <div style={{marginLeft: '5px'}}>{t("footer.links")}</div>
             <ul className="footer-links">
-              {links.map(x => QuickLink(x))}
+              {links.map(x => QuickLink({...x,t}))}
             </ul>
           </Grid>
           <Grid xs={1} lg={3} item />
           <Grid xs={12} md={6} lg={3} item >
-            <div style={{marginBottom: '10px',}}>Connect With Us</div>
+            <div style={{marginBottom: '10px',}}>{t("footer.contact")}</div>
             {socialLinks.map(x => <SocialIcon key={Math.random() % 100} url={x} style={{width: '35px', height: '35px', margin: '5px', backgroundColor: white, borderRadius: 100}} /> )}
             <div style={{marginTop: '50px', fontSize: '12px', color: dark_gray}}>Copyright © All Rights Reserved {new Date().getFullYear()} Website Design by <a href="https://github.com/Veljko28">Veljko28</a></div>
           </Grid>
