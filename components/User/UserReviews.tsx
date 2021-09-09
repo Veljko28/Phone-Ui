@@ -14,7 +14,7 @@ import Link from 'next/link';
 import ReviewSkeleton from '../Skeletons/ReviewSkeleton';
 
 
-const UserReviews = ({userId, display} : {userId: string, display?: boolean}) => {
+const UserReviews = ({userId, display, t} : {userId: string, display?: boolean,t: any}) => {
 
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
     const [reviews,changeReviews] = React.useState<any>([]);
@@ -73,11 +73,11 @@ const ReviewMap = ({id, rating, buyerId, dateCreated, message, userName,  darkMo
             <div>
             <Rating name="phone-rating" value={rating} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px'}}/>
-                    <span style={{color: dark_gray, marginLeft: '10px'}}>By 
+                    <span style={{color: dark_gray, marginLeft: '10px'}}>{t("userReviews.by")} 
                     <Link href={`/user/${buyerId}`}>
                         <span style={{color: darkMode ? darker_green : blue}} className="curs-hver"> {userName} </span>
                     </Link>
-                        on {formatDate(dateCreated)}</span>
+                        {t("userReviews.on")}  {formatDate(dateCreated)}</span>
             </div>
             <div style={{color: darkMode ? gray : dark_gray, padding: '10px'}}>
                 {message}
@@ -87,7 +87,7 @@ const ReviewMap = ({id, rating, buyerId, dateCreated, message, userName,  darkMo
     );
     }
 
-    const skeletons = [<ReviewSkeleton/>, <ReviewSkeleton/>, <ReviewSkeleton/>]
+    const skeletons = [<ReviewSkeleton/>, <ReviewSkeleton/>, <ReviewSkeleton/>] 
 
     return ( <>
         {loading ? 
@@ -96,7 +96,7 @@ const ReviewMap = ({id, rating, buyerId, dateCreated, message, userName,  darkMo
         </div> : reviews.length === 0 ? (
             <Grid container item style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',height: 450, backgroundColor: darkMode ? dark_cont : white, marginTop: 10}}>
                     <RateReviewIcon style={{color:  darkMode ? darker_green : blue,fontSize: 175}}/>
-                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>Couldn't find any reviews for this user</Typography>
+                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>{t("userReviews.noReviews")}</Typography>
             </Grid>
         ) : (
         <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container style={{marginTop: 15}}> 
@@ -109,7 +109,7 @@ const ReviewMap = ({id, rating, buyerId, dateCreated, message, userName,  darkMo
                         {currentPage !== 0 ? (
                         <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}}
                             onClick={() => changeCurrentPage(currentPage-1)}>
-                            Prev
+                            {t("pages.prev")}
                         </Button>
                         ) : null}
                         <Button variant="contained" disabled style={{backgroundColor: darkMode ? "#326307" : '#0a85ae', color: white, margin: 5}}>
@@ -117,7 +117,7 @@ const ReviewMap = ({id, rating, buyerId, dateCreated, message, userName,  darkMo
                         </Button>
                         {currentPage < reviews.length-1 ? (
                             <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}} onClick={() => changeCurrentPage(currentPage+1)}>
-                                Next
+                                {t("pages.next")}
                             </Button>
                         ) : null}
                         </div>
