@@ -11,7 +11,7 @@ import Phone from '../../models/Phone';
 import { blue, darker_green, white } from '../../../constants/CustomColors';
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions';
 
-const PhoneButtonTypes = ({id, inCart, currentUserId, userId, phone, darkMode} : any) => {
+const PhoneButtonTypes = ({id, inCart, currentUserId, userId, phone, darkMode, t} : any) => {
 
   const router = useRouter();
   const dispatch = useDispatch()
@@ -22,19 +22,19 @@ const PhoneButtonTypes = ({id, inCart, currentUserId, userId, phone, darkMode} :
               <>
        <Button variant="contained" onClick={() => router.push(`/phone/edit/${id}`)}
                 style={{backgroundColor: darkMode ? darker_green : blue, color: white, padding: '15px', marginTop: '10px'}}>
-                <EditIcon style={{fontSize: '20px', marginRight: '5px'}}/> EDIT PHONE</Button>
+                <EditIcon style={{fontSize: '20px', marginRight: '5px'}}/>{t("display.phoneButtons.edit")}</Button>
               </>
           ) : inCart ? (
             <Button variant="contained" 
             style={{backgroundColor: darkMode ? darker_green : blue, color: white, padding: '15px', marginTop: '10px'}} onClick={() => dispatch(removeFromCart(id as string))}>
-              <RemoveShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> REMOVE FROM CART</Button>
+              <RemoveShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/>{t("display.phoneButtons.remove")}</Button>
             )
             :
             (
           <Button variant="contained" 
           onClick={currentUserId !== null ? () => dispatch(addToCart(phone as Phone)) : () => router.push('/login')}
           style={{backgroundColor: darkMode ? darker_green : blue, color: white, padding: '15px', marginTop: '10px'}}>
-              <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/> Add To Cart
+              <ShoppingCartIcon style={{fontSize: '20px', marginRight: '5px'}}/>{t("display.phoneButtons.add")}
           </Button>)
         }
     </div>
