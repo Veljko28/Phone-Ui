@@ -35,8 +35,8 @@ const Alert = (props: any) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const PhoneDisplay = ({phone,images,bid,id, history,userId} :
-   {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string, history?: BidHistoryModel[], userId: string}) => {
+const PhoneDisplay = ({phone,images,bid,id, history,userId, t} :
+   {phone?: Phone | Bid ,images?: string[], bid?: boolean, id?: string, history?: BidHistoryModel[], userId: string, t: any}) => {
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -134,19 +134,19 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
         <Typography variant="subtitle1" >
 
           <span style={{color: darkMode ? darker_green : blue, fontSize: "35px"}}>{bid ? 
-          history?.length === 0 ? "Starting Price: " : "Highest Bid: " : "Price: "}{phone?.price + '$'}</span>
+          history?.length === 0 ? t("display.startPrice") : t("display.highestBid") : t("display.price")}{phone?.price + '$'}</span>
 
           <span style={{color: darkMode ? gray : dark_gray, fontSize: '15px', display: 'flex', width: '400px'}}>
             {phone?.description}
           </span>
           {phone?.status !== 0 ? (<>
             <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>{bid ? "This bid has ended !" : "This Phone has been sold !"}</Typography>
-            {bid && userWon != "" ?  <Typography variant="h4" style={{color: darkMode ? blue : green,marginTop: 10}}>{userWon} has won this bid !</Typography> : 
-            bid && <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>No bids were placed on this bid !</Typography>}
+            {bid && userWon != "" ?  <Typography variant="h4" style={{color: darkMode ? blue : green,marginTop: 10}}>{userWon} {t("display.wonbid")}</Typography> : 
+            bid && <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>{t("display.nobids")}</Typography>}
             {bid ? (<> 
                <div 
               onClick={e => openHistory(e)} className={darkMode ? "bid-history-dark" : "bid-history"}>
-              <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>Bid History ({history?.length})
+              <HistoryIcon style={{fontSize: '20px', marginRight: '5px'}}/>{t("display.bidHistory")} ({history?.length})
               </div>
               <BidHistory darkMode={darkMode} open={historyOpen} history={history} handleClose={() => closeHistory()} anchorEl={anchorEl}/>
             </>) : null}
@@ -160,11 +160,11 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
           <BidInfo bidAmount={bidAmount} changeBidAmount={(value: any) => changeBidAmount(value)} phone={phone}
            closeHistory={() => closeHistory()} historyOpen={historyOpen} anchorEl={anchorEl} history={history} 
            openHistory={(value: any) => openHistory(value)} changeDialogOpen={(value: boolean) => changeDialogOpen(value)}
-           darkMode={darkMode}/>
+           darkMode={darkMode} t={t}/>
           
           : 
           
-          <PhoneButtonTypes id={id as string} userId={userId} currentUserId={currentUserId} inCart={inCart} phone={phone} darkMode={darkMode} /> 
+          <PhoneButtonTypes id={id as string} userId={userId} currentUserId={currentUserId} inCart={inCart} phone={phone} darkMode={darkMode} t={t} /> 
 
           }
 
@@ -203,7 +203,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId} :
           </div>
           <div>
             <FavoriteIcon style={{fontSize: 20, color: darkMode ? darker_green : blue, marginBottom: 5}}/>
-            <Typography variant="h6" style={{color: darkMode ? darker_green : blue, display: 'inline-block'}}>Added to wish list:  
+            <Typography variant="h6" style={{color: darkMode ? darker_green : blue, display: 'inline-block'}}>{t("display.wishListAdded")} 
             {numOfFavorites === "1" ? " " + numOfFavorites + " time" : " " + numOfFavorites + " times"}</Typography>
           </div>
 

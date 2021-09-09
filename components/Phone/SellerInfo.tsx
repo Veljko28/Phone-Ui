@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 
 
-const SellerInfo = ({user, sellingPhones} : {user?: User,sellingPhones: string}) => {
+const SellerInfo = ({user, sellingPhones, t} : {user?: User,sellingPhones: string, t: any}) => {
 
   const [contactAnchorEl, setContanctAnchorEl] = React.useState(null);
   const contactOpen = Boolean(contactAnchorEl);
@@ -36,7 +36,7 @@ const SellerInfo = ({user, sellingPhones} : {user?: User,sellingPhones: string})
     return loading ? <SellerInfoSkeleton darkMode={darkMode}/> : (
         <Grid className={darkMode ? "phone-details-dark" : "phone-details"} container>
              <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: darkMode ? darker_green : blue}}>About The Seller</Typography>
+        color: darkMode ? darker_green : blue}}>{t("sellerInfo.about")}</Typography>
             <ColoredLine color="#eee"/>
             <Grid xs={12} container item>
              <Link href={`/user/${user?.id}`}>
@@ -49,26 +49,26 @@ const SellerInfo = ({user, sellingPhones} : {user?: User,sellingPhones: string})
               </Link>
                 <Grid xs={12} md={4} item className="review-grid-item">
                     <Typography variant="subtitle1"  style={{color: darkMode ? white : 'black' }}>
-                        Rating: <Rating name="seller-rating" value={user?.rating ? parseFloat(user?.rating.toFixed(1)) : 0} precision={0.1} readOnly
+                        {t("sellerInfo.rating")}: <Rating name="seller-rating" value={user?.rating ? parseFloat(user?.rating.toFixed(1)) : 0} precision={0.1} readOnly
                      style={{fontSize: '16px', margin: '10px', marginTop: '15px'}}/>
                     </Typography>
                     <Typography variant="subtitle1"  style={{color: darkMode ? white : 'black' }}>
-                        Phones Sold: <span style={{color: darkMode ? darker_green : blue}}>{user?.phones_sold}</span>
+                        {t("sellerInfo.phonesSold")}: <span style={{color: darkMode ? darker_green : blue}}>{user?.phones_sold}</span>
                         <PhoneAndroidIcon style={{fontSize: '20px', color: darkMode ? darker_green : blue,marginBottom: '5px'}}/>
                     </Typography>
                     <Typography variant="subtitle1"  style={{color: darkMode ? white : 'black' }}>
-                        Currently Selling: <span style={{color: darkMode ? darker_green : blue}}>{sellingPhones ? sellingPhones :'0'}</span>
+                        {t("sellerInfo.currentlySelling")}: <span style={{color: darkMode ? darker_green : blue}}>{sellingPhones ? sellingPhones :'0'}</span>
                         <PhoneAndroidIcon style={{fontSize: '20px', color: darkMode ? darker_green : blue,marginBottom: '5px'}}/>
                     </Typography>
                 </Grid>
                 <Grid xs={12} md={4} item className="review-grid-item">
                     <Button variant="contained" onClick={e => openContanct(e)}
                     style={{color: white, backgroundColor: darkMode ? darker_green : blue, padding: '10px', width: '175px', margin: '5px'}}
-                    >Contact The Seller</Button>
+                    >{t("sellerInfo.contact")}</Button>
                     <Link href={`/user/${user?.id}`}>
                       <Button variant="contained" 
                       style={{color: white, backgroundColor: darkMode ? darker_green : blue, padding: '10px', width: '175px', margin: '5px'}}
-                      >View Listings</Button>
+                      >{t("sellerInfo.listings")}</Button>
                     </Link>
                     <UserContact darkMode={darkMode} open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl} email={user?.email as string}
                     phoneNumber={user?.phoneNumber}/>

@@ -3,9 +3,12 @@ import { Popover, Typography } from '@material-ui/core'
 
 import BidHistoryModel from '../models/BidHistory'
 import { blue, darker_green, dark_cont, white, gray } from '../../constants/CustomColors'
+import { useTranslation } from 'react-i18next'
 
-const BidHistory = ({open, anchorEl, handleClose, history, darkMode} : 
+const BidHistory = ({open, anchorEl, handleClose, history, darkMode } : 
   {open: boolean, anchorEl: any, handleClose: () => void, history?: BidHistoryModel[], darkMode: boolean }) => {
+
+  const { t } = useTranslation();
 
   return (
     <Popover
@@ -26,8 +29,8 @@ const BidHistory = ({open, anchorEl, handleClose, history, darkMode} :
           <table style={{minWidth: '225px'}}>
             <thead style={{borderBottom: '1px solid #eee'}}>
               <tr style={{color: darkMode ? gray : 'black'}}>
-                <th>User</th>
-                <th>Amount</th>
+                <th>{t("bidHistory.user")}</th>
+                <th>{t("bidHistory.amount")}</th>
               </tr>
             </thead>
             <tbody>
@@ -40,7 +43,7 @@ const BidHistory = ({open, anchorEl, handleClose, history, darkMode} :
             </tbody>
           </table>
         ) : (
-          <Typography style={{color: blue}}>There are no placed bets on this bid</Typography>
+          <Typography style={{color: darkMode ? darker_green : blue}}>{t("bidHistory.noBids")}</Typography>
         )}
       </div>
       </Popover>
