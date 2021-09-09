@@ -7,6 +7,7 @@ import NotLoggedIn from '../constants/NotLoggedIn';
 import { useSelector } from 'react-redux';
 import { State } from '../redux/reduxTypes';
 import { dark_cont } from '../constants/CustomColors';
+import { useTranslation } from 'react-i18next';
 
 
 const management = () => {
@@ -14,6 +15,7 @@ const management = () => {
     const [currentPage, changeCurrentPage] = React.useState('My Phones');
     const [page, changePage] = React.useState(1);
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+    const { t } = useTranslation();
 
 
     let jwt: string | null = null;
@@ -23,18 +25,18 @@ const management = () => {
     }
 
     return (
-        jwt === null ? <NotLoggedIn/> : (
+        jwt === null ? <NotLoggedIn darkMode={darkMode}/> : (
 
         <Grid container style={{backgroundColor: darkMode ? dark_cont : '#fff', minHeight: 737}}>
             <TitleChange title={"MobiStore - Management"}/>
             <Grid xs={12} md={4} lg={3} item style={{minHeight: 737}}>
-                <SideBar darkMode={darkMode} currentPage={currentPage} changeCurrentPage={(change: string) => {
+                <SideBar t={t} darkMode={darkMode} currentPage={currentPage} changeCurrentPage={(change: string) => {
                     changeCurrentPage(change)
                     changePage(1);
                     }}/>
             </Grid>
             <Grid xs={12} md={8} lg={9} item style={{borderLeft: '1px solid #eee',height: 675}}>
-                <ListView darkMode={darkMode} currentPage={currentPage} page={page} changePage={(value: number) => changePage(value)} />
+                <ListView t={t} darkMode={darkMode} currentPage={currentPage} page={page} changePage={(value: number) => changePage(value)} />
             </Grid>
         </Grid>
         
