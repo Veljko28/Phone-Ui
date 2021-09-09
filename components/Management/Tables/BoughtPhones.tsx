@@ -13,8 +13,8 @@ import Phone from '../../models/Phone';
 import { fetchGet } from '../../../constants/CustomFetching';
 import User from '../../models/User';
 
-const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
-  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
+const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl, t}: {list: any, 
+  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any, t: any}) => {
 
     const [phoneList, changePhoneList] = React.useState<any>([]);
 
@@ -69,7 +69,7 @@ const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorE
                   className="share-icon-mngm">
                       <FileCopyIcon style={{fontSize: 15, color: white}}/>
                  </IconButton>
-                 {status === "Running" ? (
+                 {status === t("management.status.running")  ? (
                      <>
                         <IconButton 
                     onClick={e => openPopUp(e)} 
@@ -79,7 +79,7 @@ const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorE
                     </IconButton>
                     <PopOverSettings open={open} handleClose={() => closePopUp()} anchorEl={AnchorEl}/>
                     </>
-                 ) : status === "Deleted" ? (
+                 ) : status === t("management.status.deleted")  ? (
                     <IconButton 
                     style={{width: '35px', height: '35px', margin: '5px', backgroundColor: red}} 
                     className="share-icon-mngm">
@@ -106,10 +106,10 @@ const BoughtPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorE
         <table className="mngm-table">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Category</td>
-              <td>Seller</td>
-              <td>Price</td>
+              <td>{t("management.header.name")}</td>
+              <td>{t("management.header.category")}</td>
+              <td>{t("management.header.seller")}</td>
+              <td>{t("management.header.name")}</td>
               <td>&nbsp;</td>
             </tr>
           </thead>

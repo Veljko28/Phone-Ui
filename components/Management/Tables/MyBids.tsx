@@ -12,8 +12,8 @@ import { blue, green, red, white } from '../../../constants/CustomColors';
 import PopUpDialog from '../../../constants/PopUpDialog';
 import { fetchDelete } from '../../../constants/CustomFetching';
 
-const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
-  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
+const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl, t}: {list: any, 
+  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any, t: any}) => {
 
 
      const [selectedId, changeSelectedId] = React.useState<string | undefined>(undefined);
@@ -50,8 +50,8 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
               </td>
               <td style={{color: green}}>{price + "$"}</td>
               <td>
-                  <div style={status === "Won" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
-                      {status === "Won" ? "Sold !" : status}
+                  <div style={status === "Won" ? {color: green} : status === t("management.status.running")  ? {color: blue} : {color: red}}>
+                      {status === t("management.status.won")  ? "Sold !" : status}
                   </div>
               </td>
               <td>{date}</td>
@@ -65,7 +65,7 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
                   className="share-icon-mngm">
                       <FileCopyIcon style={{fontSize: 15, color: white}}/>
                  </IconButton>
-                 {status === "Running" ? (
+                 {status === t("management.status.running")  ? (
                      <>
                         <IconButton 
                       onClick={e => {
@@ -109,10 +109,10 @@ const MyBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {l
         <table className="mngm-table">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Price</td>
-              <td>Status</td>
-              <td>Ends</td>
+              <td>{t("management.header.name")}</td>
+              <td>{t("management.header.price")}</td>
+              <td>{t("management.header.status")}</td>
+              <td>{t("management.header.ends")}</td>
               <td>&nbsp;</td>
             </tr>
           </thead>

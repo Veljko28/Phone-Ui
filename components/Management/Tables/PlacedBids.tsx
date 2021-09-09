@@ -10,8 +10,8 @@ import { blue, green, red, white } from '../../../constants/CustomColors';
 import { fetchGet } from '../../../constants/CustomFetching';
 import { timeLeft } from '../../../constants/formatDate';
 
-const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
-  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
+const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl, t}: {list: any, 
+  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any, t: any}) => {
 
     const [phoneList, changePhoneList] = React.useState<any>([]);
 
@@ -54,7 +54,7 @@ const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}
                 </Link>
               </td>
               <td style={{color: blue}}>
-                {timeLeft(date_Ends) !== "Finished !" ? "Running" : "Finished"}</td>
+                {timeLeft(date_Ends) !== "Finished !" ? t("management.status.running")  : t("management.status.finished") }</td>
               <td>
                   <IconButton
                   onClick={() => {
@@ -96,10 +96,10 @@ const PlacedBids = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}
         <table className="mngm-table">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Price</td>
-              <td>Seller</td>
-              <td>Status</td>
+              <td>{t("management.header.name")}</td>
+              <td>{t("management.header.price")}</td>
+              <td>{t("management.header.seller")}</td>
+              <td>{t("management.header.status")}</td>
               <td>&nbsp;</td>
             </tr>
           </thead>

@@ -12,8 +12,8 @@ import { blue, green, red, white } from '../../../constants/CustomColors';
 import PopUpDialog from '../../../constants/PopUpDialog';
 import { fetchDelete } from '../../../constants/CustomFetching';
 
-const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: {list: any, 
-  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any}) => {
+const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl, t}: {list: any, 
+  changeSnackBar: (value: boolean) => any, openPopUp: (e:any) => void, open: boolean, closePopUp: () => void, AnchorEl: any, t: any}) => {
 
    const [selectedId, changeSelectedId] = React.useState<string | undefined>(undefined);
    const [dialogOpen,changeDialogOpen] = React.useState(false);
@@ -51,7 +51,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
               </td>
               <td style={{color: green}}>{price + "$"}</td>
               <td>
-                  <div style={status === "Sold" ? {color: green} : status === "Running" ? {color: blue} : {color: red}}>
+                  <div style={status === "Sold" ? {color: green} : status === t("management.status.running")  ? {color: blue} : {color: red}}>
                       {status}
                   </div>
               </td>
@@ -66,7 +66,7 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
                   className="share-icon-mngm">
                       <FileCopyIcon style={{fontSize: 15, color: white}}/>
                  </IconButton>
-                 {status === "Running" ? (
+                 {status === t("management.status.running")  ? (
                      <>
                         <IconButton 
                     onClick={e => {
@@ -104,10 +104,10 @@ const MyPhones = ({list,changeSnackBar, openPopUp, open, closePopUp, AnchorEl}: 
         <table className="mngm-table">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Price</td>
-              <td>Status</td>
-              <td>Created</td>
+              <td>{t("management.header.name")}</td>
+              <td>{t("management.header.price")}</td>
+              <td>{t("management.header.status")}</td>
+              <td>{t("management.header.created")}</td>
               <td>&nbsp;</td>
             </tr>
           </thead>
