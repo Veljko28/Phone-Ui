@@ -178,11 +178,11 @@ translate front page ✅
 translate about page ✅
 translate categories ✅
 translate contact ✅
-translate management
-translate phone page
-translate bid page
-translate footer
-translate bid card
+translate management ✅
+translate phone page ✅
+translate bid page ✅
+translate footer ✅
+translate bid card ✅
 translate search
 translate forgot password / change password / edit
 translate add phone / bid

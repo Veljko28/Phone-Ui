@@ -134,7 +134,7 @@ const search = () => {
          </Link>
        </div>
        ): (
-        <div style={{paddingBottom: 150, backgroundColor: darkMode ? dark : white, display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 650}}>
+        <div style={{paddingBottom: 150, backgroundColor: darkMode ? dark : white, display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 750}}>
         <Typography variant="h6" style={{color: darkMode ? darker_green : blue, marginTop: 15}}>Results for {id}</Typography>
         {data.phones.map(x => ListingMap({phone: x, type: "Listing"}))}
         {data.bids.map(x => ListingMap({phone: x, type: "Bid"}))}

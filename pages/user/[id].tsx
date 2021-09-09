@@ -1,6 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import NotFound from '../../components/NotFound';
 import UserCard from '../../components/User/UserCard';
 import UserTabs from '../../components/User/UserTabs';
@@ -37,6 +38,8 @@ const user = () => {
     if (id) func();
   },[id])
 
+  const { t } = useTranslation();
+
   return (
     <>
     
@@ -56,7 +59,7 @@ const user = () => {
           </Grid>
 
           <Grid md={8} xs={12} item>
-            <UserTabs id={id as string}/>
+            <UserTabs id={id as string} t={t}/>
           </Grid>
        </>
       )}
