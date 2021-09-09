@@ -14,6 +14,7 @@ import { timeLeft } from '../constants/formatDate';
 import { blue, darker_green, red, white } from '../constants/CustomColors';
 import { useSelector } from 'react-redux';
 import { State } from '../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
 
 
 export const BidCard = (props: {image: string, name: string, price: string, date_ends: Date, id: string, 
@@ -33,6 +34,8 @@ export const BidCard = (props: {image: string, name: string, price: string, date
   if (typeof window !== 'undefined'){
     userId = localStorage.getItem('userId');
   }
+
+  const { t } = useTranslation();
 
   const addToWishList = async () => {
     const res = await fetchPost(`http://localhost:10025/api/v1/wishlist/add`, {userId, phoneId: props.id, type: "bid"});
@@ -65,9 +68,9 @@ export const BidCard = (props: {image: string, name: string, price: string, date
                 {props.name}
               </Typography>
               <Typography variant="subtitle1" style={{display: 'inline-block'}}>
-                <span style={{fontSize: "15px"}}>Current Price: <span style={{color: darkMode ? darker_green : blue}}>{props.price + "$"}</span></span>
+                <span style={{fontSize: "15px"}}>{t("bidCard.current")}: <span style={{color: darkMode ? darker_green : blue}}>{props.price + "$"}</span></span>
               </Typography>
-              <div style={{fontSize: "15px"}}>Ends in: <span style={{color: darkMode ? darker_green : blue}}>{time}</span></div>
+              <div style={{fontSize: "15px"}}>{t("bidCard.ends")}: <span style={{color: darkMode ? darker_green : blue}}>{time}</span></div>
             </div>
           </div>
         </Link>

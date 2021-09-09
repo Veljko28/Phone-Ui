@@ -118,6 +118,83 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
               desc1: "If you have any questions about loyality points and the sales they provide contact our support team.",
               subtitle2: "24/7 Support",
               desc2: "Contact our support team at any time of the day and get fast and reliable feedback about your problem."
+            },
+            footer: {
+              info: "Contact Info",
+              links: "Quick Links",
+              contact: "Connect With Us"
+            },
+            management: {
+              myphones: "My Phones",
+              mybids: "My Bids",
+              boughtphones: "Bought Phones",
+              placedbids: "Placed Bids",
+              header: {
+                name: "Name",
+                price: "Price",
+                status: "Status",
+                created: "Created",
+                ends: "Ends",
+                category: "Category",
+                seller: "Seller"
+              },
+              status: {
+                running: "Running",
+                won: "Won",
+                lost: "Lost",
+                failed: "Failed",
+                sold: "Sold",
+                deleted: "Deleted",
+                finished: "Finished"
+              }
+            },
+            pages: {
+              prev: "Prev",
+              next: "Next"
+            },
+            display: {
+              startPrice: "Starting Price: ",
+              highestBid: "Highest Bid: ",
+              price: "Price: ",
+              wonbid: "has won this bid !",
+              nobids: "No bids were placed on this bid !",
+              bidHistory: "Bid History",
+              wishListAdded: "Added to wish list: ",
+              phoneButtons: {
+                edit: " EDIT PHONE",
+                remove: " REMOVE FROM CART",
+                add: " ADD TO CART",
+              }
+            },
+            sellerInfo: {
+              about: "About The Seller",
+              rating: "Rating",
+              phonesSold: "Phones Sold",
+              currentlySelling: "Currently Selling",
+              contact: "Contact The Seller",
+              listings: "View Listings"
+            },
+            reviews: {
+              title: "Ratings and Reviews",
+              based1: "Based on {{sold}} Reviews",
+              based2: "Based on 20 Recommendations.",
+              question: "Have you used this product?",
+              button: "Review"
+            },
+            userReviews: {
+              noReviews: "Couldn't find any reviews for this user",
+              by: "By",
+              on: "on"
+            },
+            bidCard: {
+              current: "Current Price",
+              ends: "Ends in"
+            },
+            bidHistory: {
+              user: "User",
+              amount: "Amount",
+              noBids: "There are no placed bets on this bid",
+              your: "Your Bid"
             }
         }
       }
