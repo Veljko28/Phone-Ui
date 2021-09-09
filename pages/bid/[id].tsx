@@ -16,6 +16,7 @@ import Phone from '../../components/models/Phone';
 import NotFound from '../../components/NotFound';
 import { timeLeft } from '../../constants/formatDate';
 import UserReviews from '../../components/User/UserReviews';
+import { useTranslation } from 'react-i18next';
 
 
 const PhonePage = () => {
@@ -106,6 +107,8 @@ const PhonePage = () => {
      if (id) func();
   },[id])
 
+  const { t } = useTranslation();
+
   return (
     <Grid container>
 
@@ -116,9 +119,9 @@ const PhonePage = () => {
       <Grid xs={12} md={10} lg={8} item> 
       {notFound === true ? <NotFound/> : (
         <>
-          <PhoneDisplay bid={true} phone={bid} images={images} history={history} userId={user?.id as string} id={id as string}/>
-          <SellerInfo user={user} sellingPhones={sellingPhones}/>
-          <UserReviews display={true} userId={user?.id as string}/>
+          <PhoneDisplay t={t} bid={true} phone={bid} images={images} history={history} userId={user?.id as string} id={id as string}/>
+          <SellerInfo t={t} user={user} sellingPhones={sellingPhones}/>
+          <UserReviews t={t} display={true} userId={user?.id as string}/>
           <LatestProducts title="Related Products"  phones={relatedProducts} />
         </>
       )}
