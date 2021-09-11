@@ -7,6 +7,9 @@ import { useRouter } from 'next/router';
 import { blue, white, dark_gray, gray, darker_green } from '../constants/CustomColors';
 import { useSelector } from 'react-redux';
 import { State } from '../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
+import { fetchPost } from '../constants/CustomFetching';
+import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
 
  
  const ForgotPassword = () => {
@@ -15,14 +18,24 @@ import { State } from '../redux/reduxTypes';
 
     const [email,changeEmail] = React.useState("");
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+    const [snackbar, changeSnackbarOpen] = React.useState(false);
+    const [error, changeError] = React.useState({open: false, message: ""});
+    const { t } = useTranslation();
 
     const yupSchema = yup.string().email();
 
     const onSubmit = async () => {
         try {
             await yupSchema.validate(email, {abortEarly: false});
+
+            const res = await fetchPost("http://localhost:10025/api/v1/email/forgotpassword", {email});
+
+            if (!res.ok){
+                changeError({open: true, message: t("forgotPass.failed")});
+            }
         }
         catch (err) {
+            console.log(err);
         }
     }
 
@@ -35,8 +48,8 @@ import { State } from '../redux/reduxTypes';
              <span style={{marginTop: 40, marginBottom: 50}}>
                 <Image src={darkMode ? "/logo_dark.png" : "/logo.png"} width="157" height="47" />
              </span>
-             <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray}}>Enter the email address associated with your account <br/>
-              and we'll send you a link to reset your password</Typography>
+             <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray, textAlign: 'center'}}>{t("forgotPass.enter")} <br/>
+              {t("forgotPass.enter2")}</Typography>
               <TextField placeholder="Email" value={email}
               onChange={e => changeEmail(e.target.value)}
                 InputProps={{
@@ -50,7 +63,12 @@ import { State } from '../redux/reduxTypes';
                 }}/>
               <Button style={{margin: '10px 0 10px 0', backgroundColor: darkMode ? darker_green : blue, color: white, padding: 10, minWidth: 350}}
                onClick={() => onSubmit()}
-              >Continue</Button>
+              >{t("changePass.continue")}</Button>
+
+
+            <SnackBarSuccess snackBarOpen={snackbar} changeSnackBarOpen={() => changeSnackbarOpen(false)} message={t("forgotPass.success")}/>
+
+            <SnackBarFailed snackBarOpen={error.open} changeSnackBarOpen={() => changeError({open: false, message: ""})} message={error.message}/>
          </Grid>
      )
  }

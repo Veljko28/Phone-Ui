@@ -16,6 +16,7 @@ import { changeLoginStatus } from '../../../redux/actions/userInfoActions';
 import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackBars';
 import { dark_gray, blue, white, gray, darker_green } from '../../../constants/CustomColors';
 import { State } from '../../../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
 
  
  const ForgotPassword = () => {
@@ -23,6 +24,7 @@ import { State } from '../../../redux/reduxTypes';
     const router = useRouter();
     const dispatch = useDispatch();
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+    const { t } = useTranslation();
 
 
     const id = router.query['id'];
@@ -61,20 +63,20 @@ import { State } from '../../../redux/reduxTypes';
             changeErrors([]);
             const res = await fetchPatch(`http://localhost:10025/api/v1/users/changepassword/${id}`, form);
             if (res.ok){
-               changeSnackBar({success: true, error: false, loading: false, message: "Successfully changed password !"});
+               changeSnackBar({success: true, error: false, loading: false, message: t("changePass.success")});
                dispatch(changeLoginStatus(false));
                localStorage.clear();
                setTimeout(() => router.push('/login'), 1200);
             }
             else if (res.status === 500 || res.status === 400){
-              changeSnackBar({success: false, error: true, loading: false, message: "Invalid current password !"});
+              changeSnackBar({success: false, error: true, loading: false, message: t("changePass.invalid")});
             }
             else {
-              changeSnackBar({success: false, error: true, loading: false, message: "Failed to change your password, try again later !"});
+              changeSnackBar({success: false, error: true, loading: false, message: t("changePass.failed")});
             }
         }
         catch (err) {
-          changeErrors(formatYupError(err) as any);
+          changeErrors(formatYupError(err as any) as any);
           changeSnackBar({...snackBar, loading: false});
         }
     }
@@ -84,10 +86,10 @@ import { State } from '../../../redux/reduxTypes';
              <span style={{marginTop: 40, marginBottom: 50}}>
                 <Image src={darkMode ? "/logo_dark.png" : "/logo.png"} width="157" height="47" />
              </span>
-             <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray}}>Please enter your current password associated <br/>
-              with your account 
-              and the password your want to use.</Typography>
-              <TextField placeholder="Current Password" value={form.current_password} type="password"
+             <Typography variant="subtitle2" style={{color: darkMode ? gray : dark_gray, textAlign: 'center'}}>
+              {t("changePass.enter")} <br/>
+              {t("changePass.enter2")}</Typography>
+              <TextField placeholder={t("changePass.current")} value={form.current_password} type="password"
               onChange={e => changeForm({...form,current_password: e.target.value})}
                 InputProps={{
                     className: errors.filter((x: any) => x.path === 'current_password').length > 0 ? "forgot-pass-error-input" : "forgot-pass-input",
@@ -100,7 +102,7 @@ import { State } from '../../../redux/reduxTypes';
                 }}/>
                 <YupError errors={errors} path="current_password"/>
 
-                <TextField placeholder="Confirm Current Password" value={form.confirm_current_password} type="password"
+                <TextField placeholder={t("changePass.confirm")} value={form.confirm_current_password} type="password"
               onChange={e => changeForm({...form,confirm_current_password: e.target.value})}
                 InputProps={{
                     className: errors.filter((x: any) => x.path === 'confirm_current_password').length > 0 ? "forgot-pass-error-input" : "forgot-pass-input",
@@ -116,7 +118,7 @@ import { State } from '../../../redux/reduxTypes';
 
 
 
-                <TextField placeholder="New Password" value={form.new_password} type={showPass ? "text" : "password"}
+                <TextField placeholder={t("changePass.newPass")} value={form.new_password} type={showPass ? "text" : "password"}
               onChange={e => changeForm({...form,new_password: e.target.value})}
                 InputProps={{
                     className: errors.filter((x: any) => x.path === 'new_password').length > 0 ? "forgot-pass-error-input" : "forgot-pass-input",
@@ -136,10 +138,10 @@ import { State } from '../../../redux/reduxTypes';
 
               <Button style={{margin: '10px 0 10px 0', backgroundColor: darkMode ? darker_green : blue, color: white, padding: 10, minWidth: 350}}
                onClick={() => onSubmit()}
-              >{ snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Continue" }</Button>
+              >{ snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : t("changePass.continue") }</Button>
 
 
-               <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} message="Successfully changed password !"/>
+               <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} message={snackBar.message}/>
 
           <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar, error: false})} message={snackBar.message}/>
          </Grid>
