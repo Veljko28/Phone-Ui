@@ -13,7 +13,7 @@ import Phone from '../models/Phone';
 
 
 
-const UserListings = ({id, ownProfile} : {id: string, ownProfile: boolean}) => {
+const UserListings = ({id, ownProfile, t} : {id: string, ownProfile: boolean, t: any}) => {
 
     const [list,changeList] = React.useState<any>([]);
     const [loading, changeLoading] = React.useState(true);
@@ -88,14 +88,14 @@ const UserListings = ({id, ownProfile} : {id: string, ownProfile: boolean}) => {
                 : loading ? <div>{skeletons}</div> : ownProfile ? (
                   <Grid container item style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',height: 450}}>
                     <ReportIcon style={{color: darkMode ? darker_green : blue,fontSize: 175}}/>
-                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>You don't have any listings</Typography>
-                    <Link href="/phone/add"><Button variant="contained" style={{color: white, backgroundColor: darkMode ? darker_green : blue, marginTop: 15}}>Add new listing</Button></Link>
+                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>{t("userTabs.noListings")}</Typography>
+                    <Link href="/phone/add"><Button variant="contained" style={{color: white, backgroundColor: darkMode ? darker_green : blue, marginTop: 15}}>{t("userTabs.add_listing")}</Button></Link>
                   </Grid>
                 ) : 
 
                 (<Grid container item style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',height: 450}}>
                     <ReportIcon style={{color:  darkMode ? darker_green : blue,fontSize: 175}}/>
-                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>Couldn't find any listings for this user</Typography>
+                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>{t("userTabs.noUserListing")}</Typography>
                   </Grid>
                 )}
         </Grid>
@@ -105,7 +105,7 @@ const UserListings = ({id, ownProfile} : {id: string, ownProfile: boolean}) => {
                         {currentPage !== 0 ? (
                         <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}}
                             onClick={() => changeCurrentPage(currentPage-1)}>
-                            Prev
+                            {t("pages.prev")}
                         </Button>
                         ) : null}
                         <Button variant="contained" disabled style={{backgroundColor: darkMode ? "#326307" : '#0a85ae', color: white, margin: 5}}>
@@ -113,7 +113,7 @@ const UserListings = ({id, ownProfile} : {id: string, ownProfile: boolean}) => {
                         </Button>
                         {currentPage < list.length-1 ? (
                             <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}} onClick={() => changeCurrentPage(currentPage+1)}>
-                                Next
+                              {t("pages.next")}
                             </Button>
                         ) : null}
                         </div>

@@ -17,7 +17,7 @@ import { State } from '../../redux/reduxTypes';
 
 
 const UserCard = (props: {email: string, id: string, phoneNumber: string, search?: boolean, name: string, rating: number, desc: string,
-phones_sold: string, selling_phones: string}) => {
+phones_sold: string, selling_phones: string , t: any}) => {
 
   let currentUser: string | null = null;
 
@@ -54,16 +54,16 @@ phones_sold: string, selling_phones: string}) => {
                 {props.name}
               </Typography>
                 <Typography variant="subtitle1">
-                Rating: <Rating name="seller-rating" value={props.rating} precision={0.1} readOnly
+                {props.t("userCard.rating")}: <Rating name="seller-rating" value={props.rating} precision={0.1} readOnly
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Phones Sold: <span style={{color: blue}}>{props.phones_sold}</span>
+                 {props.t("userCard.phones_sold")}: <span style={{color: blue}}>{props.phones_sold}</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: blue,marginBottom: '5px'}}/>
               </Typography>
               <Button variant="contained" 
                     style={{color: white, backgroundColor: blue, padding: '10px', width: '175px', margin: '5px'}}
-                    >Go To Profile</Button>
+                    >{props.t("userCard.goToProfile")}</Button>
             </div>
           </a>
         ): props.id === undefined ? <UserCardSkeleton/> : (
@@ -79,29 +79,29 @@ phones_sold: string, selling_phones: string}) => {
                 <span style={{color: dark_gray, fontSize: "15px"}}>{props.desc}</span>
               </Typography>
               <Typography variant="subtitle1">
-                Rating: <Rating name="seller-rating" value={props.rating ? parseFloat(props.rating.toFixed(1)) : 0} precision={0.1} readOnly
+                {props.t("userCard.rating")}: <Rating name="seller-rating" value={props.rating ? parseFloat(props.rating.toFixed(1)) : 0} precision={0.1} readOnly
                 style={{fontSize: '16px', marginTop: '15px'}}/>
               </Typography>
               <Typography variant="subtitle1">
-                 Phones Sold: <span style={{color: darkMode ? darker_green : blue}}>{props.phones_sold}</span>
+                 {props.t("userCard.phones_sold")}: <span style={{color: darkMode ? darker_green : blue}}>{props.phones_sold}</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: darkMode ? darker_green : blue,marginBottom: '5px'}}/>
               </Typography>
                <Typography variant="subtitle1">
-                 Currently Selling: <span style={{color: darkMode ? darker_green : blue}}>{props.selling_phones}</span>
+                 {props.t("userCard.currently")}: <span style={{color: darkMode ? darker_green : blue}}>{props.selling_phones}</span>
                  <PhoneAndroidIcon style={{fontSize: '20px', color: darkMode ? darker_green : blue,marginBottom: '5px'}}/>
               </Typography>
               {props.id === currentUser ? (
                 <>
                 <Button variant="contained" onClick={() => handleEditOpen(true)}
                  style={{color: '#fff', backgroundColor: darkMode ? darker_green : blue, padding: '10px', width: '175px', margin: '5px'}}
-                >Edit Profile</Button>
+                >{props.t("userCard.edit")}</Button>
 
                <EditProfileForm darkMode={darkMode} open={editOpen} handleOpen={(value: boolean) => handleEditOpen(value)} id={props.id}/>
                 </>
               ) : (<>
                 <Button variant="contained" onClick={e => openContanct(e)}
                       style={{color: '#fff', backgroundColor: darkMode ? darker_green : blue, padding: '10px', width: '175px', margin: '5px'}}
-                      >Contact The Seller</Button>
+                      >{props.t("sellerInfo.contact")}</Button>
                 <UserContact darkMode={darkMode} email={props.email} phoneNumber={props.phoneNumber} open={contactOpen} handleClose={() => closeContanct()} anchorEl={contactAnchorEl}/>
                 </>
               )}

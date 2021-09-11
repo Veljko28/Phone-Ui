@@ -10,7 +10,7 @@ import { State } from '../../redux/reduxTypes';
 
 
 
-const UserWishList = ({id} : {id: string}) => {
+const UserWishList = ({id, t} : {id: string, t: any}) => {
 
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
 
@@ -84,14 +84,17 @@ const UserWishList = ({id} : {id: string}) => {
                         </>
                       </Link>
                       <div onClick={async () => await removeFromWishList(id)}
-                      style={{fontSize: 13, color: red, width: 50, marginTop: 10}} className="curs-hver">Remove</div>
+                      style={{fontSize: 13, color: red, width: 50, marginTop: 10}} className="curs-hver">{t("userTabs.remove")}</div>
                   </Grid>
             </Grid>
         )
-      }
+    }
+
+    const trans_type = t("userTabs." + type);
 
     return list.length === 0 ? ( <Grid style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: darkMode ? dark_cont : white,height: 410, marginTop: 10}}>
-       <Typography style={{color:  darkMode ? darker_green : blue, marginBottom: 25}} variant="h3">There are no {type}s in your wish list !</Typography>
+       <Typography style={{color:  darkMode ? darker_green : blue, marginBottom: 25}} variant="h3">
+         {t("userTabs.empty_wishList", {trans_type})}</Typography>
         <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 200}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
        </Grid>
     ) : (
@@ -105,7 +108,7 @@ const UserWishList = ({id} : {id: string}) => {
                         {currentPage !== 0 ? (
                         <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}}
                             onClick={() => changeCurrentPage(currentPage-1)}>
-                            Prev
+                            {t("pages.prev")}
                         </Button>
                         ) : null}
                         <Button variant="contained" disabled style={{backgroundColor: darkMode ? "#326307" : '#0a85ae', color: white, margin: 5}}>
@@ -113,12 +116,12 @@ const UserWishList = ({id} : {id: string}) => {
                         </Button>
                         {currentPage < list.length-1 ? (
                             <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 5}} onClick={() => changeCurrentPage(currentPage+1)}>
-                                Next
+                              {t("pages.next")}
                             </Button>
                         ) : null}
                         </div>
         </span>
-        <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
+        <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 100}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? t("userTabs.bid") : t("userTabs.phone")}</Button>
         </div>
       </div>
     );

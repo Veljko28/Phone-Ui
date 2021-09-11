@@ -31,23 +31,23 @@ const UserTabs = ({id, t} : {id: string, t: any}) => {
       onClick={() => {
         changeSelected('Listings');
       }}
-      >Listings</Button>
+      >{t("userTabs.listings")}</Button>
       <Button  disableRipple
       style={selected === 'Reviews' ? selectedStyle : normalStyle}
       onClick={() => {
         changeSelected('Reviews');
       }}
-      >Reviews</Button>
+      >{t("userTabs.reviews")}</Button>
       {id === userId ? (
         <Button  disableRipple
         style={selected === 'Wish List' ? selectedStyle : normalStyle}
           onClick={() => {
           changeSelected('Wish List');
         }}
-        >Wish List</Button>
+        >{t("userTabs.wishList")}</Button>
       ) : ""}
 
-      {selected === 'Listings' ? <UserListings id={id} ownProfile={id === userId}/> : selected === 'Reviews' ? <UserReviews userId={id} t={t}/> : <UserWishList id={id} />}
+      {selected === 'Listings' ? <UserListings id={id} ownProfile={id === userId} t={t}/> : selected === 'Reviews' ? <UserReviews userId={id} t={t}/> : <UserWishList id={id} t={t}/>}
     </div>
   )
 }
