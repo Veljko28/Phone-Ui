@@ -10,6 +10,7 @@ import { blue, dark, darker_green, dark_gray, gray, green, white } from '../../c
 import SearchSkeleton from '../../components/Skeletons/SearchSkeleton';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
+import { useTranslation } from 'react-i18next';
 
 
 const search = () => {
@@ -26,6 +27,7 @@ const search = () => {
   const [data,changeData] = React.useState(initState);
   const [loading, changeLoading] = React.useState(true);
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+  const { t } = useTranslation();
 
 
   React.useEffect(() => {
@@ -68,7 +70,7 @@ const search = () => {
                               {price+"$"}   
                            </div>
                            <div style={{color: darkMode ? darker_green : blue, marginRight: 15}}>
-                              {type}
+                              {t("search." + type.toLocaleLowerCase())}
                            </div>
                         </Typography>
                   </Grid>
@@ -97,10 +99,10 @@ const search = () => {
                         </Typography>
                          <Typography variant="subtitle1" style={{display: 'flex', justifyContent: 'space-between'}}>
                            <div style={{color: darkMode ? darker_green : blue}}>
-                              Phones Sold: {phones_sold}   
+                              {t("userCard.phones_sold")}: {phones_sold}   
                            </div>
                            <div style={{color: darkMode ? darker_green : blue, marginRight: 15}}>
-                              User
+                               {t("search.user")}
                            </div>
                         </Typography>
                   </Grid>
@@ -116,7 +118,7 @@ const search = () => {
       loading ?
        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%',paddingBottom: 150 , 
        backgroundColor: darkMode ? dark : white}}>
-            <Typography variant="h6" style={{color: darkMode ? darker_green : blue, marginTop: 15}}>Results for {id}</Typography>
+            <Typography variant="h6" style={{color: darkMode ? darker_green : blue, marginTop: 15}}>{t("search.results")} {id}</Typography>
             <SearchSkeleton/>
             <SearchSkeleton/>
             <SearchSkeleton/>
@@ -124,18 +126,18 @@ const search = () => {
             :
             (
        <div style={{backgroundColor: darkMode ? dark : white, display: 'flex', alignItems: 'center', flexDirection: 'column', paddingBottom: 150}}>
-         <Typography variant="h2" style={{color: darkMode ? darker_green : blue, padding: 15}}>Couldn't find anything with this name</Typography> 
+         <Typography variant="h2" style={{color: darkMode ? darker_green : blue, padding: 15}}>{t("search.not_found")}</Typography> 
          <Image src="/search_fail.svg" width="500px" height="500px"/>
          <Link href="/">
             <div className="shopping-button">
               <ArrowBackIosIcon style={{fontSize: '15px',marginBottom: '5px'}}/>
-              BACK TO HOME
+              {t("search.back_home")}
             </div>
          </Link>
        </div>
        ): (
         <div style={{paddingBottom: 150, backgroundColor: darkMode ? dark : white, display: 'flex',flexDirection: 'column', alignItems: 'center', minHeight: 750}}>
-        <Typography variant="h6" style={{color: darkMode ? darker_green : blue, marginTop: 15}}>Results for {id}</Typography>
+        <Typography variant="h6" style={{color: darkMode ? darker_green : blue, marginTop: 15}}>{t("search.results")} {id}</Typography>
         {data.phones.map(x => ListingMap({phone: x, type: "Listing"}))}
         {data.bids.map(x => ListingMap({phone: x, type: "Bid"}))}
         {data.users.map(x => UserMap(x))}
