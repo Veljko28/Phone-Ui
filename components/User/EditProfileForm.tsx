@@ -14,7 +14,7 @@ import PersonIcon from '@material-ui/icons/Person';
     
 import YupError from '../../constants/YupError';
 import { formatYupError } from '../../constants/formYupError';
-import { SnackBarSuccess } from '../../constants/CustomSnackBars';
+import { SnackBarFailed, SnackBarSuccess } from '../../constants/CustomSnackBars';
 import { fetchGet, fetchPost } from '../../constants/CustomFetching';
 import { blue, darker_green, dark_cont, white } from '../../constants/CustomColors';
 
@@ -52,7 +52,11 @@ const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handl
     });
 
     const [errors,changeErrors] = React.useState([]); 
-    const [snackBar,handleSnackBar] = React.useState(false);
+    const [snackBar,handleSnackBar] = React.useState({
+        success: false,
+        error: false,
+        message: ""
+    });
 
     const styles = (theme: any) => ({
         root: {
@@ -89,8 +93,12 @@ const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handl
 
                if (res.ok){
                 handleOpen(false);
-                handleSnackBar(true);
+                handleSnackBar({...snackBar, success: true, message: "Successfully edited your profile !"});
                 setTimeout(() => location.reload(),1500);
+               }
+               else {
+                handleOpen(false);
+                handleSnackBar({...snackBar, error: true, message: (await res.text()).replace(/"/g,"")});
                }
 
         }
@@ -178,7 +186,10 @@ const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handl
             </DialogActions>
         </Dialog>
         
-        <SnackBarSuccess snackBarOpen={snackBar} changeSnackBarOpen={() => handleSnackBar(false)} message="Successful updated your profile"/>
+        <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => handleSnackBar({...snackBar,success: false})} message={snackBar.message}/>
+
+        <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => handleSnackBar({...snackBar,error: false})} message={snackBar.message}/>
+
         </>
     )
 };
