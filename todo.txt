@@ -183,15 +183,16 @@ translate phone page ✅
 translate bid page ✅
 translate footer ✅
 translate bid card ✅
-translate search
-translate forgot password / change password / edit
-translate add phone / bid
-translate user profile
+translate search ✅
+translate forgot password ✅ / change password ✅ / edit ✅
+translate add phone ✅ / bid ✅
+translate user profile ✅
 compress images
 carousel images on phone
 oauth with google / facebook / twitter
 add more brands when adding
 no phones in this category page
+implement forgot password ✅
 
 carousel images dark mode ✅
 no reviews page ✅
