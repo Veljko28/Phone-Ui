@@ -195,6 +195,75 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
               amount: "Amount",
               noBids: "There are no placed bets on this bid",
               your: "Your Bid"
+            },
+            userCard: {
+              rating: "Rating",
+              phones_sold: "Phones sold",
+              goToProfile: "Go To Profile",
+              currently: "Currently Selling",
+              edit: "Edit Profile",
+            },
+            search: {
+              listing: "Listing",
+              bid: "Bid",
+              user: "User",
+              results: "Results for",
+              not_found: "Couldn't find anything with this name",
+              back_home: "BACK TO HOME"
+            },
+            changePass: {
+              enter: "Please enter your current password associated",
+              enter2: "with your account and the password your want to use.",
+              current: "Current Password",
+              confirm: "Confirm Current Password",
+              newPass: "New Password",
+              continue: "Continue",
+              success: "Successfully changed password !",
+              invalid: "Invalid current password !",
+              failed: "Failed to change your password, try again later !"
+            },
+            forgotPass: {
+              enter: "Enter the email address associated with your account",
+              enter2: "and we'll send you a link to reset your password",
+              failed: "Failed to send the email !",
+              success: "Successfully sent the forgot password email !"
+            },
+            edit: {
+              upload: "Upload product images",
+              add_pict: "Add Image",
+              remove_pict: "Remove Current Image",
+              title_phone: "Edit Phone",
+              name: "Name",
+              price: "Price",
+              desc: "Description",
+              update: "Update",
+              cancel: "Cancel",
+              success: "Successfully updated your phone !",
+              failed: "Failed to edit the phone"
+            },
+            add: {
+              pls_pict: "Please add a photo",
+              failed_pict: "Failed to add a photo, please try again",
+              failed: "Failed to add phone",
+              failed_bid: "failed to add bid",
+              title_phone: "Add Phone",
+              title_bid: "Add Bid",
+              submit: "Submit",
+              startDate: "Start Date",
+              endDate: "End Date",
+              bid_success: "Successfully added your bid !"
+            },
+            userTabs: {
+              listings: "Listings",
+              reviews: "Reviews",
+              wishList: "Wish List",
+              noListings: "You don't have any listings",
+              add_listing: "Add new listing",
+              noUserListings: "Couldn't find any listings for this user",
+              remove: "Remove",
+              empty_wishList: "There are no {{trans_type}}s in your wish list !",
+              phone: "phone",
+              bid: "bid"
             }
         }
       }
