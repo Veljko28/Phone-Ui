@@ -2,10 +2,15 @@ import { Button, DialogActions, DialogContent, DialogContentText } from '@materi
 import { DialogTitle } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { blue, red, white, darker_green, dark_cont } from './CustomColors'
 
 const PopUpDialog = ({open, closeDialog, title, message, onConfirm, darkMode} :
    {open: boolean, closeDialog: () => any ,title: string,message: string, onConfirm: () => any, darkMode?: boolean}) => {
+
+
+    const { t } = useTranslation();
+
   return (
     <Dialog
         open={open}
@@ -28,10 +33,10 @@ const PopUpDialog = ({open, closeDialog, title, message, onConfirm, darkMode} :
         </DialogContent>
         <DialogActions>
           <Button onClick={() => closeDialog()} variant="contained" style={{backgroundColor: red, color: white}}>
-            Disagree
+            {t("dialog.disagree")}
           </Button>
           <Button onClick={() => onConfirm()} variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white}} autoFocus>
-            Agree
+            {t("dialog.agree")}
           </Button>
         </DialogActions>
       </Dialog>
