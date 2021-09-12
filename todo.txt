@@ -193,6 +193,9 @@ oauth with google / facebook / twitter
 add more brands when adding
 no phones in this category page
 implement forgot password ✅
+coupon page translate ✅
+dialogs translate ✅
+translate finish ✅
 
 carousel images dark mode ✅
 no reviews page ✅

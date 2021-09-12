@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { changeLanguage } from '../../redux/actions/langActions';
 import { blue, dark_cont, white } from '../../constants/CustomColors';
+import { useTranslation } from 'react-i18next';
 
 
 const LanguagePopUp = ({open, anchorEl, handleClose, darkMode} : 
   {open: boolean,anchorEl: any, handleClose: () => void, darkMode: boolean}) => {
 
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
 
   return (
     <Popover
@@ -30,6 +32,7 @@ const LanguagePopUp = ({open, anchorEl, handleClose, darkMode} :
         <div onClick={() => {
           dispatch(changeLanguage("en"));
           if (typeof window !== 'undefined') localStorage.setItem("lang", "en");
+          i18n.changeLanguage('en');
         }} className="curs-hvr">
             <Image src="/lang/en.png" alt="english" width="20" height="15"/>
             <span className="active"> English</span>
@@ -37,6 +40,7 @@ const LanguagePopUp = ({open, anchorEl, handleClose, darkMode} :
         <div onClick={() => {
           dispatch(changeLanguage("sr"))
           if (typeof window !== 'undefined') localStorage.setItem("lang", "sr");
+          i18n.changeLanguage('sr-Rs');
           }} className="curs-hvr">
             <Image src="/lang/sr.png" alt="Српски" width="20" height="15" />
             <span> Српски</span>
