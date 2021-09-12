@@ -38,7 +38,7 @@ const EmailSubscribe = () => {
     }
 
     return (
-        <Grid container className={darkMode ? "subscribe-form-dark" : "subscribe-form"} justify="center">
+        <Grid container className={darkMode ? "subscribe-form-dark" : "subscribe-form"} justifyContent="center">
                 <Typography variant="h5" style={{color: white}}>{t("subscribe.title")}</Typography>
                 <div className="subscribe-input">
                     <input type="text" className="subscribe-input-field" placeholder={t("subscribe.input")}

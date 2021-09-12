@@ -52,8 +52,8 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
       <Typography variant="h6" style={{color: darkMode ? dark_green : blue, marginLeft: '40px'}}>{t("latestProducts." + title)}</Typography>
       <ColoredLine color={gray}/>
       {phones?.length === 0 || phones === undefined ? (
-        <Grid item container xs={12} style={{display: 'flex',margin: 20}}>{skeletons.map(x => (<Grid xs={12} md={6} lg={3} item>{x}</Grid>))}</Grid>
-      ) : ""}
+        <Grid item container xs={12} style={{display: 'flex',margin: 20}}>
+          {skeletons.map((x,idx) => (<Grid key={idx} xs={12} md={6} lg={3} item>{x}</Grid>))}</Grid>) : ""}
       {phones?.map(x => (
         <div style={{margin: 15, display: 'flex'}} key={x.id}>
           <PhoneCard inCart={phones.filter(y => y.id == x.id).length === 1} inWishList={inWishList} 

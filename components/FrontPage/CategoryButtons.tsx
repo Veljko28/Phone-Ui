@@ -25,6 +25,7 @@ const CategoryButtons = () => {
 
   return (
     <Link href="/phones/1">
+      <>
       <Grid container style={{marginTop: '15px'}}>
 
         <Grid item xs={12} md={12} lg={3} className={darkMode ? "phone-block-dark" : "phone-block"}
@@ -102,8 +103,9 @@ const CategoryButtons = () => {
         </Grid>
 
       </Grid>
+      </>
     </Link>
   )
 }
 
-export default CategoryButtons
+export default CategoryButtons;
