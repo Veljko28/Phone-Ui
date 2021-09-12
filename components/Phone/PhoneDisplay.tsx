@@ -204,16 +204,14 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId, t} :
           <div>
             <FavoriteIcon style={{fontSize: 20, color: darkMode ? darker_green : blue, marginBottom: 5}}/>
             <Typography variant="h6" style={{color: darkMode ? darker_green : blue, display: 'inline-block'}}>{t("display.wishListAdded")} 
-            {numOfFavorites === "1" ? " " + numOfFavorites + " time" : " " + numOfFavorites + " times"}</Typography>
+            {numOfFavorites === "1" ? " " + numOfFavorites + t("display.time") : " " + numOfFavorites + t("display.times")}</Typography>
           </div>
 
       </Grid>
 
-      <PopUpDialog open={dialogOpen} closeDialog={() => changeDialogOpen(false)} 
-      title={`Are you sure you want to bid ${bidAmount}$ ?`}
-      message={"Bid only the amount of money you are willing to give for the phone."
-            +"Agreeing with this will put you in the position to win this bid. You won't be able to undo"+
-            "this bid after agreeing !"}
+      <PopUpDialog darkMode={darkMode} open={dialogOpen} closeDialog={() => changeDialogOpen(false)} 
+      title={t("display.bidpopuptitle", {bidAmount})}
+      message={t("display.bidpopupdesc")}
             onConfirm={() => bidConfimed()}/>
           
       <Snackbar 

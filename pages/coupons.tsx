@@ -1,5 +1,6 @@
 import { Button, Grid, Typography } from '@material-ui/core'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { darker_green, blue, gray, white, dark_cont, green, red } from '../constants/CustomColors'
 import { fetchGet, fetchPost } from '../constants/CustomFetching'
@@ -17,6 +18,7 @@ const coupons = () => {
   const [snackBar, changeSnackBar] = React.useState({success: false, error: false});
 
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+  const { t } = useTranslation();
 
   const openDialog = (amount: number) => {
     changeDialog({open: true, amount});
@@ -70,22 +72,22 @@ const coupons = () => {
               <Grid item xs={6} lg={4} style={{display: 'flex',flexDirection: 'column', alignItems: 'center', textAlign: 'center',
             border: "2px solid #eee", backgroundColor: darkMode ? dark_cont : white, margin: 15}}>
                   <Typography variant="h1" style={{color: darkMode ? darker_green : blue}}>10%</Typography>
-                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>Get 10% off your next purchase !</Typography>
-                  <Typography variant="h6" style={{color: darkMode ? blue : green, margin: 5}}>Cost: 100₽</Typography>
+                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>{t("coupon.get10text")}</Typography>
+                  <Typography variant="h6" style={{color: darkMode ? blue : green, margin: 5}}>{t("coupon.cost")}: 100₽</Typography>
                   
                   <Button onClick={() => openDialog(10)}
-                   variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>Get 10% off coupon</Button>
+                   variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>{t("coupon.button10")}</Button>
 
               </Grid>
 
               <Grid item xs={6} lg={4} style={{display: 'flex',flexDirection: 'column', alignItems: 'center', textAlign: 'center',
             border: "2px solid #eee", backgroundColor: darkMode ? dark_cont : white, margin: 15}}>
                   <Typography variant="h1" style={{color: darkMode ? darker_green : blue}}>20%</Typography>
-                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>Get 20% off your next purchase !</Typography>
-                  <Typography variant="h6" style={{color: darkMode ? blue : green, margin: 5}}>Cost: 200₽</Typography>
+                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>{t("coupon.get20text")}</Typography>
+                  <Typography variant="h6" style={{color: darkMode ? blue : green, margin: 5}}>{t("coupon.cost")}: 200₽</Typography>
                   
                   <Button onClick={() => openDialog(20)}
-                  variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>Get 20% off coupon</Button>
+                  variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>{t("coupon.button20")}</Button>
               </Grid>
 
             <Grid item lg={2}/>
@@ -97,23 +99,23 @@ const coupons = () => {
                 <Grid item xs={6} lg={4} style={{display: 'flex',flexDirection: 'column', alignItems: 'center', textAlign: 'center',
             border: "2px solid #eee", backgroundColor: darkMode ? dark_cont : white, margin: 15}}>
                   <Typography variant="h1" style={{color: darkMode ? darker_green : blue}}>50%</Typography>
-                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>Get 50% off your next purchase !</Typography>
+                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>{t("coupon.get50text")}</Typography>
                   <Typography variant="h6" style={{color: darkMode ? blue : green, margin: 5}}>
-                    Cost: <span style={{textDecoration: 'line-through', color: red}}>500₽</span> 350₽</Typography>
+                    {t("coupon.cost")}: <span style={{textDecoration: 'line-through', color: red}}>500₽</span> 350₽</Typography>
                   
                   <Button onClick={() => openDialog(50)}
-                   variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>Get 50% off coupon</Button>
+                   variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>{t("coupon.button50")}</Button>
               </Grid>
 
             <Grid item xs={6} lg={4} style={{display: 'flex',flexDirection: 'column', alignItems: 'center', textAlign: 'center',
             border: "2px solid #eee", backgroundColor: darkMode ? dark_cont : white, margin: 15}}>
                   <Typography variant="h1" style={{color: darkMode ? darker_green : blue}}>75%</Typography>
-                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>Get 75% off your next purchase !</Typography>
+                  <Typography variant="h6" style={{color: darkMode ? gray : 'black', margin: 5}}>{t("coupon.get75text")}</Typography>
                   <Typography variant="h6" style={{color: darkMode ? blue : green, margin: 5}}>
-                    Cost: <span style={{textDecoration: 'line-through', color: red}}>750₽</span> 500₽</Typography>
+                    {t("coupon.cost")}: <span style={{textDecoration: 'line-through', color: red}}>750₽</span> 500₽</Typography>
                   
                   <Button onClick={() => openDialog(75)}
-                   variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>Get 75% off coupon</Button>
+                   variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>{t("coupon.button75")}</Button>
               </Grid>
             <Grid lg={2}/>
           </Grid>
@@ -122,13 +124,14 @@ const coupons = () => {
 
       <Grid item lg={2} xs={1}/>
       <PopUpDialog open={dialog.open} 
-      closeDialog={() => changeDialog({...dialog,open: false})} title={`Purchase ${dialog.amount}% Off Coupon`} message={`Are you sure you want to buy ${dialog.amount}% off coupon? You will receive an email with your code which you should save and input into the apply coupon section on checkout the next time you purchase!`}
+      closeDialog={() => changeDialog({...dialog,open: false})} 
+      title={t("coupon.popuptitle", {amount: dialog.amount})} message={t("coupon.popupdesc", {amount: dialog.amount})}
       darkMode={darkMode} onConfirm={async () => await onCofirm()}/>
 
       <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} 
-      message={`Successfully purchased the ${dialog.amount}% Off Coupon !`}/>
+      message={t("coupon.success", {amount: dialog.amount})}/>
       <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar, error: false})} 
-      message={`Either you don't have enough points or something went wrong.`}/>
+      message={t("coupon.failed")}/>
     </Grid>
   )
 }
