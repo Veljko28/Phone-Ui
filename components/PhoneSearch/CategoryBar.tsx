@@ -130,10 +130,10 @@ const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: 
           >{t("category.fields4.older")}</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, sorting: "asc"})} 
-          style={options.sorting === "asc" ? selectedStyle : normalStyle}>{t("category.fields4.asc")}</ListItem>
+          style={options.sorting === "asc" ? selectedStyle : normalStyle}>{t("category.fields4.desc")}</ListItem>
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options, sorting: "desc"})} 
-          style={options.sorting === "desc" ? selectedStyle : normalStyle}>{t("category.fields4.desc")}</ListItem>
+          style={options.sorting === "desc" ? selectedStyle : normalStyle}>{t("category.fields4.asc")}</ListItem>
         </div>
       )
     },

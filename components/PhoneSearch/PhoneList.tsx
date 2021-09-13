@@ -12,13 +12,22 @@ import Phone from '../models/Phone';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 import { fetchPost } from '../../constants/CustomFetching';
+import { useTranslation } from 'react-i18next';
 
 const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
-    const phoneSkeletons = [<PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>,
-      <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>, <PhoneSkeletonCard/>]
 
-    const bidSkeletons = [<BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>,
-      <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>, <BidSkeletonCard/>];
+    const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+    const { t } = useTranslation();
+
+
+    const phoneSkeletons = [<PhoneSkeletonCard darkMode={darkMode}/>, <PhoneSkeletonCard  darkMode={darkMode}/>,
+       <PhoneSkeletonCard  darkMode={darkMode}/>, <PhoneSkeletonCard  darkMode={darkMode}/>, <PhoneSkeletonCard  darkMode={darkMode}/>,
+      <PhoneSkeletonCard  darkMode={darkMode}/>, <PhoneSkeletonCard  darkMode={darkMode}/>, <PhoneSkeletonCard  darkMode={darkMode}/>, <PhoneSkeletonCard  darkMode={darkMode}/>, <PhoneSkeletonCard  darkMode={darkMode}/>]
+
+    const bidSkeletons = [<BidSkeletonCard darkMode={darkMode}/>, <BidSkeletonCard darkMode={darkMode}/>,
+       <BidSkeletonCard darkMode={darkMode}/>, <BidSkeletonCard darkMode={darkMode}/>, <BidSkeletonCard darkMode={darkMode}/>,
+      <BidSkeletonCard darkMode={darkMode}/>, <BidSkeletonCard darkMode={darkMode}/>, <BidSkeletonCard darkMode={darkMode}/>, 
+      <BidSkeletonCard darkMode={darkMode}/>, <BidSkeletonCard darkMode={darkMode}/>];
 
       const [inWishList, changeInWishList] = React.useState([]);
       const items = useSelector((state: State) => state.cart.items);
@@ -57,7 +66,7 @@ const PhoneList = ({bids, list} : {bids?: boolean, list: any}) => {
             :
             list.map((x: Phone) => 
               <PhoneCard inCart={items.filter(y => y.id == x.id).length === 1} inWishList={inWishList} 
-              getWishListItems={async () => await getWishListItems()}
+              getWishListItems={async () => await getWishListItems()} t={t}
               key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} status={x.status} />
             )}
         </Grid>
