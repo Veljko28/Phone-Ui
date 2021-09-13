@@ -197,7 +197,7 @@ const AddBid = () => {
 
     return (
         <>
-        {jwt === null ? <NotLoggedIn darkMode={darkMode}/> : (
+        {jwt === null ? <NotLoggedIn darkMode={darkMode} t={t}/> : (
         <Grid container style={{backgroundColor: darkMode ? dark : white, paddingBottom: 200, paddingTop: 50}}>
           <TitleChange title={`MobiStore - Bid Add`} />
             <Grid item lg={1}/>
