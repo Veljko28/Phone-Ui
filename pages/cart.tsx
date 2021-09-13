@@ -13,12 +13,14 @@ import NotLoggedIn from '../constants/NotLoggedIn';
 import PurchaseSuccessful from '../components/Cart/PurchaseSuccessful';
 import { fetchPost } from '../constants/CustomFetching';
 import { SnackBarFailed, SnackBarSuccess } from '../constants/CustomSnackBars';
+import { useTranslation } from 'react-i18next';
 
 
 const cart = () => {
   const empty = useSelector((state: State) => state.cart.items.length) == 0;
 
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+  const { t } = useTranslation();
 
 
   let jwt: string | null = null;
@@ -51,10 +53,10 @@ const cart = () => {
   } 
 
 
-  return (jwt === null ? <NotLoggedIn darkMode={darkMode}/> : snackBar.success ? <PurchaseSuccessful darkMode={darkMode}/> : (
+  return (jwt === null ? <NotLoggedIn darkMode={darkMode} t={t}/> : snackBar.success ? <PurchaseSuccessful darkMode={darkMode} t={t}/> : (
     <>
      <TitleChange title="MobiStore - Cart" />
-      {empty ? <EmptyCart darkMode={darkMode}/> : (
+      {empty ? <EmptyCart darkMode={darkMode} t={t}/> : (
         
         <Grid container>
 
@@ -63,12 +65,12 @@ const cart = () => {
         <Grid xs={12} md={10} lg={8} item container> 
 
           <Grid md={7} xs={12} item>
-            <ItemsInCart darkMode={darkMode}/>
+            <ItemsInCart darkMode={darkMode} t={t}/>
           </Grid>
 
           <Grid md={5} xs={12} item>
-            <PriceDetails couponModel={couponModel} darkMode={darkMode} snackBar={snackBar} handleSnackBar={(value: {error: boolean, success: boolean}) => handleSnackBar(value)}/>
-            <CouponTab darkMode={darkMode} coupon={coupon} changeCoupon={(value: string) => changeCoupon(value) }
+            <PriceDetails couponModel={couponModel} darkMode={darkMode} snackBar={snackBar} handleSnackBar={(value: {error: boolean, success: boolean}) => handleSnackBar(value)} t={t}/>
+            <CouponTab t={t} darkMode={darkMode} coupon={coupon} changeCoupon={(value: string) => changeCoupon(value) }
               checkCoupon={async () => await checkCoupon()}
             />
           </Grid>
