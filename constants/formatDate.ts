@@ -15,7 +15,7 @@ export const timeLeft = (date?: Date) => {
 
     const endTime = new Date(date).getTime();
 
-    if (now > endTime) return "Finished !";
+    if (now > endTime) return "finished";
 
     const distance = endTime - now;
 
