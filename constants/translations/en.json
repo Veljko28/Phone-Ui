@@ -147,13 +147,17 @@
               "wishListAdded": "Added to wish list: ",
               "times": " times",
               "time": " time",
+              "yourBid": "This is your bid. Wait until the bid ends and contact the buyer",
               "phoneButtons": {
                 "edit": " EDIT PHONE",
                 "remove": " REMOVE FROM CART",
                 "add": " ADD TO CART"
               },
               "bidpopuptitle": "Are you sure you want to bid {{bidAmount}}$ ?",
-              "bidpopupdesc": "Bid only the amount of money you are willing to give for the phone. Agreeing with this will put you in the position to win this bid. You won't be able to undo this bid after agreeing !"
+              "bidpopupdesc": "Bid only the amount of money you are willing to give for the phone. Agreeing with this will put you in the position to win this bid. You won't be able to undo this bid after agreeing !",
+              "bidsuccess": "Successfully placed a bid of {{bidAmount}}$ on {{name}}",
+              "bidEnded": "This bid has ended !",
+              "phoneSold": "This Phone has been sold !"
             },
             "sellerInfo": {
               "about": "About The Seller",
@@ -177,7 +181,10 @@
             },
             "bidCard": {
               "current": "Current Price",
-              "ends": "Ends in"
+              "ends": "Ends in",
+              "finished": "Finished !",
+              "success": "Successfully added to wish list !",
+              "error": "Failed to add to wish list. Try again later"
             },
             "bidHistory": {
               "user": "User",
@@ -278,6 +285,51 @@
             "dialog": {
               "agree": "Agree",
               "disagree": "Disagree"
+            },
+            "editProfile": {
+              "title": "Edit Profile",
+              "confirmed": "Cannot change an email that's already been confirmed",
+              "change": "Change your email",
+              "changePass": "Change Password"
+            },
+            "cart": {
+              "title": "My Cart",
+              "item": "ITEM",
+              "price": "PRICE",
+              "back": "BACK TO SHOPPING",
+              "details": "Price Details",
+              "tax": "Tax Costs:",
+              "pay": "Amount to Pay:",
+              "check": "Proceed To Checkout",
+              "coupon": "Coupons and Discounts",
+              "couponButton": "Apply Coupon",
+              "empty": "Your cart is currently empty !",
+              "item1": "item",
+              "item2": "items",
+              "checkTitle": "Checkout",
+              "fullName": "Full Name",
+              "cardNum": "Card Number",
+              "failed": "Failed to confirm checkout. Try again later"
+            },
+            "notLogged": {
+              "title": "You are not logged in !",
+              "desc": "You cannot access this page because your are not logged in. Please first login or register and then access this page. You may have been logged out because of your long inactivity usually 7 days."
+            },
+            "purchaseSuccess": {
+              "title": "Your purchase was successful!",
+              "desc1": "Please wait for the seller to contact you about the shipping or meet up for selling the phone.",
+              "desc2": "If you have any problems contact our support at our email:"
+            },
+            "notFound": {
+              "title": "We Couldn’t Find The Page",
+              "desc": "The page you are looking for couldn't be found. It looks like you may have taken a wrong turn or we might have switched direction. You can search with the below searchbar.",
+              "or": "Or"
+            },
+            "addReview": {
+              "title": "Add a Review",
+              "rating": "Your Rating: ",
+              "success": "Successfully added your review !",
+              "failed": "Failed to add your review. Try again later"
             }
           }
 }
