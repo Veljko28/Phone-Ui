@@ -2,9 +2,9 @@ import React from 'react'
 import Skeleton from '@material-ui/lab/Skeleton';
 import { Grid } from '@material-ui/core';
 
-const BidSkeletonCard = () => {
+const BidSkeletonCard = ({darkMode} : {darkMode: boolean}) => {
     return (
-    <Grid container className="cardContainer" style={{width: '250px', border: '1px solid #eee', maxHeight: 350, margin: 10}}>
+    <Grid container className={darkMode ? "darkCardContainer" : "cardContainer"} style={{width: '250px', border: '1px solid #eee', maxHeight: 350, margin: 10}}>
         <div>
             <div className="imageConatiner" style={{padding: 3, display: 'flex', justifyContent: 'center'}}>
                 <Skeleton height="150px" width="200px" variant="rect"/>
