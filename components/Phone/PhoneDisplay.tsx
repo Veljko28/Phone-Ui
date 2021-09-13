@@ -140,7 +140,8 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId, t} :
             {phone?.description}
           </span>
           {phone?.status !== 0 ? (<>
-            <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>{bid ? "This bid has ended !" : "This Phone has been sold !"}</Typography>
+            <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>{bid ? t("display.bidEnded")
+             : t("display.phoneSold")}</Typography>
             {bid && userWon != "" ?  <Typography variant="h4" style={{color: darkMode ? blue : green,marginTop: 10}}>{userWon} {t("display.wonbid")}</Typography> : 
             bid && <Typography variant="h5" style={{color: darkMode ? darker_green : blue,marginTop: 10}}>{t("display.nobids")}</Typography>}
             {bid ? (<> 
@@ -153,7 +154,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId, t} :
             </>
           ) : bid ? 
 
-          userId === currentUserId ? <YourBid phone={phone} darkMode={darkMode}
+          userId === currentUserId ? <YourBid phone={phone} darkMode={darkMode} t={t}
            closeHistory={() => closeHistory()} historyOpen={historyOpen} anchorEl={anchorEl} history={history} 
            openHistory={(value: any) => openHistory(value)} /> :
 
@@ -218,7 +219,7 @@ const PhoneDisplay = ({phone,images,bid,id, history,userId, t} :
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       open={snackBarOpen} autoHideDuration={5000} onClose={() => changeSnackBarOpen(false)}>
         <Alert onClose={() => changeSnackBarOpen(false)} severity="success">
-          Successfully placed a bid of {bidAmount}$ on {phone?.name}
+          {t("display.bidsuccess", {bidAmount, name: phone?.name})}
         </Alert>
       </Snackbar>
 

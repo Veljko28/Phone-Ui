@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { State } from '../../redux/reduxTypes';
 
 
-const AddPhoneReview = ({sellerId, phoneId} : {sellerId: string, phoneId: string}) => {
+const AddPhoneReview = ({sellerId, phoneId, t} : {sellerId: string, phoneId: string, t: any}) => {
     const [value,setValue] = React.useState(0);
     const [message,changeMessage] = React.useState('');
     const [snackBar, changeSnackBar] = React.useState({
@@ -41,11 +41,11 @@ const AddPhoneReview = ({sellerId, phoneId} : {sellerId: string, phoneId: string
         <Grid 
         className={darkMode ? "phone-details-dark" : "phone-details"} style={{display: 'flex', flexDirection: 'column'}} container>
             <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: darkMode ? darker_green : blue}}>Add a Review</Typography>
+        color: darkMode ? darker_green : blue}}>{t("addReview.title")}</Typography>
         <ColoredLine color={gray}/>
         <div style={{margin: '20px'}}>
         <Typography style={{display: 'inline-block', 
-        marginRight: '15px', marginLeft: '5px', marginBottom: 10, color: darkMode ? gray : 'black'}}>Your Rating: </Typography>
+        marginRight: '15px', marginLeft: '5px', marginBottom: 10, color: darkMode ? gray : 'black'}}>{t("addReview.rating")}</Typography>
         <Rating
           name="simple-controlled"
           value={value}
@@ -55,7 +55,7 @@ const AddPhoneReview = ({sellerId, phoneId} : {sellerId: string, phoneId: string
           style={{display: 'inline-block', fontSize: '20px'}}
         />
         </div>
-        <TextField placeholder="Message" value={message} rows="3" multiline={true} 
+        <TextField placeholder={t("contact.input4")} value={message} rows="3" multiline={true} 
       onChange={e => changeMessage(e.target.value)}
       InputProps={{
         className: "review-message-imput", style: {padding: "10px"},
@@ -64,14 +64,14 @@ const AddPhoneReview = ({sellerId, phoneId} : {sellerId: string, phoneId: string
         <Button variant="contained" onClick={() => onSubmit()}
         style={{backgroundColor: darkMode ? darker_green : blue, color: white,
         width: '100px', margin: '20px'}}>{
-        snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : "Submit"
+        snackBar.loading ? <CircularProgress style={{color: white}} size={24}/> : t("add.submit")
         }</Button>
 
 
         
-      <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} message="Successfully added your review !"/>
+      <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar, success: false})} message={t("addReview.success")}/>
 
-      <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar, error: false})} message={"Failed to add your review. Try again later"}/>
+      <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar, error: false})} message={t("addReview.failed")}/>
 
         </Grid>
     )
