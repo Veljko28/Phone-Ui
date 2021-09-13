@@ -99,7 +99,7 @@ const PhonePage = () => {
       <Grid md={1} lg={2} item/> 
 
       <Grid xs={12} md={10} lg={8} item>
-        {notFound === true ? <NotFound/> : (
+        {notFound === true ? <NotFound t={t}/> : (
         <>
           <PhoneDisplay 
           phone={phone} images={images} id={id as string} userId={user?.id as string} t={t}
@@ -108,7 +108,7 @@ const PhonePage = () => {
           <PhoneRatings user={user as User} t={t}/>
           {/* <PhoneReviews  phoneId={id as string}/> */}
           <UserReviews userId={phone?.seller as string} display={true} t={t}/>
-          {phone?.status !== 0 && userBought ? <AddPhoneReview sellerId={phone?.seller as string} phoneId={phone?.id as string}/> : null}
+          {phone?.status !== 0 && userBought ? <AddPhoneReview sellerId={phone?.seller as string} phoneId={phone?.id as string} t={t}/> : null}
           <LatestProducts title="Related Products" phones={relatedProducts} />
         </>
         )}

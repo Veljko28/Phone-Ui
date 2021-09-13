@@ -129,7 +129,7 @@ const search = () => {
          <Typography variant="h2" style={{color: darkMode ? darker_green : blue, padding: 15}}>{t("search.not_found")}</Typography> 
          <Image src="/search_fail.svg" width="500px" height="500px"/>
          <Link href="/">
-            <div className="shopping-button">
+            <div className={darkMode ? "shopping-button-dark" : "shopping-button"}>
               <ArrowBackIosIcon style={{fontSize: '15px',marginBottom: '5px'}}/>
               {t("search.back_home")}
             </div>

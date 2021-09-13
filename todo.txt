@@ -195,6 +195,10 @@ no phones in this category page
 implement forgot password ✅
 coupon page translate ✅
 dialogs translate ✅
+cart translate ✅
+not logged in translate ✅
+purchase successful translate ✅
+not found translate ✅
 translate finish ✅
 
 carousel images dark mode ✅
