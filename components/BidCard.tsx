@@ -70,7 +70,8 @@ export const BidCard = (props: {image: string, name: string, price: string, date
               <Typography variant="subtitle1" style={{display: 'inline-block'}}>
                 <span style={{fontSize: "15px"}}>{t("bidCard.current")}: <span style={{color: darkMode ? darker_green : blue}}>{props.price + "$"}</span></span>
               </Typography>
-              <div style={{fontSize: "15px"}}>{t("bidCard.ends")}: <span style={{color: darkMode ? darker_green : blue}}>{time}</span></div>
+              <div style={{fontSize: "15px"}}>{t("bidCard.ends")}: <span style={{color: darkMode ? darker_green : blue}}>
+                {time === "finished" ? t("bidCard." + time) : time}</span></div>
             </div>
           </div>
         </Link>
@@ -92,9 +93,11 @@ export const BidCard = (props: {image: string, name: string, price: string, date
           </Link>
         </div>
 
-       <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar,success: false})} message="Successfully added to wish list !"/>
+       <SnackBarSuccess snackBarOpen={snackBar.success} 
+       changeSnackBarOpen={() => changeSnackBar({...snackBar,success: false})} message={t("bidCard.success")}/>
 
-       <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar,error: false})} message={"Failed to add to wish list. Try again later"}/>
+       <SnackBarFailed snackBarOpen={snackBar.error} 
+       changeSnackBarOpen={() => changeSnackBar({...snackBar,error: false})} message={t("bidCard.error")}/>
 
     </Grid>
   )

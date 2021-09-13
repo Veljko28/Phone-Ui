@@ -101,7 +101,8 @@ const ListView = ({t,currentPage, page, changePage, darkMode}: {t: any, currentP
 
     return (
         <>
-        {list.length === 0 ? loading ? <MngmSkeletonList currentPage={currentPage}/>
+        {list.length === 0 ? loading ? 
+        <MngmSkeletonList currentPage={currentPage.replace(/\s/g, '').toLocaleLowerCase()} darkMode={darkMode} t={t}/>
         :
         <NoPhones currentPage={currentPage} darkMode={darkMode}/> 
                  : (

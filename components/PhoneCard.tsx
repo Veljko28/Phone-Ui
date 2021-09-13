@@ -21,7 +21,7 @@ import { State } from '../redux/reduxTypes';
 
 export const PhoneCard = (props: 
   {name: string, price: string | number, image: string, key: string, seller?: string, id: string, status?: string | number, discount?: string,
-  inCart: boolean, inWishList: string[],getWishListItems: () => Promise<void> }) => {
+  inCart: boolean, inWishList: string[],getWishListItems: () => Promise<void>, t: any }) => {
 
   const router = useRouter();
 
@@ -55,7 +55,7 @@ export const PhoneCard = (props:
      }
   }
 
-  return ( props.id === undefined ? <PhoneSkeletonCard/> : (
+  return ( props.id === undefined ? <PhoneSkeletonCard darkMode={darkMode}/> : (
     <Grid container 
     className={darkMode ? "darkCardContainer" : "cardContainer"} style={{width: '250px', border: '1px solid #eee', maxHeight: 287}}>
        <Link href={`/phone/${props.id}`}>
@@ -116,9 +116,11 @@ export const PhoneCard = (props:
           )}
         </div>
 
-        <SnackBarSuccess snackBarOpen={snackBar.success} changeSnackBarOpen={() => changeSnackBar({...snackBar,success: false})} message="Successfully added to wish list !"/>
+        <SnackBarSuccess snackBarOpen={snackBar.success} 
+        changeSnackBarOpen={() => changeSnackBar({...snackBar,success: false})} message={props.t("bidCard.success")}/>
 
-       <SnackBarFailed snackBarOpen={snackBar.error} changeSnackBarOpen={() => changeSnackBar({...snackBar,error: false})} message={"Failed to add to wish list. Try again later"}/>
+       <SnackBarFailed snackBarOpen={snackBar.error} 
+       changeSnackBarOpen={() => changeSnackBar({...snackBar,error: false})} message={props.t("bidCard.error")}/>
 
     </Grid> )
   )

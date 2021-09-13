@@ -56,7 +56,7 @@ export const LatestProducts = ({title, phones}: {title: string, phones?: Phone[]
           {skeletons.map((x,idx) => (<Grid key={idx} xs={12} md={6} lg={3} item>{x}</Grid>))}</Grid>) : ""}
       {phones?.map(x => (
         <div style={{margin: 15, display: 'flex'}} key={x.id}>
-          <PhoneCard inCart={phones.filter(y => y.id == x.id).length === 1} inWishList={inWishList} 
+          <PhoneCard inCart={phones.filter(y => y.id == x.id).length === 1} inWishList={inWishList}  t={t}
             getWishListItems={async () => await getWishListItems()}
               key={x.id} name={x.name} image={x.image ? x.image : "/phone.jpg"} price={x.price} seller={x.seller}  id={x.id} status={x.status}
           />
