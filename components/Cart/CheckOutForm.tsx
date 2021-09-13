@@ -16,9 +16,9 @@ import { State } from '../../redux/reduxTypes';
 import { clearCart } from '../../redux/actions/cartActions';
 
 
-const CheckOutForm = ({open, handleOpen,snackBar,handleSnackBar, darkMode} : {
+const CheckOutForm = ({open, handleOpen,snackBar,handleSnackBar, darkMode, t} : {
 open: boolean,handleOpen: (value: boolean) => any,
-snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void, darkMode: boolean}) => {
+snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void, darkMode: boolean, t: any}) => {
     
     const [form, changeForm] = React.useState({
       number: '',
@@ -135,7 +135,9 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
             },
          }}>
              <DialogTitle onClose={() => handleOpen(false)}>
-                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15, marginBottom: 0}}>Checkout</Typography>
+                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15, marginBottom: 0}}>
+                    {t("cart.checkTitle")}
+                </Typography>
              </DialogTitle>
             <DialogContent>
                   <CardReactFormContainer
@@ -160,7 +162,7 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
             
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <div>
-                    <TextField placeholder="Full name" type="text" name="CCname" className="check-input" style={{margin: 5}}
+                    <TextField placeholder={t("cart.fullName")} type="text" name="CCname" className="check-input" style={{margin: 5}}
                     onChange={e => changeForm({...form,name: e.target.value})}
                     InputProps={{
                     className: errors.filter((x: any) => x.path === 'name').length > 0 ? "check-imput-error" : "check-imput",
@@ -169,7 +171,7 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
                     <br/>
                     <YupError errors={errors} path="name"/>
 
-                    <TextField placeholder="Card number" type="text" name="CCnumber"  className="check-input"  style={{margin: 5}}
+                    <TextField placeholder={t("cart.cardNum")} type="text" name="CCnumber"  className="check-input"  style={{margin: 5}}
                     onChange={e => changeForm({...form,number: e.target.value})}
                     InputProps={{
                     className: errors.filter((x: any) => x.path === 'number').length > 0 ? "check-imput-error" : "check-imput",
@@ -205,13 +207,13 @@ snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => vo
             </DialogContent>
             <DialogActions>
                     <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}
-                    onClick={() => onSubmit()}>Submit</Button>
+                    onClick={() => onSubmit()}>{t("add.submit")}</Button>
             </DialogActions>
         </Dialog>
 
         <SnackBarFailed snackBarOpen={snackBar.error}
          changeSnackBarOpen={() => handleSnackBar({success: false, error: false})}
-          message="Failed to confirm checkout. Try again later"/>
+          message={t("cart.failed")}/>
         </>
     )
 };

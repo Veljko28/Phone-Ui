@@ -13,7 +13,7 @@ import { removeFromCart } from '../../redux/actions/cartActions';
 import Phone from '../models/Phone';
 import { blue, gray, red, darker_green } from '../../constants/CustomColors';
 
-const ItemsInCart = ({darkMode} : {darkMode: boolean}) => {
+const ItemsInCart = ({darkMode, t} : {darkMode: boolean, t: any}) => {
   const list = useSelector((state: State) => state.cart.items);
   const dispatch = useDispatch();
 
@@ -21,15 +21,15 @@ const ItemsInCart = ({darkMode} : {darkMode: boolean}) => {
     <>
     <Grid container className={darkMode ? "item-cart-dark" : "item-cart"}>
         <Typography variant="h6" style={{margin: '10px', marginLeft: '40px',
-        color: darkMode ? darker_green : blue}}>My Cart ({list.length})</Typography>
+        color: darkMode ? darker_green : blue}}>{t("cart.title")} ({list.length})</Typography>
         <ColoredLine color={gray}/>
         <table className={darkMode ? "cart-table-dark" : "cart-table"}>
           <thead>
             <tr>
-              <td style={{textAlign: 'center'}}>ITEM</td>
+              <td style={{textAlign: 'center'}}>{t("cart.item")}</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td>PRICE</td>
+              <td>{t("cart.price")}</td>
               <td>&nbsp;</td>
             </tr>
           </thead>
@@ -62,7 +62,7 @@ const ItemsInCart = ({darkMode} : {darkMode: boolean}) => {
     <Link href="/phones/1">
       <div className={darkMode ? "shopping-button-dark" : "shopping-button"}>
         <ArrowBackIosIcon style={{fontSize: '15px',marginBottom: '5px'}}/>
-        BACK TO SHOPPING
+        {t("cart.back")}
       </div>
     </Link>
     </>

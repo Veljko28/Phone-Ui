@@ -8,7 +8,7 @@ import { State } from '../../redux/reduxTypes';
 import ColoredLine from '../../constants/ColoredLine';
 import { blue, darker_green, gray } from '../../constants/CustomColors';
 
-const PriceDetails = ({snackBar,handleSnackBar, darkMode, couponModel} : {snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void, darkMode: boolean, couponModel: any}) => {
+const PriceDetails = ({snackBar,handleSnackBar, darkMode, couponModel, t} : {snackBar: {success: boolean, error: boolean}, handleSnackBar: (value: any) => void, darkMode: boolean, couponModel: any, t: any}) => {
 
   const list = useSelector((state: State) => state.cart.items);
   const [checkoutOpen, changeCheckoutOpen] = React.useState(false);
@@ -30,23 +30,23 @@ const PriceDetails = ({snackBar,handleSnackBar, darkMode, couponModel} : {snackB
   return ( 
     <Grid container className={darkMode ? "price-details-dark" : "price-details"}>
       <Typography variant="h6" style={{margin: '10px', marginLeft: '20px',
-        color: darkMode ? darker_green : blue}}>Price Details</Typography>
+        color: darkMode ? darker_green : blue}}>{t("cart.details")}</Typography>
         <ColoredLine color="#eee"/>
         <div className="price-info">
           <Typography variant="subtitle2" style={{color: darkMode ? gray : 'black'}}>
-            Price ({list.length} {list.length == 1 ? "item" : "items"}): <span style={{marginLeft: '15px'}}>{totalPrice + "$"}</span>
+            {t("edit.price")} ({list.length} {list.length == 1 ? t("cart.item1") : t("cart.item2")}): <span style={{marginLeft: '15px'}}>{totalPrice + "$"}</span>
           </Typography>
           <Typography variant="subtitle2" style={{marginBottom: '10px', color: darkMode ? gray : 'black'}}>
-              Tax Costs: <span style={{color: darkMode ? darker_green : blue, marginLeft: '15px'}}>{list.length * 4.99}$</span>
+            {t("cart.tax")}  <span style={{color: darkMode ? darker_green : blue, marginLeft: '15px'}}>{list.length * 4.99}$</span>
           </Typography>
           <ColoredLine color="#eee" height="2px" />
           <Typography variant="subtitle2" style={{marginTop: '10px', color: darkMode ? gray : 'black'}} >
-            <strong>Amount to Pay: <span style={{color: darkMode ? darker_green : blue}}>{price}</span></strong>
+            <strong>{t("cart.pay")} <span style={{color: darkMode ? darker_green : blue}}>{price}</span></strong>
           </Typography>
           <Button style={{color: '#fff', backgroundColor: darkMode ? darker_green : blue, padding: '10px', marginTop: '15px'}}
-          onClick={() => changeCheckoutOpen(true)}>Proceed To Checkout</Button>
+          onClick={() => changeCheckoutOpen(true)}>{t("cart.check")}</Button>
         </div>
-        <CheckOutForm darkMode={darkMode} open={checkoutOpen} handleOpen={(value: boolean) => changeCheckoutOpen(value)}
+        <CheckOutForm t={t} darkMode={darkMode} open={checkoutOpen} handleOpen={(value: boolean) => changeCheckoutOpen(value)}
           snackBar={snackBar} handleSnackBar={(value: {error: boolean, success: boolean}) => handleSnackBar(value)}
         />
     </Grid>
