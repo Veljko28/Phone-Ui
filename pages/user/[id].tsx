@@ -50,7 +50,7 @@ const user = () => {
       <Grid md={1} lg={2} item/>
       <Grid xs={12} md={10} lg={8} item container> 
 
-      {notFound === true ? (<NotFound/>) : (
+      {notFound === true ? <NotFound t={t}/> : (
         <>
           <Grid md={4} xs={12} item style={{display: 'flex', justifyContent: 'center', minHeight: 700}} >
             <UserCard selling_phones={sellingPhones} t={t}

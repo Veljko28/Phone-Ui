@@ -17,6 +17,7 @@ import { SnackBarFailed, SnackBarSuccess } from '../../../constants/CustomSnackB
 import { dark_gray, blue, white, gray, darker_green } from '../../../constants/CustomColors';
 import { State } from '../../../redux/reduxTypes';
 import { useTranslation } from 'react-i18next';
+import NotFound from '../../../components/NotFound';
 
  
  const ForgotPassword = () => {
@@ -24,8 +25,14 @@ import { useTranslation } from 'react-i18next';
     const router = useRouter();
     const dispatch = useDispatch();
     const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+    const loggedIn = useSelector((state: State) => state.userInfo.logged_in);
     const { t } = useTranslation();
 
+    let currentUser = null;
+
+    if (typeof window != 'undefined'){
+      currentUser = localStorage.userId;
+    }
 
     const id = router.query['id'];
 
@@ -81,7 +88,7 @@ import { useTranslation } from 'react-i18next';
         }
     }
 
-    return (
+    return !loggedIn || currentUser !== (id as string) ? <NotFound t={t}/> : (
          <Grid container className={darkMode ? "change-pass-dark" : "change-pass"} style={{display: 'flex', flexDirection: "column", alignItems: 'center', minHeight: 750}}>
              <span style={{marginTop: 40, marginBottom: 50}}>
                 <Image src={darkMode ? "/logo_dark.png" : "/logo.png"} width="157" height="47" />
