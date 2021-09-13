@@ -14,6 +14,7 @@ import { State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePhoneCategory } from '../../redux/actions/phonesActions';
 import NotFound from '../../components/NotFound';
+import { useTranslation } from 'react-i18next';
 
 const phones = () => {
 
@@ -91,9 +92,10 @@ const phones = () => {
     }
 
    const dispatch = useDispatch();
+   const { t } = useTranslation();
 
 
-    return  notValid ? <NotFound/> : ( 
+    return  notValid ? <NotFound t={t} /> : ( 
         <Grid container>
           <TitleChange title={`MobiStore - Phones Page ${id}`} />
             <Grid item xs={12} md={3}>

@@ -14,6 +14,7 @@ import { fetchGet } from '../../constants/CustomFetching';
 import { State } from '../../redux/reduxTypes';
 import { changeBidCategory } from '../../redux/actions/phonesActions';
 import NotFound from '../../components/NotFound';
+import { useTranslation } from 'react-i18next';
 
 const bids = () => {
 
@@ -90,8 +91,9 @@ const bids = () => {
     }
 
    const dispatch = useDispatch();
+   const { t } = useTranslation();
 
-    return notValid ? <NotFound/> : ( 
+    return notValid ? <NotFound t={t} /> : ( 
         <Grid container>
             <TitleChange title={`MobiStore - Bids Page ${id}`} />
            
