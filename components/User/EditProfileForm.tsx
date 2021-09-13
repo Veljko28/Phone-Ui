@@ -19,7 +19,8 @@ import { fetchGet, fetchPost } from '../../constants/CustomFetching';
 import { blue, darker_green, dark_cont, white } from '../../constants/CustomColors';
 
 
-const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handleOpen: (value: boolean) => any,id: string, darkMode: boolean}) => {
+const EditProfileForm = ({open, handleOpen, id, darkMode, t} : 
+    {open: boolean,handleOpen: (value: boolean) => any,id: string, darkMode: boolean, t: any}) => {
     
     const [form, changeForm] = React.useState({
         userName: "",
@@ -118,7 +119,7 @@ const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handl
             },
          }}>
              <DialogTitle onClose={() => handleOpen(false)}>
-                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15, marginBottom: 0}}>Edit Profile</Typography>
+                <Typography variant="h4" style={{color: darkMode ? darker_green : blue,margin: 15, marginBottom: 0}}>{t("editProfile.title")}</Typography>
              </DialogTitle>
             <DialogContent>
                   <Grid container style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -126,7 +127,7 @@ const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handl
                        <Grid xs={6} item>
                       <Tooltip 
                       placement="bottom"
-                      title={form.emailConfirmed ? "Cannot change an email that's already been confirmed" : "Change your email"}>
+                      title={form.emailConfirmed ? t("editProfile.confirmed") : t("editProfile.change")}>
                         <TextField placeholder="Email" value={form.email} disabled={form.emailConfirmed}
                             onChange={e => changeForm({...form,email: e.target.value})}
                             InputProps={{
@@ -179,10 +180,12 @@ const EditProfileForm = ({open, handleOpen, id, darkMode} : {open: boolean,handl
             </DialogContent>
             <DialogActions>
                     <Link href={`/user/changepassword/${id}`}>
-                        <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>Change Password</Button>
+                        <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}>
+                            {t("editProfile.changePass")}
+                        </Button>
                     </Link>
                     <Button variant="contained" style={{backgroundColor: darkMode ? darker_green : blue, color: white, margin: 10}}
-                    onClick={() => onSubmit()}>Submit</Button>
+                    onClick={() => onSubmit()}>{t("add.submit")}</Button>
             </DialogActions>
         </Dialog>
         

@@ -96,7 +96,7 @@ phones_sold: string, selling_phones: string , t: any}) => {
                  style={{color: '#fff', backgroundColor: darkMode ? darker_green : blue, padding: '10px', width: '175px', margin: '5px'}}
                 >{props.t("userCard.edit")}</Button>
 
-               <EditProfileForm darkMode={darkMode} open={editOpen} handleOpen={(value: boolean) => handleEditOpen(value)} id={props.id}/>
+               <EditProfileForm t={props.t} darkMode={darkMode} open={editOpen} handleOpen={(value: boolean) => handleEditOpen(value)} id={props.id}/>
                 </>
               ) : (<>
                 <Button variant="contained" onClick={e => openContanct(e)}
