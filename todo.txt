@@ -190,8 +190,13 @@ translate user profile ✅
 compress images
 carousel images on phone
 oauth with google / facebook / twitter
-add more brands when adding
-no phones in this category page
+
+add more brands when adding ✅
+no phones in this category page ✅
+fix categories and pagination on phones ✅
+fix categories and pagination on bids ✅
+deleted last wish on wish list page error ✅
+
 implement forgot password ✅
 coupon page translate ✅
 dialogs translate ✅
