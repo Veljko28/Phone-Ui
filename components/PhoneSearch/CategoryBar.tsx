@@ -73,7 +73,7 @@ const CategoryBar = ({options, changeCategory} : {options: any, changeCategory: 
       title: t("category.title2"),
       children: (id : number) => (
         <div key={id}>
-         {[t("category.all"), 'Google', 'Apple', 'Samsung', 'Vivo', 'Redmi', 'Alcatel'].map(x => (
+         {[t("category.all"), 'Google', 'Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Alcatel'].map(x => (
           <ListItem button disableRipple 
           onClick={() => changeCategory({...options,brand: x})}
           style={{color: options.brand.toLowerCase() == x.toLowerCase() ? 

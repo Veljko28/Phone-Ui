@@ -25,7 +25,7 @@ const management = () => {
     }
 
     return (
-        jwt === null ? <NotLoggedIn darkMode={darkMode}/> : (
+        jwt === null ? <NotLoggedIn darkMode={darkMode} t={t}/> : (
 
         <Grid container style={{backgroundColor: darkMode ? dark_cont : '#fff', minHeight: 737}}>
             <TitleChange title={"MobiStore - Management"}/>
