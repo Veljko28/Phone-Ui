@@ -45,6 +45,10 @@ const UserWishList = ({id, t} : {id: string, t: any}) => {
   }
 
   const removeFromWishList = async (phoneId: string) => {
+    if (list[currentPage].length === 1 && currentPage >= 1){
+      changeCurrentPage(currentPage-1);
+    }
+
      const res = await fetchDelete(`http://localhost:10025/api/v1/wishlist/remove`, {userId: id, phoneId});
      if (res.ok){
        await fetchList();
@@ -95,7 +99,7 @@ const UserWishList = ({id, t} : {id: string, t: any}) => {
     return list.length === 0 ? ( <Grid style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: darkMode ? dark_cont : white,height: 410, marginTop: 10}}>
        <Typography style={{color:  darkMode ? darker_green : blue, marginBottom: 25}} variant="h3">
          {t("userTabs.empty_wishList", {trans_type})}</Typography>
-        <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 200}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "phones"}</Button>
+        <Button variant="contained" style={{backgroundColor:  darkMode ? darker_green : blue, color: white, width: 200}} onClick={() => type === "phone" ? changeType("bid") : changeType("phone")}>{type === "phone" ? "bids" : "r"}</Button>
        </Grid>
     ) : (
       <div style={{display: 'flex',flexDirection: 'column'}}>

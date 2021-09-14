@@ -1,16 +1,19 @@
-import { Grid } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
+import { Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
-import PhoneDisplaySkeleton from "../components/Skeletons/PhoneDisplaySkeleton";
 import { State } from "../redux/reduxTypes";
+import Image from 'next/image';
+import { useTranslation } from "react-i18next";
+import { darker_green, blue } from "../constants/CustomColors";
+import NoCategory from "../components/NoCategory";
 
 const test = () => {
   const darkMode = useSelector((state: State) => state.userInfo.darkMode);
+  const { t } = useTranslation();
 
-  return (
-    <div>Hello</div>
-  );
+  return (<>
+    <NoCategory/>
+  </>);
 };
 
 export default test;
