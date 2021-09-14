@@ -10,37 +10,47 @@ import Phone from '../../components/models/Phone';
 import TitleChange from "../../constants/TitleChange";
 import { fetchGet } from '../../constants/CustomFetching';
 
-import { State } from '../../redux/reduxTypes';
+import { CategoryOptions, State } from '../../redux/reduxTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePhoneCategory } from '../../redux/actions/phonesActions';
 import NotFound from '../../components/NotFound';
 import { useTranslation } from 'react-i18next';
+import usePagination from '../../constants/pagination';
+import useSorting from '../../constants/sorting';
+import NoCategory from '../../components/NoCategory';
 
 const phones = () => {
 
   const router = useRouter()
   const id = router.query['id'];
-  const [list,changeList] = React.useState([]);
+  const [allPhones, changeAllPhones] = React.useState([]);
+  const [list,changeList] = React.useState<any[]>([]);
   const [numOfPages, changeNumOfPages] = React.useState(1);
   const [notValid, changeNotValid] = React.useState(false);
+  const [noInCategory, changeNoInCategory] = React.useState(false);
 
   const options = useSelector((state: State) => state.phones.phoneOptions);
 
     React.useEffect(() => {
-      const func = async () => {
-       
-        
-        const res = await fetchGet(`http://localhost:10025/api/v1/phones/page/${id}`);
-        const json = await res.json();
-        
-        changeList(json.phones);
-        changeNumOfPages(json.numOfPages);
+      let defOpt: CategoryOptions = {category: "", brand: "", price: "",sorting: ""};
+      const intId = parseInt(id as string);
 
-        if (parseInt(id as string) <= 0 || parseInt(id as string) > numOfPages){
+      const func = async () => {
+        defOpt = options;
+       
+        const res = await fetchGet(`http://localhost:10025/api/v1/phones/all`);
+        const json = await res.json();
+
+        changeAllPhones(json);
+        const listOfPages: any[] = usePagination(json);
+
+        changeNumOfPages(listOfPages.length);
+
+        if (intId <= 0 || intId-1 > numOfPages){
           changeNotValid(true);
           return;
         }
-
+        else changeList(listOfPages[intId-1]);
       }
       
       if (id){
@@ -50,46 +60,27 @@ const phones = () => {
           return;
         }
       }
+      if (intId === 1 && allPhones.length === 0) func();
 
-      if (id) func();
-    },[id])
-    
-    const categoryList = list?.filter((x: Phone) => {
-      if (options.category !== "All Phones") return x.category?.toLowerCase() === options.category.toLowerCase();
-      return true;
-    }).filter((x: Phone) => {
-      if (options.brand !== "All") return x.brand?.toLowerCase() === options.brand.toLowerCase();
-      return true;
-    }).filter((x: Phone) => {
-      if (options.price !== 'All') {
-        if (options.price === '100') return x.price >= 100 && x.price < 200;
-        else if (options.price === '200') return x.price >= 200 && x.price < 500;
-        else if (options.price === '500') return x.price >= 500 && x.price < 1000;
-        else if (options.price === '1000') return x.price >= 1000 && x.price <= 1500;
+      if (allPhones.length !== 0) changeList(usePagination(useSorting(allPhones, options))[intId-1])
+
+      if (allPhones.length === 0 && intId > 1) router.push("/phones/1");
+
+      if (options.category !== defOpt.category || options.brand !== defOpt.brand 
+        || options.price !== defOpt.price || options.sorting !== defOpt.sorting ) {
+        const pages = usePagination(useSorting(allPhones, options));
+
+        if (pages.length === 0 && allPhones.length !== 0) changeNoInCategory(true);
+        else if (noInCategory === true) changeNoInCategory(false);
+
+        changeNumOfPages(pages.length);
+        if (pages.length < intId) router.push('/phones/1');
       }
-      return true;
-    })
 
-    if (options.sorting === "asc"){
-      categoryList.sort((a: any, b: any) => b.price - a.price);
-    }
-    else if (options.sorting === "desc"){
-      categoryList.sort((a: any, b: any) => a.price - b.price);
-    }
-    else if (options.sorting === "newer"){
-      categoryList.sort((a: any, b: any) => {
-        const dateA = new Date(a.dateCreated);
-        const dateB = new Date(b.dateCreated);
-        return (dateA as any) - (dateB as any);
-      })
-    }
-    else if (options.sorting === "older"){
-       categoryList.sort((a: any, b: any) => {
-        const dateA = new Date(a.dateCreated);
-        const dateB = new Date(b.dateCreated);
-        return (dateB as any) - (dateA as any);
-      })
-    }
+    },[id, options])
+
+
+   const categoryList = useSorting(list, options);
 
    const dispatch = useDispatch();
    const { t } = useTranslation();
@@ -102,10 +93,8 @@ const phones = () => {
                 <CategoryBar options={options} changeCategory={(value: any) => dispatch(changePhoneCategory(value))}/>
             </Grid> 
             <Grid item xs={12} md={9}>
-                <PhoneList 
-                list={categoryList}
-                />
-                <Pages pageId={id as string} numOfPages={numOfPages}/>
+                {noInCategory ? <NoCategory/> : <PhoneList list={categoryList}/>}
+                {!noInCategory && <Pages pageId={id as string} numOfPages={numOfPages}/>}
             </Grid> 
         </Grid>
     )
