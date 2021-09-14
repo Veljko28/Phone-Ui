@@ -271,8 +271,8 @@ const AddPhone = () => {
                             <option value="google">Google</option>
                             <option value="apple">Apple</option>
                             <option value="samsung">Samsung</option>
-                            <option value="vivo">Vivo</option>
-                            <option value="redmi">Redmi</option>
+                            <option value="huawei">Huawei</option>
+                            <option value="xiaomi">Xiaomi</option>
                             <option value="alcatel">Alcatel</option>
                         </select>
                        <YupError errors={yupErrors} path="brand" color={darkMode ? red : white}/>

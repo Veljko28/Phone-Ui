@@ -299,9 +299,10 @@ const AddBid = () => {
                             <option value="" hidden>{t("category.title2")}</option>
                             <option value="google">Google</option>
                             <option value="apple">Apple</option>
-                            <option value="sams">Samsung</option>
-                            <option value="htc">Htc</option>
-                            <option value="alc">Alcatel</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="huawei">Huawei</option>
+                            <option value="xiaomi">Xiaomi</option>
+                            <option value="alcatel">Alcatel</option>
                         </select>
                      <YupError errors={yupErrors} path="brand" color={darkMode ? red : white}/>
                     </Grid>
