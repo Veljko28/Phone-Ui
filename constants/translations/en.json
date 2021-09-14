@@ -330,6 +330,7 @@
               "rating": "Your Rating: ",
               "success": "Successfully added your review !",
               "failed": "Failed to add your review. Try again later"
-            }
+            },
+            "noCategory": "There are no items in this category !"
           }
 }
