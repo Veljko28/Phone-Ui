@@ -95,7 +95,7 @@ const UserListings = ({id, ownProfile, t} : {id: string, ownProfile: boolean, t:
 
                 (<Grid container item style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',height: 450}}>
                     <ReportIcon style={{color:  darkMode ? darker_green : blue,fontSize: 175}}/>
-                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>{t("userTabs.noUserListing")}</Typography>
+                    <Typography variant="h4" style={{color: darkMode ? darker_green : blue}}>{t("userTabs.noUserListings")}</Typography>
                   </Grid>
                 )}
         </Grid>
